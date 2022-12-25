@@ -1,0 +1,13 @@
+.header, .background{
+    height: 100vh !important;
+    width: 100% !important;
+    overflow: hidden;
+    margin:0;
+}
+
+@media screen and (max-width: 922px) {
+     .hide-m-s{
+        display: none;
+     }
+    
+}
