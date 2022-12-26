@@ -1,0 +1,22 @@
+.header{
+    height: 100vh !important;
+    width: 100% !important;
+    overflow: hidden;
+}
+
+@media screen and(max-width:1180px)
+{
+    .d-flex row header align-items-center{
+        width:100%;
+        height:auto;
+        padding: 70px 0px;
+    }
+}
+
+@media screen and(ax-width:650px){
+
+.d-flex row header align-items-center .col-6 p-0 m-0{
+    margin-bottom:35px;
+}
+    
+}
