@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-side-banner',
-  templateUrl: './side-banner.component.html',
-  styleUrls: ['./side-banner.component.css'],
+  selector: 'app-sideBar',
+  templateUrl: './side-bar.component.html',
+  styleUrls: ['./side-bar.component.css'],
 })
-export class SideBannerComponent implements OnInit {
+export class SideBarComponent implements OnInit {
   constructor() {}
   imgPath:string="";
   ngOnInit(): void {

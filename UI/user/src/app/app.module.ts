@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms'
 import { SignupComponent } from './Views/pages/sign-up/sign-up.component';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 // import { HomeComponent } from './view/pages/home/home.component';
-import { SideBannerComponent } from './Views/partial/side-bar/side-bar.component';
+import { SideBarComponent } from './Views/partial/side-bar/side-bar.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {AngularFireModule} from '@angular/fire/compat'
@@ -33,8 +33,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     FooterComponent,
     LoginComponent,
     SignupComponent,
-    SideBannerComponent,
-    
+    SideBarComponent,
     DashboardComponent,
   ],
   imports: [
@@ -53,12 +52,10 @@ import { NgOtpInputModule } from 'ng-otp-input';
     AngularFireAuthModule,
     AngularFirestoreModule,
     FormsModule,
-    NgOtpInputModule
-
+    NgOtpInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
-
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}
