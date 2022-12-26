@@ -1,0 +1,20 @@
+
+footer{
+    background-color: #111;
+}
+.p-3{
+    background-color: #6351ce;
+}
+
+.btn{
+    border: 2px solid #fff;
+    border-radius:50% ;
+    box-shadow: 3px 3px 5px 1px #111;
+}
+.btn:hover{
+    color:#6351ce;
+    box-shadow: 3px 3px 5px 1px #464646;
+}
+.mb-4{
+    color:#6351ce;
+}
