@@ -44,7 +44,7 @@ export class CodeComponent implements OnInit {
       firebase.auth().signInWithCredential(credentials).then((response)=>{
         console.log(response);
         localStorage.setItem('user_data',JSON.stringify(response))
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/home'])
       }).catch((error)=>{
         alert(error.message)
       }) 
