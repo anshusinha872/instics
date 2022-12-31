@@ -25,6 +25,7 @@ import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment.prod';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { CodeComponent } from './Views/pages/code/code.component';
 import { HomeComponent } from './Views/pages/home/home.component';
 
 @NgModule({
@@ -36,7 +37,8 @@ import { HomeComponent } from './Views/pages/home/home.component';
     SignupComponent,
     SideBarComponent,
     DashboardComponent,
-    HomeComponent,
+    CodeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +57,12 @@ import { HomeComponent } from './Views/pages/home/home.component';
     AngularFirestoreModule,
     FormsModule,
     NgOtpInputModule,
+    RouterModule.forRoot([
+      { path: 'home', component: HomeComponent },
+      { path: 'login', component: LoginComponent },
+      
+      // other routes go here
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent],
