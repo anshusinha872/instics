@@ -25,6 +25,7 @@ import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment.prod';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { CodeComponent } from './Views/pages/code/code.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     SignupComponent,
     SideBarComponent,
     DashboardComponent,
+    CodeComponent,
   ],
   imports: [
     BrowserModule,
