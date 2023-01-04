@@ -72,7 +72,9 @@ export class SignupComponent implements OnInit {
         // this.verified = true;
       })
       .catch((error) => {
+        console.error(error);
         alert(error.message);
+
         setTimeout(() => {
           window.location.reload();
         }, 5000);
@@ -91,7 +93,7 @@ export class SignupComponent implements OnInit {
   //     .then((response) => {
   //       console.log(response);
   //       localStorage.setItem('user_data', JSON.stringify(response));
-  //       this.router.navigate(['/dashboard']);
+  //       this.router.navigate(['/home']);
   //     })
   //     .catch((error) => {
   //       alert(error.message);

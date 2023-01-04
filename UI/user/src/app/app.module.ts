@@ -28,6 +28,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { CodeComponent } from './Views/pages/code/code.component';
 import { HomeComponent } from './Views/pages/home/home.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
