@@ -1,52 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap');
-@import url('https://kit.fontawesome.com/0ed9c139be.js');
+@import url("https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap");
+@import url("https://kit.fontawesome.com/0ed9c139be.js");
 
-.nav-link{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    height: 100%;
-    padding:0 20px;
-    align-items: center;
+.nav-link {
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 100%;
+  padding: 0 20px;
+  align-items: center; */
 }
-.container-fluid{
-    height: 100%;
+.mainHeading{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 2em;
+  color: #7f669d;
 }
-.nav-link:hover{
-    border-top: 4px solid #7F669D;
-    background: linear-gradient(to bottom, #C6A1CF 0%, white 100%);
+.container-fluid {
+  /* height: 100%; */
 }
-.navbar-shadow{
-    box-shadow: 1px 0px 10px grey;
-  
-    
+.nav-link:hover {
+  /* border-top: 4px solid #7f669d;
+  background: linear-gradient(to bottom, #c6a1cf 0%, white 100%); */
 }
-.navbar{
-    background-color: white;
-    height: 6vh;
+.navbar-shadow {
+  /* box-shadow: 1px 0px 10px grey; */
+}
+.navbar {
+  /* background-color: white;
+  height: 6vh; */
 }
 
-.nav-icon:hover{
-    color: #7F669D;
+.nav-icon:hover {
+  /* color: #7f669d; */
 }
 
-.welcome{
-    background: url(../../../../assets/bg.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 30vh;
-    position: relative;
-    z-index: -1;  
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.welcome {
+  background: url(../../../../assets/bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 30vh;
+  position: relative;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.greet{
-    font-family: 'Edu NSW ACT Foundation', cursive;
-    padding-left: 5%;
+.greet {
+  font-family: "Edu NSW ACT Foundation", cursive;
+  padding-left: 5%; 
 }
-.weather{
-    padding-right: 5%;
+.weather {
+  padding-right: 5%;
 }
 section{
     height:100vh;
@@ -89,51 +92,77 @@ section{
     letter-spacing:0.03em;
   }
 
-  .icon-wrapper{
-    background-color: #9d77da;
-    position:relative;
-    margin:auto;
-    font-size:30px;
-    height:2.5em;
-    width:2.5em;
-    color:#ffffff;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    transition: 0.5s;
-  }
-  .card:hover{
-    background-position:0 100%;
-  }
-  .card:hover .icon-wrapper{
-    background-color:#ffffff;
-    color:#9d77da;
-  }
-  .card:hover h3{
-    color:#ffffff
+.card {
+  width: 150px !important;
+  height: 100px !important;
+  box-sizing: border-box !important;
+  /* padding: 2em 1.5em; */
+  /* background: linear-gradient(#ffff 90%, #9d77da 10%); */
+  /* background-size: 100% 200%; */
+  /* background-position: 0 2.5%; */
+  border-radius: 5px;
+  /* box-shadow: 0 0 35px rgba(0, 0, 0, 0.12); */
+  box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+.cardWrapper{
+  box-sizing: border-box !important;
+}
+h3 {
+  /* font-size: 20px;
+  font-weight: 600;
+  color: #1f194c;
+  margin: 1em 0; */
+}
+p {
+  /* color: #575a7b;
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: 0.03em; */
+}
 
+.icon-wrapper {
+  /* background-color: #9d77da;
+  position: relative;
+  margin: auto;
+  font-size: 30px;
+  height: 2.5em;
+  width: 2.5em;
+  color: #ffffff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: 0.5s; */
+}
+.card:hover {
+  /* background-position: 0 100%; */
+}
+.card:hover .icon-wrapper {
+  /* background-color: #ffffff;
+  color: #9d77da; */
+}
+.card:hover h3 {
+  /* color: #ffffff; */
+}
+.card:hover p {
+  color: #f0f0f0;
+}
+@media screen and (min-width: 768px) {
+  /* section {
+    padding: 0 2em;
   }
-  .card:hover p{
-    color:#f0f0f0;
+  .column {
+    flex: 0 50%;
+    max-width: 50%;
+  } */
+}
 
+@media screen and (min-width: 992px) {
+  /* section {
+    padding: 1em 3em;
   }
-  @media screen and (min-width:768px){
-    section{
-        padding:0 2em;
-    }
-    .column{
-        flex:0 50%;
-        max-width:50%;
-    }
-  }  
-    
-  @media screen and (min-width:992px)
-  {
-    section{
-        padding:1em 3em;
-    }
-    .column{
-        flex:0 0 33.33%;
-        max-width:33.33%
-    }
-  }
+  .column {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+  } */
+}
