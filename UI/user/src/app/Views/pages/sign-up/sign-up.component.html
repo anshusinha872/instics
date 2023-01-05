@@ -4,7 +4,7 @@
     <div class="col-12 p-0">
       <div class="d-flex justify-content-center content">
         <div class="col-11">
-          <div *ngIf="!verified">
+          <!-- <div *ngIf="!verified"> -->
             <div class="heading-text d-flex justify-content-center my-2">
               <span class="text-dark fs-3 fw-semibold">Create an account</span>
             </div>
@@ -76,18 +76,19 @@
 
               <div id="sign-in-button"></div>
             </div>
-          </div>
+          <!-- </div> -->
 
-          <div *ngIf="verified" class="row col-12 m-0 justify-content-center mb-3 mb-lg-4 my-2">
-            <div class="otp">
+          <!-- <div *ngIf="verified" class="row col-12 m-0 justify-content-center mb-3 mb-lg-4 my-2"> -->
+            <!-- <div class="otp">
               <ng-otp-input class="otpField" (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
               <div class="d-flex justify-content-center">
                 <button (click)="handleClick()" class="btn btn-success mt-4">
                   Verify Otp
                 </button>
+                
               </div>
-            </div>
-          </div>
+            </div> -->
+          <!-- </div> -->
         </div>
       </div>
     </div>

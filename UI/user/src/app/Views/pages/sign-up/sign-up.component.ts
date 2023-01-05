@@ -44,19 +44,20 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     firebase.initializeApp(config);
-    this.verify = JSON.parse(localStorage.getItem('verificationId') || '{}');
-    console.log(this.verify);
+    // this.verify = JSON.parse(localStorage.getItem('verificationId') || '{}');
+    // console.log(this.verify);
   }
 
-  onOtpChange(otpCode: any) {
-    this.otp = otpCode;
-    console.log(this.otp);
-  }
+  // onOtpChange(otpCode: any) {
+  //   this.otp = otpCode;
+  //   console.log(this.otp);
+  // }
 
   getOTP() {
     this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier(
       'sign-in-button',
-      { size: 'invisible' }
+      { size: 'visible' }
+      
     );
 
     firebase
@@ -67,33 +68,35 @@ export class SignupComponent implements OnInit {
           'verificationId',
           JSON.stringify(confirmationResult.verificationId)
         );
-        // this.router.navigate(['/code'])
-        this.verified = true;
+        this.router.navigate(['/code'])
+        // this.verified = true;
       })
       .catch((error) => {
+        console.error(error);
         alert(error.message);
+
         setTimeout(() => {
           window.location.reload();
         }, 5000);
       });
   }
 
-  handleClick() {
-    var credentials = firebase.auth.PhoneAuthProvider.credential(
-      this.verify,
-      this.otp
-    );
+  // handleClick() {
+  //   var credentials = firebase.auth.PhoneAuthProvider.credential(
+  //     this.verify,
+  //     this.otp
+  //   );
 
-    firebase
-      .auth()
-      .signInWithCredential(credentials)
-      .then((response) => {
-        console.log(response);
-        localStorage.setItem('user_data', JSON.stringify(response));
-        this.router.navigate(['/dashboard']);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  }
+  //   firebase
+  //     .auth()
+  //     .signInWithCredential(credentials)
+  //     .then((response) => {
+  //       console.log(response);
+  //       localStorage.setItem('user_data', JSON.stringify(response));
+  //       this.router.navigate(['/home']);
+  //     })
+  //     .catch((error) => {
+  //       alert(error.message);
+  //     });
+  // }
 }
