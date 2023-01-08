@@ -1,4 +1,4 @@
-<nav
+<!-- <nav
   class="navbar fixed-bottom navbar-light bg-light navbar-shadow"
   style="padding: 0"
 >
@@ -16,9 +16,9 @@
       ><i class="nav-icon fas fa-2x fa-bell"></i
     ></a>
   </div>
-</nav>
+</nav> -->
 
-<div class="welcome">
+<!-- <div class="welcome">
   <div class="greet">
     <h1>Good morning!</h1>
     <h2>User101</h2>
@@ -26,44 +26,92 @@
   <div class="weather">
     <i class="fas fa-3x fa-cloud-sun" style="color: white"></i>
   </div>
-</div>
-<div>
-  <div class="mainHeading d-flex justify-content-center">
-    <div>Our services</div>
+</div> -->
+
+<!-- <div class="heading">
+  <div class="head">
+    <h2>Instincts!!</h2>
   </div>
+  
+</div> -->
+<app-header></app-header>
+<app-home-page></app-home-page>
+
+<section id="services">
 
   <div class="cardContainer row m-0">
     <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
-      <div class="card p-2 flex-column align-items-center justify-content-between">
-        <div>Food Delivery</div>
-        <div class="cardIconWrapper">
-          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
+      <div class="card p-2 flex-column align-items-center justify-content-between" id="card1">
+        <div class="tex">
+          <a class="nav-link" href="#" [routerLink]="['/login']">Food Delivery</a>
         </div>
+        <!-- <div class="cardIconWrapper">
+          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
+          
+        </div> -->
       </div>
     </div>
     <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
-      <div class="card p-2 flex-column align-items-center justify-content-between">
-        <div>Food Delivery</div>
-        <div class="cardIconWrapper">
+      <div class="card p-2 flex-column align-items-center justify-content-between" id="card2">
+        <div  class="tex">Printing</div>
+        <!-- <div class="cardIconWrapper">
           <i class="fa-solid fa-pizza-slice fa-2xl"></i>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
-      <div class="card p-2 flex-column align-items-center justify-content-between">
-        <div>Food Delivery</div>
-        <div class="cardIconWrapper">
+      <div class="card p-2 flex-column align-items-center justify-content-between" id="card3">
+        <div  class="tex">Laundary</div>
+        <!-- <div class="cardIconWrapper">
           <i class="fa-solid fa-pizza-slice fa-2xl"></i>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
-      <div class="card p-2 flex-column align-items-center justify-content-between">
-        <div>Food Delivery</div>
-        <div class="cardIconWrapper">
+      <div class="card p-2 flex-column align-items-center justify-content-between" id="card4">
+        <div  class="tex">Decoration</div>
+        <!-- <div class="cardIconWrapper">
           <i class="fa-solid fa-pizza-slice fa-2xl"></i>
-        </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
+      <div class="card p-2 flex-column align-items-center justify-content-between" id="card4">
+        <div  class="tex">Food Delivery</div>
+        <!-- <div class="cardIconWrapper">
+          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
+        </div> -->
+      </div>
+    </div>
+    <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
+      <div class="card p-2 flex-column align-items-center justify-content-between" id="card4">
+        <div  class="tex">Food Delivery</div>
+        <!-- <div class="cardIconWrapper">
+          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
+        </div> -->
+      </div>
+    </div>
+    <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
+      <div class="card p-2 flex-column align-items-center justify-content-between" id="card4">
+        <div  class="tex">Food Delivery</div>
+        <!-- <div class="cardIconWrapper">
+          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
+        </div> -->
+      </div>
+    </div>
+    <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
+      <div class="card p-2 flex-column align-items-center justify-content-between" id="card4">
+        <div  class="tex">Food Delivery</div>
+        <!-- <div class="cardIconWrapper">
+          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
+        </div> -->
       </div>
     </div>
   </div>
-</div>
+
+<!-- </div> -->
+</section>
+  <div>
+
+    <app-footer></app-footer>
+ </div>

@@ -1,20 +1,14 @@
-
-footer{
-    background-color: #111;
+.icon{
+    margin-left: 50%;
+    /* margin-bottom: -5px; */
 }
-.p-3{
-    background-color: #6351ce;
+.name{
+    margin-left:20%
 }
-
-.btn{
-    border: 2px solid #fff;
-    border-radius:50% ;
-    box-shadow: 3px 3px 5px 1px #111;
+nav{
+    /* margin-bottom: 10px; */
+    height: 40px;
 }
-.btn:hover{
-    color:#6351ce;
-    box-shadow: 3px 3px 5px 1px #464646;
-}
-.mb-4{
-    color:#6351ce;
+p{
+    font-size: 10px;
 }

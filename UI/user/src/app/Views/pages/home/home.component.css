@@ -107,6 +107,7 @@ section{
 }
 .cardWrapper{
   box-sizing: border-box !important;
+  
 }
 h3 {
   /* font-size: 20px;
@@ -134,6 +135,7 @@ p {
   place-items: center;
   transition: 0.5s; */
 }
+
 .card:hover {
   /* background-position: 0 100%; */
 }
@@ -165,4 +167,40 @@ p {
     flex: 0 0 33.33%;
     max-width: 33.33%;
   } */
+}
+
+
+
+#card1{
+  background-image: url("images/food.avif");
+  /* background-size: 100%; */
+    background-repeat: no-repeat;
+    background-size: 150px 70px;
+    
+}
+#card2{
+  background-image: url("images/print.avif");
+  /* background-size: 100%; */
+    background-repeat: no-repeat;
+    background-size: 150px 70px;
+}
+#card3{
+  background-image: url("images/wash.avif");
+  /* background-size: 100%; */
+    background-repeat: no-repeat;
+    background-size: 150px 70px;
+}
+#card4{
+  background-image: url("images/decoration.avif");
+  /* background-size: 100%; */
+    background-repeat: no-repeat;
+    background-size: 150px 70px;
+}
+
+.tex{
+  font-size: 15px;
+  font-weight: bold;
+  color:black;
+  
+  margin-top: 50%;
 }

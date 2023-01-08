@@ -1,0 +1,47 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+li{
+    text-decoration:none;
+}
+header{
+    width:100vw;
+    height:100vh;
+    background-image:url('college3.avif');
+    background-position: bottom;
+    background-size: cover;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+
+}
+.content{
+    margin-bottom:150px;
+    color:rgb(15, 15, 18);
+    text-align: center;
+}
+.content h2{
+    font-size: 6vmin;;
+}
+.line{
+    width:90px;
+    height:4px;
+    background:#fc036b;
+    margin:10px auto;
+    border-radius:5px;
+}
+.content h1{
+    font-size:8vmin;
+    margin-top:50px;
+    margin-bottom:30px;
+}
+.ctn{
+    padding:8px 15px;
+    background: #fc036b;
+    border-radius:30px;
+    color:whitesmoke;
+
+}

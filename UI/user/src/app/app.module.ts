@@ -27,6 +27,8 @@ import { environment } from 'src/environments/environment.prod';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { CodeComponent } from './Views/pages/code/code.component';
 import { HomeComponent } from './Views/pages/home/home.component';
+import { HomePageComponent } from './views/partial/home-page/home-page.component';
+
 
 
 @NgModule({
@@ -39,7 +41,11 @@ import { HomeComponent } from './Views/pages/home/home.component';
     SideBarComponent,
     DashboardComponent,
     CodeComponent,
-    HomeComponent
+    HomeComponent,
+    FooterComponent,
+    HeaderComponent,
+    HomePageComponent
+
   ],
   imports: [
     BrowserModule,
