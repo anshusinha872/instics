@@ -51,6 +51,46 @@
 .weather {
   padding-right: 5%;
 }
+section{
+    height:100vh;
+    width:100%;
+    display:grid;
+    place-items:center;
+  }
+  .row{
+    display:flex;
+    flex-wrap: wrap;
+  }
+  .column{
+    width:100%;
+    border:1px solid orange;
+    padding:0 1em 1em 1em;
+    text-align:center;
+  }
+  .card{
+    
+    width:100%;
+    height: 100%;
+    padding:2em 1.5em;
+    background: linear-gradient(#ffff 50%,#9d77da 50%);
+    background-size:200% 200%;
+    background-position:0 2.5%;
+    border-radius:5px;
+    box-shadow:0 0 35px rgba(0,0,0,0.12);
+    cursor:pointer;
+  }
+  h3{
+    font-size:20px;
+    font-weight:600;
+    color:#1f194c;
+    margin:1em 0;
+  }
+  p{
+    color:#575a7b;
+    font-size:15px;
+    line-height:1.6;
+    letter-spacing:0.03em;
+  }
 
 .card {
   width: 150px !important;
@@ -67,6 +107,7 @@
 }
 .cardWrapper{
   box-sizing: border-box !important;
+  
 }
 h3 {
   /* font-size: 20px;
@@ -94,6 +135,7 @@ p {
   place-items: center;
   transition: 0.5s; */
 }
+
 .card:hover {
   /* background-position: 0 100%; */
 }
@@ -125,4 +167,40 @@ p {
     flex: 0 0 33.33%;
     max-width: 33.33%;
   } */
+}
+
+
+
+#card1{
+  background-image: url("images/food.avif");
+  /* background-size: 100%; */
+    background-repeat: no-repeat;
+    background-size: 150px 70px;
+    
+}
+#card2{
+  background-image: url("images/print.avif");
+  /* background-size: 100%; */
+    background-repeat: no-repeat;
+    background-size: 150px 70px;
+}
+#card3{
+  background-image: url("images/wash.avif");
+  /* background-size: 100%; */
+    background-repeat: no-repeat;
+    background-size: 150px 70px;
+}
+#card4{
+  background-image: url("images/decoration.avif");
+  /* background-size: 100%; */
+    background-repeat: no-repeat;
+    background-size: 150px 70px;
+}
+
+.tex{
+  font-size: 15px;
+  font-weight: bold;
+  color:black;
+  
+  margin-top: 50%;
 }
