@@ -4,15 +4,10 @@ const router = express.Router();
 const userService = require('../service/userService');
 async function getUserData(req, res) {
 	try {
-		console.log('getUserData');
-		let returnData = await userService.userData(req, function (error, results) {
-			if (results) {
-				console.log(results);
-				return res.status(200).json(results);
-			} else {
-				console.log(error);
-			}
-		});
+		// console.log('getUserData');
+		let returnData = await userService.userData(req);
+		// console.log('returnData', returnData);
+		return res.status(200).json(returnData);
 	} catch (err) {
 		console.log(err);
 	}

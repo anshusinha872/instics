@@ -11,19 +11,24 @@ const resultdb = (statusCode, data = null) => {
 	};
 };
 
-let userData = async (data,fun) => {
-	// let data = {
-	// 	status: 200,
-	// 	message: 'success',
-	// 	// "data": results
-	// };
-	console.log('userData');
+let userData = async (data) => {
+	// console.log('userData');
 	try {
 		var connection = config.connection;
-		// let qry = `select * from userData`;
-		// let queryResult = await connection.query(qry);
-		// console.log('queryResult',queryResult.queryResult);
-		connection.query('select * from userData',fun);
+		// let qry = util.promisify(connection.query).bind(connection);
+		// let result = await connection.query(qry,);
+		// connection.query('select * from userData',fun);
+		const response = await new Promise((resolve, reject) => {
+			const query = 'select * from userData;';
+
+			connection.query(query, (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		// console.log('response', response);
+		// console.log(response);
+		return response;
 	} catch (err) {
 		console.log(err);
 		return resultdb(500, err);
