@@ -11,7 +11,17 @@ async function getUserData(req, res) {
 	} catch (err) {
 		console.log(err);
 	}
-
+}
+async function getUserDataById(req, res) {
+	try {
+		// console.log('getUserData');
+		let returnData = await userService.userDataUserDataById(req);
+		console.log('returnData', returnData);
+		return res.status(200).json(returnData);
+	} catch (err) {
+		console.log(err);
+	}
 }
 router.get('/userData', getUserData);
+router.post('/user', getUserDataById);
 module.exports = router;
