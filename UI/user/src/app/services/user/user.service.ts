@@ -8,16 +8,18 @@ import { environment, environment1 } from 'src/environments/environment';
 export class UserService {
   private base_url: string = environment1.APIEndpoint;
   constructor(private http: HttpClient) {}
-  public get_user() {
-    return this.http.get(`${this.base_url}/user`);
-  }
+  // public get_user() {
+  //   return this.http.get(`${this.base_url}/userData`);
+  // }
 
   reqHeader = new HttpHeaders({
     'Content-Type': 'application/json',
+    // Authorization: 'Bearer ' + localStorage.getItem('token'),
   });
   // API: POST /user
-  singupUser(userData): Observable<any> {
-    return this.http.post(`${this.base_url}/user`, userData, {
+  userData(): Observable<any> {
+    console.log(this.base_url);
+    return this.http.get(this.base_url+"userData", {
       headers: this.reqHeader,
     });
   }
