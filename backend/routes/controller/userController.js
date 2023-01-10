@@ -17,6 +17,8 @@ async function loginUser(req, res) {
 
 		const email_id = req.body.email_id;
 		const password = req.body.password;
+		console.log('email_id', email_id);
+		console.log('password', password);
 		let returnData = await userService.loginUserByEmailId(email_id);
 		console.log('returnData', returnData);
 		if (returnData.length > 0) {

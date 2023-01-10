@@ -15,7 +15,7 @@ export class LoginService {
   });
 
   loginUser(param): Observable<any> {
-    return this.http.post(this.base_url + '/login', param, {
+    return this.http.post(this.base_url + 'login', param, {
       headers: this.reqHeader,
     });
   }
