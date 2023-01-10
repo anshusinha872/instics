@@ -18,7 +18,7 @@ import { SignupComponent } from './Views/pages/sign-up/sign-up.component';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 // import { HomeComponent } from './view/pages/home/home.component';
 import { SideBarComponent } from './Views/partial/side-bar/side-bar.component';
-
+import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {AngularFireModule} from '@angular/fire/compat'
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
@@ -27,7 +27,7 @@ import { environment } from 'src/environments/environment.prod';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { CodeComponent } from './Views/pages/code/code.component';
 import { HomeComponent } from './Views/pages/home/home.component';
-import { HomePageComponent } from './views/partial/home-page/home-page.component';
+// import { HomePageComponent } from './views/partial/home-page/home-page.component';
 
 
 
@@ -44,7 +44,7 @@ import { HomePageComponent } from './views/partial/home-page/home-page.component
     HomeComponent,
     FooterComponent,
     HeaderComponent,
-    HomePageComponent
+    // HomePageComponent
 
   ],
   imports: [
@@ -64,12 +64,8 @@ import { HomePageComponent } from './views/partial/home-page/home-page.component
     AngularFirestoreModule,
     FormsModule,
     NgOtpInputModule,
-    RouterModule.forRoot([
-      { path: 'home', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
-      
-      // other routes go here
-    ])
+    HttpClientModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],

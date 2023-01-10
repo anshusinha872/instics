@@ -5,27 +5,17 @@ import { environment, environment1 } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class LoginService {
   private base_url: string = environment1.APIEndpoint;
-  constructor(private http: HttpClient) { }
-  // public get_user() {
-  //   return this.http.get(`${this.base_url}/userData`);
-  // }
+  constructor(private http: HttpClient) {}
 
   reqHeader = new HttpHeaders({
     'Content-Type': 'application/json',
     // Authorization: 'Bearer ' + localStorage.getItem('token'),
   });
-  // API: POST /user
-  userData(): Observable<any> {
-    // console.log(this.base_url);
-    return this.http.get(this.base_url + "userData", {
-      headers: this.reqHeader,
-    });
-  }
-  // API :GET/USER_Id}
-  getUser(param): Observable<any>{
-    return this.http.post(this.base_url + "user",param,{
+
+  loginUser(param): Observable<any> {
+    return this.http.post(this.base_url + 'login', param, {
       headers: this.reqHeader,
     });
   }

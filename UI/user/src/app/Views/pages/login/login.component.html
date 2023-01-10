@@ -10,7 +10,7 @@
                 <div class="mt-4 row">
                     <span class="col-12 email-heading">Email address</span>
                     <span class="col-12 mt-2">
-                        <input type="text" [style]="{ width: '100%' }" pInputText class="p-inputtext-sm shadow"
+                        <input [(ngModel)]="email" type="text" [style]="{ width: '100%' }" pInputText class="p-inputtext-sm shadow"
                             placeholder="example@gmail.com" />
                     </span>
                 </div>
@@ -22,7 +22,7 @@
                     <!-- <p-password [(ngModel)]="value3" [toggleMask]="true"></p-password> -->
                     <div class="mt-2 w-100">
                         <p-password class="shadow-lg" [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }"
-                            [(ngModel)]="value3" [toggleMask]="true">
+                            [(ngModel)]="password" [toggleMask]="true">
                             <ng-template pTemplate="header">
                                 <h6>Pick a password</h6>
                             </ng-template>
@@ -40,8 +40,8 @@
                     </div>
                 </div>
                 <div class="mt-4 text-center">
-                    <button pButton pRipple [style]="{ width: '100%', backgroundColor:'#7F669D' }" type="button"
-                        label="Login" [routerLink] ="['/home']" ></button>
+                    <button (click)="loginUser()" pButton pRipple [style]="{ width: '100%', backgroundColor:'#7F669D' }" type="button"
+                        label="Login" ></button>
                     <!-- <button [style]="{'width':'100%'}" pButton type="button" class="p-button-raised text-center">Login</button> -->
                 </div>
                 <div>
