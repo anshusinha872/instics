@@ -12,16 +12,38 @@ async function getUserData(req, res) {
 		console.log(err);
 	}
 }
-async function getUserDataById(req, res) {
+async function loginUser(req, res) {
 	try {
-		// console.log('getUserData');
-		let returnData = await userService.userDataUserDataById(req);
+
+		const email_id = req.body.email_id;
+		const password = req.body.password;
+		let returnData = await userService.loginUserByEmailId(email_id);
 		console.log('returnData', returnData);
+		if (returnData.length > 0) {
+			if (returnData[0].password == password) {
+				returnData = {
+					statusCode: 200,
+					// data: returnData,
+					data:'Login Success'
+				};
+			} else {
+				returnData = {
+					statusCode: 500,
+					data: 'Invalid Password',
+				};
+			}
+		}
+		else {
+			returnData = {
+				statusCode: 500,
+				data: 'Invalid Email Id',
+			};
+		}
 		return res.status(200).json(returnData);
 	} catch (err) {
 		console.log(err);
 	}
 }
 router.get('/userData', getUserData);
-router.post('/user', getUserDataById);
+router.post('/login', loginUser);
 module.exports = router;
