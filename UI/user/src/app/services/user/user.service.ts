@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment, environment1 } from 'src/environments/environment';
+import { environment} from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private base_url: string = environment1.APIEndpoint;
-  constructor(private http: HttpClient) { }
-  // public get_user() {
-  //   return this.http.get(`${this.base_url}/userData`);
-  // }
+  private base_url: string = 'http://3.110.159.150:3000/';
+
+  // private base_url: string = environment.APIEndpoint;
+  constructor(private http: HttpClient) {}
 
   reqHeader = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -19,13 +18,13 @@ export class UserService {
   // API: POST /user
   userData(): Observable<any> {
     // console.log(this.base_url);
-    return this.http.get(this.base_url + "userData", {
+    return this.http.get(this.base_url + 'userData', {
       headers: this.reqHeader,
     });
   }
   // API :GET/USER_Id}
-  getUser(param): Observable<any>{
-    return this.http.post(this.base_url + "user",param,{
+  getUser(param): Observable<any> {
+    return this.http.post(this.base_url + 'user', param, {
       headers: this.reqHeader,
     });
   }

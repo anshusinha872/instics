@@ -8,15 +8,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  // value3: string = '';
+  public userData: any = [];
+  public apiStatus:string = '';
   password: string = '';
   email:string = '';
   constructor(private userService: UserService,
     private loginService: LoginService,
     private route:Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.apiStatus="not connected"
+  }
   loginUser() {
+    this.apiStatus="connected"
     console.log('login');
     let req = {
       email_id: this.email,
@@ -24,15 +28,18 @@ export class LoginComponent implements OnInit {
     }
     console.log(req);
     this.loginService.loginUser(req).subscribe((res) => {
+        this.apiStatus = 'success';
       console.log(res);
       if (res.statusCode == 200) {
         localStorage.setItem('email_id', this.email);
-        this.route.navigate(['/home']);
+        // this.route.navigate(['/home']);
       }
+      this.userService.userData().subscribe((res) => {
+        console.log(res);
+        this.userData = res
+        console.log(this.userData);
+      });
     });
-    // this.userService.getUser(req).subscribe((res) => {
-    //   console.log(res);
-    //   console.log(res[0].password);
-    // });
+    
   }
 }

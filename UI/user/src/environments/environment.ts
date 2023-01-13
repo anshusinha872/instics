@@ -12,11 +12,13 @@ export const environment = {
     messagingSenderId: '912597418594',
     appId: '1:912597418594:web:b676956ef2482c4820073b',
   },
+    // APIEndpoint: 'http://localhost:3000/',//local
+  // APIEndpoint: 'http://3.110.159.150:3000/',
 };
-export const environment1 = {
-  production: false,
-  APIEndpoint: 'http://localhost:3000/',
-};
+// export const environment1 = {
+//   production: false,
+//   APIEndpoint: 'http://localhost:3000/',
+// };
 
 /*
  * For easier debugging in development mode, you can import the following file
