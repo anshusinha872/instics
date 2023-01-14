@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  private base_url: string = 'https://3.110.159.150:3443/';
+  private base_url: string = 'https://64.227.130.179:3443/';
   // private base_url: string = 'https://localhost:3443/';
 
   // private base_url: string = environment.APIEndpoint;
