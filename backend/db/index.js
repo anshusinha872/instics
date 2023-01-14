@@ -1,10 +1,25 @@
-
 const express = require('express');
 const app = express();
 const util = require('util');
+const https = require('https');
+const path = require('path');
+const fs = require('fs');
 // const mysql = require('mysql');
 const routes = require('../routes');
+const { dirname } = require('path');
 // const userControllerRoute = require('../routes/controller/userController');
+
+// app.use('/', (req, res, next) => {
+// 	res.send('hello world');
+// });
+// console.log(__dirname);
+const sslServer = https.createServer(
+	{
+		key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
+		cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
+	},
+	app
+);
 app.use(function (req, res, next) {
 	res.header("Access-Control-Allow-Origin", "http://localhost:4200");
 	// update to match the domain you will make the request from
@@ -17,6 +32,7 @@ app.use(function (req, res, next) {
 app.use(express.json());
 const userController = routes.userController;
 app.use(userController);
-app.listen(3000, () => {
-	console.log('server started at 3000');
-});
+sslServer.listen(3443, () => console.log('server started at 3443'));
+// app.listen(3000, () => {
+// 	console.log('server started at 3000');
+// });
