@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
 import { environment} from 'src/environments/environment';
 @Injectable({
@@ -7,7 +8,9 @@ import { environment} from 'src/environments/environment';
 })
 export class LoginService {
   // private base_url: string = environment.APIEndpoint;
-  private base_url: string = 'http://3.110.159.150:3000/';
+  private base_url: string = 'https://3.110.159.150:3443/';
+  // private base_url: string = 'https://localhost:3443/';
+
   constructor(private http: HttpClient) {}
 
   reqHeader = new HttpHeaders({
