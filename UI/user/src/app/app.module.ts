@@ -28,7 +28,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { CodeComponent } from './Views/pages/code/code.component';
 import { HomeComponent } from './Views/pages/home/home.component';
 // import { HomePageComponent } from './views/partial/home-page/home-page.component';
-
+import { ToastrModule } from 'ng6-toastr-notifications';
 
 
 @NgModule({
@@ -45,7 +45,6 @@ import { HomeComponent } from './Views/pages/home/home.component';
     FooterComponent,
     HeaderComponent,
     // HomePageComponent
-
   ],
   imports: [
     BrowserModule,
@@ -65,7 +64,7 @@ import { HomeComponent } from './Views/pages/home/home.component';
     FormsModule,
     NgOtpInputModule,
     HttpClientModule,
-
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

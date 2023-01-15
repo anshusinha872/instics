@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 config = {
 	connectionLimit: 5,
-	host: 'database-1.cm1q4b6bmdpr.ap-south-1.rds.amazonaws.com',
+	host: 'mysql.cm1q4b6bmdpr.ap-south-1.rds.amazonaws.com',
 	user: 'admin',
 	password: 'anshu123',
 	database: 'instinct_database',

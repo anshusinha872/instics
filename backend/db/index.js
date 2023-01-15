@@ -7,6 +7,8 @@ const fs = require('fs');
 // const mysql = require('mysql');
 const routes = require('../routes');
 const { dirname } = require('path');
+const cors = require('cors');
+app.use(cors());
 // const userControllerRoute = require('../routes/controller/userController');
 
 // app.use('/', (req, res, next) => {
@@ -21,26 +23,28 @@ const sslServer = https.createServer(
 	app
 );
 // app.use(function (req, res, next) {
-// 	res.header('Access-Control-Allow-Origin', 'https://instincts.co.in/');
+// 	res.header('Access-Control-Allow-Origin', 'http://localhost:4200/');
 // 	// update to match the domain you will make the request from
 // 	res.header(
-// 		"Access-Control-Allow-Headers",
-// 		"Origin, X-Requested-With, Content-Type, Accept"
+// 		'Access-Control-Allow-Headers',
+// 		'Origin, X-Requested-With, Content-Type, Accept'
 // 	);
 // 	next();
 // });
-const cors=require("cors");
-const corsOptions ={
-   origin:'*', 
-   credentials:true,            //access-control-allow-credentials:true
-   optionSuccessStatus:200,
-}
 
-app.use(cors(corsOptions)) // Use this 
+
+
+// const corsOptions = {
+// 	origin: '*',
+// 	credentials: true, //access-control-allow-credentials:true
+// 	optionSuccessStatus: 200,
+// };
+
+// app.use(cors(corsOptions)); // Use this
 app.use(express.json());
 const userController = routes.userController;
 app.use(userController);
-sslServer.listen(3443, () => console.log('server started at 3443'));
+app.listen(3443, () => console.log('server started at 3443'));
 // app.listen(3000, () => {
 // 	console.log('server started at 3000');
 // });

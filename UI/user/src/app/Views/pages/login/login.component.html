@@ -40,78 +40,26 @@
                     </div>
                 </div>
                 <div class="mt-4 text-center">
-                    <button (click)="loginUser()" pButton pRipple [style]="{ width: '100%', backgroundColor:'#7F669D' }"
+                    <button (click)="loginUser()" pButton pRipple [style]="{ width: '100%' }"
                         type="button" label="Login"></button>
+                        <!-- , backgroundColor:'#7F669D' removed -->
                     <!-- <button [style]="{'width':'100%'}" pButton type="button" class="p-button-raised text-center">Login</button> -->
                 </div>
                 <div>
                     <p-divider></p-divider>
                 </div>
                 <div class="mt-4 text-center">
-                    <p-button class="" [style]="{ width: '100%', backgroundColor:'#7F669D' }"
+                    <p-button class="" [style]="{ width: '100%'}"
                         label="Sign-in with Google" icon="pi pi-google">
                     </p-button>
                 </div>
-                <div class="mt-4 d-flex">
-                    Don't have an account
-                    <a [routerLink]="['/signup']" href="">Sign Up</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-<div *ngIf="true" class="right_bodyarea">
-    <div>
-        <div class="body_heading">
-            <h2>{{apiStatus}}</h2>
-            <h2>User details</h2>
-            <span style="float: right; margin-top: -34px"> </span>
-        </div>
-        <!-- <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label>User Name</label>
-                    <input (keyup)="userSearch(1)" [(ngModel)]="searchUser" class="form-control"
-                        placeholder="Search By User name or user Id" type="text" />
-                </div>
-            </div>
-        </div> -->
-        <div class="row">
-            <!-- <div *ngIf="loading" class="load-box ng-hide">
-                <img id="mySpinner" src="assets/images/loading1.gif" />
-            </div> -->
-            <div class="col-sm-12">
-                <div class="usertable_area usersListView">
-                    <div class="table-responsive">
-                        <table *ngIf="true" class="table">
-                            <tbody>
-                                <tr class="d-flex justify-content-center align-items-center">
-                                    <th class="">User Id</th>
-                                    <th class="">First Name</th>
-                                    <th class="">Last Name</th>
-                                    <th class="">Email Id</th>
-                                    <th class="">Contact</th>
-                                </tr>
-                                <tr  *ngFor="let user of userData; let i = index">
-                                    <div class="rowClass">
-                                        <td>{{user.user_id}}</td>
-                                        <td>{{user.firstName}}</td>
-                                        <td>{{user.lastName}}</td>
-                                        <td>{{user.email_id}}</td>
-                                        <td>{{user.contact}}</td>
-                                    </div>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="mt-4 d-flex fw-semibold">
+                    <span>
+                        Don't have an account
+                    </span>
+                    <span class="mx-2">
+                        <a (click)="signUp()">Sign Up</a>
+                    </span>
                 </div>
             </div>
         </div>

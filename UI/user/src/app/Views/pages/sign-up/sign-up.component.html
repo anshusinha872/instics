@@ -1,11 +1,11 @@
-<div class="d-flex row header align-items-center">
+<div class="d-flex row align-items-center">
   <app-sideBar class="col-6 p-0 m-0"></app-sideBar>
   <div class="d-flex justify-content-center col-12">
     <div class="col-12 p-0">
       <div class="d-flex justify-content-center content">
         <div class="col-11">
           <!-- <div *ngIf="!verified"> -->
-            <div class="heading-text d-flex justify-content-center my-2">
+            <div class="heading-text d-flex my-2">
               <span class="text-dark fs-3 fw-semibold">Create an account</span>
             </div>
             <div class="col-12 row align-items-center m-0 justify-content-center my-2">
@@ -14,11 +14,11 @@
               </div>
               <div class="col-11 d-flex p-0 justify-content-between">
                 <span class="p-float-label col-6">
-                  <input id="a" type="text" [style]="{ width: '100%' }" pInputText [(ngModel)]="name" />
+                  <input id="a" type="text" [style]="{ width: '100%' }" pInputText [(ngModel)]="firstName" />
                   <label for="a">First Name</label>
                 </span>
                 <span class="p-float-label col-6">
-                  <input id="a" type="text" [style]="{ width: '100%' }" pInputText [(ngModel)]="name2" />
+                  <input id="a" type="text" [style]="{ width: '100%' }" pInputText [(ngModel)]="lastName" />
                   <label for="a">Last Name</label>
                 </span>
               </div>
@@ -38,7 +38,7 @@
               </div>
               <span class="col-11 d-flex p-0 justify-content-between">
                 <p-password class="flex-grow-1" [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }"
-                  [(ngModel)]="pass" [toggleMask]="true" placeholder="Password">
+                  [(ngModel)]="password" [toggleMask]="true" placeholder="Password">
                   <ng-template pTemplate="header">
                     <h6>Pick a password</h6>
                   </ng-template>
@@ -60,21 +60,29 @@
                 <i class="fas fa-phone fa-lg fa-fw fa-rotate-90"></i>
               </div>
               <span class="p-float-label col-11 d-flex p-0 justify-content-between">
-                <input id="d" type="text" [style]="{ width: '100%' }" pInputText [(ngModel)]="phoneNumber" />
+                <input id="d" type="text" [style]="{ width: '100%' }" pInputText [(ngModel)]="contact" />
                 <label for="d">Phone</label>
               </span>
             </div>
             <div class="form-check my-2">
-              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+              <input class="form-check-input me-2" [(ngModel)]="checkBox" type="checkbox" value="" id="form2Example3c" />
               <label class="form-check-label" for="form2Example3">
                 I agree all statements in <a href="#">Terms of service</a>
               </label>
             </div>
             <div class="row col-12 m-0 justify-content-center mb-3 mb-lg-4 my-2">
               <button pButton pRipple [style]="{ width: '50%' }" type="button" label="Register"
-                (click)="getOTP()"></button>
+                (click)="submitUser()"></button>
 
               <div id="sign-in-button"></div>
+            </div>
+            <div class="heading-text d-flex my-2 flex-row justify-content-center">
+              <span class="text-dark fs-3 fw-semibold">Already Registered</span>
+            </div>
+            <div class="mt-4 text-center">
+              <button (click)="toLogin()" pButton pRipple [style]="{ width: '50%' }" type="button"
+                label="Login"></button>
+              <!-- <button [style]="{'width':'100%'}" pButton type="button" class="p-button-raised text-center">Login</button> -->
             </div>
           <!-- </div> -->
 

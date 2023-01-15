@@ -14,7 +14,6 @@ async function getUserData(req, res) {
 }
 async function loginUser(req, res) {
 	try {
-
 		const email_id = req.body.email_id;
 		const password = req.body.password;
 		console.log('email_id', email_id);
@@ -46,6 +45,17 @@ async function loginUser(req, res) {
 		console.log(err);
 	}
 }
+async function signUpUser(req, res) {
+	try {
+		let returnData = await userService.signUpUser(req);
+		// console.log('returnData', returnData);
+		return res.status(200).json(returnData);
+	}
+	catch (err) {
+		console.log(err);
+	}
+}
 router.get('/userData', getUserData);
 router.post('/login', loginUser);
+router.post('/signup', signUpUser);
 module.exports = router;
