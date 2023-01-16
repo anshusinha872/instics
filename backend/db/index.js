@@ -15,13 +15,13 @@ app.use(cors());
 // 	res.send('hello world');
 // });
 // console.log(__dirname);
-const sslServer = https.createServer(
-	{
-		key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
-		cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
-	},
-	app
-);
+// const sslServer = https.createServer(
+// 	{
+// 		key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
+// 		cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
+// 	},
+// 	app
+// );
 // app.use(function (req, res, next) {
 // 	res.header('Access-Control-Allow-Origin', 'http://localhost:4200/');
 // 	// update to match the domain you will make the request from
