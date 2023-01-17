@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  // private base_url: string = 'http://64.227.130.179:3443/';
-  private base_url: string = 'https://instincts.co.in:3443/';
+  private base_url: string = 'http://localhost:3443/'; //local/
+  // private base_url: string = 'https://instincts.co.in:3443/';
   // private base_url: string = environment.APIEndpoint;
   // private base_url: string = environment.APIEndpoint;
   constructor(private http: HttpClient) {}
