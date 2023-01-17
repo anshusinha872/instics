@@ -45,16 +45,17 @@ app.use(cors(corsOptions)); // Use this
 app.use(express.json());
 const userController = routes.userController;
 app.use(userController);
-// app.listen(3443, () => console.log('server started at 3443'));
+app.listen(3443, () => console.log('server started at 3443')); //localhost:3443
 
 // app.listen(3000, () => {
 // 	console.log('server started at 3000');
 // });
-var options = {
-	key: fs.readFileSync('/etc/letsencrypt/live/instincts.co.in/privkey.pem'),
-	cert: fs.readFileSync('/etc/letsencrypt/live/instincts.co.in/fullchain.pem'),
-};
-let server = https.createServer(options, app);
-server.listen(3443, () => {
-    console.log('server started at 3443');
-});
+// for deployed server
+// var options = {
+// 	key: fs.readFileSync('/etc/letsencrypt/live/instincts.co.in/privkey.pem'),
+// 	cert: fs.readFileSync('/etc/letsencrypt/live/instincts.co.in/fullchain.pem'),
+// };
+// let server = https.createServer(options, app);
+// server.listen(3443, () => {
+//     console.log('server started at 3443');
+// });

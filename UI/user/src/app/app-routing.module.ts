@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: LoginComponent, pathMatch: 'full'
+    redirectTo: 'login',
   },
 ];
 
