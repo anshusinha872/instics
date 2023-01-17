@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  APIEndpoint: 'https://instincts.co.in:3443/', //hosted
   firebase: {
     apiKey: 'AIzaSyCPDGJBgD8DLl8f3483pxHfSzJJ92I8fpo',
     authDomain: 'otp-verification-dca78.firebaseapp.com',
@@ -12,7 +13,7 @@ export const environment = {
     messagingSenderId: '912597418594',
     appId: '1:912597418594:web:b676956ef2482c4820073b',
   },
-    // APIEndpoint: 'http://localhost:3000/',//local
+  // APIEndpoint: 'http://localhost:3000/',//local
   // APIEndpoint: 'http://3.110.159.150:3000/',
 };
 // export const environment1 = {
