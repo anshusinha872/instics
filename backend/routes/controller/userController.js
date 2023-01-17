@@ -1,5 +1,5 @@
 const express = require('express');
-const MysqlPool = require('../../db/index.js');
+const MysqlPool = require('../../app');
 const router = express.Router();
 const userService = require('../service/userService');
 async function getUserData(req, res) {

@@ -5,9 +5,10 @@ const https = require('https');
 const path = require('path');
 const fs = require('fs');
 // const mysql = require('mysql');
-const routes = require('../routes');
+const routes = require('./routes');
 const { dirname } = require('path');
 const cors = require('cors');
+// const { options } = require('pg/lib/defaults');
 app.use(cors());
 // const userControllerRoute = require('../routes/controller/userController');
 
@@ -34,17 +35,26 @@ app.use(cors());
 
 
 
-// const corsOptions = {
-// 	origin: '*',
-// 	credentials: true, //access-control-allow-credentials:true
-// 	optionSuccessStatus: 200,
-// };
+const corsOptions = {
+	origin: '*',
+	credentials: true, //access-control-allow-credentials:true
+	optionSuccessStatus: 200,
+};
 
-// app.use(cors(corsOptions)); // Use this
+app.use(cors(corsOptions)); // Use this
 app.use(express.json());
 const userController = routes.userController;
 app.use(userController);
-app.listen(3443, () => console.log('server started at 3443'));
+// app.listen(3443, () => console.log('server started at 3443'));
+
 // app.listen(3000, () => {
 // 	console.log('server started at 3000');
 // });
+var options = {
+	key: fs.readFileSync('/etc/letsencrypt/live/instincts.co.in/privkey.pem'),
+	cert: fs.readFileSync('/etc/letsencrypt/live/instincts.co.in/fullchain.pem'),
+};
+let server = https.createServer(options, app);
+server.listen(3443, () => {
+    console.log('server started at 3443');
+});

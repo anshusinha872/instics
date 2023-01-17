@@ -2,10 +2,10 @@
 	"name": "backend_",
 	"version": "1.0.0",
 	"description": "",
-	"main": "./db/index.js",
+	"main": "app.js",
 	"scripts": {
-		"start": "node ./db/index.js",
-		"dev": "nodemon ./db/index.js"
+		"start": "node app.js",
+		"dev": "nodemon app.js"
 	},
 	"keywords": [],
 	"author": "",

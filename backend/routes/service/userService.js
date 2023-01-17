@@ -1,5 +1,5 @@
 
-const MysqlPool = require('../../db/index.js');
+const MysqlPool = require('../../app');
 const config = require('../../config/databaseConfig.js');
 const util = require('util');
 const mysql = require('mysql');
