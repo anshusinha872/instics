@@ -7,6 +7,7 @@ import { LoginComponent } from './Views/pages/login/login.component';
 import { SignupComponent } from './Views/pages/sign-up/sign-up.component';
 import { HomeComponent } from './Views/pages/home/home.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -25,6 +26,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent
   },
+ 
   {
     path: '**',
     redirectTo: 'login',

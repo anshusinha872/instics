@@ -35,4 +35,18 @@ export class UserService {
       headers: this.reqHeader,
     });
   }
+
+  forgotUser(param): Observable<any> {
+    // console.log(this.base_url);
+    console.log(param);
+    return this.http.post(this.base_url + 'forgotpassword1',param, {
+      headers: this.reqHeader,
+    });
+  }
+
+  updatePassword(param): Observable<any> {
+    return this.http.post(this.base_url + 'forgotpassword2', param, {
+      headers: this.reqHeader,
+    });
+  }
 }
