@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { Router } from '@angular/router';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { AuthService } from 'src/app/services/auth/auth.service';
+@Injectable({
+  providedIn: 'root',
+})
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +21,8 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private loginService: LoginService,
     private route: Router,
-    private toastr: ToastrManager
+    private toastr: ToastrManager,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
