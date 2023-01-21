@@ -1,16 +1,9 @@
-
-
-
-
-
-
-
-
 const MysqlPool = require('../../app');
 const config = require('../../config/databaseConfig.js');
 const util = require('util');
 const mysql = require('mysql');
-
+const SALT_WORK_FACTOR = 10;
+const bcrypt = require('bcrypt');
 const resultdb = (statusCode, data = null) => {
 	return {
 		statusCode: statusCode,
@@ -41,7 +34,8 @@ let userData = async (data) => {
 		return resultdb(500, err);
 	}
 };
-let loginUserByEmailId = async (email_id) => {
+let loginUserByEmailId = async (email_id, password) => {
+	var isPasswordMatch = false;
 	try {
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
@@ -51,7 +45,19 @@ let loginUserByEmailId = async (email_id) => {
 				resolve(results);
 			});
 		});
-		return response;
+		if (response.length > 0) {
+			let isValidPassword = bcrypt.compareSync(password, response[0].password);
+			if (isValidPassword) {
+				return resultdb(200, 'Login Successfull');
+			}
+			else {
+				return resultdb(400, 'Invalid Password');
+			}
+		}
+		else {
+			return resultdb(400, 'Invalid Email Id');
+		}
+		return resultdb(400, 'Login Failed');
 	} catch (err) {
 		console.log(err);
 		return resultdb(500, err);
@@ -68,6 +74,9 @@ let signUpUser = async (req) => {
 		// console.log(contact);
 		// console.log(email);
 		// console.log(10);
+		let genSalt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+		let hash = await bcrypt.hash(password, genSalt);
+		// console.log(hash);
 		var connection = config.connection;
 
 		const response = await new Promise((resolve, reject) => {
@@ -80,8 +89,7 @@ let signUpUser = async (req) => {
 		// console.log('response', response);
 		if (response.length > 0) {
 			return resultdb(303, 'Email already exist');
-		}
-		else {
+		} else {
 			// console.log('else');
 			const response1 = await new Promise((resolve, reject) => {
 				const query = 'SELECT * FROM userData WHERE contact = ?;';
@@ -92,26 +100,28 @@ let signUpUser = async (req) => {
 			});
 			if (response1.length > 0) {
 				return resultdb(303, 'Phone number already exist');
-			}
-			else {
+			} else {
 				const response2 = await new Promise((resolve, reject) => {
-					const query = 'INSERT INTO userData (email_id, password, firstName, lastName, contact) VALUES (?,?,?,?,?);';
-					connection.query(query, [email, password, firstName, lastName, contact], (err, results) => {
-						if (err) reject(new Error(err.message));
-						resolve(results);
-					});
+					const query =
+						'INSERT INTO userData (email_id, password, firstName, lastName, contact) VALUES (?,?,?,?,?);';
+					connection.query(
+						query,
+						[email, hash, firstName, lastName, contact],
+						(err, results) => {
+							if (err) reject(new Error(err.message));
+							resolve(results);
+						}
+					);
 				});
 				console.log('response2', response2);
 				return resultdb(200, 'User created successfully');
 			}
 		}
-	}
-	catch (err) {
+	} catch (err) {
 		console.log(err);
 		return resultdb(500, err);
 	}
 };
-
 
 let forgotPassword = async (contact) => {
 	// try {
@@ -154,36 +164,38 @@ let forgotPassword = async (contact) => {
 		console.log(err);
 		return resultdb(500, err);
 	}
-}
+};
 
 let updatePassword = async (req) => {
 	try {
 		var contact = req.body.contact;
-	    contact = parseInt(contact);
+		contact = parseInt(contact);
 		const password = req.body.password;
 		console.log(contact);
 		console.log(password);
-		
+
+		let genSalt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+		let hash = await bcrypt.hash(password, genSalt);
+		console.log(hash);
 		var connection = config.connection;
 		const response3 = await new Promise((resolve, reject) => {
 			const query = 'update userData set password=? where contact=?';
-			connection.query(query, [password,contact], (err, results) => {
+			connection.query(query, [hash, contact], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});
 		});
 		console.log('response3', response3);
 		return resultdb(200, 'password updated sucessfully');
-	}
-	catch (err) {
+	} catch (err) {
 		console.log(err);
 		return resultdb(500, err);
 	}
-}
+};
 module.exports = {
 	userData,
 	loginUserByEmailId,
 	signUpUser,
 	forgotPassword,
-	updatePassword
+	updatePassword,
 };

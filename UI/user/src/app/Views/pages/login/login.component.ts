@@ -40,27 +40,24 @@ export class LoginComponent implements OnInit {
 
   loginUser() {
     this.apiStatus = 'connected';
-    console.log('login');
     let req = {
       email_id: this.email,
       password: this.password,
     };
-    console.log(req);
     this.loginService.loginUser(req).subscribe((res) => {
       this.apiStatus = 'success';
-      console.log(res);
       if (res.statusCode == 200) {
+        // localStorage.setItem('token', res.data.token);
+        // localStorage.setItem('user_id', res.data.user_id);
+        // localStorage.setItem('user_name', res.data.user_name);
+        console.log(res);
         localStorage.setItem('email_id', this.email);
         this.toastr.successToastr('Login Success');
         this.route.navigate(['/home']);
       } else {
+        console.log(res);
         this.toastr.errorToastr('Invalid Credentials');
       }
-      // this.userService.userData().subscribe((res) => {
-      //   console.log(res);
-      //   this.userData = res;
-      //   console.log(this.userData);
-      // });
     });
   }
 
@@ -71,23 +68,6 @@ export class LoginComponent implements OnInit {
 
   forgotUser()
   {
-    // const userData = {
-    //   // password: this.password,
-    //   contact: this.contact,
-    // };
-    // this.userService.forgotUser(userData).subscribe((result) => {
-      
-    //   console.log(result);
-    //   if (result.statusCode == 303) {
-    //     this.toastr.successToastr('contact is available');
-    //     setTimeout(() => {
-    //       // this.verified=true;
-    //       this.router.navigate(['/home']);
-    //     }, 2000);
-    //   } else {
-    //     this.toastr.errorToastr('contact does not exist');
-    //   }
-    // });
     if (this.contact.length != 10) {
       this.toastr.infoToastr('Contact number must be 10 digits');
       return;

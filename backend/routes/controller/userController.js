@@ -2,6 +2,7 @@ const express = require('express');
 const MysqlPool = require('../../app');
 const router = express.Router();
 const userService = require('../service/userService');
+const bcrypt = require('bcrypt');
 async function getUserData(req, res) {
 	try {
 		// console.log('getUserData');
@@ -16,40 +17,19 @@ async function loginUser(req, res) {
 	try {
 		const email_id = req.body.email_id;
 		const password = req.body.password;
-		console.log('email_id', email_id);
-		console.log('password', password);
-		let returnData = await userService.loginUserByEmailId(email_id);
+		let returnData = await userService.loginUserByEmailId(email_id, password);
 		console.log('returnData', returnData);
-		if (returnData.length > 0) {
-			if (returnData[0].password == password) {
-				returnData = {
-					statusCode: 200,
-					// data: returnData,
-					data:'Login Success'
-				};
-			} else {
-				returnData = {
-					statusCode: 500,
-					data: 'Invalid Password',
-				};
-			}
-		}
-		else {
-			returnData = {
-				statusCode: 500,
-				data: 'Invalid Email Id',
-			};
-		}
 		return res.status(200).json(returnData);
 	} catch (err) {
 		console.log(err);
+		return res.status(200).json(err);
 	}
 }
 async function signUpUser(req, res) {
 	try {
 		let returnData = await userService.signUpUser(req);
 		// console.log('returnData', returnData);
-		return res.status(303).json(returnData);
+		return res.status(200).json(returnData);
 	}
 	catch (err) {
 		console.log(err);
@@ -105,7 +85,7 @@ async function updatePassword(req, res) {
 router.get('/userData', getUserData);
 router.post('/login', loginUser);
 router.post('/signup', signUpUser);
-router.post('/login',updatePassword) 
+// router.post('/login',updatePassword) 
 router.post('/forgotpassword1',forgotPassword)
 router.post('/forgotpassword2',updatePassword)
 
