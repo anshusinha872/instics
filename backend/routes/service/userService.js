@@ -1,4 +1,11 @@
 
+
+
+
+
+
+
+
 const MysqlPool = require('../../app');
 const config = require('../../config/databaseConfig.js');
 const util = require('util');
@@ -104,8 +111,79 @@ let signUpUser = async (req) => {
 		return resultdb(500, err);
 	}
 };
+
+
+let forgotPassword = async (contact) => {
+	// try {
+	// 	console.log('forget');
+	// 	// console.log(req);
+	// 	var contact = req.body.contact;
+	// 	contact = parseInt(contact);
+	// 	console.log(contact);
+	// 	var connection = config.connection;
+	// 	const response2 = await new Promise((resolve, reject) => {
+	// 		const query = 'SELECT * FROM userData WHERE contact = ?;';
+	// 		connection.query(query, [contact], (err, results) => {
+	// 			if (err) reject(new Error(err.message));
+	// 			resolve(results);
+	// 		});
+	// 	});
+	// 	// console.log('response2', response2);
+
+	// 	if (response2.length > 0) {
+	// 		console.log('if');
+	// 		return resultdb(303, 'Phone number exist');
+	// 	}
+	// 	return resultdb(404,'Not found');
+	// }
+	// catch (err) {
+	// 	console.log(err);
+	// 	return resultdb(500,'phone number does not exist');
+	// }
+	try {
+		var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+			const query = 'select * from userData WHERE contact = ?;';
+			connection.query(query, [contact], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		return response;
+	} catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+}
+
+let updatePassword = async (req) => {
+	try {
+		var contact = req.body.contact;
+	    contact = parseInt(contact);
+		const password = req.body.password;
+		console.log(contact);
+		console.log(password);
+		
+		var connection = config.connection;
+		const response3 = await new Promise((resolve, reject) => {
+			const query = 'update userData set password=? where contact=?';
+			connection.query(query, [password,contact], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		console.log('response3', response3);
+		return resultdb(200, 'password updated sucessfully');
+	}
+	catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+}
 module.exports = {
 	userData,
 	loginUserByEmailId,
 	signUpUser,
+	forgotPassword,
+	updatePassword
 };
