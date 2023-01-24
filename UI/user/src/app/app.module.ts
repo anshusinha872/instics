@@ -30,7 +30,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { DemoComponent } from './Views/pages/demo/demo.component';
 import { ProfileComponent } from './Views/pages/profile/profile.component';
 import { SubdashboardComponent } from './Views/layout/subdashboard/subdashboard.component';
-
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -66,6 +66,7 @@ import { SubdashboardComponent } from './Views/layout/subdashboard/subdashboard.
     FormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    ImageCropperModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

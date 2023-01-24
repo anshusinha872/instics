@@ -39,13 +39,24 @@ export class UserService {
   forgotUser(param): Observable<any> {
     // console.log(this.base_url);
     console.log(param);
-    return this.http.post(this.base_url + 'forgotpassword1',param, {
+    return this.http.post(this.base_url + 'forgotpassword1', param, {
       headers: this.reqHeader,
     });
   }
 
   updatePassword(param): Observable<any> {
     return this.http.post(this.base_url + 'forgotpassword2', param, {
+      headers: this.reqHeader,
+    });
+  }
+  uploadProfileImage(param): Observable<any> {
+    return this.http.post<any>(this.base_url + 'img/upload', param, {
+      // headers: this.reqHeader,
+    });
+  }
+  // API: POST /user
+  getUserDetails(param): Observable<any> {
+    return this.http.post(this.base_url + 'user', param, {
       headers: this.reqHeader,
     });
   }

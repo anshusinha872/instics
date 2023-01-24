@@ -4,6 +4,8 @@ const router = express.Router();
 const userService = require('../service/userService');
 const bcrypt = require('bcrypt');
 const path = require('path');
+const moment = require('moment');
+const fs = require('fs');
 async function getUserData(req, res) {
 	try {
 		// console.log('getUserData');
@@ -31,8 +33,7 @@ async function signUpUser(req, res) {
 		let returnData = await userService.signUpUser(req);
 		// console.log('returnData', returnData);
 		return res.status(200).json(returnData);
-	}
-	catch (err) {
+	} catch (err) {
 		console.log(err);
 	}
 }
@@ -43,7 +44,7 @@ async function forgotPassword(req, res) {
 		const contact = req.body.contact;
 		// const password = req.body.password;
 		// console.log('email_id', email_id);
-		console.log('contact',contact);
+		console.log('contact', contact);
 		let returnData = await userService.forgotPassword(contact);
 		console.log('returnData', returnData);
 		if (returnData.length > 0) {
@@ -51,7 +52,7 @@ async function forgotPassword(req, res) {
 				returnData = {
 					statusCode: 200,
 					// data: returnData,
-					data:'number exist'
+					data: 'number exist',
 				};
 			} else {
 				returnData = {
@@ -59,8 +60,7 @@ async function forgotPassword(req, res) {
 					data: 'Invalid number',
 				};
 			}
-		}
-		else {
+		} else {
 			returnData = {
 				statusCode: 500,
 				data: 'Invalid number',
@@ -77,47 +77,41 @@ async function updatePassword(req, res) {
 		let returnData = await userService.updatePassword(req);
 		console.log('returnData', returnData);
 		return res.status(200).json(returnData);
-	}
-	catch (err) {
+	} catch (err) {
 		console.log(err);
 	}
 }
-// const multer = require('multer');
-// const path = require('path');
-// const fs = require('fs');
-// const { promisify } = require('util');
-// const unlinkAsync = promisify(fs.unlink);
-// const storage = multer.diskStorage({
-// 	destination: function (req, file, cb) {
-// 		cb(null, 'uploads/');
-// 	}
-// 	, filename: function (req, file, cb) {
-// 		cb(null, file.originalname);
-// 	}
-// });
+
 async function saveImage(files) {
-	const fileName = files.profileImage.name;
-	const file = files.profileImage;
-	console.log(fileName);
+	const user_id = files.user_id;
+	// console.log(user_id);
+	const profileImage = files.profileImage;
+	var fileName =
+		user_id + '_' + moment().format('YYYYMMDDhhmmss') + '_' + files.fileName;
 	const filePath = path.join(__dirname, '../../uploads/profileImg/' + fileName);
-	console.log(filePath);
-	file.mv(filePath, (err) => {
-		if (err) {
-			console.log(err);
-		}
-	});
+	// console.log(filePath);
+	const file = fs.createWriteStream(filePath);
+	file.write(profileImage, 'base64');
+	// file.mv(filePath, (err) => {
+	// 	if (err) {
+	// 		console.log(err);
+	// 	}
+	// });
 	const relativePath = './uploads/profileImg/' + fileName;
 	return relativePath;
 }
 async function uploadImage(req, res) {
-	const path = await saveImage(req.files);
-	console.log(path);
+	const user_id=parseInt(req.body.user_id);
+	// console.log(user_id);
+	const path = await saveImage(req.body);
+	// console.log(path);
 	try {
-		let returnData = await userService.uploadImage(5, path);
+		let returnData = await userService.uploadImage(user_id, path);
 		return res.status(200).json(returnData);
 	} catch (err) {
 		console.log(err);
 	}
+	return res.status(404).json({ data: 'Error' });
 }
 async function showAllImages(req, res) {
 	try {
@@ -127,18 +121,23 @@ async function showAllImages(req, res) {
 		console.log(err);
 	}
 }
+async function getUserDetailsById(req, res) {
+	try {
+		let returnData = await userService.getUserDetailsById(req);
+		return res.status(200).json(returnData);
+	} catch (err) {
+		console.log(err);
+	}
+}
 router.get('/userData', getUserData);
 router.post('/login', loginUser);
 router.post('/signup', signUpUser);
-// router.post('/login',updatePassword) 
-router.post('/forgotpassword1',forgotPassword)
-router.post('/forgotpassword2', updatePassword)
-
+// router.post('/login',updatePassword)
+router.post('/forgotpassword1', forgotPassword);
+router.post('/forgotpassword2', updatePassword);
 
 router.post('/img/upload', uploadImage);
 
-
 router.get('/img/show', showAllImages);
-
-
+router.post('/user',getUserDetailsById)
 module.exports = router;

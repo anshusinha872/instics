@@ -12,7 +12,6 @@ const resultdb = (statusCode, data = null) => {
 };
 let convertImage = async (img) => {
 	return new Promise((resolve, reject) => {
-		console.log(img);
 		const fs = require('fs');
 		fs.access(img, fs.constants.F_OK, (err) => {
 			if (err) {
@@ -26,7 +25,6 @@ let convertImage = async (img) => {
 					} else {
 						let bitmap = fs.readFileSync(img);
 						let base64 = new Buffer(bitmap).toString('base64');
-						console.log(base64);
 						resolve(base64);
 					}
 				});
@@ -61,6 +59,44 @@ let showAllImages = async (req) => {
 			return resultdb(200, item);
 		}
 	} catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+}
+let getUserDetailsById = async (req) => {
+	const user_id = parseInt(req.body.user_id);
+	// console.log(user_id);
+	try {
+		var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+			const query = 'select * from userData WHERE user_id = ?;';
+			connection.query(query, [user_id], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		// console.log(response);
+		if (response.length > 0) {
+			let item = response[0];
+			let resData = {
+				user_id: item.user_id,
+				firstName: item.firstName,
+				lastName: item.lastName,
+				email_id: item.email_id,
+				contact: item.contact,
+				profileImage: await convertImage(item.profile_image),
+			};
+			// console.log(resData);
+			let item1 = {
+				data: resData,
+			};
+			return resultdb(200, item1);
+		}
+		else {
+			return resultdb(404, 'User not found');
+		}
+	}
+	catch (err) {
 		console.log(err);
 		return resultdb(500, err);
 	}
@@ -102,7 +138,7 @@ let loginUserByEmailId = async (email_id, password) => {
 		if (response.length > 0) {
 			let isValidPassword = bcrypt.compareSync(password, response[0].password);
 			if (isValidPassword) {
-				return resultdb(200, 'Login Successfull');
+				return resultdb(200, response);
 			}
 			else {
 				return resultdb(400, 'Invalid Password');
@@ -178,32 +214,6 @@ let signUpUser = async (req) => {
 };
 
 let forgotPassword = async (contact) => {
-	// try {
-	// 	console.log('forget');
-	// 	// console.log(req);
-	// 	var contact = req.body.contact;
-	// 	contact = parseInt(contact);
-	// 	console.log(contact);
-	// 	var connection = config.connection;
-	// 	const response2 = await new Promise((resolve, reject) => {
-	// 		const query = 'SELECT * FROM userData WHERE contact = ?;';
-	// 		connection.query(query, [contact], (err, results) => {
-	// 			if (err) reject(new Error(err.message));
-	// 			resolve(results);
-	// 		});
-	// 	});
-	// 	// console.log('response2', response2);
-
-	// 	if (response2.length > 0) {
-	// 		console.log('if');
-	// 		return resultdb(303, 'Phone number exist');
-	// 	}
-	// 	return resultdb(404,'Not found');
-	// }
-	// catch (err) {
-	// 	console.log(err);
-	// 	return resultdb(500,'phone number does not exist');
-	// }
 	try {
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
@@ -223,7 +233,7 @@ let uploadImage = async (user_id,file_path) => {
 	try {
 		var connection = config.connection;
 		const checkIfImageExist = await new Promise((resolve, reject) => {
-			const query = 'SELECT * FROM imageRecord WHERE user_id = ?;';
+			const query = 'SELECT * FROM userData WHERE user_id = ?;';
 			connection.query(query, [user_id], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
@@ -231,7 +241,8 @@ let uploadImage = async (user_id,file_path) => {
 		});
 		if (checkIfImageExist.length > 0) {
 			const response = await new Promise((resolve, reject) => {
-				const query = 'UPDATE imageRecord SET filePath = ? WHERE user_id = ?;';
+				const query =
+					'UPDATE userData SET profile_image = ? WHERE user_id = ?;';
 				connection.query(query, [file_path, user_id], (err, results) => {
 					if (err) reject(new Error(err.message));
 					resolve(results);
@@ -241,7 +252,8 @@ let uploadImage = async (user_id,file_path) => {
 		}
 		else {
 			const response = await new Promise((resolve, reject) => {
-				const query = 'INSERT INTO imageRecord (user_id, filePath) VALUES (?,?);';
+				const query =
+					'INSERT INTO userData (user_id, profile_image) VALUES (?,?);';
 				connection.query(query, [user_id, file_path], (err, results) => {
 					if (err) reject(new Error(err.message));
 					resolve(results);
@@ -289,4 +301,5 @@ module.exports = {
 	updatePassword,
 	uploadImage,
 	showAllImages,
+	getUserDetailsById,
 };

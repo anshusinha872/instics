@@ -50,7 +50,10 @@ export class LoginComponent implements OnInit {
         // localStorage.setItem('token', res.data.token);
         // localStorage.setItem('user_id', res.data.user_id);
         // localStorage.setItem('user_name', res.data.user_name);
-        console.log(res);
+        // console.log(res);
+        sessionStorage.setItem('token', res.data[0].token);
+        sessionStorage.setItem('user_id', res.data[0].user_id);
+        sessionStorage.setItem('email_id', res.data[0].email_id);
         localStorage.setItem('email_id', this.email);
         this.toastr.successToastr('Login Success');
         this.route.navigate(['/dashboard']);
