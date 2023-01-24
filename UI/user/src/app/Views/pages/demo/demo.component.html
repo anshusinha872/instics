@@ -1,0 +1,29 @@
+<div>
+  <div>
+    <input
+      accept=".jpg,.png"
+      type="file"
+      id="file"
+      class="inputfile"
+      (change)="onFileChange($event)"
+      multiple
+    />
+  </div>
+  <div for="file">Select or Drop Files</div>
+  <div>
+    <button class="btn btn-primary" (click)="upload()">Upload</button>
+  </div>
+  <div>
+    <button class="btn btn-primary" (click)="show()">show</button>
+  </div>
+  <div *ngFor="let item of image">
+    <span>
+      <img
+        class=""
+        src="data:image/png;base64,{{ item.image }}"
+        width="100px"
+        height="100px"
+      />
+    </span>
+  </div>
+</div>

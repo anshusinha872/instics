@@ -1,2 +1,9 @@
+<header
+  [ngStyle]="{
+    'display': currentRoute==='/dashboard/home' ? '' : 'none'
+  }"
+></header>
 <router-outlet></router-outlet>
-<!-- <app-side-banner></app-side-banner> -->
+<footer [ngStyle]="{
+    'display': currentRoute==='/dashboard/home' ? '' : 'none'
+  }"></footer>

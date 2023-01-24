@@ -15,12 +15,22 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   reqHeader = new HttpHeaders({
-    'Content-Type': 'application/json',
+    // 'Content-Type': 'application/json',
     // Authorization: 'Bearer ' + localStorage.getItem('token'),
   });
 
   loginUser(param): Observable<any> {
     return this.http.post(this.base_url + 'login', param, {
+      headers: this.reqHeader,
+    });
+  }
+  uploadImage(param): Observable<any> {
+    return this.http.post<any>(this.base_url + 'img/upload', param, {
+      headers: this.reqHeader,
+    });
+  }
+  showImage(): Observable<any> {
+    return this.http.get<any>(this.base_url + 'img/show', {
       headers: this.reqHeader,
     });
   }

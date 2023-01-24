@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
-  selector: 'app-footer',
+  selector: 'footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  styleUrls: ['./footer.component.css'],
 })
 export class FooterComponent implements OnInit {
-title: any;
-year: any;
+  title: any;
+  year: any;
 
-  constructor() { }
+  constructor(
+    private router : Router
+  ) {
 
-  ngOnInit(): void {
   }
 
+  ngOnInit(): void {}
+  profile() {
+    this.router.navigate([this.router.url.split('/')[1]+'/profile']);
+  }
 }

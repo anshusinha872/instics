@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         console.log(res);
         localStorage.setItem('email_id', this.email);
         this.toastr.successToastr('Login Success');
-        this.route.navigate(['/home']);
+        this.route.navigate(['/dashboard']);
       } else {
         console.log(res);
         this.toastr.errorToastr('Invalid Credentials');

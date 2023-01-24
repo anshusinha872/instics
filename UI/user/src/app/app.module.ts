@@ -19,17 +19,17 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 // import { HomeComponent } from './view/pages/home/home.component';
 import { SideBarComponent } from './Views/partial/side-bar/side-bar.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './Views/layout/dashboard/dashboard.component';
 import {AngularFireModule} from '@angular/fire/compat'
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment.prod';
-// import { NgOtpInputModule } from 'ng-otp-input';
-import { CodeComponent } from './Views/pages/code/code.component';
 import { HomeComponent } from './Views/pages/home/home.component';
-// import { HomePageComponent } from './views/partial/home-page/home-page.component';
+import { CodeComponent } from './Views/pages/code/code.component';
 import { ToastrModule } from 'ng6-toastr-notifications';
-
+import { DemoComponent } from './Views/pages/demo/demo.component';
+import { ProfileComponent } from './Views/pages/profile/profile.component';
+import { SubdashboardComponent } from './Views/layout/subdashboard/subdashboard.component';
 
 
 @NgModule({
@@ -42,11 +42,12 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     SideBarComponent,
     DashboardComponent,
     CodeComponent,
-    HomeComponent,
     FooterComponent,
     HeaderComponent,
-  
-    // HomePageComponent
+    DemoComponent,
+    HomeComponent,
+    ProfileComponent,
+    SubdashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +55,6 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     ButtonModule,
     BrowserAnimationsModule,
     InputTextModule,
-    // SliderModule,
     PasswordModule,
     DividerModule,
     FormsModule,
@@ -64,7 +64,6 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     AngularFireAuthModule,
     AngularFirestoreModule,
     FormsModule,
-    // NgOtpInputModule,
     HttpClientModule,
     ToastrModule.forRoot(),
   ],

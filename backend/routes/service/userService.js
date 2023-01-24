@@ -10,7 +10,61 @@ const resultdb = (statusCode, data = null) => {
 		data: data,
 	};
 };
-
+let convertImage = async (img) => {
+	return new Promise((resolve, reject) => {
+		console.log(img);
+		const fs = require('fs');
+		fs.access(img, fs.constants.F_OK, (err) => {
+			if (err) {
+				console.error('no access!');
+				resolve(null);
+			} else {
+				console.log('can read/write');
+				fs.readFile(img, function (err, content) {
+					if (err) {
+						reject('error');
+					} else {
+						let bitmap = fs.readFileSync(img);
+						let base64 = new Buffer(bitmap).toString('base64');
+						console.log(base64);
+						resolve(base64);
+					}
+				});
+			}
+		});
+	});
+};
+let showAllImages = async (req) => {
+	try {
+		var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+			const query = 'select * from imageRecord;';
+			connection.query(query, (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		console.log(response);
+		if (response.length > 0) {
+			let returnData = [];
+			for (let i = 0; i < response.length; i++) {
+				let item = response[i];
+				let resData = {
+					user_id: item.user_id,
+					image: await convertImage(item.filePath),
+				};
+				returnData.push(resData);
+			}
+			let item = {
+				data: returnData,
+			};
+			return resultdb(200, item);
+		}
+	} catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+}
 let userData = async (data) => {
 	// console.log('userData');
 	try {
@@ -165,7 +219,42 @@ let forgotPassword = async (contact) => {
 		return resultdb(500, err);
 	}
 };
-
+let uploadImage = async (user_id,file_path) => {
+	try {
+		var connection = config.connection;
+		const checkIfImageExist = await new Promise((resolve, reject) => {
+			const query = 'SELECT * FROM imageRecord WHERE user_id = ?;';
+			connection.query(query, [user_id], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		if (checkIfImageExist.length > 0) {
+			const response = await new Promise((resolve, reject) => {
+				const query = 'UPDATE imageRecord SET filePath = ? WHERE user_id = ?;';
+				connection.query(query, [file_path, user_id], (err, results) => {
+					if (err) reject(new Error(err.message));
+					resolve(results);
+				});
+			});
+			return resultdb(200, 'Image updated successfully');
+		}
+		else {
+			const response = await new Promise((resolve, reject) => {
+				const query = 'INSERT INTO imageRecord (user_id, filePath) VALUES (?,?);';
+				connection.query(query, [user_id, file_path], (err, results) => {
+					if (err) reject(new Error(err.message));
+					resolve(results);
+				});
+			});
+			return resultdb(200, 'Image uploaded successfully');
+		}
+	}
+	catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+}
 let updatePassword = async (req) => {
 	try {
 		var contact = req.body.contact;
@@ -198,4 +287,6 @@ module.exports = {
 	signUpUser,
 	forgotPassword,
 	updatePassword,
+	uploadImage,
+	showAllImages,
 };

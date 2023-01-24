@@ -1,0 +1,150 @@
+
+  <div *ngIf="!showProfileDetails" class="container-fluid">
+    <span (click)="navigateTodashboard()" class="heading"><i class="fas fa-chevron-left" ></i>  Profile</span>
+    
+    <div class="main-part">
+      <div class="profile-photo">
+        <img class="pro-photo"src="../../../../assets/avtar.jpg" style=" border-radius: 100%; height:100px;">
+        <div class="details">
+        <h4 class="name">Sonam Kumari</h4>
+        <h6 class="email">sonam25ranchi@gmail.com</h6>
+        <button type="button" class="btn btn-light balance">$1000</button>
+      </div>
+      </div>
+      <h5 class="category">PROFILE</h5>
+      <div (click)="showDetails()" class="profile-details">
+        <div class="sub-pro-details">
+          <i class="fas fa-user" style="margin-right:20px;"></i>
+          
+          <div class="subheading">
+            <h5>Profile Details </h5>
+            <a ><h6>View and Edit details </h6></a>
+          </div>
+        </div>
+        <a ><i class="fas fa-chevron-right" style="color:black"></i></a>
+      </div>
+     <hr class="light">
+      <h5 class="category">WITHDRAW</h5>
+      <div class="bank-details">
+        <div class="sub-bank-details">
+          <i class="fas fa-money-check-alt" style="margin-right:20px;"></i>
+          <div class="subheading">
+            <h5>Bank Details </h5>
+            <h6>Add bank, remove bank, pay later</h6>
+            </div>
+        </div>
+          <i class="fas fa-chevron-right" ></i>
+      </div>
+
+      <div class="history">
+        <div class="sub-history-details">
+          <i class="fas fa-history" style="margin-right:20px;"></i>
+          <div class="subheading">
+            <h5>History </h5>
+            <h6>view last transactions </h6>
+            </div>
+        </div>
+          <i class="fas fa-chevron-right" ></i>
+      </div>
+     
+      <hr class="light">
+  
+        <h5 class="category">SETTINGS</h5>
+        <div class="settings">
+          <div class="setting1">
+            <div class="sub-setting">
+            <i class="fas fa-bell" style="margin-right:20px;"></i>
+            <div class="subheading">
+              <h5>Push Notifications </h5>
+              <h6>On</h6>
+              </div>
+            </div>
+              <i class="fas fa-toggle-on"></i>
+          </div>
+      
+    
+          <div class="setting2">
+            <div class="sub-setting" >
+            <i class="fas fa-envelope-open-text" style="margin-right:20px;"></i>
+            <div class="subheading">
+              <h5>Email Notifications</h5>
+              <h6>On</h6>
+            </div>
+          </div>
+            <i class="fas fa-toggle-on"></i>
+          </div>
+        
+            <div class="setting3">
+              <i class="fas fa-file-contract" style="margin-right:20px;"></i>
+              <div class="subheading">
+                <h5>Terms of Use</h5>
+              </div>          
+            </div>
+        </div>
+    </div>
+   
+  </div>
+  <div *ngIf="showProfileDetails" class="container-fluid">
+    <span  class="heading"><a><i (click)="showDetails()" class="fas fa-chevron-left" style="color:white;"></i> </a>
+      Profile Details</span>
+  
+    <div class="main-part">
+      <div class="profile-photo">
+        <section id="container">
+          <label class="btn"><input id="upload" type="file" accept="image/jpeg, image/png, image/jpg"
+              style="padding:1.5rem 1rem; " (click)="uploadImage()">
+          </label>
+          <div class="canva">
+            <div class="uploadedImage"></div>
+          </div>
+        </section>
+      </div>
+  
+      <div class="profile-details">
+        <div class="sub-pro-details">
+          <i class="fas fa-user" style="margin-right:20px;"></i>
+  
+          <div class="subheading">
+            <h6>Profile </h6>
+            <input class="name-input" type="text" placeholder="Sonam Kumari">
+          </div>
+        </div>
+      </div>
+  
+      <div class="profile-details">
+        <div class="sub-pro-details">
+          <i class="fas fa-at" style="margin-right:20px;"></i>
+  
+          <div class="subheading">
+            <h6>Email-Id </h6>
+            <input class="email-input" type="text" placeholder="sonam25ranchi@gmail.com">
+          </div>
+        </div>
+      </div>
+      <div class="profile-details">
+        <div class="sub-pro-details">
+          <i class="fas fa-phone-alt" style="margin-right:20px;"></i>
+  
+          <div class="subheading">
+            <h6>Contact </h6>
+            <input class="contact-input" type="number" placeholder="7070674720">
+          </div>
+        </div>
+      </div>
+      <div class="profile-details">
+        <div class="sub-pro-details">
+          <i class="fas fa-lock" style="margin-right:20px;"></i>
+  
+          <div class="subheading">
+            <h6>Password </h6>
+            <input class="password-input" type="text" placeholder="xxxxxxxxxx">
+          </div>
+        </div>
+      </div>
+      <div class="save">
+        <button type="button" class="btn btn-primary btn-save-changes">Save changes</button>
+      </div>
+    </div>
+  </div>
+
+

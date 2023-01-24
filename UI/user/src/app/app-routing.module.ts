@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { CodeComponent } from './Views/pages/code/code.component';
+import { DashboardComponent } from './Views/layout/dashboard/dashboard.component';
 import { LoginComponent } from './Views/pages/login/login.component';
 import { SignupComponent } from './Views/pages/sign-up/sign-up.component';
-import { HomeComponent } from './Views/pages/home/home.component';
-
 
 const routes: Routes = [
   {
@@ -16,17 +12,17 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'signup',
-    component: SignupComponent
+    component: SignupComponent,
   },
   {
-    path: 'home',
-    component: HomeComponent
+    path: 'dashboard',
+    loadChildren: () => import('./Views/layout/dashboard/dashboard.module').then(m => m.DashboardModule),
+    component: DashboardComponent,
   },
- 
   {
     path: '**',
     redirectTo: 'login',
