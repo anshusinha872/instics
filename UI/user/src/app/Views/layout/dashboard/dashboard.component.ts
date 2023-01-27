@@ -13,5 +13,10 @@ export class DashboardComponent implements OnInit {
     console.log(this.currentRoute);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.router.events.subscribe((val) => {
+      this.currentRoute = this.router.url;
+      // console.log(this.currentRoute);
+    });
+   }
 }

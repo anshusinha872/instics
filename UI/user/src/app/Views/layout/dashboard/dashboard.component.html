@@ -1,11 +1,15 @@
-<!-- <header
-  [ngStyle]="{
-    'display': currentRoute==='/dashboard/home' ? '' : 'none'
-  }"
-></header> -->
-<main>
-  <router-outlet></router-outlet>
-</main>
-<!-- <footer [ngStyle]="{
-    'display': currentRoute==='/dashboard/home' ? '' : 'none'
-  }"></footer> -->
+<div class="container">
+  <header
+    [ngStyle]="{
+      display: currentRoute === '/dashboard/home' ? '' : 'none'
+    }"
+  ></header>
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+  <footer class="footer"
+    [ngStyle]="{
+      display: currentRoute === '/dashboard/home' ? '' : 'none'
+    }"
+  ></footer>
+</div>
