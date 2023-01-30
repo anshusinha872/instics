@@ -4,6 +4,8 @@ const util = require('util');
 const mysql = require('mysql');
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const secretKey = "AnshuSinha";
 const resultdb = (statusCode, data = null) => {
 	return {
 		statusCode: statusCode,
@@ -64,8 +66,8 @@ let showAllImages = async (req) => {
 	}
 }
 let getUserDetailsById = async (req) => {
-	const user_id = parseInt(req.body.user_id);
-	// console.log(user_id);
+	const user_id = parseInt(req.decoded.user_id);
+	// console.log(req.decoded.user_id);
 	try {
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
@@ -138,7 +140,21 @@ let loginUserByEmailId = async (email_id, password) => {
 		if (response.length > 0) {
 			let isValidPassword = bcrypt.compareSync(password, response[0].password);
 			if (isValidPassword) {
-				return resultdb(200, response);
+				let userData = {
+					user_id: response[0].user_id,
+					email_id: response[0].email_id,
+				}
+				// console.log(userData);
+				// JWT Token
+				let token = jwt.sign(userData,secretKey, {
+					expiresIn: 300, // expires in 5min
+				});
+				let returnData = {
+					user_id: response[0].user_id,
+					email_id: response[0].email_id,
+					token: token,
+				}
+				return resultdb(200, returnData);
 			}
 			else {
 				return resultdb(400, 'Invalid Password');

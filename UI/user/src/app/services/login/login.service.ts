@@ -7,30 +7,33 @@ import { environment} from 'src/environments/environment';
   providedIn: 'root',
 })
 export class LoginService {
-  // private base_url: string = environment.APIEndpoint;
   private base_url: string = 'http://localhost:3443/'; //local
   // private base_url: string = 'https://instincts.co.in:3443/';
-  // private base_url: string = environment.APIEndpoint;
-
   constructor(private http: HttpClient) {}
 
   reqHeader = new HttpHeaders({
-    // 'Content-Type': 'application/json',
-    // Authorization: 'Bearer ' + localStorage.getItem('token'),
+    'Content-Type': 'application/json',
   });
 
   loginUser(param): Observable<any> {
-    return this.http.post(this.base_url + 'login', param, {
+    return this.http.post<any>(this.base_url + 'login', param, {
       headers: this.reqHeader,
     });
   }
-  uploadImage(param): Observable<any> {
-    return this.http.post<any>(this.base_url + 'img/upload', param, {
+  checkUser(param): Observable<any> {
+    console.log(param);
+    return this.http.post(this.base_url + 'checkUser', param, {
       headers: this.reqHeader,
     });
   }
-  showImage(): Observable<any> {
-    return this.http.get<any>(this.base_url + 'img/show', {
+  updatePassword(param): Observable<any> {
+    return this.http.post(this.base_url + 'updatePassword', param, {
+      headers: this.reqHeader,
+    });
+  }
+  logout() {
+    sessionStorage.clear();
+    return this.http.get(this.base_url + 'logout', {
       headers: this.reqHeader,
     });
   }

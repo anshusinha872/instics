@@ -8,9 +8,7 @@ const moment = require('moment');
 const fs = require('fs');
 async function getUserData(req, res) {
 	try {
-		// console.log('getUserData');
 		let returnData = await userService.userData(req);
-		// console.log('returnData', returnData);
 		return res.status(200).json(returnData);
 	} catch (err) {
 		console.log(err);
@@ -21,7 +19,6 @@ async function loginUser(req, res) {
 		const email_id = req.body.email_id;
 		const password = req.body.password;
 		let returnData = await userService.loginUserByEmailId(email_id, password);
-		console.log('returnData', returnData);
 		return res.status(200).json(returnData);
 	} catch (err) {
 		console.log(err);
@@ -31,27 +28,20 @@ async function loginUser(req, res) {
 async function signUpUser(req, res) {
 	try {
 		let returnData = await userService.signUpUser(req);
-		// console.log('returnData', returnData);
 		return res.status(200).json(returnData);
 	} catch (err) {
 		console.log(err);
 	}
 }
 
-async function forgotPassword(req, res) {
-	// console.log('here'+req.body);
+async function checkUser(req, res) {
 	try {
 		const contact = req.body.contact;
-		// const password = req.body.password;
-		// console.log('email_id', email_id);
-		console.log('contact', contact);
-		let returnData = await userService.forgotPassword(contact);
-		console.log('returnData', returnData);
+		let returnData = await userService.checkUser(contact);
 		if (returnData.length > 0) {
 			if (returnData[0].contact == contact) {
 				returnData = {
 					statusCode: 200,
-					// data: returnData,
 					data: 'number exist',
 				};
 			} else {
@@ -101,10 +91,10 @@ async function saveImage(files) {
 	return relativePath;
 }
 async function uploadImage(req, res) {
-	const user_id=parseInt(req.body.user_id);
+	const user_id = parseInt(req.body.user_id);
+	// console.log(req.get('user_id'));
 	// console.log(user_id);
 	const path = await saveImage(req.body);
-	// console.log(path);
 	try {
 		let returnData = await userService.uploadImage(user_id, path);
 		return res.status(200).json(returnData);
@@ -132,12 +122,9 @@ async function getUserDetailsById(req, res) {
 router.get('/userData', getUserData);
 router.post('/login', loginUser);
 router.post('/signup', signUpUser);
-// router.post('/login',updatePassword)
-router.post('/forgotpassword1', forgotPassword);
-router.post('/forgotpassword2', updatePassword);
-
+router.post('/checkUser', checkUser);
+router.post('/updatePassword', updatePassword);
 router.post('/img/upload', uploadImage);
-
 router.get('/img/show', showAllImages);
 router.post('/user',getUserDetailsById)
 module.exports = router;

@@ -39,16 +39,16 @@ export class DemoComponent implements OnInit {
     }
   }
   upload() {
-    let req = new FormData();
-    req.append("profileImage", this.imageDoc.profileImage);
-    this.loginService.uploadImage(req).subscribe((res) => {
-      console.log('res'+res);
-    });
+    // let req = new FormData();
+    // req.append("profileImage", this.imageDoc.profileImage);
+    // this.loginService.uploadImage(req).subscribe((res) => {
+    //   console.log('res'+res);
+    // });
   }
   show() {
-    this.loginService.showImage().subscribe((res) => {
-      this.image = res['data']['data'];
-      console.log(this.image);
-    });
+    // this.loginService.showImage().subscribe((res) => {
+    //   this.image = res['data']['data'];
+    //   console.log(this.image);
+    // });
   }
 }

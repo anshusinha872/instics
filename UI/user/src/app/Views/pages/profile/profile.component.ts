@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { UserService } from 'src/app/services/user/user.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { SessionService } from 'src/app/services/session/session.service';
+import { LoginService } from 'src/app/services/login/login.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -12,7 +15,10 @@ export class ProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
-    private toastr: ToastrManager
+    private toastr: ToastrManager,
+    private sessionService: SessionService,
+    private LoginService: LoginService,
+    private AuthService: AuthService
   ) {}
   imageChangedEvent: any = '';
   croppedImage: any = '';
@@ -21,8 +27,21 @@ export class ProfileComponent implements OnInit {
   public showProfileDetails: boolean = false;
   public profileDetails: any = {};
   ngOnInit(): void {
+    const token = this.sessionService.get('token');
+    if (this.AuthService.tokenExpired(token)) {
+      console.log('token expired');
+      this.toastr.errorToastr('Session expired, please login again');
+      this.LoginService.logout();
+      this.router.navigate(['/login']);
+    }
     this.showProfileDetails = false;
-    this.user_id = sessionStorage.getItem('user_id');
+    // this.user_id = sessionStorage.getItem('user_id');
+    this.user_id = this.sessionService.get('user_id');
+    if (this.user_id == null) {
+      this.toastr.errorToastr('Please login to continue');
+      this.LoginService.logout();
+      this.router.navigate(['/login']);
+    }
     console.log(this.user_id);
     const req = {
       user_id: this.user_id,
@@ -37,17 +56,13 @@ export class ProfileComponent implements OnInit {
   }
   showDetails() {
     this.showProfileDetails = !this.showProfileDetails;
-    // console.log('showDetails');
   }
   uploadImage() {}
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
-    // console.log(event);
-    this.croppedImage = event.base64.split(',')[1];
-    // console.log(this.croppedImage);
-    // console.log(this.croppedImage);
+    this.croppedImage = event.base64.split(',')[1];;
   }
   imageLoaded() {
     /* show cropper */
@@ -71,7 +86,8 @@ export class ProfileComponent implements OnInit {
       this.toastr.errorToastr('Please select image');
       return;
     }
-    this.userService.uploadProfileImage(req).subscribe((res) => {
+
+    this.userService.uploadImage(req).subscribe((res) => {
       if (res.statusCode == 200) {
         this.fileName = undefined;
         this.croppedImage = undefined;

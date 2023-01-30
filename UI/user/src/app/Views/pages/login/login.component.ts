@@ -3,7 +3,6 @@ import { UserService } from 'src/app/services/user/user.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { Router } from '@angular/router';
 import { ToastrManager } from 'ng6-toastr-notifications';
-import { AuthService } from 'src/app/services/auth/auth.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -26,7 +25,6 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private route: Router,
     private toastr: ToastrManager,
-    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -47,14 +45,9 @@ export class LoginComponent implements OnInit {
     this.loginService.loginUser(req).subscribe((res) => {
       this.apiStatus = 'success';
       if (res.statusCode == 200) {
-        // localStorage.setItem('token', res.data.token);
-        // localStorage.setItem('user_id', res.data.user_id);
-        // localStorage.setItem('user_name', res.data.user_name);
-        // console.log(res);
-        sessionStorage.setItem('token', res.data[0].token);
-        sessionStorage.setItem('user_id', res.data[0].user_id);
-        sessionStorage.setItem('email_id', res.data[0].email_id);
-        localStorage.setItem('email_id', this.email);
+        sessionStorage.setItem('token', res.data.token);
+        sessionStorage.setItem('user_id', res.data.user_id);
+        sessionStorage.setItem('email_id', res.data.email_id);
         this.toastr.successToastr('Login Success');
         this.route.navigate(['/dashboard']);
       } else {
@@ -81,24 +74,18 @@ export class LoginComponent implements OnInit {
       console.log('login');
       let req = {
         contact: this.contact,
-        // password: this.password,
       };
       console.log(req);
-      this.userService.forgotUser(req).subscribe((res) => {
+      this.loginService.checkUser(req).subscribe((res) => {
         this.apiStatus = 'success';
         console.log(res);
         if (res.statusCode == 200) {
           localStorage.setItem('contact', this.contact);
           this.toastr.successToastr('number exists');
-          this.varify=true;
+          this.varify = true;
         } else {
           this.toastr.errorToastr('number not exist');
         }
-        // this.userService.userData().subscribe((res) => {
-        //   console.log(res);
-        //   this.userData = res;
-        //   console.log(this.userData);
-        // });
       });
     }
 
@@ -121,10 +108,10 @@ export class LoginComponent implements OnInit {
      password: this.password,
      contact: localStorage.getItem('contact'),
    };
-   this.userService.updatePassword(this.userData).subscribe((result) => {
+   this.loginService.updatePassword(this.userData).subscribe((result) => {
      console.log(result);
      if (result.statusCode == 200) {
-       this.toastr.successToastr('password update successfully');
+       this.toastr.successToastr('password updated successfully');
        setTimeout(() => {
         //  this.route.navigate(['/sign']);
         this.verified=false;

@@ -9,10 +9,12 @@ const fileupload = require('express-fileupload');
 const routes = require('./routes');
 const { dirname } = require('path');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const middleware = require('./middleware/middleware');
 // const { options } = require('pg/lib/defaults');
 app.use(cors());
 // const userControllerRoute = require('../routes/controller/userController');
-
+const sercretKey = "AnshuSinha";
 // app.use('/', (req, res, next) => {
 // 	res.send('hello world');
 // });
@@ -49,6 +51,7 @@ app.use(
 		limits: { fileSize: 50 * 1024 * 1024 },
 	})
 );
+app.use(middleware);
 const userController = routes.userController;
 app.use(userController);
 app.listen(3443, () => console.log('server started at 3443')); //localhost:3443
