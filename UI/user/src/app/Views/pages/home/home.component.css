@@ -41,15 +41,23 @@
   width: 100% !important;
   /* justify-content: center; */
 }
+.serviceImgContanier{
+  height: 100%;
+  overflow: hidden;
+}
+.serviceImg{
+  width: 100%;
+}
 .serviceCardHeaderWrapper {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url(../../../../assets/carousel2.jpg);
-  background-size: cover;
+  /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(../../../../assets/carousel2.jpg); */
+  /* background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   box-sizing: border-box;
   height: 70% !important;
-  color: #fff;
+  color: #fff; */
+  position: relative;
 }
 .servicecard {
   /* color: #fff; */
@@ -57,10 +65,14 @@
   border: 1px solid #cccccc;
   border-radius: 5px;
   margin: 0.5rem;
-  width: 180px;
+  /* width: 180px; */
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   padding: 0;
-  height: 200px;
+}
+.heading{
+  /* position: absolute; */
+  /* top: 0; */
+  width: 100%;
 }
 .headingText {
   /* color: #fff; */
@@ -71,6 +83,7 @@
   background: transparent !important;
 }
 .subHeadingText{
-  font-size: 15px;
+  /* font-size: 15px; */
   font-weight: 600;
+  line-height: 1.5;
 }

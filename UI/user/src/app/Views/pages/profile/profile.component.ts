@@ -6,6 +6,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { SessionService } from 'src/app/services/session/session.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -18,7 +19,8 @@ export class ProfileComponent implements OnInit {
     private toastr: ToastrManager,
     private sessionService: SessionService,
     private LoginService: LoginService,
-    private AuthService: AuthService
+    private AuthService: AuthService,
+    private location: Location
   ) {}
   imageChangedEvent: any = '';
   croppedImage: any = '';
@@ -26,6 +28,7 @@ export class ProfileComponent implements OnInit {
   fileName: string = undefined;
   public showProfileDetails: boolean = false;
   public profileDetails: any = {};
+  public currentRoute: string = '';
   ngOnInit(): void {
     const token = this.sessionService.get('token');
     if (this.AuthService.tokenExpired(token)) {
@@ -34,6 +37,8 @@ export class ProfileComponent implements OnInit {
       this.LoginService.logout();
       this.router.navigate(['/login']);
     }
+    this.currentRoute = this.router.url;
+
     this.showProfileDetails = false;
     // this.user_id = sessionStorage.getItem('user_id');
     this.user_id = this.sessionService.get('user_id');
@@ -52,7 +57,9 @@ export class ProfileComponent implements OnInit {
     });
   }
   navigateTodashboard() {
-    this.router.navigate(['/dashboard']);
+    console.log(this.currentRoute);
+    // this.router.navigate(['/dashboard']);
+    this.location.back();
   }
   showDetails() {
     this.showProfileDetails = !this.showProfileDetails;

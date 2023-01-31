@@ -1,0 +1,43 @@
+.content {
+  background-color: #a5d2f1;
+}
+.imgContainer {
+  height: 300px;
+}
+.serviceImg {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.textContainer{
+    color: #000;
+    padding: 20px;
+}
+.headingText{
+    font-size: 25px;
+    font-weight: 600;
+}
+.subHeadingText{
+    font-size: 15px;
+    font-weight: 500;
+}
+.packageContainer{
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+}
+.packageHeading{
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+}
+.packageSubHeading{
+    font-size: 15px;
+    font-weight: 500;
+}
+.orderContainer{
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+}

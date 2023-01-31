@@ -5,8 +5,10 @@ import { SessionService } from '../session/session.service';
 })
 export class AuthService {
   private token = sessionStorage.getItem('token');
+  
   constructor() {}
   public isAuthenticated(): boolean {
+    console.log('token',this.token);
     if (this.token) {
       console.log('token is present');
       console.log(this.token);
@@ -16,6 +18,8 @@ export class AuthService {
     }
   }
   public tokenExpired(token: string) {
+    if (token == null)
+      return true;
     const expiry = JSON.parse(atob(token.split('.')[1])).exp;
     return Math.floor(new Date().getTime() / 1000) >= expiry;
     

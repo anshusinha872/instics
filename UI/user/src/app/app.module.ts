@@ -31,6 +31,7 @@ import { DemoComponent } from './Views/pages/demo/demo.component';
 import { ProfileComponent } from './Views/pages/profile/profile.component';
 import { SubdashboardComponent } from './Views/layout/subdashboard/subdashboard.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { PrintComponent } from './Views/pages/print/print.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     HomeComponent,
     ProfileComponent,
     SubdashboardComponent,
+    PrintComponent,
   ],
   imports: [
     BrowserModule,

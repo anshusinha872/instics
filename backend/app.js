@@ -11,6 +11,7 @@ const { dirname } = require('path');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const middleware = require('./middleware/middleware');
+const morgan = require('morgan');
 // const { options } = require('pg/lib/defaults');
 app.use(cors());
 // const userControllerRoute = require('../routes/controller/userController');
@@ -52,6 +53,15 @@ app.use(
 	})
 );
 app.use(middleware);
+
+app.use(
+  morgan('dev', {
+    skip: function (req, res) {
+      return res.statusCode >= 400;
+    },
+    stream: process.stdout,
+  })
+);
 const userController = routes.userController;
 app.use(userController);
 app.listen(3443, () => console.log('server started at 3443')); //localhost:3443
