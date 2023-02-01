@@ -39,44 +39,65 @@
 </div>
 <div class="orderContainer">
   <div class="orderSubHeading">
-<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-    <option selected>Select Document Type</option>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
-</select>
-    <div>
-        <label for="formFile" class="form-label">Choose your pdf</label>
-        <input class="form-control" type="file" id="formFile">
+    <div class="select-menu">
+      <div id="select-btn" class="select-btn">
+        <span class="selectBtnText">Select Document Type</span>
+        <i class="fas btn-icon fa-chevron-down"></i>
+      </div>
+      <div id="select-list" class="select-list d-none">
+        <div class="select-item option">Document Type 1</div>
+        <div class="select-item option">Document Type 2</div>
+        <!-- <div class="select-item option">Document Type 3</div>
+        <div class="select-item option">Document Type 4</div> -->
+      </div> 
     </div>
     <div>
-        <span>Choose color Type</span>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-                B/W
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-                Color
-            </label>
-        </div>
+      <label for="formFile" class="form-label">Choose your pdf</label>
+      <input class="form-control" accept=".pdf" type="file" id="formFile" />
+    </div>
+    <div>
+      <span>Choose color Type</span>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="flexRadioDefault"
+          id="flexRadioDefault1"
+        />
+        <label class="form-check-label" for="flexRadioDefault1"> B/W </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="flexRadioDefault"
+          id="flexRadioDefault1"
+        />
+        <label class="form-check-label" for="flexRadioDefault1"> Color </label>
+      </div>
     </div>
   </div>
   <div>
     <span>customize </span>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-        <label class="form-check-label" for="flexRadioDefault1">
-            All Pages
-        </label>
+      <input
+        class="form-check-input"
+        type="radio"
+        name="flexRadioDefault"
+        id="flexRadioDefault1"
+      />
+      <label class="form-check-label" for="flexRadioDefault1">
+        All Pages
+      </label>
     </div>
     <div>
-        Select Range of Pages
-        <input type="text" class="form-control" placeholder="1,2,3,4,5,6,7,8,9,10">
-        <!-- <label for="customRange3" class="form-label">Example range</label>
+      Select Range of Pages
+      <input
+        type="text"
+        class="form-control"
+        placeholder="1,2,3,4,5,6,7,8,9,10"
+      />
+      <!-- <label for="customRange3" class="form-label">Example range</label>
         <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3"> -->
     </div>
   </div>
