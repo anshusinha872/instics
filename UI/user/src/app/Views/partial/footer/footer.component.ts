@@ -19,4 +19,10 @@ export class FooterComponent implements OnInit {
   profile() {
     this.router.navigate([this.router.url.split('/')[1]+'/profile']);
   }
+  cart() {
+    this.router.navigate([this.router.url.split('/')[1]+'/cart']);
+  }
+  // home() {
+  //   this.router.navigate([this.router.url.split('/')[1]+'/home']);
+  // }
 }

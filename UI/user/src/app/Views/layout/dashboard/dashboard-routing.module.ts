@@ -22,6 +22,11 @@ const routes: Routes = [
     path: 'print',
     loadChildren: () => import('../../pages/print/print.module').then(m => m.PrintModule),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'cart',
+    loadChildren: () => import('../../pages/cart/cart.module').then(m => m.CartModule),
+    canActivate: [AuthGuard],
   }
 ];
 
