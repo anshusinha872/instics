@@ -1,14 +1,19 @@
-.icon{
-    position:relative; 
-    top:-10px; 
-    
-}
-#icon1{
-    left:80px;
-   
-}
 nav{
-    margin-top: 4px;
-    height: 25px;
-   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar{
+    height:max-content;
+}
+.logo{
+ display: flex;
+ height: 30px;
+}
+.options{
+    display: flex;
+    justify-content: space-between;
+}
+.icon{
+    padding:10px;
 }

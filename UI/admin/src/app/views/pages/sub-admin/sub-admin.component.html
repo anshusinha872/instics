@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <div class="headerContainer">
+        Sub Admin Details
+    </div>
+    <form class="inputBoxWrapper">
+        <div class="inputContainer">
+            <span class="p-float-label">
+                <input id="userName" name="userName" [(ngModel)]="userName" type="text" pInputText />
+                <label for="userName">Username</label>
+            </span>
+        </div>
+        <div class="inputContainer">
+            <span class="p-float-label">
+                <input id="userId" name="userId" [(ngModel)]="userId" type="text" pInputText />
+                <label for="userId">User Id</label>
+            </span>
+        </div>
+        <div class="inputContainer">
+            <span class="p-float-label">
+                <!-- <i class="fa-solid fa-lock"></i> -->
+                <p-password name="password" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" [(ngModel)]="password"></p-password>
+            </span>
+        </div>
+        <div class="inputContainer">
+            <span class="p-float-label">
+                <!-- <input name="registrationDate" id="registrationDate" [(ngModel)]="registrationDate" type="text" pInputText /> -->
+                <label for="registrationDate">Registration Date</label>
+                <p-calendar [(ngModel)]="registrationDate"></p-calendar>
+
+            </span>
+        </div>
+        <div class="inputContainer">
+            <span class="p-float-label">
+                <input  name="remarks" id="remarks" [(ngModel)]="remarks" type="text" pInputText />
+                <label for="remarks">Remark</label>
+            </span>
+        </div>
+        <div class="inputContainer">
+            <span class="p-float-label">
+                <input name="roleId" id="roleId" [(ngModel)]="roleId" type="text" pInputText />
+                <label for="roleId">Role Id</label>
+            </span>
+        </div>
+    </form>
+    <div class="headerContainer">
+        <button (click)="submit()" class="btn btn-primary" >submit</button>
+    </div>
+
+    
+</div>

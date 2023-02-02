@@ -4,14 +4,18 @@ const util = require('util');
 const https = require('https');
 const path = require('path');
 const fs = require('fs');
+const fileupload = require('express-fileupload');
 // const mysql = require('mysql');
 const routes = require('./routes');
 const { dirname } = require('path');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const middleware = require('./middleware/middleware');
+const morgan = require('morgan');
 // const { options } = require('pg/lib/defaults');
 app.use(cors());
 // const userControllerRoute = require('../routes/controller/userController');
-
+const sercretKey = "AnshuSinha";
 // app.use('/', (req, res, next) => {
 // 	res.send('hello world');
 // });
@@ -42,7 +46,22 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions)); // Use this
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(
+	fileupload({
+		limits: { fileSize: 50 * 1024 * 1024 },
+	})
+);
+app.use(middleware);
+
+app.use(
+  morgan('dev', {
+    skip: function (req, res) {
+      return res.statusCode >= 400;
+    },
+    stream: process.stdout,
+  })
+);
 const userController = routes.userController;
 app.use(userController);
 app.listen(3443, () => console.log('server started at 3443')); //localhost:3443

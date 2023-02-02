@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { SessionService } from '../session/session.service';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  constructor(private route: Router) { }
-  sendToken(token: string) {
-    localStorage.setItem("LoggedInUser", token)
+  private token = sessionStorage.getItem('token');
+  
+  constructor() {}
+  public isAuthenticated(): boolean {
+    console.log('token',this.token);
+    if (this.token) {
+      console.log('token is present');
+      console.log(this.token);
+      return true;
+    } else {
+      return false;
+    }
   }
-  getToken() {
-    return localStorage.getItem("LoggedInUser")
-  }
-  isLoggednIn() {
-    return this.getToken() !== null;
-  }
-  logout() {
-    localStorage.removeItem("LoggedInUser");
-    this.route.navigate(["login"]);
+  public tokenExpired(token: string) {
+    if (token == null)
+      return true;
+    const expiry = JSON.parse(atob(token.split('.')[1])).exp;
+    return Math.floor(new Date().getTime() / 1000) >= expiry;
+    
   }
 }

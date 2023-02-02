@@ -1,0 +1,187 @@
+.container-fluid {
+  height: 98vh;
+  background-color: rgb(66, 95, 238);
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+.main-part {
+  height: 98vh;
+  background-color: white;
+  border-radius: 20px 20px 0 0;
+  margin-top: 20px;
+}
+.heading {
+  text-align: center;
+  padding: 10px 20px;
+  font-size: x-large;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+.profile-details,
+.bank-details,
+.history {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+.sub-pro-details,
+.sub-bank-details,
+.sub-history-details {
+  display: flex;
+  align-items: center;
+}
+.profile-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.details,
+.pro-photo {
+  margin: 20px;
+}
+.email {
+  color: rgb(161, 160, 160);
+}
+.category {
+  color: rgb(161, 160, 160);
+  margin: 20px;
+}
+.setting1,
+.setting2 {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+  justify-content: space-between;
+}
+.sub-setting {
+  display: flex;
+  align-items: center;
+}
+.setting3 {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+}
+.light {
+  border-top: 1px solid grey;
+}
+.container-fluid {
+  height: 98vh;
+  background-color: rgb(66, 95, 238);
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+.main-part {
+  height: 98vh;
+  background-color: white;
+  border-radius: 20px 20px 0 0;
+  margin-top: 20px;
+}
+.heading {
+  text-align: center;
+  padding: 10px 20px;
+  font-size: x-large;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-details {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px;
+  padding: 1.2rem 1.2rem;
+  background-color: rgb(247, 244, 244);
+  border-radius: 20px;
+}
+.name-input,
+.contact-input,
+.password-input,
+.email-input {
+  border: none;
+  background-color: rgb(247, 244, 244);
+}
+.sub-pro-details,
+.sub-bank-details {
+  display: flex;
+  align-items: center;
+}
+.text-center {
+  padding: 0 2rem !important;
+}
+.save {
+  position: absolute;
+  top: 85vh;
+  left: 35vw;
+}
+.imgCont {
+  width: 100%;
+  padding: 0 !important;
+  align-items: center;
+  margin: 0 auto !important;
+  justify-content: center;
+}
+.ImageContainer {
+  background-color: rgb(66, 95, 238);
+  border-radius: 10px;
+  width: 360px !important;
+}
+.pagesideposition {
+  position: absolute;
+  width: 50%;
+  height: 14px;
+  left: 42%;
+  top: 10px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.308511px;
+  color: #a38869;
+}
+.galleryImagePosition {
+  width: 34px;
+  height: 34px;
+  left: 48%;
+  top: 49px;
+}
+.imgCont {
+  width: 100%;
+  padding: 0 !important;
+  align-items: center;
+  margin: 0 auto !important;
+  justify-content: center;
+}
+.imageRules {
+  color: #f5f2f0;
+}
+.textPosition {
+  overflow: hidden !important;
+  color: #fff;
+}
+.fileName {
+  max-width: 400px !important;
+}
+.logOutBtn{
+  text-decoration: none !important;
+  border: none !important;
+  border: 0 !important;
+}

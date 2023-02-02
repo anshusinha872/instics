@@ -1,57 +1,71 @@
-<nav
+<!-- <nav
   class="navbar fixed-bottom navbar-light bg-light navbar-shadow"
-  style="padding: 0"
+  style="padding: 0px"
 >
   <div class="container-fluid">
-
     <a class="nav-link active" aria-current="page" [routerLink]="['/home']">
-        <div class="icon">
-            <i class="fa-solid fa-house-user"></i>
-        </div>
-        <div class="name">
-            <p>
-                Home
-            </p>
-        </div>
-
-      </a>
+      <div class="icon">
+        <i class="fa-solid fa-house-user fa-2x"></i>
+      </div>
+    </a>
     <a class="nav-link active" aria-current="page" [routerLink]="['/home']">
-        <div class="icon">
-            <i class="fa-solid fa-message"></i>
-        </div>
-        <div class="name">
-            <p>
-                contactUs
-            </p>
-        </div>
+      <div class="icon">
+        <i class="fa-solid fa-message fa-2x"></i>
+      </div>
+    </a>
+    <a class="nav-link" href="#">
+      <div class="icon">
+        <i class="fa-solid fa-compass fa-2x"></i>
+      </div>
+    </a>
 
-      </a>
-             <a class="nav-link" href="#"
-             >
-             <div class="icon">
-
-                 <i class="fa-solid fa-compass"></i>
-                </div>
-                <div class="name">
-                    <p >
-                        Explore
-                    </p>
-                </div>
-                </a>
-
-            <a class="nav-link" href="#" 
-              >
-              <div class="icon">
-                  <i class="fa-regular fa-user"></i>
-              </div>
-              <div class="name">
-                    <p>
-                        Profile
-                    </p>
-              </div>
-            
-            </a>
-        
-    
+    <a class="nav-link" href="#" [routerLink]="['/profile']">
+      <div class="icon">
+        <i class="fa-regular fa-user fa-2x"></i>
+      </div>
+    </a>
   </div>
-</nav>
+</nav> -->
+
+<div class="footerContainer">
+  <!-- <i class="fa-solid fa-2x fa-house"></i>
+  <i class="fa-solid fa-bell"></i>
+  <i class="fa-solid fa-circle-user"></i>
+  <i class="fa-solid fa-cart-shopping"></i> -->
+  <button class="logoContainer">
+    <span>
+      <img class="logo" src="../../../../assets/footerIcon/home-svgrepo-com.svg" alt="">
+    </span>
+    <span>
+      home
+    </span>
+  </button>
+  <button (click)="cart()" class="logoContainer">
+    <span>
+      <img class="logo" src="../../../../assets/footerIcon/cart-lines-1-svgrepo-com.svg" alt="">
+    </span>
+    <span>
+      cart
+    </span>
+  </button>
+  <button  class="logoContainer">
+    <span>
+      <img class="logo" src="../../../../assets/footerIcon/category-svgrepo-com.svg" alt="">
+    </span>
+    <span>
+      category
+    </span>
+  </button>
+  <!-- <div>
+    <img class="logo" src="../../../../assets/footerIcon/bell-svgrepo-com.svg" alt="">
+  </div> -->
+  <button (click)="profile()" class="logoContainer">
+  
+    <span>
+      <img class="logo" src="../../../../assets/footerIcon/user-square-svgrepo-com.svg" alt="">
+    </span>
+    <span>
+      profile
+    </span>
+  </button>
+</div>

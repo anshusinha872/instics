@@ -1,0 +1,133 @@
+<div class="content">
+  <div class="imgContainer">
+    <img class="serviceImg" src="./assets/printService/5128557.jpg" alt="" />
+  </div>
+  <div class="textContainer">
+    <div class="headingText">Instics is a new way of printing.</div>
+    <div class="subHeadingText">
+      we use digital printing using graphics to create beautiful and high
+      quality prints at very low prices.
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid my-3">
+  <div class="packageContainer my-2">
+    <div class="packageHeading">Standard</div>
+    <div class="packageSubHeading">
+      Unlimited Pages Colour, B&W, Multi Colour. Binding Configuration..
+      <ul>
+        <li>Print multiple documents, multiple times</li>
+        <li>B/W or Colour</li>
+        <li>Spiral / Stapled / Loose copies</li>
+        <li>Low pricing compared to home printer or Local shops</li>
+      </ul>
+    </div>
+  </div>
+  <div class="packageContainer my-3">
+    <div class="packageHeading">Official Documents</div>
+    <div class="packageSubHeading">
+      Customization of Covers. B&W and Colour. Printing Instructions.
+      <ul>
+        <li>B/w or Colour</li>
+        <li>Regular and Bond paper type</li>
+        <li>Ideal for Thesis / Project</li>
+        <li>Low pricing compared to home printer / Local shops</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="orderContainer">
+  <div class="orderSubHeading">
+    <div class="select-menu">
+      <div id="select-btn" class="select-btn">
+        <span class="selectBtnText">Select Document Type</span>
+        <i class="fas btn-icon fa-chevron-down"></i>
+      </div>
+      <div id="select-list" class="select-list d-none">
+        <div class="select-item option">Standard</div>
+        <div class="select-item option">Official Document</div>
+        <!-- <div class="select-item option">Document Type 3</div>
+        <div class="select-item option">Document Type 4</div> -->
+      </div>
+    </div>
+    <div>
+      <label for="formFile" class="form-label">Choose your pdf</label>
+      <input (change)="handleInputPdfFile($event)" class="form-control" accept=".pdf" type="file" id="formFile" />
+    </div>
+    <div class="d-flex my-2 flex-row justify-content-between">
+      <span>Choose color Type</span>
+      <div class="form-check">
+        <input
+          (ngModelChange)="changeColorMode($event)"
+          [(ngModel)]="colorMode"
+          class="form-check-input"
+          type="radio"
+          name="colorType"
+          id="blackWhitePrint"
+          value="1"
+          checked
+        />
+        <label class="form-check-label" for="blackWhitePrint"> B/W </label>
+      </div>
+      <div class="form-check">
+        <input
+          (ngModelChange)="changeColorMode($event)"
+          [(ngModel)]="colorMode"
+          class="form-check-input"
+          type="radio"
+          name="colorType"
+          id="colorPrint"
+          value="2"
+        />
+        <label class="form-check-label" for="colorPrint"> Color </label>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="d-flex my-2 flex-row">
+      <div class="form-check">
+        <input
+          (ngModelChange)="changePrintRange($event)"
+          [(ngModel)]="pageRange"
+          class="form-check-input"
+          type="radio"
+          name="pageRange"
+          id="allPageInRange"
+          value="1"
+          checked
+        />
+        <label class="form-check-label" for="allPageInRange"> All Pages </label>
+      </div>
+      <div class="form-check mx-3">
+        <input
+          (ngModelChange)="changePrintRange($event)"
+          [(ngModel)]="pageRange"
+          class="form-check-input"
+          type="radio"
+          name="pageRange"
+          id="customPageInRange"
+          value="2"
+        />
+        <label class="form-check-label" for="customPageInRange">
+          Custom Pages
+        </label>
+      </div>
+    </div>
+
+    <div *ngIf="customRangePrint">
+      Select Range of Pages
+      <input
+        type="text"
+        class="form-control"
+        placeholder="1,2,3,4,5,6,7,8,9,10"
+      />
+      <!-- <label for="customRange3" class="form-label">Example range</label>
+        <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3"> -->
+    </div>
+  </div>
+  <div class="orderButtonContainer d-flex flex-row justify-content-center my-2">
+    <button (click)="addToCart()" type="button" class="btn btn-primary">Add to cart</button>
+
+  </div>
+</div>

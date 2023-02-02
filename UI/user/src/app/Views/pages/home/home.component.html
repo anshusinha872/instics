@@ -1,117 +1,125 @@
-<!-- <nav
-  class="navbar fixed-bottom navbar-light bg-light navbar-shadow"
-  style="padding: 0"
+<div class="services pt-2 pb-4">
+  <div class="categories">
+    <a href="#"><img class="food imgShadow" src="./assets/food.jfif" /></a>
+  </div>
+  <div class="categories">
+    <a href="#"><img class="laundry imgShadow" src="./assets/laundry.png" /></a>
+  </div>
+  <div class="categories">
+    <a href="#"><img class="print imgShadow" src="./assets/print.jfif" /></a>
+  </div>
+  <div class="categories">
+    <a href="#"
+      ><img class="grocery imgShadow" src="./assets/grocery.jfif"
+    /></a>
+  </div>
+</div>
+
+<!-- carousel -->
+
+<div
+  id="carouselExampleInterval"
+  class="carousel slide"
+  data-bs-ride="carousel"
 >
-  <div class="container-fluid">
-    <a class="nav-link active" aria-current="page" [routerLink]="['/home']"
-      ><i class="nav-icon fas fa-2x fa-home"></i
-    ></a>
-    <a class="nav-link" href="#" [routerLink]="['/home']"
-      ><i class="nav-icon fas fa-2x fa-cart-plus"></i
-    ></a>
-    <a class="nav-link" href="#" [routerLink]="['/login']"
-      ><i class="nav-icon fas fa-2x fa-user"></i
-    ></a>
-    <a class="nav-link" href="#" [routerLink]="['/home']"
-      ><i class="nav-icon fas fa-2x fa-bell"></i
-    ></a>
-  </div>
-</nav> -->
-
-<!-- <div class="welcome">
-  <div class="greet">
-    <h1>Good morning!</h1>
-    <h2>User101</h2>
-  </div>
-  <div class="weather">
-    <i class="fas fa-3x fa-cloud-sun" style="color: white"></i>
-  </div>
-</div> -->
-
-<!-- <div class="heading">
-  <div class="head">
-    <h2>Instincts!!</h2>
-  </div>
-  
-</div> -->
-<app-header></app-header>
-<app-home-page></app-home-page>
-
-<section id="services">
-
-  <div class="cardContainer row m-0">
-    <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
-      <div class="card p-2 flex-column align-items-center justify-content-between" id="card1">
-        <div class="tex">
-          <a class="nav-link" href="#" [routerLink]="['/login']">Food Delivery</a>
-        </div>
-        <!-- <div class="cardIconWrapper">
-          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
-          
-        </div> -->
-      </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="10000">
+      <img src="./assets/carousel1.jpg" class="d-block w-100" alt="..." />
     </div>
-    <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
-      <div class="card p-2 flex-column align-items-center justify-content-between" id="card2">
-        <div  class="tex">Printing</div>
-        <!-- <div class="cardIconWrapper">
-          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
-        </div> -->
-      </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="./assets/college.jpg" class="d-block w-100" alt="..." />
     </div>
-    <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
-      <div class="card p-2 flex-column align-items-center justify-content-between" id="card3">
-        <div  class="tex">Laundary</div>
-        <!-- <div class="cardIconWrapper">
-          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
-        </div> -->
-      </div>
+    <div class="carousel-item">
+      <img src="./assets/carousel2.jpg" class="d-block w-100" alt="..." />
     </div>
-    <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
-      <div class="card p-2 flex-column align-items-center justify-content-between" id="card4">
-        <div  class="tex">Decoration</div>
-        <!-- <div class="cardIconWrapper">
-          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
-        </div> -->
-      </div>
-    </div>
-    <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
-      <div class="card p-2 flex-column align-items-center justify-content-between" id="card4">
-        <div  class="tex">Food Delivery</div>
-        <!-- <div class="cardIconWrapper">
-          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
-        </div> -->
-      </div>
-    </div>
-    <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
-      <div class="card p-2 flex-column align-items-center justify-content-between" id="card4">
-        <div  class="tex">Food Delivery</div>
-        <!-- <div class="cardIconWrapper">
-          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
-        </div> -->
-      </div>
-    </div>
-    <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
-      <div class="card p-2 flex-column align-items-center justify-content-between" id="card4">
-        <div  class="tex">Food Delivery</div>
-        <!-- <div class="cardIconWrapper">
-          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
-        </div> -->
-      </div>
-    </div>
-    <div class="cardWrapper my-3 col-6 p-0 d-flex justify-content-center">
-      <div class="card p-2 flex-column align-items-center justify-content-between" id="card4">
-        <div  class="tex">Food Delivery</div>
-        <!-- <div class="cardIconWrapper">
-          <i class="fa-solid fa-pizza-slice fa-2xl"></i>
-        </div> -->
-      </div>
+    <div class="carousel-item">
+      <img src="./assets/printing.jpg" class="d-block w-100" alt="..." />
     </div>
   </div>
-
-<!-- </div> -->
-</section>
-  <div>
-
-    <app-footer></app-footer>
- </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleInterval"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleInterval"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<div class="serviceTypeHeader">
+  <span class="serviceTypeText d-flex flex-row">
+    <span> Services </span>
+    <div class="serviceTypeBorder"></div>
+  </span>
+</div>
+<div class="serviceContainer column">
+  <button (click)="redirect('/print')" class="servicecard">
+    <div  class="serviceCardHeaderWrapper">
+      <div class="heading px-2 d-flex justify-content-between">
+        <span class="headingText">Print</span>
+        <span class="headingIcon"><i class="fa-solid fa-2x fa-caret-right"></i></span>
+      </div>
+      <div class="serviceImgContanier">
+        <img class="serviceImg" src="./assets/serviceImg/printerImg.jpeg" alt="">
+      </div>
+      
+    </div>
+    <div class="subHeading px-2">
+      <span class="subHeadingText"
+        >With our affordable and secure online document printing services</span
+      >
+    </div>
+  </button>
+  <div class="servicecard">
+    <div class="serviceCardHeaderWrapper">
+      <div class="serviceImgContanier">
+        <img class="serviceImg" src="/assets/carousel2.jpg" alt="">
+      </div>
+      <div class="heading px-2 d-flex justify-content-between">
+        <span class="headingText">Print</span>
+        <span class="headingIcon"><i class="fa-solid fa-2x fa-caret-right"></i></span>
+      </div>
+    </div>
+    <div class="subHeading px-2">
+      <span class="subHeadingText">With our affordable and secure online document printing services</span>
+    </div>
+  </div>
+  <div class="servicecard">
+    <div class="serviceCardHeaderWrapper">
+      <div class="heading px-2 d-flex justify-content-between">
+        <span class="headingText">Print</span>
+        <span class="headingIcon"><i class="fa-solid fa-2x fa-caret-right"></i></span>
+      </div>
+      <div class="serviceImgContanier">
+        <img class="serviceImg" src="/assets/carousel2.jpg" alt="">
+      </div>
+      
+    </div>
+    <div class="subHeading px-2">
+      <span class="subHeadingText">With our affordable and secure online document printing services</span>
+    </div>
+  </div>
+  <div class="servicecard">
+    <div class="serviceCardHeaderWrapper">
+      <div class="serviceImgContanier">
+        <img class="serviceImg" src="/assets/carousel2.jpg" alt="">
+      </div>
+      <div class="heading px-2 d-flex justify-content-between">
+        <span class="headingText">Print</span>
+        <span class="headingIcon"><i class="fa-solid fa-2x fa-caret-right"></i></span>
+      </div>
+    </div>
+    <div class="subHeading px-2">
+      <span class="subHeadingText">With our affordable and secure online document printing services</span>
+    </div>
+  </div>
+</div>

@@ -1,206 +1,89 @@
-@import url("https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap");
-@import url("https://kit.fontawesome.com/0ed9c139be.js");
-
-.nav-link {
-  /* display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  height: 100%;
-  padding: 0 20px;
-  align-items: center; */
-}
-.mainHeading{
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 2em;
-  color: #7f669d;
-}
-.container-fluid {
-  /* height: 100%; */
-}
-.nav-link:hover {
-  /* border-top: 4px solid #7f669d;
-  background: linear-gradient(to bottom, #c6a1cf 0%, white 100%); */
-}
-.navbar-shadow {
-  /* box-shadow: 1px 0px 10px grey; */
-}
-.navbar {
-  /* background-color: white;
-  height: 6vh; */
-}
-
-.nav-icon:hover {
-  /* color: #7f669d; */
-}
-
-.welcome {
-  background: url(../../../../assets/bg.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 30vh;
-  position: relative;
-  z-index: -1;
+.services {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
-.greet {
-  font-family: "Edu NSW ACT Foundation", cursive;
-  padding-left: 5%; 
+.food,
+.print,
+.grocery,
+.laundry {
+  border-radius: 100%;
+  height: 70px;
+  width: 70px;
 }
-.weather {
-  padding-right: 5%;
+.carousel-item {
+  height: 25vh;
+  overflow: hidden;
 }
-section{
-    height:100vh;
-    width:100%;
-    display:grid;
-    place-items:center;
-  }
-  .row{
-    display:flex;
-    flex-wrap: wrap;
-  }
-  .column{
-    width:100%;
-    border:1px solid orange;
-    padding:0 1em 1em 1em;
-    text-align:center;
-  }
-  .card{
-    
-    width:100%;
-    height: 100%;
-    padding:2em 1.5em;
-    background: linear-gradient(#ffff 50%,#9d77da 50%);
-    background-size:200% 200%;
-    background-position:0 2.5%;
-    border-radius:5px;
-    box-shadow:0 0 35px rgba(0,0,0,0.12);
-    cursor:pointer;
-  }
-  h3{
-    font-size:20px;
-    font-weight:600;
-    color:#1f194c;
-    margin:1em 0;
-  }
-  p{
-    color:#575a7b;
-    font-size:15px;
-    line-height:1.6;
-    letter-spacing:0.03em;
-  }
-
-.card {
-  width: 150px !important;
-  height: 100px !important;
-  box-sizing: border-box !important;
-  /* padding: 2em 1.5em; */
-  /* background: linear-gradient(#ffff 90%, #9d77da 10%); */
-  /* background-size: 100% 200%; */
-  /* background-position: 0 2.5%; */
-  border-radius: 5px;
-  /* box-shadow: 0 0 35px rgba(0, 0, 0, 0.12); */
-  box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.25);
-  cursor: pointer;
+.imgShadow {
+  -webkit-box-shadow: 10px 10px 19px -12px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 10px 10px 19px -12px rgba(0, 0, 0, 1);
+  box-shadow: 10px 10px 19px -12px rgba(0, 0, 0, 1);
 }
-.cardWrapper{
-  box-sizing: border-box !important;
-  
+.serviceTypeHeader {
+  padding: 0.5rem;
+  margin: 0;
+  border-bottom: 1px solid #e0e0e0;
 }
-h3 {
-  /* font-size: 20px;
-  font-weight: 600;
-  color: #1f194c;
-  margin: 1em 0; */
+.serviceTypeText {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #000;
 }
-p {
-  /* color: #575a7b;
-  font-size: 15px;
-  line-height: 1.6;
-  letter-spacing: 0.03em; */
+.serviceTypeBorder {
+  border-top: 1px solid #cccccc;
 }
-
-.icon-wrapper {
-  /* background-color: #9d77da;
+.serviceContainer {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  margin: 0;
+  flex-wrap: wrap;
+  width: 100% !important;
+  /* justify-content: center; */
+}
+.serviceImgContanier{
+  height: 100%;
+  overflow: hidden;
+}
+.serviceImg{
+  width: 100%;
+}
+.serviceCardHeaderWrapper {
+  /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(../../../../assets/carousel2.jpg); */
+  /* background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  height: 70% !important;
+  color: #fff; */
   position: relative;
-  margin: auto;
-  font-size: 30px;
-  height: 2.5em;
-  width: 2.5em;
-  color: #ffffff;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  transition: 0.5s; */
 }
-
-.card:hover {
-  /* background-position: 0 100%; */
+.servicecard {
+  /* color: #fff; */
+  font-family: "Poppins", sans-serif;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  margin: 0.5rem;
+  /* width: 180px; */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  padding: 0;
 }
-.card:hover .icon-wrapper {
-  /* background-color: #ffffff;
-  color: #9d77da; */
+.heading{
+  /* position: absolute; */
+  /* top: 0; */
+  width: 100%;
 }
-.card:hover h3 {
-  /* color: #ffffff; */
+.headingText {
+  /* color: #fff; */
+  font-size: 1.5rem;
+  font-weight: 600;
 }
-.card:hover p {
-  color: #f0f0f0;
+.imgContainer {
+  background: transparent !important;
 }
-@media screen and (min-width: 768px) {
-  /* section {
-    padding: 0 2em;
-  }
-  .column {
-    flex: 0 50%;
-    max-width: 50%;
-  } */
-}
-
-@media screen and (min-width: 992px) {
-  /* section {
-    padding: 1em 3em;
-  }
-  .column {
-    flex: 0 0 33.33%;
-    max-width: 33.33%;
-  } */
-}
-
-
-
-#card1{
-  background-image: url("images/food.avif");
-  /* background-size: 100%; */
-    background-repeat: no-repeat;
-    background-size: 150px 70px;
-    
-}
-#card2{
-  background-image: url("images/print.avif");
-  /* background-size: 100%; */
-    background-repeat: no-repeat;
-    background-size: 150px 70px;
-}
-#card3{
-  background-image: url("images/wash.avif");
-  /* background-size: 100%; */
-    background-repeat: no-repeat;
-    background-size: 150px 70px;
-}
-#card4{
-  background-image: url("images/decoration.avif");
-  /* background-size: 100%; */
-    background-repeat: no-repeat;
-    background-size: 150px 70px;
-}
-
-.tex{
-  font-size: 15px;
-  font-weight: bold;
-  color:black;
-  
-  margin-top: 50%;
+.subHeadingText{
+  /* font-size: 15px; */
+  font-weight: 600;
+  line-height: 1.5;
 }
