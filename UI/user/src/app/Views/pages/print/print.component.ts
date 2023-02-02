@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as pdfjs from 'pdfjs-dist';
 @Component({
   selector: 'app-print',
   templateUrl: './print.component.html',
@@ -6,11 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrintComponent implements OnInit {
   constructor() {}
+  pageCount: number;
+  public printPricing = [];
   public pageRange;
   public customRangePrint = false;
   public colorMode = 1;
   public pdfFile;
   ngOnInit(): void {
+    pdfjs.GlobalWorkerOptions.workerSrc = 'pdf.worker.js';
     const select_menu = document.getElementById('select-menu');
     const select_btn = document.getElementById('select-btn');
     const select_list = document.getElementById('select-list');
@@ -42,6 +46,50 @@ export class PrintComponent implements OnInit {
         icon[0].classList.add('fa-chevron-down');
       });
     });
+    this.printPricing = [
+      [
+        {
+          id: 1,
+          name: 'Black & White',
+          price: 2.00,
+          description: 'Print in black and white',
+        },
+        {
+          id: 2,
+          name: 'Color',
+          price: 5.00,
+          description: 'Print in color',
+        },
+        {
+          id: 3,
+          name: 'Photo Paper',
+          price: 10.00,
+          description: 'Print on photo paper',
+        },
+      ],
+      [
+        {
+          id: 1,
+          name: 'Black & White',
+          price: 5.00,
+          description: 'Print in black and white',
+        },
+        {
+          id: 2,
+          name: 'Color',
+          price: 10.00,
+          description: 'Print in color',
+        },
+        {
+          id: 3,
+          name: 'Photo Paper',
+          price: 20.00,
+          description: 'Print on photo paper',
+        },
+      ],
+    ];
+    console.log(this.printPricing);
+    console.log(this.printPricing[0][0].price);
   }
   changePrintRange(event) {
     event == 2
@@ -84,4 +132,16 @@ export class PrintComponent implements OnInit {
   //   const pageCount = pdfDoc.getPageCount();
   //   return pageCount;
   // }
+  onFileChange(event) {
+    const file = event.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      const typedArray = new Uint8Array(fileReader.result as ArrayBuffer);
+      pdfjs.getDocument(typedArray).promise.then((pdf) => {
+        this.pageCount = pdf.numPages;
+        console.log(this.pageCount);
+      });
+    };
+    fileReader.readAsArrayBuffer(file);
+  }
 }
