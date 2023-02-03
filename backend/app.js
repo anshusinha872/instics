@@ -12,6 +12,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const middleware = require('./middleware/middleware');
 const morgan = require('morgan');
+const { pdfController } = require('./routes');
 // const { options } = require('pg/lib/defaults');
 app.use(cors());
 // const userControllerRoute = require('../routes/controller/userController');
@@ -64,6 +65,7 @@ app.use(
 );
 const userController = routes.userController;
 app.use(userController);
+app.use(pdfController);
 app.listen(3443, () => console.log('server started at 3443')); //localhost:3443
 
 // app.listen(3000, () => {

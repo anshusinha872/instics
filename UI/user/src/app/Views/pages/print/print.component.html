@@ -136,18 +136,14 @@
 </div>
 <div class="orderContainer">
   <div class="orderSubHeading">
-    <div class="select-menu">
-      <div id="select-btn" class="select-btn">
-        <span class="selectBtnText">Select Document Type</span>
-        <i class="fas btn-icon fa-chevron-down"></i>
-      </div>
-      <div id="select-list" class="select-list d-none">
-        <div class="select-item option">Standard</div>
-        <div class="select-item option">Official Document</div>
-        <!-- <div class="select-item option">Document Type 3</div>
-        <div class="select-item option">Document Type 4</div> -->
-      </div>
-    </div>
+    <p-selectButton
+      [options]="documentOption"
+      optionValue="value"
+      [(ngModel)]="selectedDocumentType"
+      optionLabel="label"
+      (ngModelChange)="changeDocType($event)"
+      ></p-selectButton
+    >
     <div>
       <label for="formFile" class="form-label">Choose your pdf</label>
       <input
@@ -169,7 +165,6 @@
           name="colorType"
           id="blackWhitePrint"
           value="1"
-          checked
         />
         <label class="form-check-label" for="blackWhitePrint"> B/W </label>
       </div>
@@ -200,7 +195,7 @@
     </div>
   </div>
   <div>
-    <div class="d-flex my-2 flex-row">
+    <div *ngIf="false" class="d-flex my-2 flex-row">
       <div class="form-check">
         <input
           (ngModelChange)="changePrintRange($event)"
@@ -230,15 +225,44 @@
       </div>
     </div>
 
-    <div *ngIf="customRangePrint">
+    <div *ngIf="pageCount >= 1">
       Select Range of Pages
-      <input
-        type="text"
-        class="form-control"
-        placeholder="1,2,3,4,5,6,7,8,9,10"
-      />
-      <!-- <label for="customRange3" class="form-label">Example range</label>
-        <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3"> -->
+      <h5>Range: {{ rangeValues[0] + " - " + rangeValues[1] }}</h5>
+      <p-slider
+        [range]="true"
+        [(ngModel)]="rangeValues"
+        [min]="printRange[0]"
+        [max]="printRange[1]"
+      ></p-slider>
+      <div class="d-flex flex-row justify-content-center mt-2 mb-1">
+        <button type="button" class="btn btn-primary" (click)="addRange()">Add</button>
+      </div>
+      <div >
+        <div class="d-flex flex-row justify-content-between align-items-center my-1" *ngFor="let range of range; let i = index">
+          <span>{{ range[0] + " - " + range[1] }}</span>
+          <button type="button" class="btn btn-primary" (click)="removeRange(i)">Remove</button>
+        </div>
+        <!-- <div>
+          <span class="d-flex flex-row justify-content-between align-items-center my-1">
+            <span>Total Pages</span>
+            <span>{{ totalPage }}</span>
+          </span>
+          <span class="d-flex flex-row justify-content-between align-items-center my-1">
+            <span>Price</span>
+            <span>₹ {{ totalPage * printPricing[selectedDocumentType-1][colorMode - 1].price }}</span>
+          </span>
+        </div> -->
+      </div>
+    </div>
+    <div>
+      <span class="d-flex flex-row justify-content-between align-items-center my-1">
+        <span>Total Pages</span>
+        <span>{{ totalPage }}</span>
+      </span>
+      <span class="d-flex flex-row justify-content-between align-items-center my-1">
+        <span>Price</span>
+        <span>₹ {{ totalPage * printPricing[selectedDocumentType-1][colorMode - 1].price }}</span>
+      </span>
     </div>
   </div>
   <div class="orderButtonContainer d-flex flex-row justify-content-center my-2">

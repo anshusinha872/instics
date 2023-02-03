@@ -1,69 +1,64 @@
+import { PdfService } from './../../../services/pdf/pdf.service';
 import { Component, OnInit } from '@angular/core';
 import * as pdfjs from 'pdfjs-dist';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { SessionService } from 'src/app/services/session/session.service';
+import { base64 } from '@firebase/util';
 @Component({
   selector: 'app-print',
   templateUrl: './print.component.html',
   styleUrls: ['./print.component.css'],
 })
 export class PrintComponent implements OnInit {
-  constructor() {}
-  pageCount: number;
+  documentOption: any[];
+  selectedDocumentType = 1;
+  public rangeValues: number[] = [1, 1];
+  public printRange = [];
+  public totalPage: number = 0;
+  constructor(
+    public toastr: ToastrManager,
+    public sessionService: SessionService,
+    private PdfService: PdfService
+  ) {
+    this.documentOption = [
+      {
+        label: 'Standard',
+        value: 1,
+      },
+      {
+        label: 'Official',
+        value: 2,
+      },
+    ];
+  }
+  pageCount: number = 0;
   public printPricing = [];
   public pageRange;
   public customRangePrint = false;
   public colorMode = 1;
   public pdfFile;
+  public totalCost = 0;
+  public range = [];
   ngOnInit(): void {
     pdfjs.GlobalWorkerOptions.workerSrc = 'pdf.worker.js';
-    const select_menu = document.getElementById('select-menu');
-    const select_btn = document.getElementById('select-btn');
-    const select_list = document.getElementById('select-list');
-    const selectBtnText = document.getElementsByClassName('selectBtnText');
-    const options = document.querySelectorAll('.option');
-    const select_item = document.querySelectorAll('.select-item');
-    // console.log(options);
-    // console.log(selectBtnText[0].innerHTML);
-    select_btn.addEventListener('click', () => {
-      select_list.classList.toggle('active');
-      // console.log(select_list.classList);
-      const icon = document.getElementsByClassName('btn-icon');
-      if (select_list.classList.contains('active')) {
-        icon[0].classList.remove('fa-chevron-down');
-        icon[0].classList.add('fa-chevron-up');
-      } else {
-        icon[0].classList.remove('fa-chevron-up');
-        icon[0].classList.add('fa-chevron-down');
-      }
-    });
-    options.forEach((option) => {
-      option.addEventListener('click', () => {
-        // console.log(option.innerHTML);
-        const selectedText = option.innerHTML;
-        selectBtnText[0].innerHTML = selectedText;
-        select_list.classList.remove('active');
-        const icon = document.getElementsByClassName('btn-icon');
-        icon[0].classList.remove('fa-chevron-up');
-        icon[0].classList.add('fa-chevron-down');
-      });
-    });
     this.printPricing = [
       [
         {
           id: 1,
           name: 'Black & White',
-          price: 2.00,
+          price: 2.0,
           description: 'Print in black and white',
         },
         {
           id: 2,
           name: 'Color',
-          price: 5.00,
+          price: 5.0,
           description: 'Print in color',
         },
         {
           id: 3,
           name: 'Photo Paper',
-          price: 10.00,
+          price: 10.0,
           description: 'Print on photo paper',
         },
       ],
@@ -71,25 +66,23 @@ export class PrintComponent implements OnInit {
         {
           id: 1,
           name: 'Black & White',
-          price: 5.00,
+          price: 5.0,
           description: 'Print in black and white',
         },
         {
           id: 2,
           name: 'Color',
-          price: 10.00,
+          price: 10.0,
           description: 'Print in color',
         },
         {
           id: 3,
           name: 'Photo Paper',
-          price: 20.00,
+          price: 20.0,
           description: 'Print on photo paper',
         },
       ],
     ];
-    console.log(this.printPricing);
-    console.log(this.printPricing[0][0].price);
   }
   changePrintRange(event) {
     event == 2
@@ -99,49 +92,94 @@ export class PrintComponent implements OnInit {
   changeColorMode(event) {
     console.log(event);
   }
+  changeDocType(event) {
+    this.selectedDocumentType = event;
+    console.log(this.selectedDocumentType);
+  }
   handleInputPdfFile(event) {
     this.pdfFile = event.target.files[0];
     console.log(this.pdfFile);
-    // var reader = new FileReader();
-    // reader.readAsBinaryString(this.pdfFile);
-    // reader.onloadend = function () {
-    //   var count = reader.result.match(/\/Type[\s]*\/Page[^s]/g).length;
-    //   console.log('Number of Pages:', count);
-    // };
-    // // console.log(this.pdfFile);
-    // var fileReader = new FileReader();
-    // fileReader.onload = (e) => {
-    //   // console.log(fileReader.result);
-    //   var typedarray = new Uint8Array(fileReader.result as ArrayBuffer);
-    //   const pdfjsLib = window['pdfjs-dist/build/pdf'];
-    //   pdfjsLib.GlobalWorkerOptions.workerSrc =
-    //     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.js';
-    //   pdfjsLib.getDocument(typedarray).promise.then((pdf) => {
-    //     console.log(pdf);
-    //   });
-    // }
-    // fileReader.readAsArrayBuffer(this.pdfFile);
   }
   addToCart() {
-    console.log('add to cart');
+    if (this.pdfFile == null) {
+      this.toastr.errorToastr('Please select a pdf file', 'Error');
+      return;
+    }
+    if (this.range.length == 0) {
+      this.toastr.errorToastr('Please select a range', 'Error');
+      return;
+    }
+    
+    const printData = {
+      
+      user_id: sessionStorage.getItem('user_id'),
+      pdfFile: this.pdfFile,
+      selectedDocumentType: this.selectedDocumentType,
+      colorMode: this.colorMode,
+      range: this.range,
+      totalPage: this.totalPage,
+      totalCost:
+        this.totalPage *
+        this.printPricing[this.selectedDocumentType - 1][this.colorMode - 1]
+          .price,
+    };
+    let req = new FormData();
+    req.append('user_id', sessionStorage.getItem('user_id'));
+    req.append('pdfFile', this.pdfFile);
+    req.append('selectedDocumentType', this.selectedDocumentType.toString());
+    req.append('colorMode', this.colorMode.toString());
+    req.append('range', JSON.stringify(this.range));
+    req.append('totalPage', this.totalPage.toString());
+    req.append(
+      'totalCost',
+      (
+        this.totalPage *
+        this.printPricing[this.selectedDocumentType - 1][this.colorMode - 1]
+          .price
+      ).toString()
+    );
+
+    // console.log(printData);
+    this.PdfService.uploadPdf(req).subscribe((res) => {
+      if (res.status == 200) {
+        this.toastr.successToastr(res.message, 'Success');
+      } else {
+        this.toastr.errorToastr(res.message, 'Error');
+      }
+    });
   }
-  // async getPageCount(formUrl: any): Promise<number> {
-  //   const LogPdfFields = [] as any[];
-  //   const formPdfBytes = await fetch(formUrl).then((res) => res.arrayBuffer());
-  //   const pdfDoc = await PDFDocument.load(formPdfBytes);
-  //   const pageCount = pdfDoc.getPageCount();
-  //   return pageCount;
-  // }
   onFileChange(event) {
     const file = event.target.files[0];
+    this.pdfFile = file;
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
       const typedArray = new Uint8Array(fileReader.result as ArrayBuffer);
       pdfjs.getDocument(typedArray).promise.then((pdf) => {
         this.pageCount = pdf.numPages;
         console.log(this.pageCount);
+        this.printRange = [1, this.pageCount];
+        this.rangeValues = [1, this.pageCount];
+        this.range = [];
+        this.totalPage = 0;
       });
     };
+
     fileReader.readAsArrayBuffer(file);
+  }
+  addRange() {
+    this.range.push(this.rangeValues);
+    console.log(this.range);
+    this.totalPage = 0;
+    this.range.forEach((element) => {
+      this.totalPage = this.totalPage + (element[1] - element[0] + 1);
+    });
+  }
+  removeRange(index) {
+    this.range.splice(index, 1);
+    console.log(this.range);
+    this.totalPage = 0;
+    this.range.forEach((element) => {
+      this.totalPage = this.totalPage + (element[1] - element[0] + 1);
+    });
   }
 }

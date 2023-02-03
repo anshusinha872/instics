@@ -33,6 +33,8 @@ import { SubdashboardComponent } from './Views/layout/subdashboard/subdashboard.
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { PrintComponent } from './Views/pages/print/print.component';
 import { CartComponent } from './Views/pages/cart/cart.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { SliderModule } from 'primeng/slider';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { CartComponent } from './Views/pages/cart/cart.component';
     HttpClientModule,
     ToastrModule.forRoot(),
     ImageCropperModule,
+    SelectButtonModule,
+    SliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
