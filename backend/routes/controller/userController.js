@@ -82,6 +82,7 @@ async function saveImage(files) {
 	// console.log(filePath);
 	const file = fs.createWriteStream(filePath);
 	file.write(profileImage, 'base64');
+	file.close();
 	// file.mv(filePath, (err) => {
 	// 	if (err) {
 	// 		console.log(err);

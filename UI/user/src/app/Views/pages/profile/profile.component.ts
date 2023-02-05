@@ -7,6 +7,7 @@ import { SessionService } from 'src/app/services/session/session.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Location } from '@angular/common';
+import { OrderService } from 'src/app/services/order/order.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -20,7 +21,8 @@ export class ProfileComponent implements OnInit {
     private sessionService: SessionService,
     private LoginService: LoginService,
     private AuthService: AuthService,
-    private location: Location
+    private location: Location,
+    private orderService: OrderService,
   ) {}
   imageChangedEvent: any = '';
   croppedImage: any = '';
@@ -29,6 +31,8 @@ export class ProfileComponent implements OnInit {
   public showProfileDetails: boolean = false;
   public profileDetails: any = {};
   public currentRoute: string = '';
+  public showOrderDetails = false;
+  public OrderList = [];
   ngOnInit(): void {
     const token = this.sessionService.get('token');
     if (this.AuthService.tokenExpired(token)) {
@@ -69,7 +73,7 @@ export class ProfileComponent implements OnInit {
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = event.base64.split(',')[1];;
+    this.croppedImage = event.base64.split(',')[1];
   }
   imageLoaded() {
     /* show cropper */
@@ -115,5 +119,23 @@ export class ProfileComponent implements OnInit {
   logOutUser() {
     sessionStorage.clear();
     this.router.navigate(['/login']);
+  }
+  showOrderDetailsFun() {
+    if (this.showOrderDetails == false) {
+      const user_id = this.sessionService.get('user_id');
+      const req = {
+        user_id: user_id,
+      };
+      this.orderService.getOrderHistory(req).subscribe((res) => {
+        if (res.statusCode == 200) {
+          this.toastr.successToastr('Order history fetched successfully');
+          this.OrderList = res.data;
+        }
+        else {
+          this.toastr.errorToastr('Something went wrong');
+        }
+      });
+    }
+    this.showOrderDetails = !this.showOrderDetails;
   }
 }

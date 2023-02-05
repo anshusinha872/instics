@@ -8,8 +8,8 @@ const moment = require('moment');
 const fs = require('fs');
 // save pdf to directory
 async function savePdf(pdf, user_id) {
-	console.log(pdf);
-	console.log(user_id);
+	// console.log(pdf);
+	// console.log(user_id);
 	var fileName =
 		user_id + '_' + moment().format('YYYYMMDDhhmmss') + '_' + pdf.name;
 	// console.log(fileName);
@@ -19,30 +19,34 @@ async function savePdf(pdf, user_id) {
 	const uni8 = new Uint8Array(pdf.data);
 	file.write(uni8);
 	file.close();
+	const relativePath = ('./uploads/printDocument/') + fileName;
 	// console.log(file);
+	return relativePath;
 }
 // Upload PDF
 async function uploadPdf(req, res) {
 	try {
 		const pdf = req.files.pdfFile;
+		// console.log(pdf.name);
 		const user_id = req.body.user_id;
 		const selectedDocumentType = req.body.selectedDocumentType;
 		const colorMode = req.body.colorMode;
 		const range = req.body.range;
 		const totalPage = req.body.totalPage;
 		const totalCost = req.body.totalCost;
-		// console.log(pdf);
-		// console.log(user_id);
-		// console.log(selectedDocumentType);
-		// console.log(colorMode);
-		// console.log(range);
-		// console.log(totalPage);
-		// console.log(totalCost);
-		savePdf(req.files.pdfFile,user_id);
-		// const path = await savePdf(req.body);
-		// let returnData = await pdfService.uploadDoc(req);
-		// console.log(returnData);
-		return res.status(200).json('added to cart');
+		const path = await savePdf(req.files.pdfFile, user_id);
+		const data = {
+			user_id: user_id,
+			selectedDocumentType: selectedDocumentType,
+			colorMode: colorMode,
+			range: range,
+			totalPage: totalPage,
+			totalCost: totalCost,
+			path: path,
+			pdfName:pdf.name,
+		};
+		let returndata =await pdfService.uploadDoc(data);
+		return res.status(200).json(returndata);
 	} catch (err) {
 		console.log(err);
 	}

@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const secretKey = "AnshuSinha";
+const secretKey = 'AnshuSinha';
 const resultdb = (statusCode, data = null) => {
 	return {
 		statusCode: statusCode,
@@ -64,7 +64,7 @@ let showAllImages = async (req) => {
 		console.log(err);
 		return resultdb(500, err);
 	}
-}
+};
 let getUserDetailsById = async (req) => {
 	const user_id = parseInt(req.decoded.user_id);
 	// console.log(req.decoded.user_id);
@@ -93,16 +93,14 @@ let getUserDetailsById = async (req) => {
 				data: resData,
 			};
 			return resultdb(200, item1);
-		}
-		else {
+		} else {
 			return resultdb(404, 'User not found');
 		}
-	}
-	catch (err) {
+	} catch (err) {
 		console.log(err);
 		return resultdb(500, err);
 	}
-}
+};
 let userData = async (data) => {
 	// console.log('userData');
 	try {
@@ -143,24 +141,22 @@ let loginUserByEmailId = async (email_id, password) => {
 				let userData = {
 					user_id: response[0].user_id,
 					email_id: response[0].email_id,
-				}
+				};
 				// console.log(userData);
 				// JWT Token
-				let token = jwt.sign(userData,secretKey, {
-					expiresIn: 300, // expires in 5min
+				let token = jwt.sign(userData, secretKey, {
+					expiresIn: 1800, // expires in 30min
 				});
 				let returnData = {
 					user_id: response[0].user_id,
 					email_id: response[0].email_id,
 					token: token,
-				}
+				};
 				return resultdb(200, returnData);
-			}
-			else {
+			} else {
 				return resultdb(400, 'Invalid Password');
 			}
-		}
-		else {
+		} else {
 			return resultdb(400, 'Invalid Email Id');
 		}
 		return resultdb(400, 'Login Failed');
@@ -245,7 +241,7 @@ let forgotPassword = async (contact) => {
 		return resultdb(500, err);
 	}
 };
-let uploadImage = async (user_id,file_path) => {
+let uploadImage = async (user_id, file_path) => {
 	try {
 		var connection = config.connection;
 		const checkIfImageExist = await new Promise((resolve, reject) => {
@@ -265,8 +261,7 @@ let uploadImage = async (user_id,file_path) => {
 				});
 			});
 			return resultdb(200, 'Image updated successfully');
-		}
-		else {
+		} else {
 			const response = await new Promise((resolve, reject) => {
 				const query =
 					'INSERT INTO userData (user_id, profile_image) VALUES (?,?);';
@@ -277,12 +272,11 @@ let uploadImage = async (user_id,file_path) => {
 			});
 			return resultdb(200, 'Image uploaded successfully');
 		}
-	}
-	catch (err) {
+	} catch (err) {
 		console.log(err);
 		return resultdb(500, err);
 	}
-}
+};
 let updatePassword = async (req) => {
 	try {
 		var contact = req.body.contact;

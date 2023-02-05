@@ -8,10 +8,10 @@ export class AuthService {
   
   constructor() {}
   public isAuthenticated(): boolean {
-    console.log('token',this.token);
+    // console.log('token',this.token);
     if (this.token) {
-      console.log('token is present');
-      console.log(this.token);
+      // console.log('token is present');
+      // console.log(this.token);
       return true;
     } else {
       return false;

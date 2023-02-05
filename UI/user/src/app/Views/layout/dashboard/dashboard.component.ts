@@ -19,13 +19,13 @@ export class DashboardComponent implements OnInit {
     private LoginService: LoginService,
     private sessionService: SessionService){
     this.currentRoute = this.router.url;
-    console.log(this.currentRoute);
+    // console.log(this.currentRoute);
   }
 
   ngOnInit(): void {
     const token = this.sessionService.get('token');
     if (this.AuthService.tokenExpired(token)) {
-      console.log('token expired');
+      // console.log('token expired');
       this.toastr.errorToastr('Session expired, please login again');
       this.LoginService.logout();
       this.router.navigate(['/login']);

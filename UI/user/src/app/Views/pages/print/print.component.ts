@@ -38,7 +38,7 @@ export class PrintComponent implements OnInit {
   public colorMode = 1;
   public pdfFile;
   public totalCost = 0;
-  public range = [];
+  public rangeList = [];
   ngOnInit(): void {
     pdfjs.GlobalWorkerOptions.workerSrc = 'pdf.worker.js';
     this.printPricing = [
@@ -90,33 +90,32 @@ export class PrintComponent implements OnInit {
       : (this.customRangePrint = false);
   }
   changeColorMode(event) {
-    console.log(event);
+    // console.log(event);
   }
   changeDocType(event) {
     this.selectedDocumentType = event;
-    console.log(this.selectedDocumentType);
+    // console.log(this.selectedDocumentType);
   }
   handleInputPdfFile(event) {
     this.pdfFile = event.target.files[0];
-    console.log(this.pdfFile);
+    // console.log(this.pdfFile);
   }
   addToCart() {
     if (this.pdfFile == null) {
       this.toastr.errorToastr('Please select a pdf file', 'Error');
       return;
     }
-    if (this.range.length == 0) {
+    if (this.rangeList.length == 0) {
       this.toastr.errorToastr('Please select a range', 'Error');
       return;
     }
     
     const printData = {
-      
       user_id: sessionStorage.getItem('user_id'),
       pdfFile: this.pdfFile,
       selectedDocumentType: this.selectedDocumentType,
       colorMode: this.colorMode,
-      range: this.range,
+      range: this.rangeList,
       totalPage: this.totalPage,
       totalCost:
         this.totalPage *
@@ -128,7 +127,7 @@ export class PrintComponent implements OnInit {
     req.append('pdfFile', this.pdfFile);
     req.append('selectedDocumentType', this.selectedDocumentType.toString());
     req.append('colorMode', this.colorMode.toString());
-    req.append('range', JSON.stringify(this.range));
+    req.append('range', JSON.stringify(this.rangeList));
     req.append('totalPage', this.totalPage.toString());
     req.append(
       'totalCost',
@@ -141,10 +140,15 @@ export class PrintComponent implements OnInit {
 
     // console.log(printData);
     this.PdfService.uploadPdf(req).subscribe((res) => {
-      if (res.status == 200) {
-        this.toastr.successToastr(res.message, 'Success');
+      if (res.statusCode == 200) {
+        this.toastr.successToastr(res.message, res.data);
+        this.printRange = [1, this.pageCount];
+        this.rangeValues = [1, this.pageCount];
+        this.rangeList = [];
+        this.totalPage = 0;
+        
       } else {
-        this.toastr.errorToastr(res.message, 'Error');
+        this.toastr.errorToastr(res.message, res.data);
       }
     });
   }
@@ -156,10 +160,10 @@ export class PrintComponent implements OnInit {
       const typedArray = new Uint8Array(fileReader.result as ArrayBuffer);
       pdfjs.getDocument(typedArray).promise.then((pdf) => {
         this.pageCount = pdf.numPages;
-        console.log(this.pageCount);
+        // console.log(this.pageCount);
         this.printRange = [1, this.pageCount];
         this.rangeValues = [1, this.pageCount];
-        this.range = [];
+        this.rangeList = [];
         this.totalPage = 0;
       });
     };
@@ -167,18 +171,19 @@ export class PrintComponent implements OnInit {
     fileReader.readAsArrayBuffer(file);
   }
   addRange() {
-    this.range.push(this.rangeValues);
-    console.log(this.range);
+    this.rangeList.push(this.rangeValues);
+    // console.log(this.range);
+    this.rangeValues = [1, this.pageCount];
     this.totalPage = 0;
-    this.range.forEach((element) => {
+    this.rangeList.forEach((element) => {
       this.totalPage = this.totalPage + (element[1] - element[0] + 1);
     });
   }
   removeRange(index) {
-    this.range.splice(index, 1);
-    console.log(this.range);
+    this.rangeList.splice(index, 1);
+    // console.log(this.range);
     this.totalPage = 0;
-    this.range.forEach((element) => {
+    this.rangeList.forEach((element) => {
       this.totalPage = this.totalPage + (element[1] - element[0] + 1);
     });
   }

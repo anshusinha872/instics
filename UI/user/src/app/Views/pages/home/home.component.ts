@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
     // this.getUserData();
     const token = this.sessionService.get('token');
     if (this.authService.tokenExpired(token)) {
-      console.log('token expired');
+      // console.log('token expired');
       this.toastManager.errorToastr('Session expired, please login again');
       this.loginService.logout();
       this.router.navigate(['/login']);

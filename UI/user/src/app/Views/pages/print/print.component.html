@@ -238,7 +238,7 @@
         <button type="button" class="btn btn-primary" (click)="addRange()">Add</button>
       </div>
       <div >
-        <div class="d-flex flex-row justify-content-between align-items-center my-1" *ngFor="let range of range; let i = index">
+        <div class="d-flex flex-row justify-content-between align-items-center my-1" *ngFor="let range of rangeList; let i = index">
           <span>{{ range[0] + " - " + range[1] }}</span>
           <button type="button" class="btn btn-primary" (click)="removeRange(i)">Remove</button>
         </div>
