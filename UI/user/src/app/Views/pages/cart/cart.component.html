@@ -1,1 +1,96 @@
-<p>cart works!</p>
+<div class="cartHeader">
+  <div (click)="navigate()" class="backBtn"><i class="fa fa-arrow-left"></i> Back</div>
+  <div class="cartText">My Cart</div>
+  <div class="removeItemTxt">Remove All</div>
+</div>
+
+<div class="cartItems">
+  <div
+    id="item{{ i }}"
+    (click)="selectItem(i)"
+    *ngFor="let item of cartList[0]; index as i"
+    class="items"
+  >
+    <!-- {{item}} -->
+    <i class="fa fa-print"></i>
+    <div class="cartItmTxt">
+      <span class="itemName">{{ item.pdfName}}</span>
+      <span class="cartItmTxt2">Page : {{ item.totalPage }}</span>
+      <div class="price">
+        price : 
+        <i class="fa fa-rupee"></i>
+        {{ item.totalCost }}
+      </div>
+    </div>
+
+    <i class="fa-solid fa-trash-can"></i>
+  </div>
+
+  <!-- <div class="items">
+        <i class="fa fa-print"></i>
+        <div class="cartItmTxt">Standard Printing
+            <p class="cartItmTxt2"> 10 Pages</p>
+            <div class="price">
+                <i class="fa fa-rupee"></i>
+                50
+            </div>
+        </div>
+        <div class="plus-minus">
+            <i class="fa fa-minus"></i>
+            1
+            <i class="fa fa-plus"></i>
+        </div>
+       
+    </div>
+    <div class="items">
+        <i class="fa fa-print"></i>
+        <div class="cartItmTxt">Standard Printing
+            <p class="cartItmTxt2"> 10 Pages</p>
+            <div class="price">
+                <i class="fa fa-rupee"></i>
+                50
+            </div>
+        </div>
+        
+       
+    </div> -->
+</div>
+<div class="promoCode">
+  <input type="text" name="promo" placeholder="Have a promo code?" />
+  <button type="button">APPLY</button>
+</div>
+<div class="billingDetails">
+  <div class="alligner">
+    <div class="rightBillTxt">Subtotal</div>
+    <div
+      class="leftBillTxt"
+      id="priceTotal"
+      align="right"
+      onclick="sumArray()"
+    ></div>
+  </div>
+  <div class="alligner">
+    <div class="rightBillTxt">IGST</div>
+    <div class="leftBillTxt" align="right"><i class="fa fa-rupee"></i> 150</div>
+  </div>
+  <div class="alligner">
+    <div class="rightBillTxt">SGST</div>
+    <div class="leftBillTxt" align="right"><i class="fa fa-rupee"></i> 150</div>
+  </div>
+  <div class="alligner">
+    <div class="rightBillTxt">Service Charge</div>
+    <div class="leftBillTxt" align="right"><i class="fa fa-rupee"></i> 150</div>
+  </div>
+</div>
+
+<div class="checkoutButton">
+  <div class="pric">
+    <p style="margin: 23px"><i class="fa fa-rupee"></i> 600</p>
+  </div>
+  <div *ngIf="showUpiField">
+    <input type="text" [(ngModel)]="upiText" name="" id="">
+  </div>
+  <div (click)="generateAccessToken()" class="btn">Checkout</div>
+  <button (click)="createPaymentRequest()" >create payment request</button>
+</div>
+

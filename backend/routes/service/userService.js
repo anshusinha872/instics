@@ -303,6 +303,29 @@ let updatePassword = async (req) => {
 		return resultdb(500, err);
 	}
 };
+let userDataByUserId = async (user_id)=>{
+	try {
+		var connection = config.connection;
+		const queryResult = await new Promise((resolve, reject) => {
+			const query = 'SELECT * FROM userData WHERE user_id = ?;';
+			connection.query(query, [user_id], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+
+			});
+		});
+		if (queryResult.length > 0) {
+			return resultdb(200, queryResult);
+		}
+		else {
+			return resultdb(404, 'User not found');
+		}
+	}
+	catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+}
 module.exports = {
 	userData,
 	loginUserByEmailId,
@@ -312,4 +335,5 @@ module.exports = {
 	uploadImage,
 	showAllImages,
 	getUserDetailsById,
+	userDataByUserId,
 };

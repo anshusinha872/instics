@@ -12,6 +12,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const middleware = require('./middleware/middleware');
 const morgan = require('morgan');
+var bodyParser = require('body-parser');
 
 // const { options } = require('pg/lib/defaults');
 app.use(cors());
@@ -45,7 +46,21 @@ const corsOptions = {
 	credentials: true, //access-control-allow-credentials:true
 	optionSuccessStatus: 200,
 };
-
+app.use(
+	express.json({
+		limit: '2mb',
+		verify: (req, res, buf) => {
+			req.rawBody = buf.toString();
+		},
+	})
+);
+app.use(bodyParser.json());
+// app.post('/webHook/success', (req, res) => {
+// 	// const data = req.body;
+// 	// console.log(data);
+// 	console.log(req.body);
+// 	res.status(200).send('Webhook received');
+// });
 app.use(cors(corsOptions)); // Use this
 app.use(express.json({ limit: '50mb' }));
 app.use(
@@ -66,10 +81,13 @@ app.use(
 const userController = routes.userController;
 const pdfController = routes.pdfController;
 const orderController = routes.orderController;
+const cartController = routes.cartController;
+const webHookController = routes.cashFreeWebHook;
 app.use(userController);
 app.use(pdfController);
 app.use(orderController);
-
+app.use(cartController);
+app.use(webHookController);
 app.listen(3443, () => console.log('server started at 3443')); //localhost:3443
 
 // app.listen(3000, () => {
