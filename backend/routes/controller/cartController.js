@@ -21,17 +21,12 @@ async function createOrder(req, res) {
 	const user_id = req.body.user_id;
 	// console.log(user_id);
 	let userdata = await userService.userDataByUserId(user_id);
-	const customer_id = 'A01'+user_id
-	const customer_name = userdata.data[0].firstName + ' ' + userdata.data[0].lastName
+	const customer_id = 'A01' + user_id;
+	const customer_name =
+		userdata.data[0].firstName + ' ' + userdata.data[0].lastName;
 	const customer_email = userdata.data[0].email_id;
 	const customer_phone = userdata.data[0].contact.toString();
-	// console.log(customer_id);
-	// console.log(customer_name);
-	// console.log(customer_email);
-	// console.log(customer_phone);
-
-	// console.log(userName);
-	// return res.status(200).json('success');
+	let order_id = await cartService.orderId();
 	const options = {
 		method: 'POST',
 		url: 'https://sandbox.cashfree.com/pg/orders',
@@ -44,14 +39,14 @@ async function createOrder(req, res) {
 		},
 		data: {
 			customer_details: {
-				customer_name:customer_name,
+				customer_name: customer_name,
 				customer_id: customer_id,
 				customer_email: customer_email,
 				customer_phone: customer_phone,
 			},
 			order_amount: 100,
 			order_currency: 'INR',
-			order_id: 'PO009',
+			order_id: order_id.data,
 		},
 	};
 
@@ -65,35 +60,46 @@ async function createOrder(req, res) {
 			console.error(error);
 		});
 }
-async function createPaymentRequest(req, res) {
-	const encodedParams = new URLSearchParams();
-	encodedParams.set('allow_repeated_payments', 'false');
-	encodedParams.set('send_email', 'false');
-	encodedParams.set('amount', '100');
-	encodedParams.set('purpose', 'print');
+async function orderPay(req, res) {
 
+	const payment_session_id = req.body.payment_session_id;
+	const upi_id = req.body.upi_id;
+	// console.log(payment_session_id);
+	// console.log(upi_id);
+	// return res.status(200).json('success');
 	const options = {
 		method: 'POST',
-		url: 'https://test.instamojo.com/v2/payment_requests/',
+		url: 'https://sandbox.cashfree.com/pg/orders/sessions',
 		headers: {
 			accept: 'application/json',
-			Authorization:
-				'Bearer {{JINhI9dVQQl5yJd77xatNlcwvedxH-di1Koi061g140.DKI-jZ9Wcni4eTbz9Lu3YQzdBVj20nrBZakU91UtX0w}}',
-			'content-type': 'application/x-www-form-urlencoded',
+			'x-api-version': '2022-09-01',
+			'content-type': 'application/json',
 		},
-		data: encodedParams,
+		data: {
+			payment_method: {
+				upi: {
+					channel: 'collect',
+					upi_id: upi_id,
+					upi_expiry_minutes: 10,
+					authorize_only: false,
+				},
+			},
+			payment_session_id: payment_session_id,
+		},
 	};
 
 	axios
 		.request(options)
 		.then(function (response) {
 			console.log(response.data);
+			return res.status(200).json(response.data);
 		})
 		.catch(function (error) {
 			console.error(error);
+			return res.status(404).json(error);
 		});
 }
 router.post('/cart/view', getCartItems);
 router.post('/cart/createOrder', createOrder);
-router.post('/cart/createPaymentRequest', createPaymentRequest);
+router.post('/cart/orderPay', orderPay);
 module.exports = router;

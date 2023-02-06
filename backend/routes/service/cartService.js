@@ -15,7 +15,7 @@ let getCartItems = async (user_id) => {
 		const response = await new Promise((resolve, reject) => {
 			const query =
 				'SELECT * FROM printDocTable WHERE user_id = ? AND docStatus = ?;';
-			connection.query(query, [user_id,0], (err, results) => {
+			connection.query(query, [user_id, 0], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});
@@ -29,8 +29,8 @@ let getCartItems = async (user_id) => {
 					docType: response[i].docType,
 					colorMode: response[i].colorMode,
 					totalPage: response[i].totalPage,
-                    totalCost: response[i].totalCost,
-                    docStatus: response[i].docStatus,
+					totalCost: response[i].totalCost,
+					docStatus: response[i].docStatus,
 				};
 				returnData.push(data);
 			}
@@ -44,6 +44,26 @@ let getCartItems = async (user_id) => {
 		return resultdb(500, err);
 	}
 };
+let orderId = async () => {
+	try {
+		var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+			const query = 'SELECT * FROM paymentRecord;';
+			connection.query(query, (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		let orderId = 1000 + response.length + 1;
+		orderId = 'PS' + orderId;
+		console.log(orderId);
+		return resultdb(200, orderId);
+	} catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+};
 module.exports = {
 	getCartItems,
+	orderId,
 };

@@ -25,6 +25,8 @@ export class CartComponent implements OnInit {
   public totalCheckoutPrice = 0;
   public upiText = '';
   public showUpiField = false;
+  public upi_id = '';
+  public payment_session_id = '';
   ngOnInit(): void {
     this.showUpiField = true;
     const user_id = this.sessionService.get('user_id');
@@ -102,19 +104,18 @@ export class CartComponent implements OnInit {
       if (res.order_status == 'ACTIVE') {
         this.toastr.successToastr('Order created');
         this.showUpiField = true;
+        this.payment_session_id = res.payment_session_id;
         console.log(res.payment_session_id);
         // this.createPaymentRequest();
       }
     });
   }
   createPaymentRequest() {
-    const param = {
-      purpose: 'FIFA 16',
-      amount: '2500',
-      buyer_name: 'John Doe',
-      email: 'anshusinha872@gmail.com',
+    const req = {
+      payment_session_id: this.payment_session_id,
+      upi_id: this.upi_id,
     };
-    this.cartService.createPaymentRequest(param).subscribe((res) => {
+    this.cartService.orderPay(req).subscribe((res) => {
       console.log(res);
     });
   }

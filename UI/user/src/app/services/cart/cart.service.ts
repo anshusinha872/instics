@@ -21,13 +21,21 @@ export class CartService {
     });
   }
   createOrder(param): Observable<any> {
-    return this.http.post(this.base_url + 'cart/createOrder', param,{
+    return this.http.post(this.base_url + 'cart/createOrder', param, {
       headers: this.sessionService.setTokenHeaderImage(),
     });
   }
-  createPaymentRequest(param): Observable<any> {
-    return this.http.post(this.base_url + 'cart/createPaymentRequest', param, {
+  orderPay(param): Observable<any> {
+    return this.http.post(this.base_url + 'cart/orderPay', param, {
       headers: this.sessionService.setTokenHeaderImage(),
     });
+  }
+  handleWebhook() {
+    console.log('handleWebhook');
+    this.http
+      .get('http://localhost:3443/webHook/cashFree/success')
+      .subscribe((response) => {
+        console.log(response);
+      });
   }
 }

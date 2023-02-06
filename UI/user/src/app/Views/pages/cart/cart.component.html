@@ -88,7 +88,7 @@
     <p style="margin: 23px"><i class="fa fa-rupee"></i> 600</p>
   </div>
   <div *ngIf="showUpiField">
-    <input type="text" [(ngModel)]="upiText" name="" id="">
+    <input type="text" [(ngModel)]="upi_id" name="" id="">
   </div>
   <div (click)="generateAccessToken()" class="btn">Checkout</div>
   <button (click)="createPaymentRequest()" >create payment request</button>

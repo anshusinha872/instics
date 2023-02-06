@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const paymentService = require('../../service/paymentService');
 const crypto = require('crypto');
 
 async function successPayment(req, res) {
@@ -14,7 +14,10 @@ async function successPayment(req, res) {
 	genSign = verify(ts, req.rawBody);
 	matched = genSign === signature;
 	console.log(genSign, signature, matched);
-	res.send(matched);
+    if (matched == true) {
+        // console.log('Success');
+        let returnData = await paymentService.successPayment(req);
+    }
 }
 function verify(ts, rawBody) {
 	const body = ts + rawBody;

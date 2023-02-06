@@ -2,7 +2,7 @@ const secretKey = 'AnshuSinha';
 const jwt = require('jsonwebtoken');
 var middleware = async function (req, res, next) {
 	// control the routes to be ignored
-    console.log(req.path);
+    // console.log(req.path);
 	const ignoreRoutes = ['/', '/login', '/webHook/cashFree/success'];
 	// console.log(req.path);
 	if (ignoreRoutes.includes(req.path)) {
