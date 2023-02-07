@@ -119,6 +119,11 @@ export class CartComponent implements OnInit {
       console.log(res);
     });
   }
+  handleWebhook() {
+    this.cartService.handleWebhook().subscribe((res) => {
+      console.log(res);
+    });
+  }
   navigate() {
     this.Location.back();
   }

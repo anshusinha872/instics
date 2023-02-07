@@ -30,12 +30,9 @@ export class CartService {
       headers: this.sessionService.setTokenHeaderImage(),
     });
   }
-  handleWebhook() {
-    console.log('handleWebhook');
-    this.http
-      .get('http://localhost:3443/webHook/cashFree/success')
-      .subscribe((response) => {
-        console.log(response);
-      });
+  handleWebhook(): Observable<any> {
+    return this.http.post(this.base_url + 'webHook/cashFree/success', {
+      headers: this.sessionService.setTokenHeaderImage(),
+    });
   }
 }

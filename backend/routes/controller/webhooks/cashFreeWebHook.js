@@ -15,9 +15,10 @@ async function successPayment(req, res) {
 	matched = genSign === signature;
 	console.log(genSign, signature, matched);
     if (matched == true) {
-        // console.log('Success');
+        console.log('Success');
         let returnData = await paymentService.successPayment(req);
-    }
+	}
+	res.send('Success');
 }
 function verify(ts, rawBody) {
 	const body = ts + rawBody;
