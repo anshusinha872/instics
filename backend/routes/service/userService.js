@@ -32,7 +32,7 @@ let convertImage = async (img) => {
 				});
 			}
 		});
-		fs.close();
+		// fs.close();
 	});
 };
 let showAllImages = async (req) => {
