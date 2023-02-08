@@ -32,6 +32,7 @@
     "ng6-toastr-notifications": "^1.0.4",
     "ngx-image-cropper": "^6.3.2",
     "pdfjs": "^2.4.7",
+    "pdfjs-dist": "^3.3.122",
     "primeicons": "^6.0.1",
     "primeng": "^14.1.1",
     "rxjs": "~7.5.0",

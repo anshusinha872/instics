@@ -1,0 +1,67 @@
+
+<div class="container">
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>user_id</th>
+          <th>pdfname</th>
+          <th>docType</th>
+          <th>colorMode</th>
+          <th>printRange</th>
+          <th>totalPage</th>
+          <th>totalCost</th>
+          <th>Doc status</th>
+          <th>Show Pdf</th>
+          <th>Download Pdf</th>
+         
+          
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let admin of print">
+          <td value="data"><span>{{admin.id}}</span></td>
+          <td value="data"><span>{{admin.user_id}}</span></td>
+          <td value="data"><span>{{admin.pdfName}}</span></td>
+    
+          <td value="data"><span>{{admin.docType}}</span></td>
+          <td value="data"><span>{{admin.colorMode}}</span></td>
+          <td value="data"><span>{{admin.printRange}}</span></td>
+          <td value="data"><span>{{admin.totalPage}}</span></td>
+          <td value="data"><span>{{admin.totalCost}}</span></td>
+          <td value="data">
+            <!-- <div *ngIf="admin.docStatus===0"><img src="assets/pending.gif" alt="Girl in a jacket" width="50" height="50"></div>
+            <div *ngIf="admin.docStatus===1"><img src="assets/downloaded.png" alt="Girl in a jacket" width="50" height="50"></div>
+            <div *ngif="admin.docStatus===2"><img src="assets/rejected.png" alt="Girl in a jacket" width="50" height="50"></div> -->
+            <span class="statusSpinner">
+                <i
+                  *ngIf="admin.docStatus===0"
+                  class="fa fa-circle-o-notch fa-spin"
+                  style="font-size: 24px; color: orange"
+                ></i>
+                <i
+                  *ngIf="admin.docStatus===1"
+                  class="fa fa-check-circle"
+                  style="font-size: 24px; color: green"
+                ></i>
+                <i *ngIf="admin.docStatus===2" class="fa fa-times-circle" style="font-size: 24px; color: red"></i>
+              </span>
+        </td>
+
+          <td><button class="btn btn-primary" (click)="printPdf(admin)" style="width: 100px;">Show PDF </button></td>
+          <td><button class="btn btn-secondary" (click)="downloadPdf(admin)" style="width: 150px;">Download PDF </button></td>
+          <td><button class="btn btn-success" (click)="updatedocstatus(1,admin.id)">Downloaded </button></td>
+          <td><button class="btn btn-danger" (click)="updatedocstatus(2,admin.id)">Reject</button></td>
+          <td><button class="btn btn-warning">Delete</button></td>
+          
+          <!-- <td value="data">
+          <button mat-icon-button color="primary" (click)="GetDetails(admin)"><mat-icon>edit</mat-icon> </button>
+          <button mat-icon-button color="warn" (click)="delete(admin)"><mat-icon>delete</mat-icon> </button></td> -->
+          </tr></tbody></table>
+</div>
+
+<pdf-viewer [src]="pdfSrc" 
+              [render-text]="true"
+              style="display: block;"
+  ></pdf-viewer>

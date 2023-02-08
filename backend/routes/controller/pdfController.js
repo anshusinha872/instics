@@ -51,5 +51,31 @@ async function uploadPdf(req, res) {
 		console.log(err);
 	}
 }
+
+async function printseller(req, res){
+
+	try {
+		let returnData = await pdfService.sellerprint(req);
+		// console.log(returnData)
+		return res.status(200).json(returnData);
+	} catch (err) {
+		console.log(err);
+	}
+}
+
+async function docstatusupdate(req,res)
+{
+	// console.log(req);
+	try {
+		let returnData = await pdfService.updatedocstatus(req);
+		// console.log(returnData)
+		return res.status(200).json(returnData);
+	} catch (err) {
+		console.log(err);
+	}
+}
+
 router.post('/pdf/upload', uploadPdf);
+router.get('/printseller',printseller);
+router.post('/docstatusupdate',docstatusupdate);
 module.exports = router;
