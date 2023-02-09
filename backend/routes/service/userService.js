@@ -67,7 +67,9 @@ let showAllImages = async (req) => {
 	}
 };
 let getUserDetailsById = async (req) => {
-	const user_id = parseInt(req.decoded.user_id);
+	const user_id = req.body.user_id;
+	// console.log(req.body.user_id);
+	// console.log(user_id);
 	// console.log(req.decoded.user_id);
 	try {
 		var connection = config.connection;
