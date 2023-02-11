@@ -17,7 +17,7 @@ var bodyParser = require('body-parser');
 // const { options } = require('pg/lib/defaults');
 app.use(cors());
 // const userControllerRoute = require('../routes/controller/userController');
-const sercretKey = "AnshuSinha";
+const sercretKey = 'AnshuSinha';
 // app.use('/', (req, res, next) => {
 // 	res.send('hello world');
 // });
@@ -38,8 +38,6 @@ const sercretKey = "AnshuSinha";
 // 	);
 // 	next();
 // });
-
-
 
 const corsOptions = {
 	origin: '*',
@@ -71,23 +69,24 @@ app.use(
 // app.use(middleware);
 
 app.use(
-  morgan('dev', {
-    skip: function (req, res) {
-      return res.statusCode >= 400;
-    },
-    stream: process.stdout,
-  })
+	morgan('dev', {
+		skip: function (req, res) {
+			return res.statusCode >= 400;
+		},
+		stream: process.stdout,
+	})
 );
 const userController = routes.userController;
 const pdfController = routes.pdfController;
 const orderController = routes.orderController;
 const cartController = routes.cartController;
 const webHookController = routes.cashFreeWebHook;
-app.use(userController);
-app.use(pdfController);
-app.use(orderController);
-app.use(cartController);
-app.use(webHookController);
+const API_URL = 'api/v1/';
+app.use(API_URL, userController);
+app.use(API_URL, pdfController);
+app.use(API_URL, orderController);
+app.use(API_URL, cartController);
+app.use(API_URL, webHookController);
 app.listen(3443, () => console.log('server started at 3443')); //localhost:3443
 
 // app.listen(3000, () => {

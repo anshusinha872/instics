@@ -7,12 +7,12 @@ import { SessionService } from '../session/session.service';
   providedIn: 'root',
 })
 export class PdfService {
-  private base_url: string = 'http://localhost:3443/'; //local/
+  private base_url: string = 'https://instincts.co.in/api/v1/'; //local/
   // private base_url: string = 'https://instincts.co.in:3443/';
   constructor(
     private http: HttpClient,
     private sessionService: SessionService
-  ) { }
+  ) {}
   public uploadPdf(param): Observable<any> {
     console.log(param);
     return this.http.post(this.base_url + 'pdf/upload', param, {
