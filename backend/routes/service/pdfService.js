@@ -40,17 +40,10 @@ let uploadDoc = async (data) => {
 		return resultdb(500, err);
 	}
 };
-
-
-
-
 let sellerprint = async (data) => {
 	// console.log('userData');
 	try {
 		var connection = config.connection;
-		// let qry = util.promisify(connection.query).bind(connection);
-		// let result = await connection.query(qry,);
-		// connection.query('select * from userData',fun);
 		const response = await new Promise((resolve, reject) => {
 			const query = 'select * from printDocTable;';
 
@@ -59,43 +52,56 @@ let sellerprint = async (data) => {
 				resolve(results);
 			});
 		});
-		// console.log('response', response);
-		// console.log(response);
+
 		if (response.length > 0) {
 			let returnData = [];
 			for (let i = 0; i < response.length; i++) {
 				let item = response[i];
 				let resData = {
 					id: item.id,
-					user_id:item.user_id,
-					pdfName:item.pdfName,
-					docType:item.docType,
-					colorMode:item.colorMode,
-					printRange:item.printRange,
-					totalPage:item.totalPage,
-					totalCost:item.totalCost,
-					docStatus:item.docStatus,
-					pdf:await convertPdf(item.path),
+					user_id: item.user_id,
+					pdfName: item.pdfName,
+					docType: item.docType,
+					colorMode: item.colorMode,
+					printRange: item.printRange,
+					totalPage: item.totalPage,
+					totalCost: item.totalCost,
+					docStatus: item.docStatus,
+					// pdf: await convertPdf(item.path),
+					pdfPresent:await isPdfAvailable(item.path),
 					// image: await convertImage(item.filePath),
 				};
-				if(resData.pdf!=null){
+
+				if (resData.pdfPresent == true) {
 					returnData.push(resData);
 				}
 			}
-			
-		
+
 			// console.log(data);
 			return resultdb(200, returnData);
 		}
-		
+
 		// return response;
 	} catch (err) {
-		console.log(err);
+		// console.log('93', err);
 		return resultdb(500, err);
 	}
 };
 
-
+let isPdfAvailable = async (pdf) => {
+	return new Promise((resolve, reject) => {
+		const fs = require('fs');
+		fs.access(pdf, fs.constants.F_OK, (err) => {
+			if (err) {
+				// console.error('no access!');
+				resolve(false);
+			} else {
+				// console.log('can read/write');
+				resolve(true);
+			}
+		});
+	});
+};
 let convertPdf = async (pdf) => {
 	return new Promise((resolve, reject) => {
 		const fs = require('fs');
@@ -120,33 +126,46 @@ let convertPdf = async (pdf) => {
 };
 
 let updatedocstatus = async (req) => {
-console.log(req.body);
-try {
-	const docStatus= req.body.docstatus;
-	const id=req.body.id;
-// console.log(docStatus);
-var connection = config.connection;
+	console.log(req.body);
+	try {
+		const docStatus = req.body.docstatus;
+		const id = req.body.id;
+		// console.log(docStatus);
+		var connection = config.connection;
 		const response3 = await new Promise((resolve, reject) => {
 			const query = 'update printDocTable set docStatus=? where id=?';
-			connection.query(query, [docStatus,id], (err, results) => {
+			connection.query(query, [docStatus, id], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});
 		});
-		console.log('response3', response3);
+		// console.log('response3', response3);
 		return resultdb(200, 'docStatus updated sucessfully');
-
-
-} catch (err) {
-	console.log(err);
-	return resultdb(500, err);
+	} catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+};
+let getPdfById = async (req) => {
+	try {
+		var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+			const query = 'select * from printDocTable WHERE id = ?;';
+			connection.query(query,[req.body.id], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		const path = response[0].path;
+		return await convertPdf(path);
+	} catch (err) {
+		return resultdb(404, err);
+	}
 }
-
-}
-
 module.exports = {
 	uploadDoc,
 	sellerprint,
 	convertPdf,
 	updatedocstatus,
+	getPdfById
 };

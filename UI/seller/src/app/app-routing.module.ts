@@ -1,22 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './views/pages/login/login.component';
-import { PrintsellerComponent } from './views/pages/printseller/printseller.component';
-
+import { DashboardComponent } from './views/layout/dashboard/dashboard.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/seller',
+    redirectTo: '/login',
     pathMatch: 'full',
   },
   {
-    path: 'seller',
+    path: 'login',
     component: LoginComponent,
   },
   {
-    path: 'printseller',
-    component: PrintsellerComponent,
-  }
+    path: 'dashboard',
+    component: DashboardComponent,
+    loadChildren: () =>
+      import('./views/layout/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
+  },
 ];
 
 @NgModule({

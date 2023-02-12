@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PrintsellerComponent } from './printseller.component';
+import { SubdashboardComponent } from './subdashboard.component';
 
-describe('PrintsellerComponent', () => {
-  let component: PrintsellerComponent;
-  let fixture: ComponentFixture<PrintsellerComponent>;
+describe('SubdashboardComponent', () => {
+  let component: SubdashboardComponent;
+  let fixture: ComponentFixture<SubdashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PrintsellerComponent ]
+      declarations: [ SubdashboardComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PrintsellerComponent);
+    fixture = TestBed.createComponent(SubdashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

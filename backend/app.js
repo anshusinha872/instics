@@ -81,7 +81,7 @@ const pdfController = routes.pdfController;
 const orderController = routes.orderController;
 const cartController = routes.cartController;
 const webHookController = routes.cashFreeWebHook;
-const API_URL = 'api/v1/';
+const API_URL = '/api/v1/';
 app.use(API_URL, userController);
 app.use(API_URL, pdfController);
 app.use(API_URL, orderController);

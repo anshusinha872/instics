@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="contentBox">
       <div class="logoContainer">
         <img style="height: 80px" src="assets/logo.png" alt="" />
@@ -8,21 +8,21 @@
       </div>
       <div class="inputWrapper">
         <div class="inputContainer my-2">
-          <i class="fa-solid fa-envelope"></i>
+          <i class="fa-solid fa-envelope mx-3"></i>
           <span class="p-float-label">
             <input id="float-input" [(ngModel)]="value1" type="text" pInputText />
             <label for="float-input">Username</label>
           </span>
         </div>
         <div class="inputContainer my-2">
-          <i class="fa-solid fa-lock"></i>
+          <i class="fa-solid fa-lock mx-3"></i>
           <p-password [style]="{'width':'100%'}"
               [inputStyle]="{'width':'100%'}" [(ngModel)]="value2"></p-password>
-              <label for="float-input">password</label>
+              <!-- <label for="float-input">password</label> -->
         </div>
       </div>
-      <div class="buttonContainer my-2">
-        <button pButton type="submit" (click)="submitUser()">Sign in</button>
+      <div class="buttonContainer my-2 ">
+        <button class="" pButton type="submit" (click)="submitUser()">Sign in</button>
       </div>
       
     </div>

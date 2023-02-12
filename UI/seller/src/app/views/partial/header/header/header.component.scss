@@ -1,0 +1,19 @@
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar{
+    height:max-content;
+}
+.logo{
+ display: flex;
+ height: 40px;
+}
+.options{
+    display: flex;
+    justify-content: space-between;
+}
+.icon{
+    padding:10px;
+}

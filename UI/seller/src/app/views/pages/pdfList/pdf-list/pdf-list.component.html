@@ -1,0 +1,71 @@
+<div class="container-fluid">
+  <p-table [value]="pdfs">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Id</th>
+        <th>User Id</th>
+        <th class="pdfName">PDF Name</th>
+        <th>Doc Type</th>
+        <th>Color Mode</th>
+        <th>Print Range</th>
+        <th>Total Page</th>
+        <th>Total Cost</th>
+        <th>Status</th>
+        <th>View/Download</th>
+        <th>Mark/Delete</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pdf>
+      <tr>
+        <td>{{ pdf.id }}</td>
+        <td>{{ pdf.user_id }}</td>
+        <td>{{ pdf.pdfName }}</td>
+        <td>{{ pdf.docType=='1'?"Standard":"Official" }}</td>
+        <td>{{ pdf.colorMode =='1'?"B/W":(pdf.colorMode=='2'?"Color":"Photo" )}}</td>
+        <td>{{ pdf.printRange }}</td>
+        <td>{{ pdf.totalPage }}</td>
+        <td>{{ pdf.totalCost }}</td>
+        <td>{{ pdf.docStatus =='0'?"Pending":(pdf.docStatus=='1'?"Approved":"Rejected" ) }}</td>
+        <td class="">
+            <div class="d-flex justify-content-around">
+                <button
+                  (click)="renderPdf(pdf)"
+                  pButton
+                  pRipple
+                  type="button"
+                  icon="pi pi-eye"
+                  class="p-button-rounded p-button-outlined"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  (click)="downloadPdf(pdf)"
+                  icon="pi pi-cloud-download"
+                  class="p-button-rounded p-button-outlined"
+                ></button>
+            </div>
+        </td>
+        <td>
+            <div class="d-flex justify-content-around">
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  icon="pi pi-check"
+                  (click)="updatedocstatus(1,pdf.id)"
+                  class="p-button-rounded p-button-success p-button-outlined"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  icon="pi pi-times"
+                  class="p-button-rounded p-button-danger p-button-outlined"
+                ></button>
+            </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
