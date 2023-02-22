@@ -99,7 +99,20 @@ async function orderPay(req, res) {
 			return res.status(404).json(error);
 		});
 }
+async function deletePDFItem(req, res) {
+	try {
+		const user_id = req.body.user_id;
+		const pdf_id = req.body.item_id;
+		// console.log(user_id);
+		// console.log(pdf_id);
+		let returndata = await cartService.deletePDFItem(user_id, pdf_id);
+		return res.status(200).json(returndata);
+	} catch (err) {
+		console.log(err);
+	}
+}
 router.post('/cart/view', getCartItems);
 router.post('/cart/createOrder', createOrder);
 router.post('/cart/orderPay', orderPay);
+router.post('/cart/delete',deletePDFItem);
 module.exports = router;

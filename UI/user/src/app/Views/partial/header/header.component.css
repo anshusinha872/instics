@@ -8,7 +8,7 @@ nav{
 }
 .logo{
  display: flex;
- height: 30px;
+ /* height: 30px; */
 }
 .options{
     display: flex;

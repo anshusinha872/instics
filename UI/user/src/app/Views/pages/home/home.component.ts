@@ -1,47 +1,103 @@
-import { Component, OnInit } from '@angular/core';
-import { documentId } from 'firebase/firestore';
-import { UserService } from 'src/app/services/user/user.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { SessionService } from 'src/app/services/session/session.service';
-import { LoginService } from 'src/app/services/login/login.service';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrManager } from 'ng6-toastr-notifications';
+import { App } from '@capacitor/app';
 @Component({
-  selector: 'home',
+  selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
-  constructor(
-    private userService: UserService,
-    private authService: AuthService,
-    private sessionService: SessionService,
-    private toastManager: ToastrManager,
-    private router: Router,
-    private loginService: LoginService
-  ) {}
+export class HomePageComponent implements OnInit {
+  verified: boolean = false;
+  navbarfixed: boolean = false;
+  projectcount: number = 0;
+  //same process
+  accuratecount: number = 0;
+  clientcount: number = 0;
+  customerfeedback: number = 0;
+
+  constructor(private router: Router, private http: HttpClient) {}
+
   ngOnInit(): void {
-    // this.getUserData();
-    const token = this.sessionService.get('token');
-    if (this.authService.tokenExpired(token)) {
-      // console.log('token expired');
-      this.toastManager.errorToastr('Session expired, please login again');
-      this.loginService.logout();
-      this.router.navigate(['/login']);
-    } else {
-      console.log('token is valid');
-    }
-  }
-  getUserData() {
-    this.userService.userData().subscribe((res) => {
-      console.log(res);
+    this.slideImage();
+    App.addListener('backButton', ({ canGoBack }) => {
+      if (canGoBack) {
+        window.history.back();
+      } else {
+        App.exitApp();
+      }
     });
   }
-  services() {
-    document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+  slideImage() {
+    let carouselItems = document.getElementsByClassName('item1');
+    // console.log(carouselItems);
+    for (let i = 0; i < carouselItems.length; i++) {
+      // console.log(carouselItems[i].classList);
+      // console.log(i);
+      // if (carouselItems[i].classList.contains('active')) {
+      //   carouselItems[(i + 1) % carouselItems.length].classList.remove('mx-2');
+      //   carouselItems[i].classList.add('mx-2');
+      // }
+    }
   }
-  redirect(data) {
-    // console.log(data);
-    this.router.navigate([this.router.url.split('/')[1] + data]);
+  @HostListener('window:scroll', ['$event']) onscroll() {
+    if (window.scrollY > 100) {
+      this.navbarfixed = true;
+    } else {
+      this.navbarfixed = false;
+    }
   }
+  register() {
+    this.router.navigate(['/signup']);
+  }
+  navigateToAbout() {
+    this.router.navigate(['/about']);
+  }
+  home() {
+    this.verified = false;
+  }
+  projectcountstop: any = setInterval(() => {
+    this.projectcount++;
+    //we need to stop this at  particular point; will use if condition
+    if (this.projectcount == 1000) {
+      //clearinterval will stop tha function
+      clearInterval(this.projectcountstop);
+    }
+  }, 10); //10 is milisecond you can control it
+
+  accuratecountstop: any = setInterval(() => {
+    this.accuratecount++;
+    if (this.accuratecount == 200) {
+      clearInterval(this.accuratecountstop);
+    }
+  }, 10);
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
+  navigateToContact() {
+    this.router.navigate(['/contact']);
+  }
+  navigate(data) {
+    this.router.navigate([data]);
+  }
+  clientcountstop: any = setInterval(() => {
+    this.clientcount++;
+    if (this.clientcount == 1000) {
+      clearInterval(this.clientcountstop);
+    }
+  }, 10);
+
+  customerfeedbackstop: any = setInterval(() => {
+    this.customerfeedback++;
+    if (this.customerfeedback == 99) {
+      clearInterval(this.customerfeedbackstop);
+    }
+  }, 10);
+
+  //conclusion: we have use
+  //string interpolation
+  //setInterval function
+  //()=> arrow function
+  //clearInterval
+  //creating variable
 }

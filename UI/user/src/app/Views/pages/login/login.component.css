@@ -1,10 +1,21 @@
 .header, .background{
-    height: 100vh !important;
+    /* height: 100vh !important; */
     width: 100% !important;
     overflow: hidden;
     margin:0;
 }
-
+.loginImage{
+    width: 100%;
+}
+.arrowContainer{
+    position: absolute;
+    /* top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    z-index: 1;
+    font-size: 2rem;
+    color:#3f51b5;
+}
 @media screen and (max-width: 922px) {
      .hide-m-s{
         display: none;

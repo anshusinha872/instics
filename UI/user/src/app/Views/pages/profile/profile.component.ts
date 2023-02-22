@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { UserService } from 'src/app/services/user/user.service';
@@ -8,6 +8,8 @@ import { LoginService } from 'src/app/services/login/login.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Location } from '@angular/common';
 import { OrderService } from 'src/app/services/order/order.service';
+import { SharedService } from 'src/app/services/shared/shared.service';
+import { App } from '@capacitor/app';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -23,6 +25,7 @@ export class ProfileComponent implements OnInit {
     private AuthService: AuthService,
     private location: Location,
     private orderService: OrderService,
+    private sharedService: SharedService
   ) {}
   imageChangedEvent: any = '';
   croppedImage: any = '';
@@ -34,6 +37,16 @@ export class ProfileComponent implements OnInit {
   public showOrderDetails = false;
   public OrderList = [];
   ngOnInit(): void {
+     App.addListener('backButton', ({ canGoBack }) => {
+       if (canGoBack) {
+         window.history.back();
+       } else {
+         App.exitApp();
+       }
+     });
+    // console.log(this.sharedService.getProfileData());
+    this.profileDetails = this.sharedService.getProfileData();
+    console.log(this.profileDetails);
     const token = this.sessionService.get('token');
     if (this.AuthService.tokenExpired(token)) {
       console.log('token expired');
@@ -55,10 +68,10 @@ export class ProfileComponent implements OnInit {
     const req = {
       user_id: this.user_id,
     };
-    this.userService.getUserDetails(req).subscribe((res) => {
-      this.profileDetails = res.data;
-      console.log(this.profileDetails);
-    });
+    // this.userService.getUserDetails(req).subscribe((res) => {
+    //   this.profileDetails = res.data;
+    //   console.log(this.profileDetails);
+    // });
   }
   navigateTodashboard() {
     console.log(this.currentRoute);
@@ -104,13 +117,17 @@ export class ProfileComponent implements OnInit {
         this.croppedImage = undefined;
         this.imageChangedEvent = undefined;
         this.toastr.successToastr('Profile image uploaded successfully');
+        
+        console.log(this.profileDetails);
         const req = {
           user_id: this.user_id,
         };
         this.userService.getUserDetails(req).subscribe((res) => {
           this.profileDetails = res.data;
+          this.sharedService.setProfileData(this.profileDetails);
           console.log(this.profileDetails);
         });
+
       } else {
         this.toastr.errorToastr('Something went wrong');
       }
@@ -130,12 +147,16 @@ export class ProfileComponent implements OnInit {
         if (res.statusCode == 200) {
           this.toastr.successToastr('Order history fetched successfully');
           this.OrderList = res.data;
-        }
-        else {
+        } else {
           this.toastr.errorToastr('Something went wrong');
         }
       });
     }
     this.showOrderDetails = !this.showOrderDetails;
   }
+  // @HostListener('window:popstate', ['$event'])
+  // onPopState(event) {
+  //   // Handle the back button event
+  //   this.location.back();
+  // }
 }

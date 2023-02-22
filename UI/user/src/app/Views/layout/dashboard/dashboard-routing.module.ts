@@ -2,16 +2,24 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/services/guard/auth.guard';
 import { ProfileComponent } from '../../pages/profile/profile.component';
+import { CategoryComponent } from '../../pages/category/category.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'services',
     pathMatch: 'full',
   },
   {
-    path: 'home',
-    loadChildren: () => import('../../pages/home/home.module').then(m => m.HomeModule),
+    path: 'services',
+    loadChildren: () =>
+      import('../../pages/services/services.module').then(
+        (m) => m.ServicesModule
+      ),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'category',
+    component: CategoryComponent,
   },
   {
     path: 'profile',
@@ -20,18 +28,20 @@ const routes: Routes = [
   },
   {
     path: 'print',
-    loadChildren: () => import('../../pages/print/print.module').then(m => m.PrintModule),
+    loadChildren: () =>
+      import('../../pages/print/print.module').then((m) => m.PrintModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'cart',
-    loadChildren: () => import('../../pages/cart/cart.module').then(m => m.CartModule),
+    loadChildren: () =>
+      import('../../pages/cart/cart.module').then((m) => m.CartModule),
     canActivate: [AuthGuard],
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}

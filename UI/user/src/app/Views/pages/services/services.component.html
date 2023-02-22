@@ -1,0 +1,263 @@
+<!-- <div class="services pt-2 pb-4">
+  <div class="categories">
+    <a href="#"><img class="food imgShadow" src="./assets/food.jfif" /></a>
+  </div>
+  <div class="categories">
+    <a href="#"><img class="laundry imgShadow" src="./assets/laundry.png" /></a>
+  </div>
+  <div class="categories">
+    <a href="#"><img class="print imgShadow" src="./assets/print.jfif" /></a>
+  </div>
+  <div class="categories">
+    <a href="#"
+      ><img class="grocery imgShadow" src="./assets/grocery.jfif"
+    /></a>
+  </div>
+</div> -->
+
+<!-- carousel -->
+
+<!-- <div
+  id="carouselExampleInterval"
+  class="carousel slide"
+  data-bs-ride="carousel"
+>
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="10000">
+      <img src="./assets/carousel1.jpg" class="d-block w-100" alt="..." />
+    </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="./assets/college.jpg" class="d-block w-100" alt="..." />
+    </div>
+    <div class="carousel-item">
+      <img src="./assets/carousel2.jpg" class="d-block w-100" alt="..." />
+    </div>
+    <div class="carousel-item">
+      <img src="./assets/printing.jpg" class="d-block w-100" alt="..." />
+    </div>
+  </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleInterval"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleInterval"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div> -->
+<div class="container-fluid p-0">
+  <div class="headerContainer mt-2 d-flex justify-content-between align-items-center">
+    <div class="d-flex flex-column textContainer">
+        <span class="">{{greeting}}</span>
+        <span class="">{{userName}}</span>
+    </div>
+    <div class="imgContainer mx-3">
+      <img class="profileImg" src="data:image/png;base64,{{ userIcon }}" alt="" />
+    </div>
+  </div>
+</div>
+<div class="serviceTypeHeader">
+  <span class="serviceTypeText d-flex flex-row">
+    <span> Services </span>
+    <div class="serviceTypeBorder"></div>
+  </span>
+</div>
+<div class="serviceContainer column">
+  <!-- <button (click)="redirect('/print')" class="servicecard">
+    <div  class="serviceCardHeaderWrapper">
+      <div class="heading px-2 d-flex justify-content-between">
+        <span class="headingText">Print</span>
+        <span class="headingIcon"><i class="fa-solid fa-2x fa-caret-right"></i></span>
+      </div>
+      <div class="serviceImgContanier">
+        <img class="serviceImg" src="./assets/serviceImg/printerImg.jpeg" alt="">
+      </div>
+      
+    </div>
+    <div class="subHeading px-2">
+      <span class="subHeadingText"
+        >With our affordable and secure online document printing services</span
+      >
+    </div>
+  </button> -->
+  <!-- <div class="servicecard">
+    <div class="serviceCardHeaderWrapper">
+      <div class="serviceImgContanier">
+        <img class="serviceImg" src="/assets/carousel2.jpg" alt="">
+      </div>
+      <div class="heading px-2 d-flex justify-content-between">
+        <span class="headingText">Print</span>
+        <span class="headingIcon"><i class="fa-solid fa-2x fa-caret-right"></i></span>
+      </div>
+    </div>
+    <div class="subHeading px-2">
+      <span class="subHeadingText">With our affordable and secure online document printing services</span>
+    </div>
+  </div> -->
+  <!-- <div class="servicecard">
+    <div class="serviceCardHeaderWrapper">
+      <div class="heading px-2 d-flex justify-content-between">
+        <span class="headingText">Print</span>
+        <span class="headingIcon"><i class="fa-solid fa-2x fa-caret-right"></i></span>
+      </div>
+      <div class="serviceImgContanier">
+        <img class="serviceImg" src="/assets/carousel2.jpg" alt="">
+      </div>
+      
+    </div>
+    <div class="subHeading px-2">
+      <span class="subHeadingText">With our affordable and secure online document printing services</span>
+    </div>
+  </div> -->
+  <!-- <div class="servicecard">
+    <div class="serviceCardHeaderWrapper">
+      <div class="serviceImgContanier">
+        <img class="serviceImg" src="/assets/carousel2.jpg" alt="">
+      </div>
+      <div class="heading px-2 d-flex justify-content-between">
+        <span class="headingText">Print</span>
+        <span class="headingIcon"><i class="fa-solid fa-2x fa-caret-right"></i></span>
+      </div>
+    </div>
+    <div class="subHeading px-2">
+      <span class="subHeadingText">With our affordable and secure online document printing services</span>
+    </div>
+  </div> -->
+</div>
+<div class="container-fluid p-3">
+  <div (click)="redirect('/print')" class="cardContainer align-items-center p-3 d-flex">
+    <div class="cardImgContainer">
+      <img class="cardImg" src="./assets/5130798.jpg" alt="">
+    </div>
+    <div class="cardTextContainer p-2">
+      <div class="cardHeading">Print</div>
+      <div class="cardServiceStatus">
+        <div class="statusClass"></div>
+        <span>
+          <i class="fa-solid active fa-circle"></i>
+          <span class="mx-2">active</span>
+          
+        </span>
+        <!-- <span><i class="fa-solid fa-circle"></i>in-active</span> -->
+      </div>
+      <div class="cardSubHeading">With our affordable and secure online document printing services</div>
+      <div>Go to service</div>
+    </div>
+  </div>
+  <div class="d-flex flex-row justify-content-between my-3">
+
+    <div (click)="availableSoonMsg()" class="cardContainer align-items-center p-3 ">
+      <div class="cardImgContainer">
+        <img class="cardImg" src="./assets/8550547.jpg" alt="">
+      </div>
+      <div class="cardTextContainer p-2">
+        <div class="cardHeading">Food</div>
+        <div class="cardServiceStatus">
+          <div class="statusClass"></div>
+          <span>
+            <i class="fa-solid in-active fa-circle"></i>
+            <span class="mx-2">in-active</span>
+    
+          </span>
+        </div>
+      </div>
+    </div>
+    <div (click)="availableSoonMsg()" class="cardContainer align-items-center p-3 ">
+      <div class="cardImgContainer">
+        <img class="cardImg" src="./assets/2101.i039.007.laundry washing isometric.jpg" alt="">
+      </div>
+      <div class="cardTextContainer p-2">
+        <div class="cardHeading">Laundry</div>
+        <div class="cardServiceStatus">
+          <div class="statusClass"></div>
+          <span>
+            <i class="fa-solid in-active fa-circle"></i>
+            <span class="mx-2">in-active</span>
+    
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-row justify-content-between my-3">
+  
+    <div (click)="availableSoonMsg()" class="cardContainer align-items-center p-3">
+      <div class="cardImgContainer">
+        <img class="cardImg" src="./assets/3971330.jpg" alt="">
+      </div>
+      <div class="cardTextContainer p-2">
+        <div class="cardHeading">grocery</div>
+        <div class="cardServiceStatus">
+          <div class="statusClass"></div>
+          <span>
+            <i class="fa-solid in-active fa-circle"></i>
+            <span class="mx-2">in-active</span>
+  
+          </span>
+        </div>
+      </div>
+    </div>
+    <div (click)="availableSoonMsg()" class="cardContainer align-items-center p-3 ">
+      <div class="cardImgContainer">
+        <img class="cardImg" src="./assets/3911318.jpg" alt="">
+      </div>
+      <div class="cardTextContainer p-2">
+        <div class="cardHeading">Hackathon</div>
+        <div class="cardServiceStatus">
+          <div class="statusClass"></div>
+          <span>
+            <i class="fa-solid in-active fa-circle"></i>
+            <span class="mx-2">in-active</span>
+  
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-row justify-content-between my-3">
+  
+    <div (click)="availableSoonMsg()" class="cardContainer align-items-center p-3">
+      <div class="cardImgContainer">
+        <img class="cardImg" src="./assets/3952464.jpg" alt="">
+      </div>
+      <div class="cardTextContainer p-2">
+        <div class="cardHeading">Event</div>
+        <div class="cardServiceStatus">
+          <div class="statusClass"></div>
+          <span>
+            <i class="fa-solid in-active fa-circle"></i>
+            <span class="mx-2">in-active</span>
+            
+          </span>
+          <!-- <span>Will be available soon</span> -->
+        </div>
+      </div>
+    </div>
+    <!-- <div (click)="redirect('/print')" class="cardContainer align-items-center p-3 ">
+      <div class="cardImgContainer">
+        <img class="cardImg" src="./assets/5130798.jpg" alt="">
+      </div>
+      <div class="cardTextContainer p-2">
+        <div class="cardHeading">Hackathon</div>
+        <div class="cardServiceStatus">
+          <div class="statusClass"></div>
+          <span>
+            <i class="fa-solid in-active fa-circle"></i>
+            <span class="mx-2">in-active</span>
+  
+          </span>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

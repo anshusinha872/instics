@@ -2,6 +2,7 @@ const MysqlPool = require('../../app');
 const config = require('../../config/databaseConfig.js');
 const util = require('util');
 const mysql = require('mysql');
+const pdfService = require('./pdfService');
 const resultdb = (statusCode, data = null) => {
 	return {
 		statusCode: statusCode,
@@ -22,9 +23,10 @@ let getCartItems = async (user_id) => {
 		});
 		if (response.length > 0) {
 			let returnData = [];
+			// console.log(response);
 			for (let i = 0; i < response.length; i++) {
 				let data = {
-					id: i,
+					id: response[i].id,
 					pdfName: response[i].pdfName,
 					docType: response[i].docType,
 					colorMode: response[i].colorMode,
@@ -63,7 +65,27 @@ let orderId = async () => {
 		return resultdb(500, err);
 	}
 };
+let deletePDFItem = async (user_id, pdf_id) => {
+	try {
+		var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+			
+			const query = 'DELETE FROM printDocTable WHERE user_id = ? AND id = ?;';
+			connection.query(query,[user_id,pdf_id], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+			
+		});
+		return resultdb(200, response);
+	}
+	catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+}
 module.exports = {
 	getCartItems,
 	orderId,
+	deletePDFItem,
 };

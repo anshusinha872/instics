@@ -9,8 +9,9 @@ import { SessionService } from '../session/session.service';
   providedIn: 'root',
 })
 export class CartService {
-  private base_url: string = 'https://instincts.co.in/api/v1/'; //local/
+  // private base_url: string = 'http://localhost:3443/api/v1/'; //local/
   // private base_url: string = 'https://instincts.co.in:3443/';
+  private base_url: string = environment.APIEndpoint;
   constructor(
     private http: HttpClient,
     private sessionService: SessionService
@@ -32,6 +33,11 @@ export class CartService {
   }
   handleWebhook(): Observable<any> {
     return this.http.post(this.base_url + 'webHook/cashFree/success', {
+      headers: this.sessionService.setTokenHeaderImage(),
+    });
+  }
+  deleteCartItem(param): Observable<any> {
+    return this.http.post(this.base_url + 'cart/delete', param, {
       headers: this.sessionService.setTokenHeaderImage(),
     });
   }

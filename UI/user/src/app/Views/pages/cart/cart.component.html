@@ -1,15 +1,14 @@
 <div class="cartHeader">
   <div (click)="navigate()" class="backBtn"><i class="fa fa-arrow-left"></i> Back</div>
   <div class="cartText">My Cart</div>
-  <div class="removeItemTxt">Remove All</div>
+  <!-- <div class="removeItemTxt">Remove All</div> -->
 </div>
 
 <div class="cartItems">
   <div
     id="item{{ i }}"
-    (click)="selectItem(i)"
     *ngFor="let item of cartList[0]; index as i"
-    class="items"
+    class="items align-items-center"
   >
     <!-- {{item}} -->
     <i class="fa fa-print"></i>
@@ -23,7 +22,7 @@
       </div>
     </div>
 
-    <i class="fa-solid fa-trash-can"></i>
+    <i (click)="removeItem(item.id)" class="fa-solid fa-trash-can"></i>
   </div>
 
   <!-- <div class="items">
@@ -59,7 +58,7 @@
   <input type="text" name="promo" placeholder="Have a promo code?" />
   <button type="button">APPLY</button>
 </div>
-<div class="billingDetails">
+<!-- <div class="billingDetails">
   <div class="alligner">
     <div class="rightBillTxt">Subtotal</div>
     <div
@@ -81,17 +80,17 @@
     <div class="rightBillTxt">Service Charge</div>
     <div class="leftBillTxt" align="right"><i class="fa fa-rupee"></i> 150</div>
   </div>
-</div>
+</div> -->
 
 <div class="checkoutButton">
   <div class="pric">
-    <p style="margin: 23px"><i class="fa fa-rupee"></i> 600</p>
+    <p style="margin: 23px"><i class="fa fa-rupee"></i> {{totalCheckoutPrice}}</p>
   </div>
-  <div *ngIf="showUpiField">
+  <!-- <div *ngIf="showUpiField">
     <input type="text" [(ngModel)]="upi_id" name="" id="">
-  </div>
-  <div (click)="generateAccessToken()" class="btn">Checkout</div>
-  <button (click)="createPaymentRequest()" >create payment request</button>
-  <button (click)="handleWebhook()" >webhook</button>
+  </div> -->
+  <div  class="btn">Checkout</div>
+  <!-- <button (click)="createPaymentRequest()" >create payment request</button> -->
+  <!-- <button (click)="handleWebhook()" >webhook</button> -->
 </div>
 

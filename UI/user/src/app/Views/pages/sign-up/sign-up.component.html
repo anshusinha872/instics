@@ -1,6 +1,8 @@
-<div class="d-flex row align-items-center">
-  <app-sideBar class="col-6 p-0 m-0"></app-sideBar>
-  <div class="d-flex justify-content-center col-12">
+<div class="d-flex m-0 row align-items-center container-fluid p-0">
+  <img class="imgClass" src="./assets/4944411.jpg" alt="" srcset="">
+  <span (click)="navigateToHome()" class="leftArrow"><i class="fa-solid fa-arrow-left"></i></span>
+  <!-- <app-sideBar class="col-6 p-0 m-0"></app-sideBar> -->
+  <div *ngIf="!otpBoxVisible" class="d-flex justify-content-center col-12">
     <div class="col-12 p-0">
       <div class="d-flex justify-content-center content">
         <div class="col-11">
@@ -13,11 +15,11 @@
                 <i class="fas fa-user fa-lg fa-fw"></i>
               </div>
               <div class="col-11 d-flex p-0 justify-content-between">
-                <span class="p-float-label col-6">
+                <span class="p-float-label col-5">
                   <input id="a" type="text" [style]="{ width: '100%' }" pInputText [(ngModel)]="firstName" />
                   <label for="a">First Name</label>
                 </span>
-                <span class="p-float-label col-6">
+                <span class="p-float-label col-5">
                   <input id="a" type="text" [style]="{ width: '100%' }" pInputText [(ngModel)]="lastName" />
                   <label for="a">Last Name</label>
                 </span>
@@ -39,7 +41,7 @@
               <span class="col-11 d-flex p-0 justify-content-between">
                 <p-password class="flex-grow-1" [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }"
                   [(ngModel)]="password" [toggleMask]="true" placeholder="Password">
-                  <ng-template pTemplate="header">
+                  <!-- <ng-template pTemplate="header">
                     <h6>Pick a password</h6>
                   </ng-template>
                   <ng-template pTemplate="footer">
@@ -51,7 +53,7 @@
                       <li>At least one numeric</li>
                       <li>Minimum 8 characters</li>
                     </ul>
-                  </ng-template>
+                  </ng-template> -->
                 </p-password>
               </span>
             </div>
@@ -64,6 +66,8 @@
                 <label for="d">Phone</label>
               </span>
             </div>
+            <div id="recaptcha-container"></div>
+
             <div class="form-check my-2">
               <input class="form-check-input me-2" [(ngModel)]="checkBox" type="checkbox" value="" id="form2Example3c" />
               <label class="form-check-label" for="form2Example3">
@@ -71,7 +75,7 @@
               </label>
             </div>
             <div class="row col-12 m-0 justify-content-center mb-3 mb-lg-4 my-2">
-              <button pButton pRipple [style]="{ width: '50%' }" type="button" label="Register"
+              <button pButton pRipple [style]="{ width: '50%',color: 'black',background:'#43aa7d' }" type="button" label="Register"
                 (click)="submitUser()"></button>
 
               <div id="sign-in-button"></div>
@@ -80,7 +84,7 @@
               <span class="text-dark fs-3 fw-semibold">Already Registered</span>
             </div>
             <div class="mt-4 text-center">
-              <button (click)="toLogin()" pButton pRipple [style]="{ width: '50%' }" type="button"
+              <button (click)="toLogin()" pButton pRipple [style]="{ width: '50%',background:'#43aa7d',color: 'black' }" type="button"
                 label="Login"></button>
               <!-- <button [style]="{'width':'100%'}" pButton type="button" class="p-button-raised text-center">Login</button> -->
             </div>
@@ -97,6 +101,25 @@
               </div>
             </div> -->
           <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="otpBoxVisible" class="d-flex justify-content-center col-12">
+    <div class="col-12 p-0">
+      <div class="d-flex justify-content-center content">
+        <div class="col-11">
+          <div class="otp">
+            <!-- <ng-otp-input class="otpField" (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input> -->
+            <!-- <p-inputNumber [(ngModel)]="otp"></p-inputNumber> -->
+            <div class="optTitle">Enter otp received </div>
+            <input type="text" pInputText [(ngModel)]="otp" />
+            <div class="d-flex justify-content-center">
+              <button (click)="validateOtp()" class="btn btn-success mt-4">
+                Verify Otp
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

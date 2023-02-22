@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+.headerText {
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  font-family: 'Montserrat', sans-serif;
+}
+.text{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+.arrowContainer {
+  justify-self: start;
+  font-size: 2rem;
+}
+.img {
+  width: 100%;
+  height: 300px;
+}
+:host ::ng-deep .p-button {
+  width: 100%;
+}
+:host ::ng-deep .p-inputtextarea {
+  /* width: 100%; */
+  height: 160px;
+}
+.btnContainer{
+  /* background-color: #0097d7; */
+}

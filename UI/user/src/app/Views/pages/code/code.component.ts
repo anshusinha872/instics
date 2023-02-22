@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import firebase from 'firebase/compat/app' 
-import "firebase/auth"
-import "firebase/firestore"
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-code',
@@ -39,15 +36,15 @@ export class CodeComponent implements OnInit {
    }
     
     handleClick(){
-      var credentials=firebase.auth.PhoneAuthProvider.credential(this.verify,this.otp)
+      // var credentials=firebase.auth.PhoneAuthProvider.credential(this.verify,this.otp)
 
-      firebase.auth().signInWithCredential(credentials).then((response)=>{
-        console.log(response);
-        localStorage.setItem('user_data',JSON.stringify(response))
-        this.router.navigate(['/home'])
-      }).catch((error)=>{
-        alert(error.message)
-      }) 
+      // firebase.auth().signInWithCredential(credentials).then((response)=>{
+      //   console.log(response);
+      //   localStorage.setItem('user_data',JSON.stringify(response))
+      //   this.router.navigate(['/home'])
+      // }).catch((error)=>{
+      //   alert(error.message)
+      // }) 
     }
    
 }

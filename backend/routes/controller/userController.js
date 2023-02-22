@@ -37,7 +37,7 @@ async function signUpUser(req, res) {
 async function checkUser(req, res) {
 	try {
 		const contact = req.body.contact;
-		let returnData = await userService.checkUser(contact);
+		let returnData = await userService.forgotPassword(contact);
 		if (returnData.length > 0) {
 			if (returnData[0].contact == contact) {
 				returnData = {
@@ -120,6 +120,15 @@ async function getUserDetailsById(req, res) {
 		console.log(err);
 	}
 }
+async function saveQuery(req, res) {
+	try {
+		console.log(req);
+		let returnData = await userService.saveQuery(req);
+		return res.status(200).json('success');
+	} catch (err) {
+		console.log(err);
+	}
+}
 router.get('/userData', getUserData);
 router.post('/login', loginUser);
 router.post('/signup', signUpUser);
@@ -127,5 +136,6 @@ router.post('/checkUser', checkUser);
 router.post('/updatePassword', updatePassword);
 router.post('/img/upload', uploadImage);
 router.get('/img/show', showAllImages);
-router.post('/user',getUserDetailsById)
+router.post('/user', getUserDetailsById)
+router.post('/query', saveQuery);
 module.exports = router;

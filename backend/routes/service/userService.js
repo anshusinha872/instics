@@ -18,7 +18,7 @@ let convertImage = async (img) => {
 		fs.access(img, fs.constants.F_OK, (err) => {
 			if (err) {
 				console.error('no access!');
-				resolve(null);
+				resolve('null');
 			} else {
 				console.log('can read/write');
 				fs.readFile(img, function (err, content) {
@@ -170,6 +170,7 @@ let loginUserByEmailId = async (email_id, password) => {
 };
 let signUpUser = async (req) => {
 	try {
+		const profile_image = './uploads/profileImg/defaultPic.jpg';
 		const email = req.body.email;
 		const password = req.body.password;
 		const firstName = req.body.firstName;
@@ -208,10 +209,10 @@ let signUpUser = async (req) => {
 			} else {
 				const response2 = await new Promise((resolve, reject) => {
 					const query =
-						'INSERT INTO userData (email_id, password, firstName, lastName, contact) VALUES (?,?,?,?,?);';
+						'INSERT INTO userData (email_id, password, firstName, lastName, contact,profile_image) VALUES (?,?,?,?,?,?);';
 					connection.query(
 						query,
-						[email, hash, firstName, lastName, contact],
+						[email, hash, firstName, lastName, contact, profile_image],
 						(err, results) => {
 							if (err) reject(new Error(err.message));
 							resolve(results);
@@ -326,6 +327,24 @@ let userDataByUserId = async (user_id) => {
 		return resultdb(500, err);
 	}
 };
+let saveQuery = async (req) => {
+	try {
+		// console.log(req.body);
+		var connection = config.connection;
+		const queryResult = await new Promise((resolve, reject) => {
+			const query =
+				'INSERT INTO queryRecords (name, email,contactNumber,message) VALUES (?,?,?,?);';
+			connection.query(query, [req.body.name,req.body.email,req.body.contactNumber,req.body.message], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+	}
+	catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+}
 module.exports = {
 	userData,
 	loginUserByEmailId,
@@ -336,4 +355,5 @@ module.exports = {
 	showAllImages,
 	getUserDetailsById,
 	userDataByUserId,
+	saveQuery
 };

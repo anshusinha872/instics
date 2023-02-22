@@ -1,71 +1,39 @@
-<!-- <nav
-  class="navbar fixed-bottom navbar-light bg-light navbar-shadow"
-  style="padding: 0px"
->
-  <div class="container-fluid">
-    <a class="nav-link active" aria-current="page" [routerLink]="['/home']">
-      <div class="icon">
-        <i class="fa-solid fa-house-user fa-2x"></i>
-      </div>
-    </a>
-    <a class="nav-link active" aria-current="page" [routerLink]="['/home']">
-      <div class="icon">
-        <i class="fa-solid fa-message fa-2x"></i>
-      </div>
-    </a>
-    <a class="nav-link" href="#">
-      <div class="icon">
-        <i class="fa-solid fa-compass fa-2x"></i>
-      </div>
-    </a>
 
-    <a class="nav-link" href="#" [routerLink]="['/profile']">
-      <div class="icon">
-        <i class="fa-regular fa-user fa-2x"></i>
-      </div>
-    </a>
-  </div>
-</nav> -->
-
-<div class="footerContainer">
-  <!-- <i class="fa-solid fa-2x fa-house"></i>
-  <i class="fa-solid fa-bell"></i>
-  <i class="fa-solid fa-circle-user"></i>
-  <i class="fa-solid fa-cart-shopping"></i> -->
-  <button class="logoContainer">
+<div class="footerContainer mb-2">
+  <button (click)="navigateToHome()" class="logoContainer homeLogo">
     <span>
-      <img class="logo" src="../../../../assets/footerIcon/home-svgrepo-com.svg" alt="">
+      <img class="logo " src="../../../../assets/footerIcon/home-svgrepo-com.svg" alt="">
     </span>
-    <span>
+    <!-- <span>
       home
-    </span>
+    </span> -->
   </button>
-  <button (click)="cart()" class="logoContainer">
+  <button (click)="cart()" class="logoContainer cartLogo">
     <span>
-      <img class="logo" src="../../../../assets/footerIcon/cart-lines-1-svgrepo-com.svg" alt="">
+      <img class="logo " src="../../../../assets/footerIcon/cart-lines-1-svgrepo-com.svg" alt="">
     </span>
-    <span>
+    <!-- <span>
       cart
-    </span>
+    </span> -->
   </button>
-  <button  class="logoContainer">
+  <button (click)="navigateToCategory()"  class="logoContainer categoryLogo">
     <span>
-      <img class="logo" src="../../../../assets/footerIcon/category-svgrepo-com.svg" alt="">
+      <img class="logo " src="../../../../assets/footerIcon/category-svgrepo-com.svg" alt="">
     </span>
-    <span>
+    <!-- <span>
       category
-    </span>
+    </span> -->
   </button>
   <!-- <div>
     <img class="logo" src="../../../../assets/footerIcon/bell-svgrepo-com.svg" alt="">
   </div> -->
-  <button (click)="profile()" class="logoContainer">
+  <button (click)="profile()" class="logoContainer profileLogo">
   
     <span>
       <img class="logo" src="../../../../assets/footerIcon/user-square-svgrepo-com.svg" alt="">
     </span>
-    <span>
+    <!-- <span>
       profile
-    </span>
+    </span> -->
   </button>
 </div>

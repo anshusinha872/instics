@@ -4,6 +4,7 @@ import { NgModel } from '@angular/forms';
 import { Location } from '@angular/common';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { App } from '@capacitor/app';
 import { InstamojoService } from 'src/app/services/paymentGateway/instaMojo/insta-mojo.service';
 declare var Instamojo: any; 
 @Component({
@@ -28,21 +29,16 @@ export class CartComponent implements OnInit {
   public upi_id = '';
   public payment_session_id = '';
   ngOnInit(): void {
-    this.showUpiField = true;
-    const user_id = this.sessionService.get('user_id');
-    const req = {
-      user_id: user_id,
-    };
-    this.cartService.viewCartItem(req).subscribe((res) => {
-      if (res.statusCode == 200) {
-        this.toastr.successToastr('Item loaded');
-        this.cartList.push(res.data);
-        console.log(this.cartList);
+    App.addListener('backButton', ({ canGoBack }) => {
+      if (canGoBack) {
+        window.history.back();
       } else {
-        this.toastr.errorToastr(res.message);
-        console.log(res.message);
+        App.exitApp();
       }
     });
+    this.showUpiField = true;
+    this.getCartItems();
+    
     this.arr = [
       { serviceName: 'hello1', items: 1, amount: 200 },
       { serviceName: 'hello2', items: 2, amount: 200 },
@@ -67,33 +63,57 @@ export class CartComponent implements OnInit {
       },
     ];
   }
-  selectItem(i) {
-    const id = i;
-    const item = document.getElementById(id);
-    console.log(item);
-    // item.classList.toggle("selectedList")
-    if (item.classList.contains('selectedList')) {
-      item.classList.remove('selectedList');
-      this.selectedListCount--;
-    } else {
-      item.classList.add('selectedList');
-      this.selectedListCount++;
-    }
+  getCartItems() {
+    const user_id = this.sessionService.get('user_id');
+    const req = {
+      user_id: user_id,
+    };
+    this.cartService.viewCartItem(req).subscribe((res) => {
+      if (res.statusCode == 200) {
+        this.toastr.successToastr('Item loaded');
+        this.cartList.push(res.data);
+        for (let i = 0; i < this.cartList[0].length; i++) {
+          this.totalCheckoutPrice += this.cartList[0][i].totalCost;
+        }
+        console.log(this.cartList);
+      } else {
+        this.toastr.errorToastr(res.message);
+        console.log(res.message);
+      }
+    });
   }
-  removeItems() {
-    var itemsList = [];
-    let list = document.getElementsByClassName('selectedList');
-    console.log(list.length);
-    for (let i = 0; i < this.selectedListCount; i++) {
-      let index = parseInt(list[i].id);
-      itemsList.push(index);
-    }
-    console.log(itemsList);
-    // for(let i=0;i<itemsList.length;i++){
-    //   this.arr.splice(itemsList[i],1);
-    //   console.log(this.arr);
-    // }
-    this.selectedListCount = 0;
+  // selectItem(i) {
+  //   const id = i;
+  //   const item = document.getElementById(id);
+  //   console.log(item);
+  //   // item.classList.toggle("selectedList")
+  //   if (item.classList.contains('selectedList')) {
+  //     item.classList.remove('selectedList');
+  //     this.selectedListCount--;
+  //   } else {
+  //     item.classList.add('selectedList');
+  //     this.selectedListCount++;
+  //   }
+  // }
+  removeItem(item) {
+    // console.log('remove item',item);
+    const user_id = this.sessionService.get('user_id');
+    const req = {
+      user_id: user_id,
+      item_id: item,
+    };
+    this.cartService.deleteCartItem(req).subscribe((res) => {
+      console.log(res);
+      if (res.statusCode == 200) {
+        this.toastr.successToastr('Item deleted');
+        this.cartList = [];
+        this.totalCheckoutPrice = 0;
+        this.getCartItems();
+      } else {
+        this.toastr.errorToastr(res.message);
+        console.log(res.message);
+      }
+    });
   }
   generateAccessToken() {
     const user_id = this.sessionService.get('user_id');

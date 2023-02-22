@@ -4,6 +4,7 @@ import * as pdfjs from 'pdfjs-dist';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { SessionService } from 'src/app/services/session/session.service';
 import { base64 } from '@firebase/util';
+import { App } from '@capacitor/app';
 @Component({
   selector: 'app-print',
   templateUrl: './print.component.html',
@@ -40,6 +41,13 @@ export class PrintComponent implements OnInit {
   public totalCost = 0;
   public rangeList = [];
   ngOnInit(): void {
+    App.addListener('backButton', ({ canGoBack }) => {
+      if (canGoBack) {
+        window.history.back();
+      } else {
+        App.exitApp();
+      }
+    });
     pdfjs.GlobalWorkerOptions.workerSrc = 'pdf.worker.js';
     this.printPricing = [
       [
@@ -146,7 +154,8 @@ export class PrintComponent implements OnInit {
         this.rangeValues = [1, this.pageCount];
         this.rangeList = [];
         this.totalPage = 0;
-        
+        this.pageCount=0;
+        this.pdfFile=null;
       } else {
         this.toastr.errorToastr(res.message, res.data);
       }

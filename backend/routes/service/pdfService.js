@@ -124,7 +124,6 @@ let convertPdf = async (pdf) => {
 		});
 	});
 };
-
 let updatedocstatus = async (req) => {
 	console.log(req.body);
 	try {
@@ -162,10 +161,11 @@ let getPdfById = async (req) => {
 		return resultdb(404, err);
 	}
 }
+
 module.exports = {
 	uploadDoc,
 	sellerprint,
 	convertPdf,
 	updatedocstatus,
-	getPdfById
+	getPdfById,
 };

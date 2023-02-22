@@ -148,6 +148,7 @@
       <label for="formFile" class="form-label">Choose your pdf</label>
       <input
         (change)="onFileChange($event)"
+        [(ngModel)]="pdfFile"
         class="form-control"
         accept=".pdf"
         type="file"

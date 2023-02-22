@@ -1,0 +1,46 @@
+<div class="container-fluid mt-3 text">
+    <div class="header d-flex justify-content-start align-items-center">
+        <span (click)="navigateback()" class="col-4 arrowContainer"><i class="fa-solid fa-arrow-left"></i></span>
+        <span class="col-6 headerText">contact us</span>
+    </div>
+    <div class="imgContainer">
+        <img class="img" src="/assets/5138237.jpg" alt="" srcset="">
+    </div>
+    <div class="contactForm">
+        <div class="inputFeild my-2">
+            <div class="inputHead">
+                Name
+            </div>
+            <div class="inputContainer">
+                <input [(ngModel)]="name" placeholder="Enter full name here" class="w-100" type="text" pInputText />
+            </div>
+        </div>
+        <div class="inputFeild my-2">
+            <div class="inputHead">
+                Email
+            </div>
+            <div class="inputContainer">
+                <input [(ngModel)]="email" placeholder="Enter Email address" class="w-100" type="text" pInputText />
+            </div>
+        </div>
+        <div class="inputFeild my-2">
+            <div class="inputHead">
+                Phone Number
+            </div>
+            <div class="inputContainer">
+                <input [(ngModel)]="contactNumber" placeholder="Enter Contact Number" class="w-100" type="text" pInputText />
+            </div>
+        </div>
+        <div class="inputFeild my-2">
+            <div class="inputHead">
+                Message
+            </div>
+            <div class="inputContainer">
+                <textarea [(ngModel)]="message" placeholder="Enter Max 500 characters" pInputTextarea class="w-100"></textarea>
+            </div>
+        </div>
+        <div class="btnContainer my-2">
+            <p-button  (onClick)="submitMessage()" [style]="" class="w-100" label="Submit"></p-button>
+        </div>
+    </div>
+</div>
