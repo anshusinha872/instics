@@ -44,14 +44,14 @@
 } */
 .imgClass{
   width: 100%;
-  height: 390px;
+  height: 250px;
 }
 .leftArrow{
       left: 0;
     font-size: 30px;
     cursor: pointer;
     position: absolute;
-    transform: translateY(-407px);
+    transform: translateY(-342px);
 }
 .otp{
       display: flex;

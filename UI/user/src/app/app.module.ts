@@ -39,6 +39,7 @@ import { TocComponent } from './Views/pages/toc/toc.component';
 import { CookiesPolicyComponent } from './Views/pages/cookies-policy/cookies-policy.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { RefundComponent } from './Views/pages/refund/refund.component';
+import { PaymentComponent } from './Views/pages/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { RefundComponent } from './Views/pages/refund/refund.component';
     TocComponent,
     CookiesPolicyComponent,
     RefundComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,

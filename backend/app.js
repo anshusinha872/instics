@@ -53,6 +53,7 @@ app.use(
 	})
 );
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 // app.post('/webHook/success', (req, res) => {
 // 	// const data = req.body;
 // 	// console.log(data);
@@ -80,7 +81,7 @@ const userController = routes.userController;
 const pdfController = routes.pdfController;
 const orderController = routes.orderController;
 const cartController = routes.cartController;
-const webHookController = routes.cashFreeWebHook;
+const webHookController = routes.upiWebHook;
 const API_URL = '/api/v1/';
 app.use(API_URL, userController);
 app.use(API_URL, pdfController);

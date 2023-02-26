@@ -1,0 +1,16 @@
+.card {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+.headerText{
+    font-size: 2rem;
+    font-weight: 600;
+    color: green;
+    margin-bottom: 20px;
+}
+.headerIcon{
+    font-size: 3rem;
+    color: green;
+}
+.text{
+    font-weight: 500;
+}

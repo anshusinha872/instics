@@ -89,7 +89,7 @@
   <!-- <div *ngIf="showUpiField">
     <input type="text" [(ngModel)]="upi_id" name="" id="">
   </div> -->
-  <div  class="btn">Checkout</div>
+  <div (click)="createPayment()" class="btn">Checkout</div>
   <!-- <button (click)="createPaymentRequest()" >create payment request</button> -->
   <!-- <button (click)="handleWebhook()" >webhook</button> -->
 </div>

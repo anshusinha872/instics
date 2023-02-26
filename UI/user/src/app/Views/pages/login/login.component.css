@@ -16,6 +16,12 @@
     font-size: 2rem;
     color:#3f51b5;
 }
+.loginBtn{
+    background-color: #ffd47d;
+    color: black;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
 @media screen and (max-width: 922px) {
      .hide-m-s{
         display: none;

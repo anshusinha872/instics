@@ -50,7 +50,7 @@ let orderId = async () => {
 	try {
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
-			const query = 'SELECT * FROM paymentRecord;';
+			const query = 'SELECT * FROM payment_order_request;';
 			connection.query(query, (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { InstaMojoService } from './insta-mojo.service';
+import { PaymentService } from './payment.service';
 
-describe('InstaMojoService', () => {
-  let service: InstaMojoService;
+describe('PaymentService', () => {
+  let service: PaymentService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(InstaMojoService);
+    service = TestBed.inject(PaymentService);
   });
 
   it('should be created', () => {

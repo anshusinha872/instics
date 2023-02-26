@@ -1,12 +1,11 @@
 import { SessionService } from './../../../services/session/session.service';
 import { Component, OnInit } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { PaymentService } from 'src/app/services/paymentGateway/payment.service';
 import { Location } from '@angular/common';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { App } from '@capacitor/app';
-import { InstamojoService } from 'src/app/services/paymentGateway/instaMojo/insta-mojo.service';
-declare var Instamojo: any; 
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -18,8 +17,9 @@ export class CartComponent implements OnInit {
     private cartService: CartService,
     private sessionService: SessionService,
     private toastr: ToastrManager,
-    private instaMojoService: InstamojoService
+    private paymentService: PaymentService
   ) {}
+
   public arr = [];
   public selectedListCount: number = 0;
   public cartList = [];
@@ -28,6 +28,9 @@ export class CartComponent implements OnInit {
   public showUpiField = false;
   public upi_id = '';
   public payment_session_id = '';
+  supportedInstruments = [];
+  canMakePaymentCache = 'canMakePaymentCache';
+  details: any;
   ngOnInit(): void {
     App.addListener('backButton', ({ canGoBack }) => {
       if (canGoBack) {
@@ -38,7 +41,7 @@ export class CartComponent implements OnInit {
     });
     this.showUpiField = true;
     this.getCartItems();
-    
+
     this.arr = [
       { serviceName: 'hello1', items: 1, amount: 200 },
       { serviceName: 'hello2', items: 2, amount: 200 },
@@ -62,6 +65,16 @@ export class CartComponent implements OnInit {
         amount: 200,
       },
     ];
+    this.changeFormat(new Date);
+  }
+  today = new Date();
+  changedDate = '';
+  pipe = new DatePipe('en-US');
+  changeFormat(today) {
+    let ChangedFormat = this.pipe.transform(this.today, 'dd/MM/YYYY');
+    this.changedDate = ChangedFormat;
+    // return this.changedDate;
+    console.log(this.changedDate);
   }
   getCartItems() {
     const user_id = this.sessionService.get('user_id');
@@ -82,21 +95,7 @@ export class CartComponent implements OnInit {
       }
     });
   }
-  // selectItem(i) {
-  //   const id = i;
-  //   const item = document.getElementById(id);
-  //   console.log(item);
-  //   // item.classList.toggle("selectedList")
-  //   if (item.classList.contains('selectedList')) {
-  //     item.classList.remove('selectedList');
-  //     this.selectedListCount--;
-  //   } else {
-  //     item.classList.add('selectedList');
-  //     this.selectedListCount++;
-  //   }
-  // }
   removeItem(item) {
-    // console.log('remove item',item);
     const user_id = this.sessionService.get('user_id');
     const req = {
       user_id: user_id,
@@ -115,36 +114,37 @@ export class CartComponent implements OnInit {
       }
     });
   }
-  generateAccessToken() {
-    const user_id = this.sessionService.get('user_id');
-    let req = {
-      user_id: user_id,
-    };
-    this.cartService.createOrder(req).subscribe((res) => {
-      if (res.order_status == 'ACTIVE') {
-        this.toastr.successToastr('Order created');
-        this.showUpiField = true;
-        this.payment_session_id = res.payment_session_id;
-        console.log(res.payment_session_id);
-        // this.createPaymentRequest();
-      }
-    });
-  }
-  createPaymentRequest() {
-    const req = {
-      payment_session_id: this.payment_session_id,
-      upi_id: this.upi_id,
-    };
-    this.cartService.orderPay(req).subscribe((res) => {
-      console.log(res);
-    });
-  }
-  handleWebhook() {
-    this.cartService.handleWebhook().subscribe((res) => {
-      console.log(res);
-    });
-  }
   navigate() {
     this.Location.back();
+  }
+  createPayment() {
+    console.log('createPayment');
+    const req = {
+      user_id: this.sessionService.get('user_id'),
+      amount: this.totalCheckoutPrice,
+      p_info: 'print',
+    };
+    let pendingPdfId = [];
+    for (let i = 0; i < this.cartList[0].length; i++) {
+      pendingPdfId.push(this.cartList[0][i].id);
+    }
+    console.log(pendingPdfId);
+    this.sessionService.set('pendingPdfId', pendingPdfId);
+    this.sessionService.set('totalCheckoutPrice', this.totalCheckoutPrice);
+    this.sessionService.set('txn_date', this.changedDate);
+    this.paymentService.createPayment(req).subscribe((res) => {
+      if (res[0].status == true) {
+        console.log(res);
+        console.log(res[0].data.payment_url);
+        this.toastr.successToastr('Payment created');
+        this.sessionService.set('client_txn_id', res[1].client_txn_id);
+        this.sessionService.set('key', res[1].key);
+        window.open(res[0].data.payment_url, '_self');
+        // window.location.href = res[0].data.payment_url;
+      } else {
+        this.toastr.errorToastr(res.msg);
+        console.log(res.message);
+      }
+    });
   }
 }

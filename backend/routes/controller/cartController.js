@@ -2,10 +2,13 @@ const express = require('express');
 const MysqlPool = require('../../app');
 const router = express.Router();
 const cartService = require('../service/cartService');
+const paymentService = require('../service/paymentService');
 // const sdk = require('api')('@instamojo/v2#ulug320lc4eyadv');
 const axios = require('axios');
 const { URLSearchParams } = require('url');
 const userService = require('../service/userService');
+const { json } = require('express');
+const secretKey = '1bd690fe-89eb-4d8a-87a3-1b8af4107506';
 // Get order history
 async function getCartItems(req, res) {
 	try {
@@ -17,87 +20,58 @@ async function getCartItems(req, res) {
 	}
 }
 async function createOrder(req, res) {
-	// console.log(req.body);
+	console.log(req.body.amount);
+	const num = req.body.amount;
+	let amount = num.toString();
+
 	const user_id = req.body.user_id;
-	// console.log(user_id);
+	console.log(user_id);
 	let userdata = await userService.userDataByUserId(user_id);
-	const customer_id = 'A01' + user_id;
-	const customer_name =
-		userdata.data[0].firstName + ' ' + userdata.data[0].lastName;
-	const customer_email = userdata.data[0].email_id;
-	const customer_phone = userdata.data[0].contact.toString();
+	console.log(userdata.data[0]);
 	let order_id = await cartService.orderId();
-	const options = {
-		method: 'POST',
-		url: 'https://sandbox.cashfree.com/pg/orders',
+	console.log(order_id);
+	var axios = require('axios');
+	// console.log(req.body.amount);
+	// console.log(userdata);
+	var data = JSON.stringify({
+		key: secretKey,
+		client_txn_id: order_id.data,
+		amount: '1',
+		p_info: req.body.p_info,
+		customer_name: userdata.data[0].firstName + ' ' + userdata.data[0].lastName,
+		customer_email: userdata.data[0].email_id,
+		customer_mobile: userdata.data[0].contact.toString(),
+		redirect_url: 'https://instincts.co.in/home',
+	});
+	console.log(data);
+	var config = {
+		method: 'post',
+		maxBodyLength: Infinity,
+		url: 'https://merchant.upigateway.com/api/create_order',
 		headers: {
-			accept: 'application/json',
-			'x-client-id': '31273553dadb9b01741c28a284537213',
-			'x-client-secret': 'b1dc62b7fea288402f7b49407606aaa19e4d719d',
-			'x-api-version': '2022-09-01',
-			'content-type': 'application/json',
+			'Content-Type': 'application/json',
 		},
-		data: {
-			customer_details: {
-				customer_name: customer_name,
-				customer_id: customer_id,
-				customer_email: customer_email,
-				customer_phone: customer_phone,
-			},
-			order_amount: 100,
-			order_currency: 'INR',
-			order_id: order_id.data,
-		},
+		data: data,
 	};
 
-	axios
-		.request(options)
+	axios(config)
 		.then(function (response) {
-			console.log(response.data);
-			return res.status(200).json(response.data);
+			console.log(JSON.stringify(response.data));
+			// sessionStorage.setItem('client_txn_id', order_id.data);
+			let response_data = [];
+			response_data.push(response.data);
+			let newData = JSON.parse(data);
+			// console.log(newData);
+			response_data.push(newData);
+			response_data.push(user_id);
+			paymentService.recordPaymentRequest(response.data,data,user_id);
+			return res.status(200).json(response_data);
+
 		})
 		.catch(function (error) {
-			console.error(error);
+			console.log(error);
 		});
-}
-async function orderPay(req, res) {
 
-	const payment_session_id = req.body.payment_session_id;
-	const upi_id = req.body.upi_id;
-	// console.log(payment_session_id);
-	// console.log(upi_id);
-	// return res.status(200).json('success');
-	const options = {
-		method: 'POST',
-		url: 'https://sandbox.cashfree.com/pg/orders/sessions',
-		headers: {
-			accept: 'application/json',
-			'x-api-version': '2022-09-01',
-			'content-type': 'application/json',
-		},
-		data: {
-			payment_method: {
-				upi: {
-					channel: 'collect',
-					upi_id: upi_id,
-					upi_expiry_minutes: 10,
-					authorize_only: false,
-				},
-			},
-			payment_session_id: payment_session_id,
-		},
-	};
-
-	axios
-		.request(options)
-		.then(function (response) {
-			console.log(response.data);
-			return res.status(200).json(response.data);
-		})
-		.catch(function (error) {
-			console.error(error);
-			return res.status(404).json(error);
-		});
 }
 async function deletePDFItem(req, res) {
 	try {
@@ -113,6 +87,6 @@ async function deletePDFItem(req, res) {
 }
 router.post('/cart/view', getCartItems);
 router.post('/cart/createOrder', createOrder);
-router.post('/cart/orderPay', orderPay);
+// router.post('/cart/orderPay', orderPay);
 router.post('/cart/delete',deletePDFItem);
 module.exports = router;

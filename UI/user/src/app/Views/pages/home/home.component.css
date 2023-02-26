@@ -190,13 +190,13 @@ nav ul li a{
     font-weight: 400;
 }
 .card-body{
-  width: 364px;
+  /* width: 364px; */
   height: 110px;
 }
 .card-img-top{
   /* background-color: #e3e9f0; */
   height: 178px;
-  width: 364px;
+  /* width: 364px; */
 }
     .product-item-content {
         border: 1px solid var(--surface-d);
@@ -212,10 +212,10 @@ nav ul li a{
     }
 
 .carousel-inner{
-  width: 364px;
+  /* width: 364px; */
 }
 .carousel-item{
-  width: 364px;
+  /* width: 364px; */
 }
 .headerText{
       font-size: 25px;

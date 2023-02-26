@@ -1,7 +1,7 @@
 <div class="container">
   <header
     [ngStyle]="{
-      display: currentRoute === '/dashboard/services' || currentRoute === '/dashboard/print'|| currentRoute === '/dashboard/category'? '' : 'none'
+      display: currentRoute === '/dashboard/services' || currentRoute === '/dashboard/print'|| currentRoute === '/dashboard/category'|| currentRoute === '/dashboard/payment'? '' : 'none'
     }"
   ></header>
   <main class="content">
@@ -9,7 +9,7 @@
   </main>
   <footer class="footer"
     [ngStyle]="{
-      display: currentRoute === '/dashboard/services' || currentRoute === '/dashboard/print'|| currentRoute === '/dashboard/category'|| currentRoute === '/dashboard/cart'|| currentRoute === '/dashboard/profile' ? '' : 'none'
+      display: currentRoute === '/dashboard/services' || currentRoute === '/dashboard/print'|| currentRoute === '/dashboard/category'|| currentRoute === '/dashboard/cart'|| currentRoute === '/dashboard/profile'|| currentRoute === '/dashboard/payment' ? '' : 'none'
     }"
   ></footer>
 </div>

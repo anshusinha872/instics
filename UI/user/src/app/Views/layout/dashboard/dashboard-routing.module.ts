@@ -38,6 +38,12 @@ const routes: Routes = [
       import('../../pages/cart/cart.module').then((m) => m.CartModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'payment',
+    loadChildren: () =>
+      import('../../pages/payment/payment.module').then((m) => m.PaymentModule),
+    canActivate: [AuthGuard],
+  }
 ];
 
 @NgModule({
