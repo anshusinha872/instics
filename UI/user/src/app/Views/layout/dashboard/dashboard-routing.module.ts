@@ -39,9 +39,20 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'payment',
+    path: 'paymentVerification',
     loadChildren: () =>
       import('../../pages/payment/payment.module').then((m) => m.PaymentModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'orderHistory',
+    loadChildren: () =>
+      import('../../pages/order-history/order-history.module').then((m) => m.OrderHistoryModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'paymentHistory',
+    loadChildren: () => import('../../pages/payment-history/payment-history.module').then((m) => m.PaymentHistoryModule),
     canActivate: [AuthGuard],
   }
 ];

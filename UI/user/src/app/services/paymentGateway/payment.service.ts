@@ -18,4 +18,14 @@ export class PaymentService {
       headers: this.sessionService.setTokenHeader(),
     });
   }
+  checkPaymentStatus(param): Observable<any> {
+    return this.http.post(this.base_url + 'cart/checkPaymentStatus', param, {
+      headers: this.sessionService.setTokenHeader(),
+    });
+  }
+  getPaymentHistory(param): Observable<any> {
+    return this.http.post(this.base_url + 'getPaymentHistory', param, {
+      headers: this.sessionService.setTokenHeader(),
+    });
+  }
 }

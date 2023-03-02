@@ -1,15 +1,16 @@
-<div class="container">
-  <header
+<div class="container-fluid p-0">
+  <header class="header"
     [ngStyle]="{
-      display: currentRoute === '/dashboard/services' || currentRoute === '/dashboard/print'|| currentRoute === '/dashboard/category'|| currentRoute === '/dashboard/payment'? '' : 'none'
+      display: currentRoute === '/dashboard/services' || currentRoute === '/dashboard/print'|| currentRoute === '/dashboard/category'|| currentRoute === '/dashboard/payment'|| currentRoute === '/dashboard/cart'|| currentRoute === '/dashboard/orderHistory'|| currentRoute === '/dashboard/paymentHistory'? '' : 'none'
     }"
   ></header>
   <main class="content">
+    <!-- <app-sideBar *ngIf="displayProfile"></app-sideBar> -->
     <router-outlet></router-outlet>
   </main>
-  <footer class="footer"
+  <!-- <footer class="footer"
     [ngStyle]="{
       display: currentRoute === '/dashboard/services' || currentRoute === '/dashboard/print'|| currentRoute === '/dashboard/category'|| currentRoute === '/dashboard/cart'|| currentRoute === '/dashboard/profile'|| currentRoute === '/dashboard/payment' ? '' : 'none'
     }"
-  ></footer>
+  ></footer> -->
 </div>

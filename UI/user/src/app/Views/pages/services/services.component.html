@@ -1,108 +1,287 @@
-<div class="container-fluid p-0">
-  <div class="headerContainer mt-2 d-flex justify-content-between align-items-center">
-    <div class="d-flex flex-column textContainer">
-        <span class="">{{greeting}}</span>
-        <span class="">{{userName}}</span>
-    </div>
-    <div class="imgContainer mx-3">
-      <img class="profileImg" src="data:image/png;base64,{{ userIcon }}" alt="" />
+<div class="bannerContainer">
+  <div class="banner">
+    <div class="bannerImgContainer">
+      <img
+        class="bannerImg"
+        src="./assets/2112.w039.n003.43B.p1.43.jpg"
+        alt=""
+      />
     </div>
   </div>
 </div>
-<div class="serviceTypeHeader">
-  <span class="serviceTypeText d-flex flex-row">
-    <span> Services </span>
-    <div class="serviceTypeBorder"></div>
-  </span>
-</div>
-<div class="serviceContainer column">
-</div>
-<div class="container-fluid p-3">
-  <div (click)="redirect('/print')" class="cardContainer align-items-center p-3 d-flex">
-    <div class="cardImgContainer">
-      <img class="cardImg" src="./assets/5130798.jpg" alt="">
+<div class="container-fluid">
+  <div class="textContainer d-flex flex-column align-items-center">
+    <div class="mainText">Our Services</div>
+    <div class="subText">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione,
+      mollitia?
     </div>
-    <div class="cardTextContainer p-2">
-      <div class="cardHeading">Print</div>
-      <div class="cardServiceStatus">
-        <div class="statusClass"></div>
-        <span>
-          <i class="fa-solid active fa-circle"></i>
-          <span class="mx-2">active</span>
-          
-        </span>
+  </div>
+  <div class="cardContainer row">
+    <div (click)="redirect('/print')" class="cardWrapper col-12 col-sm-6 col-md-4">
+      <div class="card p-2">
+        <div class="cardStatusContainer d-flex">
+          <div style="color: green" class="statusIcon">
+            <i class="fa-solid fa-circle"></i>
+          </div>
+          <div class="statusText mx-3">
+            <span>Active</span>
+          </div>
+        </div>
+        <div class="cardImgContainer d-flex justify-content-center">
+          <img
+            class="cardImg"
+            width="100%"
+            height="200px"
+            src="./assets/printServiceImg.jpg"
+            alt=""
+          />
+        </div>
+        <div class="cardTitleContainer">
+          <div class="cardTitle">
+            <span>Printing</span>
+          </div>
+          <div class="cardSubTitle">
+            <span
+              >Say goodbye to the hassle of long queues and effortlessly manage
+              your day</span
+            >
+          </div>
+        </div>
+        <div class="customerNumberContainer row">
+          <div class="customerNumber col-6">
+            <span>Customer Served</span>
+          </div>
+          <div class="customerNumberValue col-6">
+            <span>123456789</span>
+          </div>
+        </div>
+        <div class="cardRatingContainer row">
+          <div class="cardRating col-6">
+            <span>Rating</span>
+          </div>
+          <div class="cardRatingValue green col-6">
+            <span class="mx-1"><i class="fa-solid fa-star"></i></span>
+            <span class="mx-1"><i class="fa-solid fa-star"></i></span>
+            <span class="mx-1"><i class="fa-solid fa-star"></i></span>
+            <span class="mx-1"><i class="fa-solid fa-star"></i></span>
+          </div>
+        </div>
       </div>
-      <div>Go to service</div>
     </div>
-  </div>
-</div>
-<div style="
-    display: flex;
-    justify-content: center;
-" class="container-fluid">
-  <div class="loader loader1">
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <div></div>
-            </div>
+    <div (click)="availableSoonMsg()" class="cardWrapper col-12 col-sm-6 col-md-4">
+      <div class="card p-2">
+        <div class="cardStatusContainer d-flex">
+          <div style="color: red" class="statusIcon">
+            <i class="fa-solid fa-circle"></i>
+          </div>
+          <div class="statusText mx-3">
+            <span>In-active</span>
+          </div>
+        </div>
+        <div class="cardImgContainer d-flex justify-content-center">
+          <img class="cardImg" width="100%" height="200px" src="./assets/laundryServiceImg.jpg" alt="" />
+        </div>
+        <div class="cardTitleContainer">
+          <div class="cardTitle">
+            <span>Laundry</span>
+          </div>
+          <div class="cardSubTitle">
+            <span>Say goodbye to rough hands and laundry woes - trust Instincts for soft hands and clean clothes</span>
+          </div>
+        </div>
+        <div class="customerNumberContainer row">
+          <div class="customerNumber col-6">
+            <span>Customer Served</span>
+          </div>
+          <div class="customerNumberValue col-6">
+            <span>123456789</span>
+          </div>
+        </div>
+        <div class="cardRatingContainer row">
+          <div class="cardRating col-6">
+            <span>Rating</span>
+          </div>
+          <div class="cardRatingValue green col-6">
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div (click)="availableSoonMsg()" class="cardWrapper col-12 col-sm-6 col-md-4">
+      <div class="card p-2">
+        <div class="cardStatusContainer d-flex">
+          <div style="color: red" class="statusIcon">
+            <i class="fa-solid fa-circle"></i>
+          </div>
+          <div class="statusText mx-3">
+            <span>In-active</span>
+          </div>
+        </div>
+        <div class="cardImgContainer d-flex justify-content-center">
+          <img class="cardImg" width="100%" height="200px" src="./assets/foodServiceImg.jpg" alt="" />
+        </div>
+        <div class="cardTitleContainer">
+          <div class="cardTitle">
+            <span>Food</span>
+          </div>
+          <div class="cardSubTitle">
+            <span>Craving something delicious? Satisfy your cravings with Instincts' delicious food delivery service!
+</span>
+          </div>
+        </div>
+        <div class="customerNumberContainer row">
+          <div class="customerNumber col-6">
+            <span>Customer Served</span>
+          </div>
+          <div class="customerNumberValue col-6">
+            <span>123456789</span>
+          </div>
+        </div>
+        <div class="cardRatingContainer row">
+          <div class="cardRating col-6">
+            <span>Rating</span>
+          </div>
+          <div class="cardRatingValue green col-6">
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div (click)="availableSoonMsg()" class="cardWrapper col-12 col-sm-6 col-md-4">
+      <div class="card p-2">
+        <div class="cardStatusContainer d-flex">
+          <div style="color: red" class="statusIcon">
+            <i class="fa-solid fa-circle"></i>
+          </div>
+          <div class="statusText mx-3">
+            <span>In-active</span>
+          </div>
+        </div>
+        <div class="cardImgContainer d-flex justify-content-center">
+          <img class="cardImg" width="100%" height="200px" src="./assets/groceryServiceImg.jpg" alt="" />
+        </div>
+        <div class="cardTitleContainer">
+          <div class="cardTitle">
+            <span>Grocery</span>
+          </div>
+          <div class="cardSubTitle">
+            <span>Shop with ease and get everything you need with Instincts' fast and reliable grocery delivery service!
+</span>
+          </div>
+        </div>
+        <div class="customerNumberContainer row">
+          <div class="customerNumber col-6">
+            <span>Customer Served</span>
+          </div>
+          <div class="customerNumberValue col-6">
+            <span>123456789</span>
+          </div>
+        </div>
+        <div class="cardRatingContainer row">
+          <div class="cardRating col-6">
+            <span>Rating</span>
+          </div>
+          <div class="cardRatingValue green col-6">
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div (click)="availableSoonMsg()" class="cardWrapper col-12 col-sm-6 col-md-4">
+      <div class="card p-2">
+        <div class="cardStatusContainer d-flex">
+          <div style="color: red" class="statusIcon">
+            <i class="fa-solid fa-circle"></i>
+          </div>
+          <div class="statusText mx-3">
+            <span>In-active</span>
+          </div>
+        </div>
+        <div class="cardImgContainer d-flex justify-content-center">
+          <img class="cardImg" width="100%" height="200px" src="./assets/hackathonServiceImg.jpg" alt="" />
+        </div>
+        <div class="cardTitleContainer">
+          <div class="cardTitle">
+            <span>Hackathon</span>
+          </div>
+          <div class="cardSubTitle">
+            <span>Get ready for the ultimate hackathon experience with Instincts – the perfect platform to unleash your creativity and
+            innovation!</span>
+          </div>
+        </div>
+        <div class="customerNumberContainer row">
+          <div class="customerNumber col-6">
+            <span>Customer Served</span>
+          </div>
+          <div class="customerNumberValue col-6">
+            <span>123456789</span>
+          </div>
+        </div>
+        <div class="cardRatingContainer row">
+          <div class="cardRating col-6">
+            <span>Rating</span>
+          </div>
+          <div class="cardRatingValue green col-6">
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div (click)="availableSoonMsg()" class="cardWrapper col-12 col-sm-6 col-md-4">
+      <div class="card p-2">
+        <div class="cardStatusContainer d-flex">
+          <div style="color: red" class="statusIcon">
+            <i class="fa-solid fa-circle"></i>
+          </div>
+          <div class="statusText mx-3">
+            <span>In-active</span>
+          </div>
+        </div>
+        <div class="cardImgContainer d-flex justify-content-center">
+          <img class="cardImg" width="100%" height="200px" src="./assets/eventServiceImg.jpg" alt="" />
+        </div>
+        <div class="cardTitleContainer">
+          <div class="cardTitle">
+            <span>Event</span>
+          </div>
+          <div class="cardSubTitle">
+            <span>Impress your guests without breaking the bank – Instincts offers affordable and high-quality decoration items for any
+            budget!</span>
+          </div>
+        </div>
+        <div class="customerNumberContainer row">
+          <div class="customerNumber col-6">
+            <span>Customer Served</span>
+          </div>
+          <div class="customerNumberValue col-6">
+            <span>123456789</span>
+          </div>
+        </div>
+        <div class="cardRatingContainer row">
+          <div class="cardRating col-6">
+            <span>Rating</span>
+          </div>
+          <div class="cardRatingValue green col-6">
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
+            <span class="mx-1"><i class="fa-regular fa-star"></i></span>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-  <div class="loader loader2">
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="loader loader3">
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="loader loader4">
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <div>
-                <div>
-                  <div>
-                    <div>
-                      <div></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </div>

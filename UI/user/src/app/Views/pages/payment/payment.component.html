@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row">
+    <div *ngIf="paymentStatus==true" class="row">
         <div class="col-md-12">
             <div class="card p-2 align-items-center my-2">
                 <div class="headerText">Payment Successful</div>
@@ -14,27 +14,66 @@
                     </div>
                     <div class="d-flex flex-row justify-content-between w-100">
                         <div>UPI Id</div>
-                        <div>1234567890@upi</div>
+                        <div>{{upi_id}}</div>
                     </div>
                     <div class="d-flex flex-row justify-content-between w-100">
                         <div>Mobile</div>
-                        <div>8292009935</div>
+                        <div>{{customer_mobile}}</div>
                     </div>
                     <div class="d-flex flex-row justify-content-between w-100">
                         <div>upi_txn_id</div>
-                        <div>1234567890</div>
+                        <div>{{upi_txn_id}}</div>
                     </div>
                     <div class="d-flex flex-row justify-content-between w-100">
                         <div>Amount</div>
-                        <div>100</div>
+                        <div>{{amount}}</div>
                     </div>
                     <div class="d-flex flex-row justify-content-between w-100">
                         <div>client_txn_id</div>
-                        <div>1254</div>
+                        <div>{{client_txn_id}}</div>
                     </div>
-                    <div class="d-flex justify-content-center my-2"><button (click)="redirectToCart()" type="button" class="btn btn-primary">Back</button></div>
+                    <div class="d-flex justify-content-center my-2"><button (click)="redirectToCart()" type="button" class="btn btn-primary">Close</button></div>
                 </div>
                 
+            </div>
+        </div>
+    </div>
+    <div *ngIf="paymentStatus==false" class="row">
+        <div class="col-md-12">
+            <div class="card p-2 align-items-center my-2">
+                <div class="headerText redColor">Payment Failed</div>
+                <div class="headerIcon redColor"><i class="fa-regular fa-circle-xmark"></i></div>
+                <div>
+                    <p class="text-center">Your payment has been failed.</p>
+                </div>
+                <div class="cardContent w-75 text">
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        <div>Payment Type</div>
+                        <div>UPI</div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        <div>UPI Id</div>
+                        <div>{{upi_id}}</div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        <div>Mobile</div>
+                        <div>{{customer_mobile}}</div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        <div>upi_txn_id</div>
+                        <div>{{upi_txn_id}}</div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        <div>Amount</div>
+                        <div>{{amount}}</div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        <div>client_txn_id</div>
+                        <div>{{client_txn_id}}</div>
+                    </div>
+                    <!-- <div class="d-flex justify-content-center my-2"><button (click)="redirectToCart()" type="button" class="btn btn-primary">Close</button></div> -->
+                </div>
+    
             </div>
         </div>
     </div>

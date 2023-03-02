@@ -11,6 +11,7 @@
         <th>Total Page</th>
         <th>Total Cost</th>
         <th>Status</th>
+        <th>Payment</th>
         <th>View/Download</th>
         <th>Mark/Delete</th>
       </tr>
@@ -26,6 +27,7 @@
         <td>{{ pdf.totalPage }}</td>
         <td>{{ pdf.totalCost }}</td>
         <td>{{ pdf.docStatus =='0'?"Pending":(pdf.docStatus=='1'?"Approved":"Rejected" ) }}</td>
+        <td>{{ pdf.payment_status }}</td>
         <td class="">
             <div class="d-flex justify-content-around">
                 <button

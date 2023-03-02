@@ -9,9 +9,7 @@ import { App } from '@capacitor/app';
 })
 export class AboutComponent implements OnInit {
   // navbarfixed: boolean = false;
-  constructor(private router: Router,
-    private location: Location
-  ) { }
+  constructor(private router: Router, private location: Location) {}
 
   ngOnInit(): void {
     App.addListener('backButton', ({ canGoBack }) => {
@@ -21,6 +19,21 @@ export class AboutComponent implements OnInit {
         App.exitApp();
       }
     });
+  }
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
+  navigateToContact() {
+    this.router.navigate(['/contact']);
+  }
+  navigate(data) {
+    this.router.navigate([data]);
+  }
+  register() {
+    this.router.navigate(['/signup']);
+  }
+  navigateToAbout() {
+    this.router.navigate(['/about']);
   }
   // @HostListener('window:scroll', ['$event']) onscroll() {
   //   if (window.scrollY > 100) {
@@ -36,5 +49,4 @@ export class AboutComponent implements OnInit {
     console.log('navigateback');
     this.location.back();
   }
-  
 }

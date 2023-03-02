@@ -13,9 +13,16 @@ export class SharedService {
   private sessionService:SessionService) { }
   profileData: any;
   setProfileData(data) {
-    this.profileData = data;
+    // this.profileData = data;
+    console.log(data);
+    data = JSON.stringify(data);
+    this.sessionService.set('profileData', data);
   }
-  getProfileData(){
-    return this.profileData;
+  getProfileData() {
+    // this.profileData = this.sessionService.get('profileData');
+    // this.profileData = JSON.parse(this.profileData);
+    return JSON.parse(this.sessionService.get('profileData'));
+
+    // return this.profileData;
   }
 }

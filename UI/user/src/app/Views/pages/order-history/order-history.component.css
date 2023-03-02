@@ -1,0 +1,22 @@
+.tableRow {
+  background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    /* padding: 10px; */
+    /* margin-bottom: 10px; */
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+@media screen and (max-width: 576px) {
+  /* :host ::ng-deep .p-datatable-tbody{
+    display: flex;
+    flex-direction: row;
+    width: 100vw !important;
+    overflow-x: scroll;
+  }
+    :host ::ng-deep .p-datatable-tbody > td{
+        border-bottom: 2px solid black;
+    }
+    .border-bottom{
+        border-bottom: 2px solid black;
+    } */
+}

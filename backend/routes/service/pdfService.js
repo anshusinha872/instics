@@ -57,6 +57,7 @@ let sellerprint = async (data) => {
 			let returnData = [];
 			for (let i = 0; i < response.length; i++) {
 				let item = response[i];
+				// console.log('item', item);
 				let resData = {
 					id: item.id,
 					user_id: item.user_id,
@@ -67,6 +68,7 @@ let sellerprint = async (data) => {
 					totalPage: item.totalPage,
 					totalCost: item.totalCost,
 					docStatus: item.docStatus,
+					payment_status:item.payment_status,
 					// pdf: await convertPdf(item.path),
 					pdfPresent:await isPdfAvailable(item.path),
 					// image: await convertImage(item.filePath),
@@ -161,11 +163,87 @@ let getPdfById = async (req) => {
 		return resultdb(404, err);
 	}
 }
+let getUserPDF = async (data) => {
+	// console.log('userData');
+	console.log(data);
+	try {
+		var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+			const query =
+				'select * from printDocTable WHERE user_id = ? ORDER BY id DESC;';
 
+			connection.query(query,[data], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+
+		if (response.length > 0) {
+			let returnData = [];
+			for (let i = 0; i < response.length; i++) {
+				let item = response[i];
+				// console.log('item', item);
+				let resData = {
+					id: item.id,
+					user_id: item.user_id,
+					pdfName: item.pdfName,
+					docType: item.docType,
+					colorMode: item.colorMode,
+					printRange: item.printRange,
+					totalPage: item.totalPage,
+					totalCost: item.totalCost,
+					docStatus: item.docStatus,
+					payment_status: item.payment_status,
+					// pdf: await convertPdf(item.path),
+					pdfPresent: await isPdfAvailable(item.path),
+					// image: await convertImage(item.filePath),
+				};
+
+				if (resData.pdfPresent == true) {
+					returnData.push(resData);
+				}
+			}
+
+			// console.log(data);
+			return resultdb(200, returnData);
+		}
+
+		// return response;
+	} catch (err) {
+		// console.log('93', err);
+		return resultdb(500, err);
+	}
+};
+let loginsellerByUsername = async (username, password) => {
+	try {
+		var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+			const query = 'select * from seller WHERE username = ?;';
+			connection.query(query, [username], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+
+		if (response.length > 0) {
+			if (response[0].password == password) {
+				return resultdb(200, 'login sucess');
+			} else {
+				return resultdb(400, 'Login Failed');
+			}
+		}
+		return resultdb(400, 'Login Failed');
+	} catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+};
 module.exports = {
 	uploadDoc,
 	sellerprint,
 	convertPdf,
 	updatedocstatus,
 	getPdfById,
+	getUserPDF,
+	loginsellerByUsername,
 };

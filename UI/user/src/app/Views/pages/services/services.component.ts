@@ -37,18 +37,16 @@ export class ServicesComponent implements OnInit {
     });
     var today = new Date();
     var curHr = today.getHours();
+    // this.profileDetails = this.sharedService.getProfileData().data;
     this.profileDetails = this.sharedService.getProfileData().data;
     this.userName =
       this.profileDetails.firstName + ' ' + this.profileDetails.lastName;
     this.userIcon = this.profileDetails.profileImage;
     if (curHr < 12) {
-      // console.log('good morning');
       this.greeting = 'Good Morning';
     } else if (curHr < 18) {
-      // console.log('good afternoon');
       this.greeting = 'Good Afternoon';
     } else {
-      // console.log('good evening');
       this.greeting = 'Good Evening';
     }
     const token = this.sessionService.get('token');
@@ -75,8 +73,6 @@ export class ServicesComponent implements OnInit {
     document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
   }
   redirect(data) {
-    // console.log(data);
-    // console.log(this.router.url.split('/')[1]+data);
     this.router.navigate([this.router.url.split('/')[1] + data]);
   }
   availableSoonMsg() {

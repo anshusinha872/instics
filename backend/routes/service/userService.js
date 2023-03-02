@@ -138,29 +138,37 @@ let loginUserByEmailId = async (email_id, password) => {
 				resolve(results);
 			});
 		});
-		if (response.length > 0) {
-			let isValidPassword = bcrypt.compareSync(password, response[0].password);
-			if (isValidPassword) {
-				let userData = {
-					user_id: response[0].user_id,
-					email_id: response[0].email_id,
-				};
-				// console.log(userData);
-				// JWT Token
-				let token = jwt.sign(userData, secretKey, {
-					expiresIn: 1800, // expires in 30min
-				});
-				let returnData = {
-					user_id: response[0].user_id,
-					email_id: response[0].email_id,
-					token: token,
-				};
-				return resultdb(200, returnData);
+		if (response[0].active_status == 0) {
+			// console.log('user not active');
+			return resultdb(403, 'admin restricted');
+		}
+		else {
+			if (response.length > 0) {
+				let isValidPassword = bcrypt.compareSync(password, response[0].password);
+				if (isValidPassword) {
+					// console.log('valid password');
+					let userData = {
+						user_id: response[0].user_id,
+						email_id: response[0].email_id,
+					};
+					// console.log(userData);
+					// JWT Token
+					let token = jwt.sign(userData, secretKey, {
+						expiresIn: 1800, // expires in 30min
+					});
+					let returnData = {
+						user_id: response[0].user_id,
+						email_id: response[0].email_id,
+						token: token,
+					};
+					return resultdb(200, returnData);
+				} else {
+					return resultdb(400, 'Invalid Password');
+				}
 			} else {
-				return resultdb(400, 'Invalid Password');
+				return resultdb(400, 'Invalid Email Id');
 			}
-		} else {
-			return resultdb(400, 'Invalid Email Id');
+			
 		}
 		return resultdb(400, 'Login Failed');
 	} catch (err) {

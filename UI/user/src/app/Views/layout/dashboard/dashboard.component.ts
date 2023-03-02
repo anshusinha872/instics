@@ -12,12 +12,15 @@ import { SessionService } from 'src/app/services/session/session.service';
 })
 export class DashboardComponent implements OnInit {
   public currentRoute: string;
-  constructor(private router: Router,
+  public displayProfile = false;
+  constructor(
+    private router: Router,
     private AuthService: AuthService,
-    
+
     private toastr: ToastrManager,
     private LoginService: LoginService,
-    private sessionService: SessionService){
+    private sessionService: SessionService
+  ) {
     this.currentRoute = this.router.url;
     // console.log(this.currentRoute);
   }
@@ -34,5 +37,5 @@ export class DashboardComponent implements OnInit {
       this.currentRoute = this.router.url;
       // console.log(this.currentRoute);
     });
-   }
+  }
 }

@@ -3,33 +3,54 @@
     <div class="col-12 positionFixed cover w-100 h-100"></div>
 
     <div class="container" style="font-family: sofia-pro, sans-serif">
-      <div class="row align-items-center mt-3">
-        <div class="col-4">
-          <img
-            src="assets/instinctsSmallLogo.png"
-            width=""
-            height="40px"
-            class="mx-2"
-          />
+      <div class="row align-items-center mt-3 d-none">
+        <div class="col-4 desktop">
+          <img src="assets/instinctsTransparentLogo.png" width="" height="40px" class="mx-2" />
         </div>
-        <div class="col-8 d-flex flex-direction-row justify-content-end headerText">
+        <div class="col-4 mobile">
+          <img src="assets/instinctsSmallLogo.png" width="" height="40px" class="mx-2" />
+        </div>
+        <div class="topNavbar desktop">
+          <li class="home topNavItems col-8 d-flex flex-direction-row " style="margin-left: 0;">
+            <p><i class="fa-solid fa-home"></i> Home</p>
+          </li>
+          <li class="home topNavItems col-8 d-flex flex-direction-row ">
+            <p><i class="fa fa-rocket"></i> Services</p>
+          </li>
+          <li class="home topNavItems col-8 d-flex flex-direction-row ">
+            <p (click)="navigateToAbout()"><i class="fa fa-vcard"></i> About</p>
+          </li>
+          <li class="home topNavItems col-8 d-flex flex-direction-row ">
+            <p (click)="navigateToContact()"><i class="fa-solid fa-message"></i> Contact</p>
+          </li>
+          <li class="loginBtn col-8 d-flex flex-direction-row justify-content-end ">
             <!-- <a (click)="navigateToAbout()" style="color: #e7dfdf; cursor: pointer">About us</a> -->
-            <span (click)="navigateToLogin()">Login<i class="fa-solid fa-arrow-right mx-2"></i></span>
+            <p (click)="navigateToLogin()">Login<i class="fa-solid fa-arrow-right mx-2"></i></p>
             <!-- <a href="login">Login </a> -->
+          </li>
         </div>
+
+        <li class="loginBtn loginBtnMobile mobile col-8 d-flex flex-direction-row justify-content-end ">
+          <!-- <a (click)="navigateToAbout()" style="color: #e7dfdf; cursor: pointer">About us</a> -->
+          <p (click)="navigateToLogin()" style="color:white;font-size:22px;margin-top:10px;">Login<i
+              class="fa-solid fa-arrow-right mx-2"></i></p>
+          <!-- <a href="login">Login </a> -->
+        </li>
+
       </div>
+      <app-public-header class=""></app-public-header>
       <div class="row m-0 mt-3">
         <div class="col">
           <p style="color: #ffffff; font-size: 20px">
-            Welcome Instincts user
+            Welcome to Instincts
           </p>
         </div>
       </div>
 
       <div class="row m-0 my-4">
-        <div class="col">
+        <div class="col headerTxt">
           <h1 style="color: #ffffff">
-            If I say I'm your genie would you trust me for your wishes ?
+            If I say I'm your genie.<br> Would you trust me for your wishes?
           </h1>
           <br />
           <!-- <button
@@ -42,11 +63,11 @@
           >
             Register Here <i class="fa-solid fa-arrow-right"></i>
           </button> -->
-        <button (click)="register()"  pButton pRipple type="button" label="Register"
+          <button (click)="register()" pButton pRipple type="button" label="Register"
             class="p-button-raised p-button-secondary p-button-text"></button>
         </div>
         <div class="d-flex flex-column justify-content-center">
-          <img src="assets/student.png" width="" height="" />
+          <img src="assets/student.png" class="studentImg" />
         </div>
       </div>
 
@@ -62,6 +83,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-11 my-2">
 
                     <div class="card" style="">
@@ -72,7 +94,7 @@
                             <p class="card-text">Item pick and deliver from your doorstep</p>
                         </div>
                     </div>
-                </div>
+                </div> 
                 <div class="col-11 my-2">
 
                     <div class="card" style="">
@@ -86,62 +108,75 @@
                     </div>
                 </div>
             </div> -->
+      <div class="desktop desktopItem center d-flex justify-content-center d-none d-md-block">
+        <div class="col-11 my-2 card2">
+
+          <div class="card" style="display: inline-flex;">
+            <img class="card-img-top" src="assets/54950.jpg" alt="Card image cap" width="30px" height="140px">
+            <div class="card-body card2body">
+              <h5 class="card-title"><i class='fas fa-puzzle-piece'></i> The Chest Quest</h5>
+              <p class="card-text">Of the Student By the Student For the Student</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="desktop col-11 my-2 card2">
+
+          <div class="card" style="display: inline-flex;">
+
+            <img class="card-img-top" src="assets/5378405.jpg" alt="Card image cap" width="20px" height="140px">
+            <div class="card-body card2body">
+              <h5 class="card-title"> <i class="fa-solid fa-briefcase"></i> Hiring Now</h5>
+              <span class="mx-1 horizontalLine"><del class="cutLine">work for us</del> </span>
+              <span>work with us</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="desktop col-11 my-2 card2">
+          <div class="card" style="display: inline-flex;">
+            <img class="card-img-top" src="assets/5127314.jpg" alt="Card image cap" width="20px" height="140px">
+            <div class="card-body card2body">
+              <h5 class="card-title"><i class="fa-solid fa-headset"></i> Support</h5>
+              <p class="card-text">Our contact service available 24X7 for you</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <div class="carouselContainer container-fluid">
         <div id="carouselExampleCaptions" class="carousel carousel-dark slide">
           <div class="carousel-indicators">
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="0"
-              class="active"
-              aria-current="true"
-              aria-label="Slide 1"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="2"
-              aria-label="Slide 3"
-            ></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+              aria-label="Slide 3"></button>
           </div>
-          <div
-            class="carousel-innerContainer d-flex flex-column align-items-center justify-content-center"
-          >
+          <div class="carousel-innerContainer d-flex flex-column align-items-center justify-content-center">
             <div class="carousel-inner mb-2">
               <div class="carousel-item item1 active">
                 <div class="card" style="">
-                  <img
-                    class="card-img-top"
-                    src="assets/54950.jpg"
-                    alt="Card image cap"
-                    height="140px"
-                  />
+                  <img class="card-img-top" src="assets/54950.jpg" alt="Card image cap" height="140px" />
                   <div class="card-body">
                     <h5 class="card-title text-block" style="">The chest quest</h5>
                     <p class="card-text d-flex flex-column">
                       <!-- <span>of the student</span>
                       <span>by the student</span>
                       <span>for the student</span> -->
-                      Of the Student By the Student For the Student 
+                      Of the Student By the Student For the Student
                     </p>
                   </div>
                 </div>
               </div>
               <div class="carousel-item item1">
                 <div class="card" style="">
-                  <img
-                    class="card-img-top"
-                    src="assets/5378405.jpg"
-                    alt="Card image cap"
-                    width="20px"
-                    height="140px"
-                  />
+                  <img class="card-img-top" src="assets/5378405.jpg" alt="Card image cap" width="20px" height="140px" />
                   <div class="card-body">
                     <h5 class="card-title text-block" style="">Hiring Now</h5>
                     <p class="card-text d-flex flex-column">
@@ -153,13 +188,7 @@
               </div>
               <div class="carousel-item item1">
                 <div class="card" style="">
-                  <img
-                    class="card-img-top"
-                    src="assets/5127314.jpg"
-                    alt="Card image cap"
-                    width="20px"
-                    height="140px"
-                  />
+                  <img class="card-img-top" src="assets/5127314.jpg" alt="Card image cap" width="20px" height="140px" />
                   <div class="card-body">
                     <h5 class="card-title text-block" style="">Support</h5>
                     <p class="card-text d-flex flex-column">
@@ -168,7 +197,7 @@
                         Feel free to reach us
                       </span>
                       <span>
-                        Not 24/7 as of now <span><img width="20px" src="/assets/40230.jpg" alt="" srcset="">:)</span> 
+                        Not 24/7 as of now <span><img width="20px" src="/assets/40230.jpg" alt="" srcset="">:)</span>
                       </span>
                     </p>
                   </div>
@@ -176,31 +205,16 @@
               </div>
             </div>
           </div>
+
           <div class="carouselButtonContainer">
-            <button
-              (click)="slideImage()"
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
+            <button (click)="slideImage()" class="carousel-control-prev" type="button"
+              data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button
-              (click)="slideImage()"
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
+            <button (click)="slideImage()" class="carousel-control-next" type="button"
+              data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
           </div>
@@ -208,92 +222,51 @@
       </div>
     </div>
 
-    <div class="row mt-3" style="font-family: sofia-pro, sans-serif">
-      <img
-        src="assets/demo3.png"
-        width="100%"
-        height="50%"
-        style="display: inline-block; border: none"
-      />
+    <div class="row mt-3 desktop" style="font-family: sofia-pro, sans-serif">
+      <img src="assets/demo3.png" width="100%" height="500px" style="display: inline-block; border: none" />
+    </div>
+
+    <div class="row mt-3 mobile" style="font-family: sofia-pro, sans-serif">
+      <img src="assets/demo3.png" width="100%" height="235px" style="display: inline-block; border: none" />
     </div>
     <div class="p-0 container">
       <div class="mt-4" style="background-color: #f9fbfe">
         <h2 id="head">Services</h2>
         <div class="carouselContainer container-fluid px-4">
-          <div
-            id="carouselExampleCaptions1"
-            class="carousel carousel-dark slide"
-          >
+          <div id="carouselExampleCaptions1" class="carousel carousel-dark slide">
             <div class="carousel-indicators">
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions1"
-                data-bs-slide-to="0"
-                class="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions1"
-                data-bs-slide-to="1"
-                aria-label="Slide 2"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions1"
-                data-bs-slide-to="2"
-                aria-label="Slide 3"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions1"
-                data-bs-slide-to="3"
-                aria-label="Slide 4"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions1"
-                data-bs-slide-to="4"
-                aria-label="Slide 5"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions1"
-                data-bs-slide-to="5"
-                aria-label="Slide 6"
-              ></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="3"
+                aria-label="Slide 4"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="4"
+                aria-label="Slide 5"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="5"
+                aria-label="Slide 6"></button>
             </div>
-            <div
-              class="carousel-innerContainer d-flex flex-column align-items-center justify-content-center"
-            >
+            <div class="carousel-innerContainer d-flex flex-column align-items-center justify-content-center">
               <div class="carousel-inner mb-2">
                 <div class="carousel-item active ">
                   <div class="card" style="">
-                    <img
-                      class="card-img-top"
-                      src="assets/3572217.jpg"
-                      alt="Card image cap"
-                      width="364px"
-                      height="140px"
-                    />
+                    <img class="card-img-top" src="assets/3572217.jpg" alt="Card image cap" width="364px"
+                      height="140px" />
                     <div class="card-body">
                       <h5 class="card-title text-block" style="">Printing</h5>
                       <p class="card-text">
-                        kya aap bhi line mein khade khade thak gye hai<span><img width="20px" src="/assets/40230.jpg" alt="" srcset="">:)</span>
+                        kya aap bhi line mein khade khade thak gye hai<span><img width="20px" src="/assets/40230.jpg"
+                            alt="" srcset="">:)</span>
                       </p>
                     </div>
                   </div>
                 </div>
                 <div class="carousel-item ">
                   <div class="card" style="">
-                    <img
-                      class="card-img-top"
-                      src="assets/laundarylogo.png"
-                      alt="Card image cap"
-                      width="20px"
-                      height="140px"
-                    />
+                    <img class="card-img-top" src="assets/laundarylogo.png" alt="Card image cap" width="20px"
+                      height="140px" />
                     <div class="card-body">
                       <h5 class="card-title text-block" style="">Laundary</h5>
                       <p class="card-text">
@@ -304,13 +277,8 @@
                 </div>
                 <div class="carousel-item ">
                   <div class="card" style="">
-                    <img
-                      class="card-img-top"
-                      src="assets/3731109.jpg"
-                      alt="Card image cap"
-                      width="20px"
-                      height="140px"
-                    />
+                    <img class="card-img-top" src="assets/3731109.jpg" alt="Card image cap" width="20px"
+                      height="140px" />
                     <div class="card-body">
                       <h5 class="card-title text-block" style="">grocery</h5>
                       <p class="card-text">
@@ -321,13 +289,8 @@
                 </div>
                 <div class="carousel-item ">
                   <div class="card" style="">
-                    <img
-                      class="card-img-top"
-                      src="assets/7778350.jpg"
-                      alt="Card image cap"
-                      width="20px"
-                      height="140px"
-                    />
+                    <img class="card-img-top" src="assets/7778350.jpg" alt="Card image cap" width="20px"
+                      height="140px" />
                     <div class="card-body">
                       <h5 class="card-title text-block" style="">food</h5>
                       <p class="card-text">
@@ -338,13 +301,8 @@
                 </div>
                 <div class="carousel-item ">
                   <div class="card" style="">
-                    <img
-                      class="card-img-top"
-                      src="assets/19362653.jpg"
-                      alt="Card image cap"
-                      width="20px"
-                      height="140px"
-                    />
+                    <img class="card-img-top" src="assets/19362653.jpg" alt="Card image cap" width="20px"
+                      height="140px" />
                     <div class="card-body">
                       <h5 class="card-title text-block" style="">hackathon</h5>
                       <p class="card-text">
@@ -355,13 +313,8 @@
                 </div>
                 <div class="carousel-item ">
                   <div class="card" style="">
-                    <img
-                      class="card-img-top"
-                      src="assets/20944693.jpg"
-                      alt="Card image cap"
-                      width="20px"
-                      height="140px"
-                    />
+                    <img class="card-img-top" src="assets/20944693.jpg" alt="Card image cap" width="20px"
+                      height="140px" />
                     <div class="card-body">
                       <h5 class="card-title text-block" style="">Event</h5>
                       <p class="card-text">
@@ -373,32 +326,87 @@
               </div>
             </div>
             <div class="carouselButtonContainer">
-              <button
-                (click)="slideImage()"
-                class="carousel-control-prev"
-                type="button"
-                data-bs-target="#carouselExampleCaptions1"
-                data-bs-slide="prev"
-              >
-                <span
-                  class="carousel-control-prev-icon"
-                  aria-hidden="true"
-                ></span>
+              <button (click)="slideImage()" class="carousel-control-prev" type="button"
+                data-bs-target="#carouselExampleCaptions1" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
               </button>
-              <button
-                (click)="slideImage()"
-                class="carousel-control-next"
-                type="button"
-                data-bs-target="#carouselExampleCaptions1"
-                data-bs-slide="next"
-              >
-                <span
-                  class="carousel-control-next-icon"
-                  aria-hidden="true"
-                ></span>
+              <button (click)="slideImage()" class="carousel-control-next" type="button"
+                data-bs-target="#carouselExampleCaptions1" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
               </button>
+            </div>
+          </div>
+        </div>
+        <div class="desktopCarouselContainer p-4 d-flex justify-content-center flex-wrap">
+
+          <div class="desktop col-11 my-2 card1">
+            <div class="card" style="">
+              <img class="card-img-top" src="assets/3572217.jpg" alt="Card image cap" width="364px" height="140px" />
+              <div class="card-body">
+                <h5 class="card-title text-block" style="">Printing</h5>
+                <p class="card-text">
+                  kya aap bhi line mein khade khade thak gye hai<span><img width="20px" src="/assets/40230.jpg" alt=""
+                      srcset="">:)</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="desktop col-11 my-2 card1">
+            <div class="card" style="">
+              <img class="card-img-top" src="assets/laundarylogo.png" alt="Card image cap" width="20px" height="140px" />
+              <div class="card-body">
+                <h5 class="card-title text-block" style="">Laundary</h5>
+                <p class="card-text">
+                  make ur hands soft not with cream but by giving us ur laundry
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="desktop col-11 my-2 card1">
+            <div class="card" style="">
+              <img class="card-img-top" src="assets/3731109.jpg" alt="Card image cap" width="20px" height="140px" />
+              <div class="card-body">
+                <h5 class="card-title text-block" style="">Grocery</h5>
+                <p class="card-text">
+                  We have your everyday needs and more.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="desktop col-11 my-2 card1">
+            <div class="card" style="">
+              <img class="card-img-top" src="assets/7778350.jpg" alt="Card image cap" width="20px" height="140px" />
+              <div class="card-body">
+                <h5 class="card-title text-block" style="">Food</h5>
+                <p class="card-text">
+                  it's instincts that makes you go UMMMMMMM
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="desktop col-11 my-2 card1">
+            <div class="card" style="">
+              <img class="card-img-top" src="assets/19362653.jpg" alt="Card image cap" width="20px" height="140px" />
+              <div class="card-body">
+                <h5 class="card-title text-block" style="">Hackathon</h5>
+                <p class="card-text">
+                  Give a chance to your crazy ideas to become reality
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="desktop col-11 my-2 card1">
+  
+            <div class="card" style="">
+              <img class="card-img-top" src="assets/20944693.jpg" alt="Card image cap" width="20px" height="140px" />
+              <div class="card-body">
+                <h5 class="card-title text-block" style="">Event</h5>
+                <p class="card-text">
+                  Adding a little sparkle to your life with our adornment
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -535,27 +543,30 @@
       </div>
     </div> -->
 
-    <div
-      style="
-        background-color: #00b8d9;
+    <div style="
+        background-color: #eee;
         font-family: sofia-pro, sans-serif;
+        border-radius: 5px;
+         margin-top: 35px;
+         /*
+        margin-bottom: px; */
         text-align: center;
-        color: white;
-      "
-    >
+        color: #000;
+      ">
       <br /><br />
 
       <h5>For school & college management</h5>
-      <h3>Want to incorporate Instics services</h3>
+      <h3>Want to incorporate Instincts services</h3>
       <h3>in your school/college?</h3>
       <p>Take a step to make college life of students more easier</p>
-      <button (click)="navigateToContact()" pButton pRipple type="button" label="Send a request"
-        class="p-button-raised p-button-secondary p-button-text"></button>
+      <button (click)="navigateToContact()" pButton pRipple type="button" label="Incorporate Now"
+        class="p-button-raised p-button-secondary p-button-text incorporoteBtn" style="background-color:  #172337 !important;
+        color: #ccc !important;"></button>
       <br /><br />
     </div>
   </div>
 
-  <div style="background-color: #333; color: white">
+  <div class="mobileFooter mobile d-none" style="background-color: #333; color: white">
     <div class="container py-2">
       <div class="row">
         <!-- <div>
@@ -567,11 +578,7 @@
           <p>Reach Us</p>
           <div>
             <p class="">
-              <img
-                src="assets/whatsapp.jpg"
-                width="30px"
-                height="20px"
-              />+918292009935
+              <img src="assets/whatsapp.jpg" width="30px" height="20px" />+918292009935
             </p>
             <p class="">
               <img src="assets/email.png" width="25px" height="20px" />
@@ -584,11 +591,7 @@
           <div>
             <a (click)="navigateToLogin()" style="cursor: pointer">Login</a><br />
             <a (click)="navigateToContact()">Contact us</a><br />
-            <a
-              (click)="navigateToAbout()"
-              style="color: #e7dfdf; cursor: pointer"
-              >About Us</a
-            >
+            <a (click)="navigateToAbout()" style="color: #e7dfdf; cursor: pointer">About Us</a>
           </div>
         </div>
         <div class="col-12">
@@ -603,15 +606,15 @@
       </div>
       <div class="row">
         <div class="col-12 d-flex align-items-center">
-            <div class="col-3">
-                Social Media
-            </div>
-            <div class="col-3 d-flex justify-content-around">
+          <div class="col-3">
+            Social Media
+          </div>
+          <div class="col-3 d-flex justify-content-around">
 
-                <i class="fa-brands fa-instagram"></i>
-                <i class="fa-brands fa-linkedin"></i>
-                <i class="fa-brands fa-twitter"></i>
-            </div>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-linkedin"></i>
+            <i class="fa-brands fa-twitter"></i>
+          </div>
         </div>
         <div class="py-0 px-3 col-12 d-flex justify-content-around">
           <span class="row">
@@ -687,4 +690,57 @@
             </div>
         </div>
     </div> -->
+
+</div>
+<div class="deskFooter m-0 row">
+
+  <div class="upperFooter mb-4 col-12 justify-content-between row">
+    <div class="footerAddress col-6 col-md-12">
+      <h5 class="addressHeader" style="margin-top: 20px;">
+        Registered Address
+      </h5>
+      <p style="color:#ddd; margin-top:20px;"> SAS
+        Nagar, Punjab, India<br>Pin Code: 140301</p>
+      <i class="fa-solid fa-phone" style="margin-right: 15px;"></i><i class="fa-solid fa-envelope"></i>
+
+    </div>
+
+    <div class="footerConnect col-6 col-md-12 m-0" style="margin-top: 30px;">
+      <h4 class="connectHeader" style="margin-left: 80px; "><u>Join us</u></h4>
+      <div class="iconContainer">
+
+        <i class="fa fa-facebook addressLogo"
+          style="background-color:#3b5998; margin-right: 15px;font-size:24px;margin-top: 10px;"></i>
+        <i class="fa fa-instagram addressLogo"
+          style="background-color:#bc2a8d; margin-right: 15px;font-size:24px;margin-top: 10px;"></i>
+        <i class="fa fa-linkedin addressLogo"
+          style="background-color:#0072b1; margin-right: 15px;font-size:24px;margin-top: 10px;"></i>
+        <i class="fa fa-whatsapp addressLogo"
+          style="background-color:#128C7E; margin-right: 15px;font-size:24px;margin-top: 10px;"></i>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="linkContainer col-12 row">
+    <div class="col-md-8 col-12">
+      <li class="footerListItem m-0">
+        © 2023 | Instincts
+      </li>
+    </div>
+    <div class="col-12 col-md-4 d-flex justify-content-between">
+      <li class="footerListItem" (click)="navigate('/terms')" style="">
+        Terms of Service
+      </li>
+      <li class="footerListItem" (click)="navigate('/privacy')" style="">
+        Privacy Policy
+      </li>
+      <li class="footerListItem" (click)="navigate('/cookies')" style="">
+        Cookie Policy
+      </li>
+      <li class="footerListItem" (click)="navigate('/refund')" style="">
+        Refund Policy
+      </li>
+    </div>
+  </div>
 </div>

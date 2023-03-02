@@ -1,5 +1,213 @@
-<nav class="navbar navbar-light navbar-shadow border-bottom p-0">
-  <div class="logo"><img style="
-    width: 180px;
-" src="assets/instinctsTransparentLogo.png" /></div>
-</nav>
+<div class="header-container p-0 d-flex row align-items-center m-0">
+  <div
+    (click)="navigateTo('/services')"
+    class="headerLogoContainer col-sm-3 col-6"
+  >
+    <img class="headerLogo" src="assets/instinctsTransparentLogo.png" />
+  </div>
+  <div class="searchBoxContainer col-sm-3">
+    <span class="p-input-icon-right w-100">
+      <i class="pi pi-search"></i>
+      <input
+        placeholder="search for services"
+        [style]=""
+        type="text"
+        class="w-100"
+        pInputText
+      />
+    </span>
+  </div>
+  <div class="headerItemsContainer col-sm-3">
+    <div class="headerLinks d-flex justify-content-around">
+      <span
+        (click)="navigateTo('/services')"
+        class="headerLinksItems homeService"
+        >Home</span
+      >
+      <span (click)="navigateTo('/cart')" class="headerLinksItems cartService"
+        >Cart</span
+      >
+      <!-- <span (click)="navigateTo('/services')" class="headerLinksItems">Services</span> -->
+      <!-- <span (click)="navigateTo('/paymentHistory')" class="headerLinksItems"
+        >Payment</span
+      > -->
+
+      <!-- <span (click)="navigateTo('/orderHistory')" class="headerLinksItems">Order</span>
+      <span (click)="navigateTo('/paymentHistory')" class="headerLinksItems">Payment</span> -->
+    </div>
+  </div>
+  <div
+    class="greetingContainer col-sm-2 align-items-center d-flex justify-content-around"
+  >
+    <span class="greeting">{{ greeting }}</span>
+    <span class="userName"> {{ userName }}</span>
+  </div>
+  <div
+  #dropdown
+    (click)="openProfile()"
+    class="profileContainer col-6 col-sm-1 d-flex justify-content-end"
+  >
+    <img class="profileImg" src="data:image/png;base64,{{ userIcon }}" alt="" />
+  </div>
+</div>
+<div
+  #dropdown
+  appClickedOutside
+  (clickedOutside)="handleChangeProfile()"
+  *ngIf="showProfileSection"
+  class="container-fluid profileDropDownContainer p-0"
+>
+  <div *ngIf="!changeProfilePic" class="row m-0">
+    <div class="profileHeader justify-content-center">Profile</div>
+    <div class="textContainer row p-0 m-0 align-items-center">
+      <div (click)="changeProfilePicFun()" class="profileImgContainer col-4">
+        <img
+          class="profileLogo mx-1"
+          src="data:image/png;base64,{{ userIcon }}"
+          alt=""
+        />
+      </div>
+      <div class="profileTextContainer col-8">
+        <div class="profileText">
+          <span class="profileTextValue">{{ userName }}</span>
+        </div>
+        <div class="profileText">
+          <span class="profileTextValue">{{ email }}</span>
+        </div>
+        <div class="profileText">
+          <span class="profileTextValue">{{ contact }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="profileDropDownItemsContainer d-flex flex-column p-4">
+      <button
+        (click)="navigateTo('/orderHistory')"
+        pButton
+        pRipple
+        type="button"
+        label="my order"
+        class="p-button-raised p-button-secondary p-button-text my-1"
+      ></button>
+      <button
+        (click)="navigateTo('/paymentHistory')"
+        pButton
+        pRipple
+        type="button"
+        label="my payments"
+        class="p-button-raised p-button-secondary p-button-text my-1"
+      ></button>
+      <button
+        (click)="navigateTo('/services')"
+        pButton
+        pRipple
+        type="button"
+        label="home"
+        class="p-button-raised p-button-secondary p-button-text my-1 hiddenBtn "
+      ></button>
+      <button
+        (click)="navigateTo('/cart')"
+        pButton
+        pRipple
+        type="button"
+        label="cart"
+        class="p-button-raised p-button-secondary p-button-text my-1 hiddenBtn "
+      ></button>
+      <button
+        (click)="logOutUser()"
+        pButton
+        pRipple
+        type="button"
+        label="Logout"
+        class="p-button-danger"
+      ></button>
+    </div>
+  </div>
+  <div *ngIf="changeProfilePic" class="row">
+    <div class="profile-photo">
+      <section
+        class="d-flex flex-column justify-content-center align-items-center p-2"
+        id="container"
+      >
+        <div class="card-body">
+          <div class="container mt-4 p-0">
+            <div class="row imgCont px-3">
+              <div
+                class="col-lg-12 ImageContainer column"
+                #labelImport
+                for="frontFile"
+                (click)="fileInput.click()"
+              >
+                <div class="textContainer my-2">
+                  <div class="galleryImageWrapper my-1">
+                    <span
+                      class="d-flex flex-row justify-content-center align-items-center"
+                    >
+                      <div class="galleryImagePosition">
+                        <i
+                          *ngIf="fileName == undefined"
+                          class="fa-solid textPosition fa-2x fa-upload"
+                        ></i>
+                        <i
+                          *ngIf="!!fileName"
+                          class="fa-solid textPosition fa-2x fa-check"
+                        ></i>
+                        <input
+                          #fileInput
+                          (change)="handleChange($event)"
+                          type="file"
+                          hidden
+                          id="frontFile"
+                          accept=".jpg,.png"
+                        />
+                      </div>
+                      <div for="file" *ngIf="true" class="textPosition mx-2">
+                        <span *ngIf="fileName == undefined">
+                          Select Profile Picture
+                        </span>
+                        <span class="fileName" *ngIf="!!fileName">
+                          {{ fileName }}
+                        </span>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <div class="text-center col-md-8">
+              <image-cropper
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="4 / 4"
+                [resizeToWidth]="256"
+                format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (cropperReady)="cropperReady()"
+                (loadImageFailed)="loadImageFailed()"
+              ></image-cropper>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex">
+          <button
+            (click)="submitProfilePic()"
+            type="button"
+            class="btn btn-primary mx-3"
+          >
+            Upload
+          </button>
+          <button
+            (click)="changeProfilePicFun()"
+            type="button"
+            class="btn btn-primary"
+          >
+            Cancel
+          </button>
+        </div>
+        <!-- <button (click)="submitProfilePic()">Upload</button> -->
+      </section>
+    </div>
+  </div>
+</div>

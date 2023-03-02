@@ -18,6 +18,8 @@ import { PdfListComponent } from './views/pages/pdfList/pdf-list/pdf-list.compon
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TableModule } from 'primeng/table';
+import { ToastrModule } from 'ng6-toastr-notifications';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,7 @@ import { TableModule } from 'primeng/table';
     SubdashboardComponent,
     HeaderComponent,
     PdfListComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { TableModule } from 'primeng/table';
     ToastModule,
     ToolbarModule,
     TableModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -40,7 +40,12 @@ import { CookiesPolicyComponent } from './Views/pages/cookies-policy/cookies-pol
 import { InputNumberModule } from 'primeng/inputnumber';
 import { RefundComponent } from './Views/pages/refund/refund.component';
 import { PaymentComponent } from './Views/pages/payment/payment.component';
-
+import { OrderHistoryComponent } from './Views/pages/order-history/order-history.component';
+import { ToolbarModule } from 'primeng/toolbar';
+import { TableModule } from 'primeng/table';
+import { PaymentHistoryComponent } from './Views/pages/payment-history/payment-history.component';
+import { ClickedOutsideDirective } from './directives/clicked-outside.directive';
+import { PublicHeaderComponent } from './Views/partial/public-header/public-header.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +73,10 @@ import { PaymentComponent } from './Views/pages/payment/payment.component';
     CookiesPolicyComponent,
     RefundComponent,
     PaymentComponent,
+    OrderHistoryComponent,
+    PaymentHistoryComponent,
+    ClickedOutsideDirective,
+    PublicHeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +102,8 @@ import { PaymentComponent } from './Views/pages/payment/payment.component';
     CarouselModule,
     InputTextareaModule,
     InputNumberModule,
+    ToolbarModule,
+    TableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

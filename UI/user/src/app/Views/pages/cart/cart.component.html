@@ -1,96 +1,47 @@
-<div class="cartHeader">
-  <div (click)="navigate()" class="backBtn"><i class="fa fa-arrow-left"></i> Back</div>
+<!-- <div class="cartHeader">
+  <div (click)="navigate()" class="backBtn">
+    <i class="fa fa-arrow-left"></i> Back
+  </div>
   <div class="cartText">My Cart</div>
-  <!-- <div class="removeItemTxt">Remove All</div> -->
-</div>
+</div> -->
+<div class="container-fluid m-0 p-0 row">
 
-<div class="cartItems">
-  <div
-    id="item{{ i }}"
-    *ngFor="let item of cartList[0]; index as i"
-    class="items align-items-center"
-  >
-    <!-- {{item}} -->
-    <i class="fa fa-print"></i>
-    <div class="cartItmTxt">
-      <span class="itemName">{{ item.pdfName}}</span>
-      <span class="cartItmTxt2">Page : {{ item.totalPage }}</span>
-      <div class="price">
-        price : 
-        <i class="fa fa-rupee"></i>
-        {{ item.totalCost }}
+  <div class="imgContainer d-none d-md-block col-12 col-md-6">
+    <img width="100%" src="assets/4702120.jpg" alt="" />
+  </div>
+  <div class=" col-12 col-md-6">
+    <div class="cartItems">
+      <div id="item{{ i }}" *ngFor="let item of cartList[0]; index as i" class="items align-items-center">
+        <i class="fa fa-print"></i>
+        <div class="cartItmTxt">
+          <span class="itemName">{{ item.pdfName }}</span>
+          <span class="cartItmTxt2">Page : {{ item.totalPage }}</span>
+          <div class="price">
+            price :
+            <i class="fa fa-rupee"></i>
+            {{ item.totalCost }}
+          </div>
+        </div>
+      
+        <i (click)="removeItem(item.id)" class="fa-solid fa-trash-can"></i>
       </div>
     </div>
-
-    <i (click)="removeItem(item.id)" class="fa-solid fa-trash-can"></i>
-  </div>
-
-  <!-- <div class="items">
-        <i class="fa fa-print"></i>
-        <div class="cartItmTxt">Standard Printing
-            <p class="cartItmTxt2"> 10 Pages</p>
-            <div class="price">
-                <i class="fa fa-rupee"></i>
-                50
-            </div>
-        </div>
-        <div class="plus-minus">
-            <i class="fa fa-minus"></i>
-            1
-            <i class="fa fa-plus"></i>
-        </div>
-       
+    <div class="checkoutButton">
+      <div class="pric">
+        <p style="margin: 23px">
+          <i class="fa fa-rupee"></i> {{ totalCheckoutPrice }}
+        </p>
+      </div>
+      <div (click)="createPayment()" class="btn">Checkout</div>
     </div>
-    <div class="items">
-        <i class="fa fa-print"></i>
-        <div class="cartItmTxt">Standard Printing
-            <p class="cartItmTxt2"> 10 Pages</p>
-            <div class="price">
-                <i class="fa fa-rupee"></i>
-                50
-            </div>
-        </div>
-        
-       
-    </div> -->
-</div>
-<div class="promoCode">
-  <input type="text" name="promo" placeholder="Have a promo code?" />
-  <button type="button">APPLY</button>
-</div>
-<!-- <div class="billingDetails">
-  <div class="alligner">
-    <div class="rightBillTxt">Subtotal</div>
-    <div
-      class="leftBillTxt"
-      id="priceTotal"
-      align="right"
-      onclick="sumArray()"
-    ></div>
+    
+    
   </div>
-  <div class="alligner">
-    <div class="rightBillTxt">IGST</div>
-    <div class="leftBillTxt" align="right"><i class="fa fa-rupee"></i> 150</div>
-  </div>
-  <div class="alligner">
-    <div class="rightBillTxt">SGST</div>
-    <div class="leftBillTxt" align="right"><i class="fa fa-rupee"></i> 150</div>
-  </div>
-  <div class="alligner">
-    <div class="rightBillTxt">Service Charge</div>
-    <div class="leftBillTxt" align="right"><i class="fa fa-rupee"></i> 150</div>
-  </div>
-</div> -->
-
-<div class="checkoutButton">
-  <div class="pric">
-    <p style="margin: 23px"><i class="fa fa-rupee"></i> {{totalCheckoutPrice}}</p>
-  </div>
-  <!-- <div *ngIf="showUpiField">
-    <input type="text" [(ngModel)]="upi_id" name="" id="">
+  
+  <!-- <div class="promoCode">
+    <input type="text" name="promo" placeholder="Have a promo code?" />
+    <button type="button">APPLY</button>
   </div> -->
-  <div (click)="createPayment()" class="btn">Checkout</div>
-  <!-- <button (click)="createPaymentRequest()" >create payment request</button> -->
-  <!-- <button (click)="handleWebhook()" >webhook</button> -->
+  
+  
 </div>
-

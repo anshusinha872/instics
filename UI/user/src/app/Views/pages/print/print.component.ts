@@ -155,7 +155,6 @@ export class PrintComponent implements OnInit {
         this.rangeList = [];
         this.totalPage = 0;
         this.pageCount=0;
-        this.pdfFile=null;
       } else {
         this.toastr.errorToastr(res.message, res.data);
       }
@@ -165,6 +164,7 @@ export class PrintComponent implements OnInit {
     const file = event.target.files[0];
     this.pdfFile = file;
     const fileReader = new FileReader();
+    
     fileReader.onload = (e) => {
       const typedArray = new Uint8Array(fileReader.result as ArrayBuffer);
       pdfjs.getDocument(typedArray).promise.then((pdf) => {

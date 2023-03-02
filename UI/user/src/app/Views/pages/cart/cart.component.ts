@@ -71,7 +71,7 @@ export class CartComponent implements OnInit {
   changedDate = '';
   pipe = new DatePipe('en-US');
   changeFormat(today) {
-    let ChangedFormat = this.pipe.transform(this.today, 'dd/MM/YYYY');
+    let ChangedFormat = this.pipe.transform(this.today, 'dd-MM-YYYY');
     this.changedDate = ChangedFormat;
     // return this.changedDate;
     console.log(this.changedDate);
@@ -119,16 +119,17 @@ export class CartComponent implements OnInit {
   }
   createPayment() {
     console.log('createPayment');
-    const req = {
-      user_id: this.sessionService.get('user_id'),
-      amount: this.totalCheckoutPrice,
-      p_info: 'print',
-    };
     let pendingPdfId = [];
     for (let i = 0; i < this.cartList[0].length; i++) {
       pendingPdfId.push(this.cartList[0][i].id);
     }
-    console.log(pendingPdfId);
+    const req = {
+      user_id: this.sessionService.get('user_id'),
+      amount: this.totalCheckoutPrice,
+      p_info: 'print',
+      pdf_id:pendingPdfId,
+    };
+    // console.log(pendingPdfId);
     this.sessionService.set('pendingPdfId', pendingPdfId);
     this.sessionService.set('totalCheckoutPrice', this.totalCheckoutPrice);
     this.sessionService.set('txn_date', this.changedDate);
@@ -139,7 +140,7 @@ export class CartComponent implements OnInit {
         this.toastr.successToastr('Payment created');
         this.sessionService.set('client_txn_id', res[1].client_txn_id);
         this.sessionService.set('key', res[1].key);
-        window.open(res[0].data.payment_url, '_self');
+        window.open(res[0].data.payment_url, '_blank');
         // window.location.href = res[0].data.payment_url;
       } else {
         this.toastr.errorToastr(res.msg);

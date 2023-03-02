@@ -25,4 +25,10 @@ export class PdfService {
       headers: this.sessionService.setTokenHeader(),
     });
   }
+  public getUserPDF(param): Observable<any> {
+    // console.log(param);
+    return this.http.post(this.base_url + 'pdfList', param, {
+      headers: this.sessionService.setTokenHeaderImage(),
+    });
+  }
 }

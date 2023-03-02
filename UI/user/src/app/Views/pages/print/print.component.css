@@ -105,5 +105,39 @@
 .active{
     display: block !important;
     z-index: 999;
-    
+}
+/* Desktop version */
+.leftContainer{
+    background-color: aliceblue;
+}
+.container-fluid{
+    height: calc(100vh - 48px);
+}
+.imgSubContainer{
+    display: flex;
+    justify-content: center;
+}
+.printServiceImg{
+        mix-blend-mode: multiply;
+    height: 371px;
+    padding: 3rem;
+    width: 559px;
+}
+.HeadingText{
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.mainHeading{
+    font-size: 2rem;
+    letter-spacing: 1px;
+    /* text-transform: capitalize; */
+}
+.rightContainerMainHeading{
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    font-family: 'Roboto', sans-serif;
+    /* text-transform: capitalize; */
 }

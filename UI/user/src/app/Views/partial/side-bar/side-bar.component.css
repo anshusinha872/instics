@@ -1,11 +1,8 @@
-.cover{
-    background: url(login.jpeg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    position:absolute;
-    top:0;
-    left:0;
-    z-index: -1;
-    opacity: 0.9;
+.container-fluid{
+   height: 100px;
+   width: 100px;
+    padding: 0 !important;
+    background-color: red;
+    position: absolute;
+    right: 0;
 }
-

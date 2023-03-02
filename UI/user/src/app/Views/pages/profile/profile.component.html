@@ -268,17 +268,24 @@
     Order History</span
   >
   <div class="main-part">
-    <div class="orderHistoryWrapper d-flex flex-column justify-content-center align-items-center pt-4 px-3">
-      <div  class="orderHistoryCard d-flex flex-row justify-content-between w-100">
+    <div
+      class="orderHistoryWrapper d-flex flex-column justify-content-center align-items-center pt-4 px-3"
+    >
+      <div
+        class="orderHistoryCard d-flex flex-row justify-content-between w-100"
+      >
         <div class="itemList">Sr. No.</div>
         <div class="itemList">Quantity</div>
         <div class="itemList">Price</div>
         <div class="itemList">Status</div>
       </div>
-      <div *ngFor="let item of OrderList" class="orderHistoryCard d-flex flex-row justify-content-between w-100">
-        <div class="itemList">{{item.id+1}}</div>
-        <div class="itemList">{{item.totalPage}}</div>
-        <div class="itemList">₹{{item.totalCost}}</div>
+      <div
+        *ngFor="let item of OrderList"
+        class="orderHistoryCard d-flex flex-row justify-content-between w-100"
+      >
+        <div class="itemList">{{ item.id + 1 }}</div>
+        <div class="itemList">{{ item.totalPage }}</div>
+        <div class="itemList">₹{{ item.totalCost }}</div>
         <div class="itemList">
           <span *ngIf="item.docStatus == '0'" class="pending">Pending</span>
           <span *ngIf="item.docStatus == '1'" class="completed">Completed</span>

@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
         });
       } else {
         console.log(res);
-        this.toastr.errorToastr('Invalid Credentials');
+        this.toastr.errorToastr(res.data);
       }
     });
   }

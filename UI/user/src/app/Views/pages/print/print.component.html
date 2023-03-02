@@ -1,4 +1,4 @@
-<div class="content">
+<!-- <div class="content">
   <div class="imgContainer">
     <img class="serviceImg" src="./assets/printService/5128557.jpg" alt="" />
   </div>
@@ -22,7 +22,6 @@
             <i class="fa-sharp fa-solid fa-arrow-right"></i>
           </span>
           <span class="mx-2">
-            <!-- Print multiple documents, multiple times -->
             Black and White
           </span>
         </div>
@@ -36,7 +35,6 @@
             <i class="fa-sharp fa-solid fa-arrow-right"></i>
           </span>
           <span class="mx-2">
-            <!-- Print multiple documents, multiple times -->
             Colour
           </span>
         </div>
@@ -50,7 +48,6 @@
             <i class="fa-sharp fa-solid fa-arrow-right"></i>
           </span>
           <span class="mx-2">
-            <!-- Print multiple documents, multiple times -->
             Photo Quality
           </span>
         </div>
@@ -58,27 +55,10 @@
           ₹ {{ printPricing[0][2].price }}
         </span>
       </div>
-      <!-- <ul>
-        <li class="d-flex flex-column">
-          
-        </li>
-        <li>B/W or Colour</li>
-        <li>Spiral / Stapled / Loose copies</li>
-        <li>Low pricing compared to home printer or Local shops</li>
-      </ul> -->
     </div>
   </div>
   <div class="packageContainer my-3">
     <div class="packageHeading">Official Documents</div>
-    <!-- <div class="packageSubHeading">
-      Customization of Covers. B&W and Colour. Printing Instructions.
-      <ul>
-        <li>B/w or Colour</li>
-        <li>Regular and Bond paper type</li>
-        <li>Ideal for Thesis / Project</li>
-        <li>Low pricing compared to home printer / Local shops</li>
-      </ul>
-    </div> -->
     <div class="packageSubHeading">
       Customization of Covers. B&W and Colour. Printing Instructions.
       <div class="d-flex flex-column mt-1">
@@ -87,7 +67,6 @@
             <i class="fa-sharp fa-solid fa-arrow-right"></i>
           </span>
           <span class="mx-2">
-            <!-- Print multiple documents, multiple times -->
             Black and White
           </span>
         </div>
@@ -101,7 +80,6 @@
             <i class="fa-sharp fa-solid fa-arrow-right"></i>
           </span>
           <span class="mx-2">
-            <!-- Print multiple documents, multiple times -->
             Colour
           </span>
         </div>
@@ -115,7 +93,6 @@
             <i class="fa-sharp fa-solid fa-arrow-right"></i>
           </span>
           <span class="mx-2">
-            <!-- Print multiple documents, multiple times -->
             Photo Quality
           </span>
         </div>
@@ -123,14 +100,6 @@
           ₹ {{ printPricing[1][2].price }}
         </span>
       </div>
-      <!-- <ul>
-            <li class="d-flex flex-column">
-              
-            </li>
-            <li>B/W or Colour</li>
-            <li>Spiral / Stapled / Loose copies</li>
-            <li>Low pricing compared to home printer or Local shops</li>
-          </ul> -->
     </div>
   </div>
 </div>
@@ -243,16 +212,6 @@
           <span>{{ range[0] + " - " + range[1] }}</span>
           <button type="button" class="btn btn-primary" (click)="removeRange(i)">Remove</button>
         </div>
-        <!-- <div>
-          <span class="d-flex flex-row justify-content-between align-items-center my-1">
-            <span>Total Pages</span>
-            <span>{{ totalPage }}</span>
-          </span>
-          <span class="d-flex flex-row justify-content-between align-items-center my-1">
-            <span>Price</span>
-            <span>₹ {{ totalPage * printPricing[selectedDocumentType-1][colorMode - 1].price }}</span>
-          </span>
-        </div> -->
       </div>
     </div>
     <div>
@@ -270,5 +229,199 @@
     <button (click)="addToCart()" type="button" class="btn btn-primary">
       Add to cart
     </button>
+  </div>
+</div> -->
+<div class="container-fluid p-0 row m-0">
+  <div class="leftContainer col-12 col-sm-6 p-0">
+    <div class="HeadingText">
+      <div class="mainHeading px-2 px-md-0">
+        <div>Instincts is a new way of printing</div>
+      </div>
+      <div class="subHeading mt-2 px-2 px-md-0">
+        <div>
+          we use digital printing using graphics to create beautiful and high
+          quality prints at very low prices.
+        </div>
+      </div>
+    </div>
+    <div class="imgSubContainer">
+      <img
+        class="printServiceImg"
+        style="mix-blend-mode: multiply"
+        width="100%"
+        src="./assets/3323088.jpg"
+        alt=""
+      />
+    </div>
+    <div class="pricingContainer row px-3">
+      <div class="standardDocumentSection col-12 col-md-6">
+        <div class="packageHeading">Standard</div>
+        <div class="packageSubHeading">
+          Unlimited Pages Colour, B&W, Multi Colour. Binding Configuration..
+          <div class="d-flex flex-column mt-1">
+            <div class="row my-2">
+              <span class="col-2">
+                <i class="fa-sharp fa-solid fa-arrow-right"></i>
+              </span>
+              <span class="col-5"> Black and White </span>
+              <span class="col-2">
+                ₹ {{ printPricing[0][0].price }}
+              </span>
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <div class="row my-2">
+              <span class="col-2">
+                <i class="fa-sharp fa-solid fa-arrow-right"></i>
+              </span>
+              <span class="col-5"> Colour </span>
+              <span class="col-2">
+                ₹ {{ printPricing[0][1].price }}
+              </span>
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <div class="row my-2">
+              <span class="col-2">
+                <i class="fa-sharp fa-solid fa-arrow-right"></i>
+              </span>
+              <span class="col-5"> Photo Quality </span>
+              <span class="col-2">
+                ₹ {{ printPricing[0][2].price }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="officialDocumentSection col-12 col-md-6">
+        <div class="packageHeading">Official Documents</div>
+        <div class="packageSubHeading">
+          Customization of Covers. B&W and Colour. Printing Instructions.
+          <div class="d-flex flex-column mt-1">
+            <div class="row my-2">
+              <span class="col-2">
+                <i class="fa-sharp fa-solid fa-arrow-right"></i>
+              </span>
+              <span class="col-5">
+                Black and White
+              </span>
+              <span class="col-2">
+                ₹ {{ printPricing[1][0].price }}
+              </span>
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <div class="row my-2">
+              <span class="col-2">
+                <i class="fa-sharp fa-solid fa-arrow-right"></i>
+              </span>
+              <span class="col-5">
+                Colour
+              </span>
+              <span class="col-2">
+                ₹ {{ printPricing[1][1].price }}
+              </span>
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <div class="row my-2">
+              <span class="col-2">
+                <i class="fa-sharp fa-solid fa-arrow-right"></i>
+              </span>
+              <span class="col-5">
+                Photo Quality
+              </span>
+              <span class="col-2">
+                ₹ {{ printPricing[1][2].price }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rightContainer col-12 col-sm-6 p-0">
+    <div class="rightContainerHeading mt-3 d-flex flex-column align-items-center">
+      <div class="rightContainerMainHeading">Upload your file</div>
+      <div class="rightContainerSubHeading">
+        get it printed in minutes
+      </div>
+    </div>
+    <div class="orderContainer">
+      <div class="orderSubHeading">
+        <p-selectButton [options]="documentOption" optionValue="value" [(ngModel)]="selectedDocumentType"
+          optionLabel="label" (ngModelChange)="changeDocType($event)"></p-selectButton>
+        <div>
+          <label for="formFile" class="form-label">Choose your pdf</label>
+          <input (change)="onFileChange($event)"  class="form-control" accept=".pdf" type="file"
+            id="formFile" />
+        </div>
+        <div class="d-flex my-2 flex-row justify-content-between">
+          <span>Choose Type</span>
+          <div class="form-check">
+            <input (ngModelChange)="changeColorMode($event)" [(ngModel)]="colorMode" class="form-check-input" type="radio"
+              name="colorType" id="blackWhitePrint" value="1" />
+            <label class="form-check-label" for="blackWhitePrint"> B/W </label>
+          </div>
+          <div class="form-check">
+            <input (ngModelChange)="changeColorMode($event)" [(ngModel)]="colorMode" class="form-check-input" type="radio"
+              name="colorType" id="colorPrint" value="2" />
+            <label class="form-check-label" for="colorPrint"> Color </label>
+          </div>
+          <div class="form-check">
+            <input (ngModelChange)="changeColorMode($event)" [(ngModel)]="colorMode" class="form-check-input" type="radio"
+              name="colorType" id="photoPrint" value="3" />
+            <label class="form-check-label" for="photoPrint">Photo </label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div *ngIf="false" class="d-flex my-2 flex-row">
+          <div class="form-check">
+            <input (ngModelChange)="changePrintRange($event)" [(ngModel)]="pageRange" class="form-check-input" type="radio"
+              name="pageRange" id="allPageInRange" value="1" checked />
+            <label class="form-check-label" for="allPageInRange"> All Pages </label>
+          </div>
+          <div class="form-check mx-3">
+            <input (ngModelChange)="changePrintRange($event)" [(ngModel)]="pageRange" class="form-check-input" type="radio"
+              name="pageRange" id="customPageInRange" value="2" />
+            <label class="form-check-label" for="customPageInRange">
+              Custom Pages
+            </label>
+          </div>
+        </div>
+    
+        <div *ngIf="pageCount >= 1">
+          Select Range of Pages
+          <h5>Range: {{ rangeValues[0] + " - " + rangeValues[1] }}</h5>
+          <p-slider [range]="true" [(ngModel)]="rangeValues" [min]="printRange[0]" [max]="printRange[1]"></p-slider>
+          <div class="d-flex flex-row justify-content-center mt-2 mb-1">
+            <button type="button" class="btn btn-primary" (click)="addRange()">Add</button>
+          </div>
+          <div>
+            <div class="d-flex flex-row justify-content-between align-items-center my-1"
+              *ngFor="let range of rangeList; let i = index">
+              <span>{{ range[0] + " - " + range[1] }}</span>
+              <button type="button" class="btn btn-primary" (click)="removeRange(i)">Remove</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="d-flex flex-row justify-content-between align-items-center my-1">
+            <span>Total Pages</span>
+            <span>{{ totalPage }}</span>
+          </span>
+          <span class="d-flex flex-row justify-content-between align-items-center my-1">
+            <span>Price</span>
+            <span>₹ {{ totalPage * printPricing[selectedDocumentType-1][colorMode - 1].price }}</span>
+          </span>
+        </div>
+      </div>
+      <div class="orderButtonContainer d-flex flex-row justify-content-center my-2">
+        <button (click)="addToCart()" type="button" class="btn btn-primary">
+          Add to cart
+        </button>
+      </div>
+    </div>
   </div>
 </div>

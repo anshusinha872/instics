@@ -84,8 +84,33 @@ async function getPdfById(req,res)
 		console.log(err);
 	}
 }
+async function getUserPDF(req, res) {
+	try {
+		console.log(req.body.user_id);
+		let returnData = await pdfService.getUserPDF(req.body.user_id);
+		return res.status(200).json(returnData);
+	} catch (err) {
+		console.log(err);
+	}
+}
+async function loginseller(req, res) {
+	console.log(req);
+	try {
+		const username = req.body.username;
+		const password = req.body.password;
+
+		let returnData = await pdfService.loginsellerByUsername(username, password);
+		console.log(returnData);
+		return res.status(200).json(returnData);
+	} catch (err) {
+		console.log(err);
+		return res.status(200).json(err);
+	}
+}
 router.post('/pdf/upload', uploadPdf);
 router.get('/pdfList', printseller);
 router.post('/docstatusupdate', docstatusupdate);
-router.post('/getPdf',getPdfById);
+router.post('/getPdf', getPdfById);
+router.post('/pdfList', getUserPDF);
+router.post('/loginseller', loginseller);
 module.exports = router;
