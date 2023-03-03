@@ -23,15 +23,15 @@ export class PaymentHistoryComponent implements OnInit {
   }
   getPaymentHistory() {
     const user_id = this.sessionService.get('user_id');
-    console.log('user_id', user_id);
+    // console.log('user_id', user_id);
     const req = {
       user_id: user_id,
     };
     this.paymentService.getPaymentHistory(req).subscribe((data) => {
-      console.log('data', data);
+      // console.log('data', data);
       if (data.statusCode == 200) {
         this.paymentList = data.data;
-        console.log(this.paymentList);
+        // console.log(this.paymentList);
         this.toastr.successToastr('Payment History fetched successfully');
       } else {
         this.paymentList = [];

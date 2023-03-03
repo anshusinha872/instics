@@ -56,7 +56,7 @@ export class ServicesComponent implements OnInit {
       this.loginService.logout();
       this.router.navigate(['/login']);
     } else {
-      console.log('token is valid');
+      // console.log('token is valid');
     }
   }
   ngAfterViewInit() {
@@ -66,7 +66,7 @@ export class ServicesComponent implements OnInit {
   }
   getUserData() {
     this.userService.userData().subscribe((res) => {
-      console.log(res);
+      // console.log(res);
     });
   }
   services() {

@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('user_id', res.data.user_id);
         sessionStorage.setItem('email_id', res.data.email_id);
         // sessionStorage.setItem('contact', res.data.firstName+res.data.lastName);
-        console.log(res.data);
+        // console.log(res.data);
         const req = {
           user_id: res.data.user_id,
         };
@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit {
     this.route.navigate(['/home']);
   }
   signUp() {
-    console.log(this.route.url);
+    // console.log(this.route.url);
     this.route.navigate(['/signup']);
   }
 
@@ -110,10 +110,10 @@ export class LoginComponent implements OnInit {
       let req = {
         contact: this.contact,
       };
-      console.log(req);
+      // console.log(req);
       this.loginService.checkUser(req).subscribe((res) => {
         this.apiStatus = 'success';
-        console.log(res);
+        // console.log(res);
         if (res.statusCode == 200) {
           localStorage.setItem('contact', this.contact);
           this.toastr.successToastr('Enter otp sent');
@@ -138,7 +138,7 @@ export class LoginComponent implements OnInit {
         contact: localStorage.getItem('contact'),
       };
       this.loginService.updatePassword(this.userData).subscribe((result) => {
-        console.log(result);
+        // console.log(result);
         if (result.statusCode == 200) {
           this.toastr.successToastr('password updated successfully');
           this.forgetPasswordBox = false;
@@ -175,7 +175,7 @@ export class LoginComponent implements OnInit {
       .then((conformationResult) => {
         // this.otpBoxVisible = true;
         
-        console.log('otp sent');
+        // console.log('otp sent');
         localStorage.setItem(
           'confirmationResult',
           JSON.stringify(conformationResult.verificationId)
@@ -193,8 +193,8 @@ export class LoginComponent implements OnInit {
     this.verify = JSON.parse(
       localStorage.getItem('confirmationResult' || '{}')
     );
-    console.log(this.verify);
-    console.log(this.otp);
+    // console.log(this.verify);
+    // console.log(this.otp);
     var credential = firebase.auth.PhoneAuthProvider.credential(
       this.verify,
       this.otp
@@ -203,8 +203,8 @@ export class LoginComponent implements OnInit {
       .auth()
       .signInWithCredential(credential)
       .then((result) => {
-        console.log(result);
-        console.log('Otp is validated');
+        // console.log(result);
+        // console.log('Otp is validated');
         this.phoneNumberBlock = false;
         this.otpEnterBlock = false;
         this.passwordEnterBlock = true;

@@ -22,7 +22,7 @@ export class LoginService {
     });
   }
   checkUser(param): Observable<any> {
-    console.log(param);
+    // console.log(param);
     return this.http.post(this.base_url + 'checkUser', param, {
       headers: this.reqHeader,
     });

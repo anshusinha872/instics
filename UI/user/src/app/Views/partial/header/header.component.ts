@@ -31,16 +31,16 @@ export class HeaderComponent implements OnInit {
   ) {
     // document.addEventListener('click', this.onDocumentClick.bind(this));
     this.router.events.subscribe((val) => {
-      console.log('here');
+      // console.log('here');
       const className = this.router.url.split('/')[2];
-      console.log('className', className);
+      // console.log('className', className);
       const allItem = document.getElementsByClassName('headerLinksItems');
       for (let i = 0; i < allItem.length; i++) {
         allItem[i].classList.remove('activeLink');
       }
       if (className == 'services') {
         const item = document.getElementsByClassName('homeService');
-        console.log('item', item);
+        // console.log('item', item);
         item[0].classList.add('activeLink');
       }
       if (className == 'cart') {
@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit {
   }
   getUserData() {
     this.profileDetails = this.sharedService.getProfileData().data;
-    console.log('profile details', this.profileDetails);
+    // console.log('profile details', this.profileDetails);
     this.userName =
       this.profileDetails.firstName + ' ' + this.profileDetails.lastName;
     this.email = this.profileDetails.email_id;
@@ -83,7 +83,7 @@ export class HeaderComponent implements OnInit {
   navigateTo(data) {
     this.showProfileBtnClicked = false;
     this.showProfileSection = false;
-    console.log(this.router.url.split('/')[1] + data);
+    // console.log(this.router.url.split('/')[1] + data);
     this.router.navigate([this.router.url.split('/')[1] + data]);
   }
   uploadImage() {}
@@ -123,7 +123,7 @@ export class HeaderComponent implements OnInit {
         this.imageChangedEvent = undefined;
         this.toastr.successToastr('Profile image uploaded successfully');
         this.changeProfilePicFun();
-        console.log(this.profileDetails);
+        // console.log(this.profileDetails);
         const req = {
           user_id: this.user_id,
         };
@@ -131,7 +131,7 @@ export class HeaderComponent implements OnInit {
           this.profileDetails = res.data;
           this.sharedService.setProfileData(this.profileDetails);
           this.getUserData();
-          console.log(this.profileDetails);
+          // console.log(this.profileDetails);
         });
       } else {
         this.toastr.errorToastr('Something went wrong');
@@ -153,8 +153,9 @@ export class HeaderComponent implements OnInit {
     // this.showProfileSection = false;
   }
   handleChangeProfile() {
-    console.log(this.showProfileBtnClicked);
-    console.log(this.dropdown.nativeElement.contains(event.target));
+    // console.log(this.showProfileBtnClicked);
+    // console.log(this.dropdown.nativeElement.contains(event.target));
+
     if (
       this.showProfileBtnClicked &&
       !this.dropdown.nativeElement.contains(event.target) &&

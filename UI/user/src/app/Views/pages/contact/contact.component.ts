@@ -60,7 +60,7 @@ export class ContactComponent implements OnInit {
       contactNumber: this.contactNumber,
     };
     this.userService.submitQueryRequest(req).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.toastr.infoToastr('Query sent successfully');
       this.toastr.infoToastr('Our team will contact you ASAP !');
       this.message = '';
@@ -70,7 +70,7 @@ export class ContactComponent implements OnInit {
     });
   }
   navigateback() {
-    console.log('navigateback');
+    // console.log('navigateback');
     this.location.back();
   }
 }

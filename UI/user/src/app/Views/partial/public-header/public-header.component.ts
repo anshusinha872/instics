@@ -41,9 +41,9 @@ export class PublicHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe((val) => {
-      console.log(val);
+      // console.log(val);
       let url = val['url'];
-      console.log(url);
+      // console.log(url);
     });
     // this.router.events.subscribe((val) => {
     //   // console.log('val', this.router.url);
@@ -104,8 +104,8 @@ export class PublicHeaderComponent implements OnInit {
     // this.showProfileSection = false;
   }
   handleChangeProfile() {
-    console.log(this.showProfileBtnClicked);
-    console.log(this.dropdown.nativeElement.contains(event.target));
+    // console.log(this.showProfileBtnClicked);
+    // console.log(this.dropdown.nativeElement.contains(event.target));
     if (
       this.showProfileBtnClicked &&
       !this.dropdown.nativeElement.contains(event.target)

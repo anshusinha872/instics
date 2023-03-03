@@ -15,7 +15,7 @@ export class PdfService {
     private sessionService: SessionService
   ) {}
   public uploadPdf(param): Observable<any> {
-    console.log(param);
+    // console.log(param);
     return this.http.post(this.base_url + 'pdf/upload', param, {
       headers: this.sessionService.setTokenHeaderImage(),
     });

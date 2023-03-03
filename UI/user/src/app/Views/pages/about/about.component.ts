@@ -46,7 +46,7 @@ export class AboutComponent implements OnInit {
     this.router.navigate(['/home']);
   }
   navigateback() {
-    console.log('navigateback');
+    // console.log('navigateback');
     this.location.back();
   }
 }

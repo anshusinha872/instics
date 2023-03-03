@@ -214,6 +214,29 @@
   height: 200px;
   object-fit: fill;
 }
+.banner{
+  height: 200px;
+}
+.bannerImgContainer{
+    padding: 10px 306px;
+    background-color: #3deac229;
+    margin-bottom: 10px;
+    /* flex-wrap: wrap; */
+}
+.bannerTextHeading{
+      font-size: 2.2rem;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.bannerTextSubHeading{
+      font-size: 1.2rem;
+}
+.rocketImg{
+  width: 180px;
+  height: 180px;
+  object-fit: fill;
+  border-radius: 100%;
+}
 .card {
   border: 1px solid #cccccc;
   border-radius: 15px;
@@ -273,4 +296,26 @@
 }
 .red{
   color: red;
+}
+@media screen and (max-width: 576px) {
+  .bannerImgContainer{
+    padding: 10px 20px;
+    background-color: #3deac229;
+    margin-bottom: 10px;
+    /* flex-wrap: wrap; */
+  }
+  .bannerTextHeading{
+      font-size: 1.5rem;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .bannerTextSubHeading{
+      font-size: 1rem;
+  }
+  .rocketImg{
+    width: 100px;
+    height: 100px;
+    object-fit: fill;
+    border-radius: 100%;
+  }
 }

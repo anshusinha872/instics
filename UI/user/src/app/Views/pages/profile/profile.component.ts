@@ -46,10 +46,10 @@ export class ProfileComponent implements OnInit {
      });
     // console.log(this.sharedService.getProfileData());
     this.profileDetails = this.sharedService.getProfileData();
-    console.log(this.profileDetails);
+    // console.log(this.profileDetails);
     const token = this.sessionService.get('token');
     if (this.AuthService.tokenExpired(token)) {
-      console.log('token expired');
+      // console.log('token expired');
       this.toastr.errorToastr('Session expired, please login again');
       this.LoginService.logout();
       this.router.navigate(['/login']);
@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
       this.LoginService.logout();
       this.router.navigate(['/login']);
     }
-    console.log(this.user_id);
+    // console.log(this.user_id);
     const req = {
       user_id: this.user_id,
     };
@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
     // });
   }
   navigateTodashboard() {
-    console.log(this.currentRoute);
+    // console.log(this.currentRoute);
     // this.router.navigate(['/dashboard']);
     this.location.back();
   }
@@ -118,14 +118,14 @@ export class ProfileComponent implements OnInit {
         this.imageChangedEvent = undefined;
         this.toastr.successToastr('Profile image uploaded successfully');
         
-        console.log(this.profileDetails);
+        // console.log(this.profileDetails);
         const req = {
           user_id: this.user_id,
         };
         this.userService.getUserDetails(req).subscribe((res) => {
           this.profileDetails = res.data;
           this.sharedService.setProfileData(this.profileDetails);
-          console.log(this.profileDetails);
+          // console.log(this.profileDetails);
         });
 
       } else {

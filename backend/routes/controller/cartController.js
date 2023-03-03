@@ -140,7 +140,7 @@ async function checkPaymentStatus(req, res) {
 						client_txn_id,
 						'failure'
 					);
-					return res.status(200).json(response.data.data);
+					return res.status(200).json(response.data);
 				}
 			})
 			.catch(function (error) {

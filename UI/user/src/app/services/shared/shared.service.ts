@@ -14,7 +14,7 @@ export class SharedService {
   profileData: any;
   setProfileData(data) {
     // this.profileData = data;
-    console.log(data);
+    // console.log(data);
     data = JSON.stringify(data);
     this.sessionService.set('profileData', data);
   }

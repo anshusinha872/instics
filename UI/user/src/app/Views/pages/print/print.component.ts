@@ -163,6 +163,15 @@ export class PrintComponent implements OnInit {
   onFileChange(event) {
     const file = event.target.files[0];
     this.pdfFile = file;
+    console.log(this.pdfFile);
+    if (this.pdfFile.type != 'application/pdf') {
+      this.toastr.errorToastr('Please select a pdf file', 'Error');
+      return;
+    }
+    if (this.pdfFile.size > 2000000) {
+      this.toastr.errorToastr('File size should be less than 2MB', 'Error');
+      return;
+    }
     const fileReader = new FileReader();
     
     fileReader.onload = (e) => {

@@ -31,8 +31,8 @@ export class PaymentComponent implements OnInit {
     this.client_txn_id = this.sessionService.get('client_txn_id');
     this.pendingPdfId = this.sessionService.get('pendingPdfId');
     this.user_id = this.sessionService.get('user_id');
-    console.log(this.txn_date, this.key, this.client_txn_id);
-    console.log(this.pendingPdfId);
+    // console.log(this.txn_date, this.key, this.client_txn_id);
+    // console.log(this.pendingPdfId);
     this.checkPaymentStatus();
   }
   redirectToCart() {
@@ -49,20 +49,20 @@ export class PaymentComponent implements OnInit {
       user_id: this.user_id,
     };
     this.paymentService.checkPaymentStatus(req).subscribe((res) => {
-      console.log(res);
-      if (res.status == 'success') {
+      // console.log(res);
+      if (res.data.status == 'success') {
         this.paymentStatus = true;
-        this.upi_id = res.customer_vpa;
-        this.customer_mobile = res.customer_mobile;
-        this.upi_txn_id = res.upi_txn_id;
-        this.amount = res.amount;
+        this.upi_id = res.data.customer_vpa;
+        this.customer_mobile = res.data.customer_mobile;
+        this.upi_txn_id = res.data.upi_txn_id;
+        this.amount = res.data.amount;
       } else {
         this.paymentStatus = false;
-        this.upi_id = res.customer_vpa;
-        this.customer_mobile = res.customer_mobile;
-        this.upi_txn_id = res.upi_txn_id;
-        this.amount = res.amount;
-        this.remark = res.remark;
+        this.upi_id = res.data.customer_vpa;
+        this.customer_mobile = res.data.customer_mobile;
+        this.upi_txn_id = res.data.upi_txn_id;
+        this.amount = res.data.amount;
+        this.remark = res.data.remark;
       }
     });
   }

@@ -78,6 +78,9 @@
     z-index: 1000 !important;
     /* height:100vh !important; */
   }
+  .text-center{
+    max-height: 350px !important;
+  }
 }
 .profileDropDownContainer {
   width: 317px;

@@ -23,7 +23,7 @@ export class CategoryComponent implements OnInit {
     });
   }
   navigateback() {
-    console.log('navigateback');
+    // console.log('navigateback');
     this.location.back();
   }
   redirect(data) {

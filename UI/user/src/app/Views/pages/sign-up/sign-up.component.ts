@@ -58,8 +58,8 @@ export class SignupComponent implements OnInit {
     firebase.initializeApp(environment.firebase);
     // firebase.initializeApp(config);
     this.verify = JSON.parse(localStorage.getItem('verificationId') || '{}');
-    console.log(this.verify);
-    console.log(this.checkBox);
+    // console.log(this.verify);
+    // console.log(this.checkBox);
   }
   toLogin() {
     this.router.navigate(['/login']);
@@ -69,7 +69,7 @@ export class SignupComponent implements OnInit {
   }
   onOtpChange(otpCode: any) {
     this.otp = otpCode;
-    console.log(this.otp);
+    // console.log(this.otp);
   }
 
   // getOTP() {
@@ -144,7 +144,7 @@ export class SignupComponent implements OnInit {
     }
     // this.contact = '+91' + this.contact;
     const contactNumber = '+91' + this.contact;
-    console.log(this.contact);
+    // console.log(this.contact);
     this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
       'recaptcha-container',
       { size: 'invisible' }
@@ -161,7 +161,7 @@ export class SignupComponent implements OnInit {
         // this.userData = conformationResult;
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         setTimeout(() => {
           window.location.reload();
         }, 5000);
@@ -190,8 +190,8 @@ export class SignupComponent implements OnInit {
     this.verify = JSON.parse(
       localStorage.getItem('confirmationResult' || '{}')
     );
-    console.log(this.verify);
-    console.log(this.otp);
+    // console.log(this.verify);
+    // console.log(this.otp);
     var credential = firebase.auth.PhoneAuthProvider.credential(
       this.verify,
       this.otp
@@ -200,8 +200,8 @@ export class SignupComponent implements OnInit {
       .auth()
       .signInWithCredential(credential)
       .then((result) => {
-        console.log(result);
-        console.log('Otp is validated');
+        // console.log(result);
+        // console.log('Otp is validated');
         // this.isOtpValidated = true;
         // this.hideOtpInput = true;
         // this.savePass = true;
@@ -213,7 +213,7 @@ export class SignupComponent implements OnInit {
           contact: this.contact,
         };
         this.userService.submitUser(this.userData).subscribe((result) => {
-          console.log(result);
+          // console.log(result);
           if (result.statusCode == 200) {
             this.toastr.successToastr('User Registered Successfully');
             setTimeout(() => {
@@ -228,7 +228,7 @@ export class SignupComponent implements OnInit {
       .catch((error) => {
         window.console.error('Error authenticating phone number:', error);
         window.alert('Incorrect code entered?');
-        console.log(error);
+        // console.log(error);
       });
   }
 }

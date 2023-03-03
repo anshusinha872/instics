@@ -74,7 +74,7 @@ export class CartComponent implements OnInit {
     let ChangedFormat = this.pipe.transform(this.today, 'dd-MM-YYYY');
     this.changedDate = ChangedFormat;
     // return this.changedDate;
-    console.log(this.changedDate);
+    // console.log(this.changedDate);
   }
   getCartItems() {
     const user_id = this.sessionService.get('user_id');
@@ -88,10 +88,10 @@ export class CartComponent implements OnInit {
         for (let i = 0; i < this.cartList[0].length; i++) {
           this.totalCheckoutPrice += this.cartList[0][i].totalCost;
         }
-        console.log(this.cartList);
+        // console.log(this.cartList);
       } else {
         this.toastr.errorToastr(res.message);
-        console.log(res.message);
+        // console.log(res.message);
       }
     });
   }
@@ -102,7 +102,7 @@ export class CartComponent implements OnInit {
       item_id: item,
     };
     this.cartService.deleteCartItem(req).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       if (res.statusCode == 200) {
         this.toastr.successToastr('Item deleted');
         this.cartList = [];
@@ -110,7 +110,7 @@ export class CartComponent implements OnInit {
         this.getCartItems();
       } else {
         this.toastr.errorToastr(res.message);
-        console.log(res.message);
+        // console.log(res.message);
       }
     });
   }
@@ -118,7 +118,7 @@ export class CartComponent implements OnInit {
     this.Location.back();
   }
   createPayment() {
-    console.log('createPayment');
+    // console.log('createPayment');
     let pendingPdfId = [];
     for (let i = 0; i < this.cartList[0].length; i++) {
       pendingPdfId.push(this.cartList[0][i].id);
@@ -135,8 +135,8 @@ export class CartComponent implements OnInit {
     this.sessionService.set('txn_date', this.changedDate);
     this.paymentService.createPayment(req).subscribe((res) => {
       if (res[0].status == true) {
-        console.log(res);
-        console.log(res[0].data.payment_url);
+        // console.log(res);
+        // console.log(res[0].data.payment_url);
         this.toastr.successToastr('Payment created');
         this.sessionService.set('client_txn_id', res[1].client_txn_id);
         this.sessionService.set('key', res[1].key);
@@ -144,7 +144,7 @@ export class CartComponent implements OnInit {
         // window.location.href = res[0].data.payment_url;
       } else {
         this.toastr.errorToastr(res.msg);
-        console.log(res.message);
+        // console.log(res.message);
       }
     });
   }

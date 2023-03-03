@@ -21,7 +21,7 @@ export class OrderHistoryComponent implements OnInit {
   }
   getPdfs() {
     const user_id = this.sessionService.get('user_id');
-    console.log('user_id', user_id);
+    // console.log('user_id', user_id);
     const req = {
       user_id: user_id,
     }
@@ -29,7 +29,7 @@ export class OrderHistoryComponent implements OnInit {
       // console.log(data);
       if (data.statusCode == 200) {
         this.pdfs = data.data;
-        console.log(this.pdfs);
+        // console.log(this.pdfs);
         this.toastr.successToastr('PDFs fetched successfully');
       }
       else {

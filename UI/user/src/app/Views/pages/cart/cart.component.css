@@ -222,6 +222,9 @@ p{
         /* height: 730px !important; */
         height: 80vh !important;
     }
+    .fa-trash-can{
+        margin-left: 0;
+    }
     .items{
     /* width: 90%; */
     /* margin-left: 20px; */
