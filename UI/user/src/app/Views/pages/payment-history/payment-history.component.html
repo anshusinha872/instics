@@ -1,9 +1,9 @@
-<div class="container-fluid">
-    <p-table [responsive]="true" [value]="paymentList">
-        <ng-template pTemplate="header">
+<div class="card p-3">
+    <p-table responsiveLayout="stack" [value]="paymentList">
+        <ng-template pTemplate="header" let-columns>
             <tr>
                 <th>Id</th>
-                <th >client_txn_id</th>
+                <th>client_txn_id</th>
                 <th>amount</th>
                 <th>order_id</th>
                 <th>p_info</th>
@@ -11,16 +11,16 @@
                 <th>payment_status</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-payment>
-            <tr class="border-bottom">
-                <td>{{ payment.id }}</td>
-                <!-- <td>{{ pdf.user_id }}</td> -->
-                <td>{{ payment.client_txn_id }}</td>
-                <td>{{ payment.amount}}</td>
-                <td>{{ payment.order_id}}</td>
-                <td>{{ payment.p_info}}</td>
-                <td>{{ payment.pdf_id_array }}</td>
-                <td>{{ payment.payment_status }}</td>
+        <ng-template pTemplate="body" let-payment let-columns="columns">
+            <tr>
+                <td><span class="p-column-title">Id</span>{{payment.id}}</td>
+                <td><span class="p-column-title">client_txn_id</span>{{payment.client_txn_id}}</td>
+                <td><span class="p-column-title">amount</span>{{payment.amount}}</td>
+                <td><span class="p-column-title">order_id</span>{{payment.order_id}}</td>
+                <td><span class="p-column-title">p_info</span>{{payment.p_info}}</td>
+                <td><span class="p-column-title">pdf_id_array</span>{{payment.pdf_id_array}}</td>
+                <td><span class="p-column-title">payment_status</span>{{payment.payment_status}}</td>
+                
             </tr>
         </ng-template>
     </p-table>

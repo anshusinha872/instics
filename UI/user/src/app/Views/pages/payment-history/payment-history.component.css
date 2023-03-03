@@ -20,3 +20,6 @@
         border-bottom: 2px solid black;
     } */
 }
+.container-fluid{
+  min-height: calc(100vh - 288px);
+}

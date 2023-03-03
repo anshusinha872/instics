@@ -115,18 +115,14 @@ async function checkPaymentStatus(req, res) {
 
 		axios(config)
 			.then(function (response) {
-				// console.log(JSON.parse(response.data));
-				// let returnData = [];
-				// returnData.push(response.data);
-				// console.log(response.data.status);
-				if (response.data.status == true) {
+				console.log('response', response.data.data);
+				if (response.data.data.status == 'success') {
 					let updatePdfPaymentResponse =paymentService.updatePdfPaymentStatus(
 						user_id,
 						pdf_id,
 						client_txn_id,
+						'success'
 					);
-					// console.log(updatePdfPaymentResponse);
-					// returnData.push(updatePdfPaymentResponse);
 					let updatePaymentRequest = paymentService.updatePaymentRequest(
 						client_txn_id,
 						'success'
@@ -134,11 +130,17 @@ async function checkPaymentStatus(req, res) {
 					return res.status(200).json(response.data);
 				}
 				else {
+					let updatePdfPaymentResponse = paymentService.updatePdfPaymentStatus(
+						user_id,
+						pdf_id,
+						client_txn_id,
+						'failure'
+					);
 					let updatePaymentRequest = paymentService.updatePaymentRequest(
 						client_txn_id,
 						'failure'
 					);
-					return res.status(303).json('Payment failed');
+					return res.status(200).json(response.data.data);
 				}
 			})
 			.catch(function (error) {

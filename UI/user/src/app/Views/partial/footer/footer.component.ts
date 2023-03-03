@@ -20,7 +20,7 @@ export class FooterComponent implements OnInit {
         const item = document.getElementsByClassName('homeLogo');
         item[0].classList.add('active');
       }
-      if (className == 'category' || className== 'print') {
+      if (className == 'category' || className == 'print') {
         const item = document.getElementsByClassName('categoryLogo');
         item[0].classList.add('active');
       }
@@ -38,7 +38,9 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     // console.log(this.router.url.split('/')[1]);
   }
-
+  navigate(data) {
+    this.router.navigate([data]);
+  }
   profile() {
     this.router.navigate([this.router.url.split('/')[1] + '/profile']);
   }

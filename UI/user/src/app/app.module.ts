@@ -46,6 +46,7 @@ import { TableModule } from 'primeng/table';
 import { PaymentHistoryComponent } from './Views/pages/payment-history/payment-history.component';
 import { ClickedOutsideDirective } from './directives/clicked-outside.directive';
 import { PublicHeaderComponent } from './Views/partial/public-header/public-header.component';
+
 @NgModule({
   declarations: [
     AppComponent,

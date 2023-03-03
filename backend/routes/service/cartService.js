@@ -15,8 +15,8 @@ let getCartItems = async (user_id) => {
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
 			const query =
-				'SELECT * FROM printDocTable WHERE user_id = ? AND docStatus = ?;';
-			connection.query(query, [user_id, 0], (err, results) => {
+				'SELECT * FROM printDocTable WHERE user_id = ? AND payment_status = ?;';
+			connection.query(query, [user_id, 'pending'], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});

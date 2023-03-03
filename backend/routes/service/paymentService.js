@@ -118,7 +118,7 @@ let recordPaymentRequest = async (data1, data2, user_id, pdfIdArray) => {
 		return resultdb(500, err);
 	}
 };
-let updatePdfPaymentStatus = async (user_id, pdf_id, client_txn_id) => {
+let updatePdfPaymentStatus = async (user_id, pdf_id, client_txn_id,status) => {
 	try {
 		let updateQueryResponse = [];
 		console.log('pdf_id', pdf_id);
@@ -138,7 +138,7 @@ let updatePdfPaymentStatus = async (user_id, pdf_id, client_txn_id) => {
 					'UPDATE printDocTable SET client_txn_id = ?, payment_status = ? WHERE id = ?;';
 				connection.query(
 					query,
-					[client_txn_id, 'success', pdfIdArray[i]],
+					[client_txn_id, status, pdfIdArray[i]],
 					(err, results) => {
 						if (err) reject(new Error(err.message));
 						resolve(results);

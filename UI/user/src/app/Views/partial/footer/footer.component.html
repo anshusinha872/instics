@@ -1,39 +1,94 @@
-
-<div class="footerContainer mb-2">
+<!-- <div class="footerContainer mb-2">
   <button (click)="navigateToHome()" class="logoContainer homeLogo">
     <span>
-      <img class="logo " src="../../../../assets/footerIcon/home-svgrepo-com.svg" alt="">
+      <img
+        class="logo"
+        src="../../../../assets/footerIcon/home-svgrepo-com.svg"
+        alt=""
+      />
     </span>
-    <!-- <span>
-      home
-    </span> -->
   </button>
   <button (click)="cart()" class="logoContainer cartLogo">
     <span>
-      <img class="logo " src="../../../../assets/footerIcon/cart-lines-1-svgrepo-com.svg" alt="">
+      <img
+        class="logo"
+        src="../../../../assets/footerIcon/cart-lines-1-svgrepo-com.svg"
+        alt=""
+      />
     </span>
-    <!-- <span>
-      cart
-    </span> -->
   </button>
-  <button (click)="navigateToCategory()"  class="logoContainer categoryLogo">
+  <button (click)="navigateToCategory()" class="logoContainer categoryLogo">
     <span>
-      <img class="logo " src="../../../../assets/footerIcon/category-svgrepo-com.svg" alt="">
+      <img
+        class="logo"
+        src="../../../../assets/footerIcon/category-svgrepo-com.svg"
+        alt=""
+      />
     </span>
-    <!-- <span>
-      category
-    </span> -->
   </button>
-  <!-- <div>
-    <img class="logo" src="../../../../assets/footerIcon/bell-svgrepo-com.svg" alt="">
-  </div> -->
+
   <button (click)="profile()" class="logoContainer profileLogo">
-  
     <span>
-      <img class="logo" src="../../../../assets/footerIcon/user-square-svgrepo-com.svg" alt="">
+      <img
+        class="logo"
+        src="../../../../assets/footerIcon/user-square-svgrepo-com.svg"
+        alt=""
+      />
     </span>
-    <!-- <span>
-      profile
-    </span> -->
   </button>
+</div> -->
+
+
+
+<div class="deskFooter m-0 row">
+
+  <div class="upperFooter mb-4 col-12 justify-content-between row">
+    <div class="footerAddress col-6 col-md-12">
+      <h5 class="addressHeader" style="margin-top: 20px;">
+        Registered Address
+      </h5>
+      <p style="color:#ddd; margin-top:20px;"> SAS
+        Nagar, Punjab, India<br>Pin Code: 140301</p>
+      <i class="fa-solid fa-phone" style="margin-right: 15px;"></i><i class="fa-solid fa-envelope"></i>
+
+    </div>
+
+    <div class="footerConnect col-6 col-md-12 m-0" style="margin-top: 30px;">
+      <h4 class="connectHeader" style="margin-left: 80px; "><u>Join us</u></h4>
+      <div class="iconContainer">
+
+        <i class="fa fa-facebook addressLogo"
+          style="background-color:#3b5998; margin-right: 15px;font-size:24px;margin-top: 10px;"></i>
+        <i class="fa fa-instagram addressLogo"
+          style="background-color:#bc2a8d; margin-right: 15px;font-size:24px;margin-top: 10px;"></i>
+        <i class="fa fa-linkedin addressLogo"
+          style="background-color:#0072b1; margin-right: 15px;font-size:24px;margin-top: 10px;"></i>
+        <i class="fa fa-whatsapp addressLogo"
+          style="background-color:#128C7E; margin-right: 15px;font-size:24px;margin-top: 10px;"></i>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="linkContainer col-12 row">
+    <div class="col-md-8 col-12">
+      <li class="footerListItem m-0">
+        © 2023 | Instincts
+      </li>
+    </div>
+    <div class="col-12 col-md-4 d-flex justify-content-between">
+      <li class="footerListItem" (click)="navigate('/terms')" style="">
+        Terms of Service
+      </li>
+      <li class="footerListItem" (click)="navigate('/privacy')" style="">
+        Privacy Policy
+      </li>
+      <li class="footerListItem" (click)="navigate('/cookies')" style="">
+        Cookie Policy
+      </li>
+      <li class="footerListItem" (click)="navigate('/refund')" style="">
+        Refund Policy
+      </li>
+    </div>
+  </div>
 </div>

@@ -24,6 +24,7 @@ export class PaymentComponent implements OnInit {
   customer_mobile = '';
   upi_txn_id = '';
   amount = '';
+  remark = '';
   ngOnInit(): void {
     this.txn_date = this.sessionService.get('txn_date');
     this.key = this.sessionService.get('key');
@@ -49,14 +50,19 @@ export class PaymentComponent implements OnInit {
     };
     this.paymentService.checkPaymentStatus(req).subscribe((res) => {
       console.log(res);
-      if (res.status == true) {
+      if (res.status == 'success') {
         this.paymentStatus = true;
-        this.upi_id = res.data.customer_vpa;
-        this.customer_mobile = res.data.customer_mobile;
-        this.upi_txn_id = res.data.upi_txn_id;
-        this.amount = res.data.amount;
+        this.upi_id = res.customer_vpa;
+        this.customer_mobile = res.customer_mobile;
+        this.upi_txn_id = res.upi_txn_id;
+        this.amount = res.amount;
       } else {
         this.paymentStatus = false;
+        this.upi_id = res.customer_vpa;
+        this.customer_mobile = res.customer_mobile;
+        this.upi_txn_id = res.upi_txn_id;
+        this.amount = res.amount;
+        this.remark = res.remark;
       }
     });
   }
