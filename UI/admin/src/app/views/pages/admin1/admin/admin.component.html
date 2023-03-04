@@ -1,0 +1,417 @@
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+      <!-- <mat-drawer mode="side" opened="true"> -->
+      <!-- <app-sidenav></app-sidenav> -->
+      <mat-nav-list>
+        <div class="logo py-4">
+          <img src="./assets/logo1.png" alt="Company Logo"/>
+        </div>
+        <mat-divider></mat-divider>
+        <h2 matSubheader class="mt-2 harsh">APPLICATIONS</h2>
+    
+      <div>
+          <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin" (click)="dashboard()">
+            <mat-icon >dashboard</mat-icon> <span class="harsh2">Dashboard</span>
+          </a>
+          <a mat-list-item routerLinkActive="list-item-active" (click)="getuser()">
+            <mat-icon >supervised_user_circle</mat-icon> <span class="harsh2">Users</span>
+          </a>
+          <a mat-list-item (click)="getseller()"> <mat-icon >store</mat-icon><span class="harsh2">Seller </span> </a>
+          <a mat-list-item (click)="services()"> <mat-icon >local_mall</mat-icon><span class="harsh2">Services </span> </a>
+      </div>
+      </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
+      <!-- <router-outlet></router-outlet> -->
+      <div class="container mt-3">
+        <div class="row">
+          <div class="col-4">
+            <div class="card" style="width: 20rem;">
+               
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-4">
+                    <img src="assets/user.png" alt="Card image cap" width="100px" height="100px">
+                  </div>
+                  <div class="col">
+                    <h4 style="text-align: center;">Total users</h4>
+                    <h2 *ngFor="let count of count" style="color:red;text-align: center;">{{count.id_count}}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card" style="width: 20rem;">
+               
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-4">
+                    <img src="assets/seller.png" alt="Card image cap" width="100px" height="100px">
+                  </div>
+                  <div class="col">
+                    <h4 style="text-align: center;">Total Sellers</h4>
+                    <h2 *ngFor="let scount of scount" style="color:red;text-align: center;">{{scount.id_count}}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card" style="width: 20rem;">
+               
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-4">
+                    <img src="assets/subadmin.png" alt="Card image cap" width="80px" height="100px">
+                  </div>
+                  <div class="col">
+                    <h4 style="text-align: center;">Total SubAdmin</h4>
+                    <h2 *ngFor="let count of count" style="color:red;text-align: center;">{{count.id_count}}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    
+      <!-- <div *ngIf="!verify"> -->
+  
+        <div *ngIf="!verified && !verify && !sellerverify&&!servicesverify">
+        
+          <div class="mt-3 container">
+            <div class="row">
+              <div class="col-md-6 offset-md-3
+              text-center">
+                <h2>Superadmin</h2>
+                
+  
+              </div>
+              <hr>
+                <P>kjkbjdj</P>
+            </div>
+            
+            <div class="container">
+          
+                <div class="row">
+                  <table class="table table-bordered table-striped" >
+                      <thead>
+                      <tr>
+                        <th  style="width:5%">ID</th>
+                        <th style="width:10%">username</th>
+                        <th >Role</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr (click)="superadmin()" style="cursor: pointer;" *ngFor="let admin of admin">
+                          <td >{{admin.id_admin}}</td>
+                          <td >{{admin.username}}</td>
+                          <td >
+                            <span *ngIf="admin.role===0">
+                              superadmin
+                            </span></td>
+                          
+                        </tr>
+                      
+              </tbody></table>
+                       
+                </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="verified">
+          <div class="mt-3 container">
+              <div class="row">
+                  <div class="col-md-6 offset-md-3
+                  text-center">
+                      <h2>Subadmin</h2>
+                  </div>
+                  <div class="col-6 mb-2">
+                     <button (click)="back()" class="back">Back</button>
+                  </div>
+                <hr>
+                <P></P>
+              </div>
+              <div class="row">
+                  <div class="col-3">
+                    <label for="username">username</label>
+                    <input type="text" class="form-control" [(ngModel)]="username">
+                  </div>
+                  <div class="col-3">
+                    
+                      <label for="Password">Password</label>
+                      <input type="text" class="form-control" [(ngModel)]="password">
+                    
+                  </div>
+                  <div class="col-2">
+                    
+                    <label for="subadmin">Role</label>
+                    <select name="Subadmin" id="subadmin"  class="form-control"  [(ngModel)]="role">
+                      <option value="1">PrintAdmin</option>
+                      <option value="2">FoodAdmin</option>
+                      <option value="3">LaundaryAdmin</option>
+                      <option value="4">DecorationAdmin</option>
+                      <option value="5">HackathonAdmin</option>
+                      <option value="6">GroceryAdmin</option>
+                    </select>
+                    
+                  </div>
+                  <div class="col-2 mt-3">
+                      <button class="mt-3 button" (click)="submitSubadmin()" class="back">Add</button>
+                  </div>
+              
+              </div>
+        
+              <div class="container mt-2">
+            
+                  <div class="row">
+                    <table class="table table-bordered table-striped" >
+                        <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>username</th>
+                          <th>role</th>
+                          <th>Active_status</th>
+                          <th>Delete seller permission</th>
+                          <th>create seller permission</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let admin of subadmin">
+                              
+                              <td>{{admin.id_subadmin}}</td>
+                              <td>{{admin.username}}</td>
+                              <td>
+                                <span *ngIf="admin.role===1">
+                                       printAdmin
+                                </span>
+                                <span *ngIf="admin.role===2">
+                                       Foodadmin
+                                </span>
+                                <span *ngIf="admin.role===3">
+                                       Laundaryadmin
+                                </span>
+                                <span *ngIf="admin.role===4">
+                                       DecorationAdmin
+                                </span>
+                                <span *ngIf="admin.role===5">
+                                       HackathonAdmin
+                                </span>
+                                <span *ngIf="admin.role===6">
+                                       GroceryAdmin
+                                </span>
+                              </td>
+                              <td><mat-slide-toggle [(ngModel)]="admin.active_status" (click)="updateadminstatus(admin)">Slide me!</mat-slide-toggle>
+                                <div>{{admin.admin_status}}</div></td>
+
+                                <td><mat-slide-toggle [(ngModel)]="admin.deleteseller_perm" (click)="updateadminstatus(admin)">Slide me!</mat-slide-toggle>
+                                    <div>{{seller.deleteseller_perm}}</div></td>
+                          
+                                <td><mat-slide-toggle [(ngModel)]="admin.createseller_perm" (click)="updateadminstatus(admin)">Slide me!</mat-slide-toggle>
+                                    <div>{{seller.createseller_perm}}</div></td>
+                          </tr> 
+                        
+                </tbody></table>
+                         
+                  </div>
+              </div>
+            </div>
+        
+        </div> 
+      <!-- </div> -->
+      
+  
+        <div *ngIf="verify && !sellerverify" class="mt-3">
+          <div class="row">
+            <div class="col-md-6 offset-md-3
+            text-center">
+  <h2>USER</h2>
+            </div>
+           
+          </div>
+          <div class="row">
+            <div class="col-md-6 offset-md-3
+            text-center">
+            <mat-icon>search</mat-icon>
+              <input type="text,email" name="search"[(ngModel)]="searchText" placeholder="search..." class="search">
+            </div>
+           
+          </div>
+          <table class="table table-bordered table-striped mt-3">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Email_id</th>
+              <th>contact</th>
+              <th>userStatus</th> 
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let user of user|filter:searchText">
+                  
+                  <td >{{user.user_id}}</td>
+                  <td >{{user.firstName}}</td>
+                  <td>{{user.lastName}}</td>
+                  <td>{{user.email_id}}</td>
+                  <td>{{user.contact}}</td>
+                  <td>
+                    <!-- <span *ngIf="user.active_status==0"> -->
+  
+                     <mat-slide-toggle [(ngModel)]="user.active_status" (click)="updatestatus(user)">Slide me!</mat-slide-toggle>
+                      <div>{{user.active_status}}</div>
+                    <!-- </span> -->
+                    <!-- <span *ngIf="user.active_status==1">
+                      <mat-slide-toggle [(ngModel)]="!myModel">Slide me!</mat-slide-toggle>
+                      <div>{{myModel}}</div>
+                    </span> -->
+                  </td>
+                  <td>
+                    <button class="btn btn-danger" (click)="userDelete(user)">Delete</button>
+                  </td>
+                  
+              </tr> 
+            
+    </tbody></table>
+        </div>
+        <div *ngIf="sellerverify" class="mt-3">
+          <div class="row">
+            <div class="col-md-6 offset-md-3
+            text-center">
+  <h2>Seller</h2>
+            </div>
+           
+          </div>
+          <div class="row">
+            <div class="col-md-6 offset-md-3
+            text-center">
+            <mat-icon>search</mat-icon>
+              <input type="text,email" name="search"[(ngModel)]="searchText" placeholder="search..." class="search">
+            </div>
+           
+          </div>
+          <table class="table table-bordered table-striped mt-3">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>username</th>
+              <th>contact</th>
+              <th>Email_id</th>
+              <th>shop</th>
+              <th>GSt-no</th>
+              <th>role</th> 
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let seller of seller|filter:searchText">
+                  
+                  <td >{{seller.id_seller}}</td>
+                  <td >{{seller.username}}</td>
+                  <td>{{seller.contact}}</td>
+                  <td>{{seller.email_id}}</td>
+                  <td>{{seller.shop}}</td>
+                  <td>{{seller.gst_id}}</td>
+                  <td>
+                    <span *ngIf="seller.role===1">
+                      printseller
+               </span>
+               <span *ngIf="seller.role===2">
+                      Foodseller
+               </span>
+               <span *ngIf="seller.role===3">
+                      Laundaryseller
+               </span>
+               <span *ngIf="seller.role===4">
+                      Decorationseller
+               </span>
+               <span *ngIf="seller.role===5">
+                      HackathonManager
+               </span>
+               <span *ngIf="seller.role===6">
+                      Groceryseller
+               </span>
+                  </td>
+  
+                  <td>
+                    <!-- <span *ngIf="user.active_status==0"> -->
+  
+                     <mat-slide-toggle [(ngModel)]="seller.seller_status" (click)="updatesellerstatus(seller)">Slide me!</mat-slide-toggle>
+                      <div>{{seller.seller_status}}</div>
+                    <!-- </span> -->
+                    <!-- <span *ngIf="user.active_status==1">
+                      <mat-slide-toggle [(ngModel)]="!myModel">Slide me!</mat-slide-toggle>
+                      <div>{{myModel}}</div>
+                    </span> -->
+                  </td>
+                  <td>
+                    <button class="btn btn-danger" (click)="userDelete(user)">Delete</button>
+                  </td>
+                  
+              </tr> 
+            
+    </tbody></table>
+        </div>
+      
+
+      <div *ngIf="servicesverify">
+        <div class="row">
+          <div class="col-md-6 offset-md-3
+          text-center">
+<h2>Services</h2>
+          </div>
+         
+        </div>
+        <div class="row">
+          <div class="col-md-6 offset-md-3
+          text-center">
+          <mat-icon>search</mat-icon>
+            <input type="text,email" name="search"[(ngModel)]="searchText" placeholder="search..." class="search">
+          </div>
+         
+        </div>
+        <table class="table table-bordered table-striped mt-3">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>services</th>
+            <th>active status</th>
+          
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let service of service|filter:searchText">
+                
+                <td >{{service.id}}</td>
+                <td >{{service.service}}</td>
+               
+
+                <td>
+                  <!-- <span *ngIf="user.active_status==0"> -->
+
+                   <mat-slide-toggle [(ngModel)]="service.active_status" (click)="updateservicesstatus(service)">Slide me!</mat-slide-toggle>
+                    <div>{{service.active_status}}</div>
+                  <!-- </span> -->
+                  <!-- <span *ngIf="user.active_status==1">
+                    <mat-slide-toggle [(ngModel)]="!myModel">Slide me!</mat-slide-toggle>
+                    <div>{{myModel}}</div>
+                  </span> -->
+                </td>
+                <td>
+                  <!-- <button class="btn btn-danger" (click)="userDelete(user)">Delete</button> -->
+                </td>
+                
+            </tr> 
+          
+  </tbody></table>
+      </div>
+      
+    </mat-drawer-content>
+    
+  </mat-drawer-container>
+  

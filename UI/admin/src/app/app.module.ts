@@ -13,9 +13,23 @@ import { HeaderComponent } from './views/partial/header/header.component';
 import { FooterComponent } from './views/partial/footer/footer.component';
 import { SubAdminComponent } from './views/pages/sub-admin/sub-admin.component';
 import { CalendarModule } from 'primeng/calendar';
+import { AdminComponent } from './views/pages/admin1/admin/admin.component';
+import {HttpClientModule} from '@angular/common/http'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+// import { SidenavComponent } from './views/partial/sidenav/sidenav/sidenav.component';
+// import { HomeComponent } from './views/pages/home/home/home.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { ToastrModule } from 'ng6-toastr-notifications';
 @NgModule({
   declarations: [AppComponent, LoginComponent, DashboardComponent, HeaderComponent, FooterComponent,
-    SubAdminComponent],
+    SubAdminComponent,
+    AdminComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,6 +39,16 @@ import { CalendarModule } from 'primeng/calendar';
     PasswordModule,
     ButtonModule,
     CalendarModule,
+    HttpClientModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatIconModule,
+    MatDividerModule,
+    MatListModule,
+    MatSlideToggleModule,
+    Ng2SearchPipeModule,
+    MatSidenavModule,
+    ToastrModule.forRoot() 
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -11,4 +11,6 @@ import { SubAdminComponent } from './sub-admin.component';
     SubAdminRoutingModule
   ]
 })
-export class SubAdminModule { }
+export class SubAdminModule {
+  
+ }
