@@ -17,6 +17,8 @@ export class PdfService {
   public uploadPdf(param): Observable<any> {
     // console.log(param);
     return this.http.post(this.base_url + 'pdf/upload', param, {
+      reportProgress: true,
+      observe: 'events',
       headers: this.sessionService.setTokenHeaderImage(),
     });
   }

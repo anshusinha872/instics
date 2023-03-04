@@ -8,9 +8,8 @@ describe('PdfListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PdfListComponent ]
-    })
-    .compileComponents();
+      declarations: [PdfListComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PdfListComponent);
     component = fixture.componentInstance;

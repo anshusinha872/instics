@@ -220,7 +220,7 @@ p{
 @media screen and (max-width: 576px) {
     .cartItems{
         /* height: 730px !important; */
-        height: 80vh !important;
+        height: 78vh !important;
     }
     .fa-trash-can{
         margin-left: 0;

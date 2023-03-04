@@ -5,12 +5,12 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    component:PdfListComponent
-  }
+    component: PdfListComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class PdfListRoutingModule { }
+export class PdfListRoutingModule {}

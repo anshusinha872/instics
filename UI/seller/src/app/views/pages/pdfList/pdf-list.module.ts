@@ -3,12 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { PdfListRoutingModule } from './pdf-list-routing.module';
 
-
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    PdfListRoutingModule
-  ]
+  imports: [CommonModule, PdfListRoutingModule],
 })
-export class PdfListModule { }
+export class PdfListModule {}

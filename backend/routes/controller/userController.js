@@ -129,6 +129,29 @@ async function saveQuery(req, res) {
 		console.log(err);
 	}
 }
+async function checkServiceStatus(req, res) {
+	try {
+		console.log(req.body);
+		let returnData = await userService.checkServiceStatus(req);
+		return res.status(200).json(returnData);
+	} catch (err) {
+		console.log(err);
+	}
+}
+async function loginseller(req, res) {
+	// console.log(req.body);
+	try {
+		const username = req.body.username;
+		const password = req.body.password;
+
+		let returnData = await userService.loginSellerByUsername(username, password);
+		console.log(returnData);
+		return res.status(200).json(returnData);
+	} catch (err) {
+		console.log(err);
+		return res.status(200).json(err);
+	}
+}
 router.get('/userData', getUserData);
 router.post('/login', loginUser);
 router.post('/signup', signUpUser);
@@ -138,4 +161,6 @@ router.post('/img/upload', uploadImage);
 router.get('/img/show', showAllImages);
 router.post('/user', getUserDetailsById)
 router.post('/query', saveQuery);
+router.post('/service/status', checkServiceStatus);
+router.post('/loginseller', loginseller);
 module.exports = router;

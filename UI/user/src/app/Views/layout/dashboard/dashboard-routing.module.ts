@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/services/guard/auth.guard';
 import { ProfileComponent } from '../../pages/profile/profile.component';
 import { CategoryComponent } from '../../pages/category/category.component';
+import { ServiceActiveStatusGuard } from 'src/app/services/serviceActiveGuard/service-active-status.guard';
 const routes: Routes = [
   {
     path: '',
@@ -30,7 +31,7 @@ const routes: Routes = [
     path: 'print',
     loadChildren: () =>
       import('../../pages/print/print.module').then((m) => m.PrintModule),
-    canActivate: [AuthGuard],
+    canActivate: [ServiceActiveStatusGuard],
   },
   {
     path: 'cart',
@@ -47,14 +48,19 @@ const routes: Routes = [
   {
     path: 'orderHistory',
     loadChildren: () =>
-      import('../../pages/order-history/order-history.module').then((m) => m.OrderHistoryModule),
+      import('../../pages/order-history/order-history.module').then(
+        (m) => m.OrderHistoryModule
+      ),
     canActivate: [AuthGuard],
   },
   {
     path: 'paymentHistory',
-    loadChildren: () => import('../../pages/payment-history/payment-history.module').then((m) => m.PaymentHistoryModule),
+    loadChildren: () =>
+      import('../../pages/payment-history/payment-history.module').then(
+        (m) => m.PaymentHistoryModule
+      ),
     canActivate: [AuthGuard],
-  }
+  },
 ];
 
 @NgModule({

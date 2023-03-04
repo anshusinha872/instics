@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const secretKey = "AnshuSinha";
+const secretKey = 'AnshuSinha';
 const resultdb = (statusCode, data = null) => {
 	return {
 		statusCode: statusCode,
@@ -18,13 +18,11 @@ let sellertatusupdate = async (req) => {
 		console.log(req);
 		const sellerstatus = req.body.sellerstatus;
 		const seller_id = req.body.seller_id;
-		
 
-		
 		var connection = config.connection;
 		const response3 = await new Promise((resolve, reject) => {
 			const query = 'update seller set seller_status=? where id_seller=?';
-			connection.query(query, [sellerstatus,seller_id], (err, results) => {
+			connection.query(query, [sellerstatus, seller_id], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});
@@ -36,7 +34,6 @@ let sellertatusupdate = async (req) => {
 		return resultdb(500, err);
 	}
 };
-
 
 let getsellerData = async (data) => {
 	// console.log('userData');
@@ -67,13 +64,11 @@ let userstatusupdate = async (req) => {
 		console.log(req);
 		const userstatus = req.body.userstatus;
 		const user_id = req.body.user_id;
-		
 
-		
 		var connection = config.connection;
 		const response3 = await new Promise((resolve, reject) => {
 			const query = 'update userData set active_status=? where user_id=?';
-			connection.query(query, [userstatus,user_id], (err, results) => {
+			connection.query(query, [userstatus, user_id], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});
@@ -86,23 +81,26 @@ let userstatusupdate = async (req) => {
 	}
 };
 let subadminstatusupdate = async (req) => {
-    console.log(req)
+	console.log(req);
 	try {
 		console.log(req);
 		const subadminstatus = req.body.subadminstatus;
 		const deleteperm = req.body.deleteperm;
 		const createperm = req.body.createperm;
 		const subadmin_id = req.body.subadmin_id;
-		
 
-		
 		var connection = config.connection;
 		const response3 = await new Promise((resolve, reject) => {
-			const query = 'update subadmin set active_status=?,deleteseller_perm=?,createseller_perm=? where id_subadmin=?';
-			connection.query(query, [subadminstatus,deleteperm,createperm,subadmin_id], (err, results) => {
-				if (err) reject(new Error(err.message));
-				resolve(results);
-			});
+			const query =
+				'update subadmin set active_status=?,deleteseller_perm=?,createseller_perm=? where id_subadmin=?';
+			connection.query(
+				query,
+				[subadminstatus, deleteperm, createperm, subadmin_id],
+				(err, results) => {
+					if (err) reject(new Error(err.message));
+					resolve(results);
+				}
+			);
 		});
 		console.log('response3', response3);
 		return resultdb(200, 'subadmin permission updated sucessfully');
@@ -114,9 +112,9 @@ let subadminstatusupdate = async (req) => {
 
 let deleteuser = async (data) => {
 	// console.log('userData');
-	
+
 	try {
-		const id=data.body.user_id;
+		const id = data.body.user_id;
 		var connection = config.connection;
 		// let qry = util.promisify(connection.query).bind(connection);
 		// let result = await connection.query(qry,);
@@ -124,7 +122,7 @@ let deleteuser = async (data) => {
 		const response = await new Promise((resolve, reject) => {
 			const query = 'delete from userData where user_id=?';
 
-			connection.query(query,[id], (err, results) => {
+			connection.query(query, [id], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});
@@ -139,9 +137,9 @@ let deleteuser = async (data) => {
 };
 let deleteseller = async (data) => {
 	// console.log('userData');
-	
+
 	try {
-		const id=data.body.id_seller;
+		const id = data.body.id_seller;
 		var connection = config.connection;
 		// let qry = util.promisify(connection.query).bind(connection);
 		// let result = await connection.query(qry,);
@@ -149,7 +147,7 @@ let deleteseller = async (data) => {
 		const response = await new Promise((resolve, reject) => {
 			const query = 'delete from seller where id_seller=?';
 
-			connection.query(query,[id], (err, results) => {
+			connection.query(query, [id], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});
@@ -170,7 +168,8 @@ let getuserData = async (data) => {
 		// let result = await connection.query(qry,);
 		// connection.query('select * from userData',fun);
 		const response = await new Promise((resolve, reject) => {
-			const query = 'select firstName,lastName,contact,email_id,user_id,active_status from userData;';
+			const query =
+				'select firstName,lastName,contact,email_id,user_id,active_status from userData;';
 
 			connection.query(query, (err, results) => {
 				if (err) reject(new Error(err.message));
@@ -191,7 +190,7 @@ let sellerData = async (req) => {
 	// console.log('userData');
 	try {
 		var role = req.body.role;
-		role = parseInt(role)
+		role = parseInt(role);
 		var connection = config.connection;
 		// let qry = util.promisify(connection.query).bind(connection);
 		// let result = await connection.query(qry,);
@@ -283,19 +282,17 @@ let adminData = async (data) => {
 	}
 };
 
-let registersubadmin=async(req)=>
-{
+let registersubadmin = async (req) => {
 	try {
 		// console.log(req)
 		const username = req.body.username;
 		const password = req.body.password;
 		var role = req.body.role;
-		role = parseInt(role)
+		role = parseInt(role);
 		var deleteUser = req.body.deleteUser;
-		
-        
+
 		console.log(role);
-		console.log(deleteUser)
+		console.log(deleteUser);
 		// console.log(contact);
 		// console.log(email);
 		// console.log(10);
@@ -314,35 +311,29 @@ let registersubadmin=async(req)=>
 		// console.log('response', response);
 		if (response.length > 0) {
 			return resultdb(303, 'username already exist');
-		}  else {
-				const response2 = await new Promise((resolve, reject) => {
-					const query =
-						'INSERT INTO subadmin (username,password,role) VALUES(?,?,?);';
-					connection.query(
-						query,
-						[username,password,role],
-						(err, results) => {
-							if (err) reject(new Error(err.message));
-							resolve(results);
-						}
-					);
+		} else {
+			const response2 = await new Promise((resolve, reject) => {
+				const query =
+					'INSERT INTO subadmin (username,password,role) VALUES(?,?,?);';
+				connection.query(query, [username, password, role], (err, results) => {
+					if (err) reject(new Error(err.message));
+					resolve(results);
 				});
-				console.log('response2', response2);
-				return resultdb(200, 'subadmin created successfully');
-			}
+			});
+			console.log('response2', response2);
+			return resultdb(200, 'subadmin created successfully');
+		}
 		// return resultdb(200, 'User created successfully');
-		
 	} catch (err) {
 		console.log(err);
 		return resultdb(500, err);
 	}
-}
+};
 
-let loginadminByUsername = async (username, password,role) => {
+let loginadminByUsername = async (username, password, role) => {
 	console.log(role);
 	var isPasswordMatch = false;
-	if(role==0)
-	{
+	if (role == 0) {
 		try {
 			var connection = config.connection;
 			const response = await new Promise((resolve, reject) => {
@@ -353,28 +344,62 @@ let loginadminByUsername = async (username, password,role) => {
 				});
 			});
 			if (response.length > 0) {
-				if(response[0].password==password)
-				{   
-					let admindata={
-						id_admin:response[0].id_admin,
-						username:response[0].username,
-						role:response[0].role,
-					}
+				if (response[0].password == password) {
+					let admindata = {
+						id_admin: response[0].id_admin,
+						username: response[0].username,
+						role: response[0].role,
+					};
 					let token = jwt.sign(admindata, secretKey, {
 						expiresIn: 1800, // expires in 30min
 					});
-					let returnadmindata={
-						id_admin:response[0].id_admin,
-						username:response[0].username,
-						role:response[0].role,
-						token:token
-					}
-					return resultdb(200,returnadmindata);
-				}
-				else{
+					let returnadmindata = {
+						id_admin: response[0].id_admin,
+						username: response[0].username,
+						role: response[0].role,
+						token: token,
+					};
+					return resultdb(200, returnadmindata);
+				} else {
 					return resultdb(400, 'Login Failed');
 				}
-		
+			}
+			return resultdb(400, 'Login Failed');
+		} catch (err) {
+			console.log(err);
+			return resultdb(500, err);
+		}
+	} else {
+		try {
+			var connection = config.connection;
+			const response = await new Promise((resolve, reject) => {
+				const query = 'select * from subadmin WHERE username = ? AND role=?';
+				connection.query(query, [username, role], (err, results) => {
+					if (err) reject(new Error(err.message));
+					resolve(results);
+				});
+			});
+			// console.log(response);
+			if (response.length > 0) {
+				if (response[0].password == password) {
+					let subadmindata = {
+						id_subadmin: response[0].id_subadmin,
+						username: response[0].username,
+						role: response[0].role,
+					};
+					let token = jwt.sign(subadmindata, secretKey, {
+						expiresIn: 1800, // expires in 30min
+					});
+					let returnsubadmindata = {
+						id_subadmin: response[0].id_subadmin,
+						username: response[0].username,
+						role: response[0].role,
+						token: token,
+					};
+					return resultdb(200, returnsubadmindata);
+				} else {
+					return resultdb(400, 'Login Failed');
+				}
 			}
 			return resultdb(400, 'Login Failed');
 		} catch (err) {
@@ -382,51 +407,6 @@ let loginadminByUsername = async (username, password,role) => {
 			return resultdb(500, err);
 		}
 	}
-
- else
-{
-
-	try {
-		var connection = config.connection;
-		const response = await new Promise((resolve, reject) => {
-			const query = 'select * from subadmin WHERE username = ? AND role=?';
-			connection.query(query, [username,role], (err, results) => {
-				if (err) reject(new Error(err.message));
-				resolve(results);
-			});
-		});
-		// console.log(response);
-		if (response.length > 0) {
-			if(response[0].password==password)
-			{
-				let subadmindata={
-					id_subadmin:response[0].id_subadmin,
-					username:response[0].username,
-					role:response[0].role,
-				}
-				let token = jwt.sign(subadmindata, secretKey, {
-					expiresIn: 1800, // expires in 30min
-				});
-				let returnsubadmindata={
-					id_subadmin:response[0].id_subadmin,
-					username:response[0].username,
-					role:response[0].role,
-					token:token
-				}
-				return resultdb(200,returnsubadmindata);
-			}
-			else{
-				return resultdb(400, 'Login Failed');
-			}
-	
-		}
-		return resultdb(400, 'Login Failed');
-	} catch (err) {
-		console.log(err);
-		return resultdb(500, err);
-	}
-}
- 
 };
 
 let subadminData = async (data) => {
@@ -455,7 +435,7 @@ let subadminData = async (data) => {
 let subadminPerm = async (data) => {
 	// console.log('userData');
 	try {
-        const username = data.body.username;
+		const username = data.body.username;
 		var connection = config.connection;
 		// let qry = util.promisify(connection.query).bind(connection);
 		// let result = await connection.query(qry,);
@@ -463,7 +443,7 @@ let subadminPerm = async (data) => {
 		const response = await new Promise((resolve, reject) => {
 			const query = 'select * from subadmin where username=?;';
 
-			connection.query(query,[username] ,(err, results) => {
+			connection.query(query, [username], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});
@@ -477,18 +457,17 @@ let subadminPerm = async (data) => {
 	}
 };
 
-
-let selleradd=async (req)=>{
+let selleradd = async (req) => {
 	try {
 		// console.log(data);
 		// console.log(req)
 		const username = req.body.username;
 		const password = req.body.password;
-		const email_id=req.body.email_id;
-		const gst_no=req.body.gst_no;
-		const shop=req.body.shop;
-		var contact=req.body.contact;
-		contact=parseInt(contact);
+		const email_id = req.body.email_id;
+		const gst_no = req.body.gst_no;
+		const shop = req.body.shop;
+		var contact = req.body.contact;
+		contact = parseInt(contact);
 		var role = req.body.role;
 		role = parseInt(role);
 		// console.log(contact);
@@ -509,8 +488,7 @@ let selleradd=async (req)=>{
 		// console.log('response', response);
 		if (response.length > 0) {
 			return resultdb(303, 'username already exist');
-		}  else {
-
+		} else {
 			const response = await new Promise((resolve, reject) => {
 				const query = 'SELECT * FROM seller WHERE email_id = ?;';
 				connection.query(query, [email_id], (err, results) => {
@@ -521,7 +499,7 @@ let selleradd=async (req)=>{
 
 			if (response.length > 0) {
 				return resultdb(303, 'email already exist');
-			} else{
+			} else {
 				const response = await new Promise((resolve, reject) => {
 					const query = 'SELECT * FROM seller WHERE gst_id = ?;';
 					connection.query(query, [gst_no], (err, results) => {
@@ -531,8 +509,7 @@ let selleradd=async (req)=>{
 				});
 				if (response.length > 0) {
 					return resultdb(303, 'Gst_no already exist');
-				}
-				else{
+				} else {
 					const response = await new Promise((resolve, reject) => {
 						const query = 'SELECT * FROM seller WHERE shop = ?;';
 						connection.query(query, [shop], (err, results) => {
@@ -542,8 +519,7 @@ let selleradd=async (req)=>{
 					});
 					if (response.length > 0) {
 						return resultdb(303, 'shop already exist');
-					}
-					else{
+					} else {
 						const response = await new Promise((resolve, reject) => {
 							const query = 'SELECT * FROM seller WHERE contact = ?;';
 							connection.query(query, [contact], (err, results) => {
@@ -553,14 +529,18 @@ let selleradd=async (req)=>{
 						});
 						if (response.length > 0) {
 							return resultdb(303, 'contact already exist');
-						}
-						else{
+						} else {
 							const response = await new Promise((resolve, reject) => {
-								const query = 'INSERT INTO seller (username,password,email_id,gst_id,shop,contact,role) VALUES(?,?,?,?,?,?,?);';
-								connection.query(query, [username,password,email_id,gst_no,shop,contact,role], (err, results) => {
-									if (err) reject(new Error(err.message));
-									resolve(results);
-								});
+								const query =
+									'INSERT INTO seller (username,password,email_id,gst_id,shop,contact,role) VALUES(?,?,?,?,?,?,?);';
+								connection.query(
+									query,
+									[username, password, email_id, gst_no, shop, contact, role],
+									(err, results) => {
+										if (err) reject(new Error(err.message));
+										resolve(results);
+									}
+								);
 							});
 							console.log(response);
 							return resultdb(200, 'subadmin created successfully');
@@ -568,45 +548,86 @@ let selleradd=async (req)=>{
 					}
 				}
 			}
-				// const response2 = await new Promise((resolve, reject) => {
-				// 	const query =
-				// 		'INSERT INTO subadmin (username,password,role) VALUES(?,?,?);';
-				// 	connection.query(
-				// 		query,
-				// 		[username,password,role],
-				// 		(err, results) => {
-				// 			if (err) reject(new Error(err.message));
-				// 			resolve(results);
-				// 		}
-				// 	);
-				// });
-				// console.log('response2', response2);
-				// return resultdb(200, 'subadmin created successfully');
-			}
+			// const response2 = await new Promise((resolve, reject) => {
+			// 	const query =
+			// 		'INSERT INTO subadmin (username,password,role) VALUES(?,?,?);';
+			// 	connection.query(
+			// 		query,
+			// 		[username,password,role],
+			// 		(err, results) => {
+			// 			if (err) reject(new Error(err.message));
+			// 			resolve(results);
+			// 		}
+			// 	);
+			// });
+			// console.log('response2', response2);
+			// return resultdb(200, 'subadmin created successfully');
+		}
 		return resultdb(200, 'User created successfully');
-		
 	} catch (err) {
 		console.log(err);
 		return resultdb(500, err);
 	}
-}
+};
 
+let services = async (data) => {
+	try {
+		var connection = config.connection;
+
+		const response = await new Promise((resolve, reject) => {
+			const query = 'select * from services;';
+
+			connection.query(query, (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		return response;
+	} catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+};
+
+let servicestatusupdate = async (req) => {
+	console.log(req);
+	try {
+		// console.log(req);
+		const servicestatus = req.body.servicestatus;
+		const service_id = req.body.service_id;
+
+		var connection = config.connection;
+		const response3 = await new Promise((resolve, reject) => {
+			const query = 'update services set active_status=? where id=?';
+			connection.query(query, [servicestatus, service_id], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		console.log('response3', response3);
+		return resultdb(200, 'services status updated sucessfully');
+	} catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+};
 module.exports = {
-
-    sellertatusupdate,
-    getsellerData,
-    userstatusupdate,
-    deleteuser,
-    getuserData,
-    sellerData,
-    userCount,
-    sellerCount,
-    adminData,
-    registersubadmin,
-    loginadminByUsername,
-    subadminData,
-    subadminstatusupdate,
-    subadminPerm,
-    deleteseller,
+	sellertatusupdate,
+	getsellerData,
+	userstatusupdate,
+	deleteuser,
+	getuserData,
+	sellerData,
+	userCount,
+	sellerCount,
+	adminData,
+	registersubadmin,
+	loginadminByUsername,
+	subadminData,
+	subadminstatusupdate,
+	subadminPerm,
+	deleteseller,
 	selleradd,
-}
+	services,
+	servicestatusupdate,
+};

@@ -5,6 +5,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { SessionService } from 'src/app/services/session/session.service';
 import { base64 } from '@firebase/util';
 import { App } from '@capacitor/app';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 @Component({
   selector: 'app-print',
   templateUrl: './print.component.html',
@@ -16,6 +17,8 @@ export class PrintComponent implements OnInit {
   public rangeValues: number[] = [1, 1];
   public printRange = [];
   public totalPage: number = 0;
+  progress = 0;
+  showProgress = false;
   constructor(
     public toastr: ToastrManager,
     public sessionService: SessionService,
@@ -60,7 +63,7 @@ export class PrintComponent implements OnInit {
         {
           id: 2,
           name: 'Color',
-          price: 5.0,
+          price: 6.0,
           description: 'Print in color',
         },
         {
@@ -85,8 +88,8 @@ export class PrintComponent implements OnInit {
         },
         {
           id: 3,
-          name: 'Photo Paper',
-          price: 20.0,
+          name: 'Premium Quality',
+          price: 15.0,
           description: 'Print on photo paper',
         },
       ],
@@ -147,20 +150,44 @@ export class PrintComponent implements OnInit {
     );
 
     // console.log(printData);
-    this.PdfService.uploadPdf(req).subscribe((res) => {
-      if (res.statusCode == 200) {
-        this.toastr.successToastr(res.message, res.data);
-        this.printRange = [1, this.pageCount];
-        this.rangeValues = [1, this.pageCount];
-        this.rangeList = [];
-        this.totalPage = 0;
-        this.pageCount=0;
-      } else {
-        this.toastr.errorToastr(res.message, res.data);
+    // this.PdfService.uploadPdf(req).subscribe((res) => {
+    //   if (res.statusCode == 200) {
+    //     this.toastr.successToastr(res.message, res.data);
+    //     this.printRange = [1, this.pageCount];
+    //     this.rangeValues = [1, this.pageCount];
+    //     this.rangeList = [];
+    //     this.totalPage = 0;
+    //     this.pageCount=0;
+    //   } else {
+    //     this.toastr.errorToastr(res.message, res.data);
+    //   }
+    // });
+    this.PdfService.uploadPdf(req).subscribe((event: HttpEvent<any>) => {
+      switch (event.type) {
+        case HttpEventType.UploadProgress:
+          this.showProgress = true;
+          this.progress = Math.round((100 * event.loaded) / event.total);
+          break;
+        case HttpEventType.Response:
+          if (event.status == 200) {
+            this.toastr.successToastr(event.body.message, event.body.data);
+            this.printRange = [1, this.pageCount];
+            this.rangeValues = [1, this.pageCount];
+            this.rangeList = [];
+            this.totalPage = 0;
+            this.pageCount = 0;
+            this.progress = 0;
+            // this.pdfFile = null;
+          } else {
+            // this.toastr.errorToastr(res.message, res.data);
+            this.toastr.errorToastr(event.body.message, event.body.data);
+          }
       }
     });
   }
   onFileChange(event) {
+    this.showProgress = false;
+    this.progress = 0;
     const file = event.target.files[0];
     this.pdfFile = file;
     console.log(this.pdfFile);

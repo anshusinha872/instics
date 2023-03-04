@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class PrintService {
-  private base_url: string = 'https://instincts.co.in/api/v1/'; //server/
-  // private base_url: string = 'http://localhost:3443/api/v1/'; //local
-  // private base_url: string = 'https://instincts.co.in:3443/';
+  base_url = environment.APIEndpoint;
   constructor(private http: HttpClient) {}
   reqHeader = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -31,9 +30,10 @@ export class PrintService {
     });
   }
   loginseller(param: any): Observable<any> {
-    console.log(param);
+    // console.log(param);
     return this.http.post<any>(this.base_url + 'loginseller', param, {
       headers: this.reqHeader,
     });
   }
+  
 }

@@ -44,4 +44,9 @@ export class UserService {
       headers: this.sessionService.setTokenHeaderImage(),
     });
   }
+  checkServiceActive(param): Observable<any> {
+    return this.http.post<any>(this.base_url + 'service/status', param, {
+      headers: this.sessionService.setTokenHeaderImage(),
+    });
+  }
 }

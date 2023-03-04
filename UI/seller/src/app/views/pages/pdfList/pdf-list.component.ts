@@ -1,41 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { PrintService } from '../../services/print.service';
-import { PDF } from '../PDF';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { PrintService } from '../../../service/pdfService/print.service';
+import { PDF } from './PDF';
+import { interval, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-pdf-list',
   templateUrl: './pdf-list.component.html',
   styleUrls: ['./pdf-list.component.scss'],
 })
-export class PdfListComponent implements OnInit {
+export class PdfListComponent implements OnInit, OnDestroy {
   pdfs: PDF[];
   print: any;
+  getPdfList: boolean = false;
   verify1: boolean = false;
   verify2: boolean = false;
   verify3: boolean = false;
+  private stopTimer$ = new Subject<void>();
   constructor(private printdata: PrintService) {}
 
-  ngOnInit(): void {
-    this.fetchdata();
+  // ngOnInit(): void {
+  //   this.getPdfList = true;
+  //   interval(5000).subscribe(() => {
+  //     this.fetchdata();
+  //   });
+  //   // this.fetchdata();
+  // }
+  ngOnInit() {
+    interval(5000)
+      .pipe(takeUntil(this.stopTimer$))
+      .subscribe(() => {
+        this.fetchdata();
+      });
   }
   fetchdata() {
-    setInterval(() => {
-      this.printdata.printseller().subscribe((data) => {
-        console.log(data.data);
-        this.pdfs = data.data;
-        this.print = data.data;
-      });
-    }, 5000);
+    this.printdata.printseller().subscribe((data) => {
+      console.log(data.data);
+      this.pdfs = data.data;
+      this.print = data.data;
+    });
   }
 
-  getdata() {
-    setInterval(() => {
-      this.printdata.printseller().subscribe((data) => {
-        console.log(data.data);
-        this.pdfs = data.data;
-        this.print = data.data;
-      });
-    }, 5000);
-  }
+  // getdata() {
+  //   setInterval(() => {
+  //     this.printdata.printseller().subscribe((data) => {
+  //       console.log(data.data);
+  //       this.pdfs = data.data;
+  //       this.print = data.data;
+  //     });
+  //   }, 5000);
+  // }
 
   pdfSrc = '';
   async renderPdf(pdf) {
@@ -81,5 +94,9 @@ export class PdfListComponent implements OnInit {
         alert(result.data);
       }
     });
+  }
+  ngOnDestroy() {
+    this.stopTimer$.next();
+    this.stopTimer$.complete();
   }
 }

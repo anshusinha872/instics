@@ -49,15 +49,15 @@ export class ServicesComponent implements OnInit {
     } else {
       this.greeting = 'Good Evening';
     }
-    const token = this.sessionService.get('token');
-    if (this.authService.tokenExpired(token)) {
-      // console.log('token expired');
-      this.toastManager.errorToastr('Session expired, please login again');
-      this.loginService.logout();
-      this.router.navigate(['/login']);
-    } else {
-      // console.log('token is valid');
-    }
+    // const token = this.sessionService.get('token');
+    // if (this.authService.tokenExpired(token)) {
+    //   // console.log('token expired');
+    //   this.toastManager.errorToastr('Session expired, please login again');
+    //   this.loginService.logout();
+    //   this.router.navigate(['/login']);
+    // } else {
+    //   // console.log('token is valid');
+    // }
   }
   ngAfterViewInit() {
     // this.profileDetails = this.sharedService.getProfileData().data;
@@ -72,8 +72,22 @@ export class ServicesComponent implements OnInit {
   services() {
     document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
   }
-  redirect(data) {
+  redirect(data,id) {
+    console.log(data, id);
+    const req = {
+      serviceId: id,
+    };
+    // this.userService.checkServiceActive(req).subscribe((res) => {
+    //   console.log(res);
+    //   if (res.statusCode == 200) {
+    //     this.router.navigate([this.router.url.split('/')[1] + data]);
+    //   } else {
+    //     this.toastManager.errorToastr(res.data);
+    //   }
+    // });
     this.router.navigate([this.router.url.split('/')[1] + data]);
+
+    // this.router.navigate([this.router.url.split('/')[1] + data]);
   }
   availableSoonMsg() {
     this.toastManager.infoToastr('This feature is coming soon');

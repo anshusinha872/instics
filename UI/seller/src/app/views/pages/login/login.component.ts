@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PrintService } from '../services/print.service';
+import { PrintService } from '../../../service/pdfService/print.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 @Component({
   selector: 'app-login',
@@ -10,11 +10,12 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 export class LoginComponent implements OnInit {
   value1: string = '';
   value2: string = '';
-  constructor(public router: Router,
+  constructor(
+    public router: Router,
     private Loginseller: PrintService,
     private route: Router,
     private toastr: ToastrManager
-  ) { }
+  ) {}
 
   ngOnInit(): void {}
   submitUser() {
@@ -39,6 +40,8 @@ export class LoginComponent implements OnInit {
 
       // this.apiStatus = 'success';
       if (res.statusCode == 200) {
+        // console.log(res.data.token);
+        sessionStorage.setItem('token', res.data.token);
         this.route.navigate(['/dashboard']);
       } else {
         console.log(res);

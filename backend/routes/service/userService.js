@@ -141,10 +141,12 @@ let loginUserByEmailId = async (email_id, password) => {
 		if (response[0].active_status == 0) {
 			// console.log('user not active');
 			return resultdb(403, 'admin restricted');
-		}
-		else {
+		} else {
 			if (response.length > 0) {
-				let isValidPassword = bcrypt.compareSync(password, response[0].password);
+				let isValidPassword = bcrypt.compareSync(
+					password,
+					response[0].password
+				);
 				if (isValidPassword) {
 					// console.log('valid password');
 					let userData = {
@@ -168,7 +170,6 @@ let loginUserByEmailId = async (email_id, password) => {
 			} else {
 				return resultdb(400, 'Invalid Email Id');
 			}
-			
 		}
 		return resultdb(400, 'Login Failed');
 	} catch (err) {
@@ -342,17 +343,84 @@ let saveQuery = async (req) => {
 		const queryResult = await new Promise((resolve, reject) => {
 			const query =
 				'INSERT INTO queryRecords (name, email,contactNumber,message) VALUES (?,?,?,?);';
-			connection.query(query, [req.body.name,req.body.email,req.body.contactNumber,req.body.message], (err, results) => {
+			connection.query(
+				query,
+				[
+					req.body.name,
+					req.body.email,
+					req.body.contactNumber,
+					req.body.message,
+				],
+				(err, results) => {
+					if (err) reject(new Error(err.message));
+					resolve(results);
+				}
+			);
+		});
+	} catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+};
+let checkServiceStatus = async (req) => {
+	try {
+		// console.log(req.body);
+		var connection = config.connection;
+		const queryResult = await new Promise((resolve, reject) => {
+			const query = 'SELECT * FROM services WHERE id = ?;';
+			connection.query(query, [req.body.serviceId], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});
 		});
-	}
-	catch (err) {
+		if (queryResult.length > 0) {
+			console.log(queryResult[0]);
+			if (queryResult[0].active_status == 1) {
+				return resultdb(200, 'Service is active');
+			} else {
+				return resultdb(404, 'Service is inactive');
+			}
+		}
+	} catch (err) {
 		console.log(err);
 		return resultdb(500, err);
 	}
-}
+};
+let loginSellerByUsername = async (username, password) => {
+	try {
+		var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+			const query = 'select * from seller WHERE username = ?;';
+			connection.query(query, [username], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		if (response.length > 0) {
+			if (response[0].password==password) {
+				let userData = {
+					username: response[0].username,
+				};
+				// console.log(userData);
+				// JWT Token
+				let token = jwt.sign(userData, secretKey, {
+					expiresIn: 1800, // expires in 30min
+				});
+				let returnData = {
+					token: token,
+				};
+				return resultdb(200, returnData);
+			} else {
+				return resultdb(400, 'Invalid Password');
+			}
+		} else {
+			return resultdb(400, 'Invalid Email Id');
+		}
+	} catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+};
 module.exports = {
 	userData,
 	loginUserByEmailId,
@@ -363,5 +431,7 @@ module.exports = {
 	showAllImages,
 	getUserDetailsById,
 	userDataByUserId,
-	saveQuery
+	saveQuery,
+	checkServiceStatus,
+	loginSellerByUsername,
 };

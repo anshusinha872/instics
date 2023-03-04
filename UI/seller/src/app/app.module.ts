@@ -14,7 +14,7 @@ import { SubdashboardComponent } from './views/layout/subdashboard/subdashboard.
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { HeaderComponent } from './views/partial/header/header/header.component';
-import { PdfListComponent } from './views/pages/pdfList/pdf-list/pdf-list.component';
+import { PdfListComponent } from './views/pages/pdfList/pdf-list.component';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TableModule } from 'primeng/table';
@@ -28,7 +28,6 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     SubdashboardComponent,
     HeaderComponent,
     PdfListComponent,
-
   ],
   imports: [
     BrowserModule,

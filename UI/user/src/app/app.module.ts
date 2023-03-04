@@ -46,6 +46,7 @@ import { TableModule } from 'primeng/table';
 import { PaymentHistoryComponent } from './Views/pages/payment-history/payment-history.component';
 import { ClickedOutsideDirective } from './directives/clicked-outside.directive';
 import { PublicHeaderComponent } from './Views/partial/public-header/public-header.component';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { PublicHeaderComponent } from './Views/partial/public-header/public-head
     InputNumberModule,
     ToolbarModule,
     TableModule,
+    ProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

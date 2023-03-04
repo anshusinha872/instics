@@ -226,6 +226,7 @@ let loginsellerByUsername = async (username, password) => {
 		});
 
 		if (response.length > 0) {
+			console.log(response[0].password);
 			if (response[0].password == password) {
 				return resultdb(200, 'login sucess');
 			} else {

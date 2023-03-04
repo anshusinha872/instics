@@ -90,7 +90,7 @@ export class CartComponent implements OnInit {
         }
         // console.log(this.cartList);
       } else {
-        this.toastr.errorToastr(res.message);
+        this.toastr.errorToastr(res.data);
         // console.log(res.message);
       }
     });
