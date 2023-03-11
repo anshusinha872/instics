@@ -67,7 +67,7 @@ app.use(
 		limits: { fileSize: 50 * 1024 * 1024 },
 	})
 );
-// app.use(middleware);
+app.use(middleware);
 
 app.use(
 	morgan('dev', {

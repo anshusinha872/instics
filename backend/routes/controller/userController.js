@@ -6,6 +6,8 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const moment = require('moment');
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
+const secretKey = 'AnshuSinha';
 async function getUserData(req, res) {
 	try {
 		let returnData = await userService.userData(req);
@@ -40,7 +42,16 @@ async function checkUser(req, res) {
 		let returnData = await userService.forgotPassword(contact);
 		if (returnData.length > 0) {
 			if (returnData[0].contact == contact) {
+				let userData = {
+					user_id: returnData[0].user_id,
+					contact: returnData[0].contact,
+
+				}
+				let token = jwt.sign(userData, secretKey, {
+					expiresIn: 1800, // expires in 30min
+				});
 				returnData = {
+					token:token,
 					statusCode: 200,
 					data: 'number exist',
 				};
