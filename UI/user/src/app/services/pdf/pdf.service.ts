@@ -33,4 +33,5 @@ export class PdfService {
       headers: this.sessionService.setTokenHeaderImage(),
     });
   }
+
 }

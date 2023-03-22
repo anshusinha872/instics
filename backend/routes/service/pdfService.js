@@ -2,6 +2,7 @@ const MysqlPool = require('../../app');
 const config = require('../../config/databaseConfig.js');
 const util = require('util');
 const mysql = require('mysql');
+const { time } = require('console');
 const resultdb = (statusCode, data = null) => {
 	return {
 		statusCode: statusCode,
@@ -11,11 +12,18 @@ const resultdb = (statusCode, data = null) => {
 let uploadDoc = async (data) => {
 	try {
 		const docStatus = 0;
+		var today = new Date();
+		var hrs= today.getHours();
+		var sec = today.getMinutes();
+		var time = hrs + ":" + sec ;
+		var tableName = "printDocTable";
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
+		
 			const query =
-				'INSERT INTO printDocTable (user_id,pdfName,docType,colorMode,printRange,totalPage,totalCost,path,docStatus) VALUES (?,?,?,?,?,?,?,?,?);';
-			connection.query(
+				"INSERT INTO " + tableName+ " (user_id,pdfName,docType,colorMode,printRange,totalPage,totalCost,path,docStatus,date,time,sellerId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+			console.log(query);
+				connection.query(
 				query,
 				[
 					parseInt(data.user_id),
@@ -27,6 +35,9 @@ let uploadDoc = async (data) => {
 					parseInt(data.totalCost),
 					data.path,
 					docStatus,
+					today,
+					time,
+					parseInt(data.sellerId),
 				],
 				(err, results) => {
 					if (err) reject(new Error(err.message));
@@ -41,13 +52,16 @@ let uploadDoc = async (data) => {
 	}
 };
 let sellerprint = async (data) => {
-	// console.log('userData');
+	console.log('userData');
+	console.log(data.body);
+	const sellerId = data.body.sellerId;
+	
 	try {
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
-			const query = 'select * from printDocTable;';
+			const query = "select * from printDocTable where sellerId= ?;";
 
-			connection.query(query, (err, results) => {
+			connection.query(query, [sellerId],(err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});
@@ -57,7 +71,8 @@ let sellerprint = async (data) => {
 			let returnData = [];
 			for (let i = 0; i < response.length; i++) {
 				let item = response[i];
-				// console.log('item', item);
+				// console.log('item',item);
+				// console.log('item date', item.date);
 				let resData = {
 					id: item.id,
 					user_id: item.user_id,
@@ -72,6 +87,9 @@ let sellerprint = async (data) => {
 					// pdf: await convertPdf(item.path),
 					pdfPresent:await isPdfAvailable(item.path),
 					// image: await convertImage(item.filePath),
+					date: item.date,
+					time: item.time,
+					sellerId: item.sellerId,
 				};
 
 				if (resData.pdfPresent == true) {
@@ -134,7 +152,7 @@ let updatedocstatus = async (req) => {
 		// console.log(docStatus);
 		var connection = config.connection;
 		const response3 = await new Promise((resolve, reject) => {
-			const query = 'update printDocTable set docStatus=? where id=?';
+			const query = "update printDocTableset docStatus=? where id=?";
 			connection.query(query, [docStatus, id], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
@@ -151,7 +169,7 @@ let getPdfById = async (req) => {
 	try {
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
-			const query = 'select * from printDocTable WHERE id = ?;';
+			const query = "select * from printDocTable WHERE id = ?;";
 			connection.query(query,[req.body.id], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
@@ -170,7 +188,7 @@ let getUserPDF = async (data) => {
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
 			const query =
-				'select * from printDocTable WHERE user_id = ? ORDER BY id DESC;';
+				"select * from printDocTable WHERE user_id = ? ORDER BY id DESC;";
 
 			connection.query(query,[data], (err, results) => {
 				if (err) reject(new Error(err.message));
@@ -197,6 +215,9 @@ let getUserPDF = async (data) => {
 					// pdf: await convertPdf(item.path),
 					pdfPresent: await isPdfAvailable(item.path),
 					// image: await convertImage(item.filePath),
+					date : item.date,
+					time : item.time,
+					sellerId: sellerId,
 				};
 
 				if (resData.pdfPresent == true) {
@@ -239,6 +260,7 @@ let loginsellerByUsername = async (username, password) => {
 		return resultdb(500, err);
 	}
 };
+
 module.exports = {
 	uploadDoc,
 	sellerprint,

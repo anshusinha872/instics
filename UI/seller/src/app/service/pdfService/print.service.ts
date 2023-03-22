@@ -13,8 +13,8 @@ export class PrintService {
     // Authorization: 'Bearer ' + localStorage.getItem('token'),
   });
 
-  printseller(): Observable<any> {
-    return this.http.get(this.base_url + 'pdfList', {
+  printseller(param): Observable<any> {
+    return this.http.post(this.base_url + 'pdfListseller',param,{
       headers: this.reqHeader,
     });
   }

@@ -386,7 +386,7 @@ let checkServiceStatus = async (req) => {
 		return resultdb(500, err);
 	}
 };
-let loginSellerByUsername = async (username, password) => {
+let  loginSellerByUsername = async (username, password) => {
 	try {
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
@@ -397,10 +397,12 @@ let loginSellerByUsername = async (username, password) => {
 			});
 		});
 		if (response.length > 0) {
-			if (response[0].password==password) {
+			if (response[0].password==password ) {
 				let userData = {
 					username: response[0].username,
+					sellerId: response[0].id_seller,
 				};
+		
 				// console.log(userData);
 				// JWT Token
 				let token = jwt.sign(userData, secretKey, {
@@ -408,6 +410,7 @@ let loginSellerByUsername = async (username, password) => {
 				});
 				let returnData = {
 					token: token,
+					sellerId: response[0].id_seller,
 				};
 				return resultdb(200, returnData);
 			} else {

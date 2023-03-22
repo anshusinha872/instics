@@ -377,6 +377,18 @@
             <label class="form-check-label" for="photoPrint">Photo </label>
           </div>
         </div>
+
+
+        <div class="d-flex my-2 flex-row justify-content-between">
+          <span>Choose Seller</span>
+          <select (change)="SelectItem($event.target)" class="select">
+            <option value="0">--All--</option>
+            <option *ngFor="let item of items" value="{{item.name}}">
+              {{item.name}}
+            </option>
+          </select>
+        </div>
+
       </div>
       <div>
         <div *ngIf="false" class="d-flex my-2 flex-row">

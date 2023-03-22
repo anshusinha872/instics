@@ -2,6 +2,7 @@ const express = require('express');
 const MysqlPool = require('../../app');
 const router = express.Router();
 const pdfService = require('../service/pdfService');
+const userController = require('../controller/userController');
 const bcrypt = require('bcrypt');
 const path = require('path');
 const moment = require('moment');
@@ -27,13 +28,15 @@ async function savePdf(pdf, user_id) {
 async function uploadPdf(req, res) {
 	try {
 		const pdf = req.files.pdfFile;
-		// console.log(pdf.name);
 		const user_id = req.body.user_id;
 		const selectedDocumentType = req.body.selectedDocumentType;
 		const colorMode = req.body.colorMode;
 		const range = req.body.range;
 		const totalPage = req.body.totalPage;
 		const totalCost = req.body.totalCost;
+		const time = req.body.time;
+		const date = req.body.today;
+		const sellerId = req.body.sellerId;
 		const path = await savePdf(req.files.pdfFile, user_id);
 		const data = {
 			user_id: user_id,
@@ -43,9 +46,13 @@ async function uploadPdf(req, res) {
 			totalPage: totalPage,
 			totalCost: totalCost,
 			path: path,
+			time: time,
+			date: date,
 			pdfName:pdf.name,
+			sellerId: sellerId,
 		};
 		let returndata =await pdfService.uploadDoc(data);
+		console.log(sellerId);
 		return res.status(200).json(returndata);
 	} catch (err) {
 		console.log(err);
@@ -53,7 +60,8 @@ async function uploadPdf(req, res) {
 }
 
 async function printseller(req, res){
-
+	// console.log("fuck you");
+	// console.log(req.body);
 	try {
 		let returnData = await pdfService.sellerprint(req);
 		return res.status(200).json(returnData);
@@ -108,7 +116,7 @@ async function getUserPDF(req, res) {
 // 	}
 // }
 router.post('/pdf/upload', uploadPdf);
-router.get('/pdfList', printseller);
+router.post('/pdfListseller', printseller);
 router.post('/docstatusupdate', docstatusupdate);
 router.post('/getPdf', getPdfById);
 router.post('/pdfList', getUserPDF);

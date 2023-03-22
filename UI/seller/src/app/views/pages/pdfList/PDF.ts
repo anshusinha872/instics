@@ -8,4 +8,6 @@ export interface PDF {
   totalPage?: string;
   totalCost?: string;
   docStatus?: string;
+  date?: string;
+  time?: string;
 }

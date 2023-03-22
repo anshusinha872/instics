@@ -1,4 +1,4 @@
-import { Param } from './../../../../../../backend/node_modules/@types/har-format/index.d';
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 

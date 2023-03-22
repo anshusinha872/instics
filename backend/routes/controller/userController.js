@@ -139,13 +139,15 @@ async function checkServiceStatus(req, res) {
 	}
 }
 async function loginseller(req, res) {
-	// console.log(req.body);
+	console.log("fuck you");
+	console.log(req.body);
 	try {
 		const username = req.body.username;
 		const password = req.body.password;
+		// const sellerId= req.body.sellerId;
 
 		let returnData = await userService.loginSellerByUsername(username, password);
-		console.log(returnData);
+		// console.log(returnData);
 		return res.status(200).json(returnData);
 	} catch (err) {
 		console.log(err);

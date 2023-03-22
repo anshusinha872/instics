@@ -12,11 +12,15 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
   styleUrls: ['./print.component.css'],
 })
 export class PrintComponent implements OnInit {
+[x: string]: any;
+
   documentOption: any[];
   selectedDocumentType = 1;
   public rangeValues: number[] = [1, 1];
+  public items: any[];
   public printRange = [];
   public totalPage: number = 0;
+  public sellerId: number =0;
   progress = 0;
   showProgress = false;
   constructor(
@@ -32,6 +36,20 @@ export class PrintComponent implements OnInit {
       {
         label: 'Official',
         value: 2,
+      },
+    ];
+    this.items = [
+      {
+        name: 'seller1',
+        id: 1,
+      },
+      {
+        name: 'seller2',
+        id: 2,
+      },
+      {
+        name: 'seller3',
+        id: 3,
       },
     ];
   }
@@ -128,6 +146,7 @@ export class PrintComponent implements OnInit {
       colorMode: this.colorMode,
       range: this.rangeList,
       totalPage: this.totalPage,
+      sellerId: this.sellerId,
       totalCost:
         this.totalPage *
         this.printPricing[this.selectedDocumentType - 1][this.colorMode - 1]
@@ -140,6 +159,7 @@ export class PrintComponent implements OnInit {
     req.append('colorMode', this.colorMode.toString());
     req.append('range', JSON.stringify(this.rangeList));
     req.append('totalPage', this.totalPage.toString());
+    req.append('sellerId', this.sellerId.toString());
     req.append(
       'totalCost',
       (
@@ -177,6 +197,8 @@ export class PrintComponent implements OnInit {
             this.totalPage = 0;
             this.pageCount = 0;
             this.progress = 0;
+            this.sellerId = this.sellerId;
+
             // this.pdfFile = null;
           } else {
             // this.toastr.errorToastr(res.message, res.data);
@@ -231,5 +253,19 @@ export class PrintComponent implements OnInit {
     this.rangeList.forEach((element) => {
       this.totalPage = this.totalPage + (element[1] - element[0] + 1);
     });
+  }
+
+  SelectItem(sellerName: any)
+  {
+    console.log("Seller name is " + sellerName.value );
+    this.items.forEach(element => {
+      if(sellerName.value==element.name)
+      {
+        this.sellerId= element.id;
+      }
+    });
+    console.log(this.sellerId);
+
+      
   }
 }

@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
     console.log(this.value2);
     this.router.navigate(['/dashboard']);
   }
+
   loginseller() {
     // console.log('LoginComponent.submitUser()');
     // console.log(this.value1);
@@ -35,6 +36,16 @@ export class LoginComponent implements OnInit {
       password: this.value2,
       // role:this.role,
     };
+
+    // this.Loginseller.printseller(req).subscribe((res:any) => {
+    //   if (res.statusCode == 200) {
+    //     sessionStorage.setItem('token', res.data.token);
+    //   } else {
+    //     console.log(res);
+    //     this.toastr.errorToastr('Invalid Credentials');
+    //   }
+    // });
+    
     this.Loginseller.loginseller(req).subscribe((res: any) => {
       console.log(res);
 
@@ -42,6 +53,7 @@ export class LoginComponent implements OnInit {
       if (res.statusCode == 200) {
         // console.log(res.data.token);
         sessionStorage.setItem('token', res.data.token);
+        sessionStorage.setItem('sellerId',res.data.sellerId);
         this.route.navigate(['/dashboard']);
       } else {
         console.log(res);

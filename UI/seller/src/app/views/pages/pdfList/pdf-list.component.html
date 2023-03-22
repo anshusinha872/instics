@@ -12,8 +12,11 @@
         <th>Total Cost</th>
         <th>Status</th>
         <th>Payment</th>
+        <th>Date</th>
+        <th>Time</th>
         <th>View/Download</th>
         <th>Mark/Delete</th>
+       
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-pdf>
@@ -28,6 +31,8 @@
         <td>{{ pdf.totalCost }}</td>
         <td>{{ pdf.docStatus =='0'?"Pending":(pdf.docStatus=='1'?"Approved":"Rejected" ) }}</td>
         <td>{{ pdf.payment_status }}</td>
+        <td>{{pdf.date.slice(0,10)}}</td>
+        <td>{{pdf.time}}</td>
         <td class="">
             <div class="d-flex justify-content-around">
                 <button

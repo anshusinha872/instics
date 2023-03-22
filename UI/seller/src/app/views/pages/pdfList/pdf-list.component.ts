@@ -3,6 +3,7 @@ import { PrintService } from '../../../service/pdfService/print.service';
 import { PDF } from './PDF';
 import { interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
 @Component({
   selector: 'app-pdf-list',
   templateUrl: './pdf-list.component.html',
@@ -11,6 +12,8 @@ import { takeUntil } from 'rxjs/operators';
 export class PdfListComponent implements OnInit, OnDestroy {
   pdfs: PDF[];
   print: any;
+  count: number = 0;
+  sellerId: any;
   getPdfList: boolean = false;
   verify1: boolean = false;
   verify2: boolean = false;
@@ -26,6 +29,7 @@ export class PdfListComponent implements OnInit, OnDestroy {
   //   // this.fetchdata();
   // }
   ngOnInit() {
+    this.sellerId= sessionStorage.getItem('sellerId');
     interval(5000)
       .pipe(takeUntil(this.stopTimer$))
       .subscribe(() => {
@@ -33,13 +37,22 @@ export class PdfListComponent implements OnInit, OnDestroy {
       });
   }
   fetchdata() {
-    this.printdata.printseller().subscribe((data) => {
+    const req= {
+      sellerId:this.sellerId
+    }
+    this.printdata.printseller(req).subscribe((data) => {
       console.log(data.data);
       this.pdfs = data.data;
       this.print = data.data;
+      this.count += 1;
     });
   }
-
+//  dateFunc(date)
+//  {
+//   console.log(date);
+//   this.date1 = new Date(date);
+//   console.log(this.date1);
+//  }
   // getdata() {
   //   setInterval(() => {
   //     this.printdata.printseller().subscribe((data) => {
