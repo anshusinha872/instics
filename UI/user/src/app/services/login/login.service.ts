@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { SessionService } from '../session/session.service';
 import { Observable } from 'rxjs';
 import { environment} from 'src/environments/environment';
 @Injectable({
@@ -10,7 +10,9 @@ export class LoginService {
   // private base_url: string = 'http://localhost:3443/api/v1/'; //local
   // // private base_url: string = 'https://instincts.co.in:3443/';
   private base_url: string = environment.APIEndpoint;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private sessionService: SessionService
+  ) { }
 
   reqHeader = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -29,7 +31,7 @@ export class LoginService {
   }
   updatePassword(param): Observable<any> {
     return this.http.post(this.base_url + 'updatePassword', param, {
-      headers: this.reqHeader,
+      headers: this.sessionService.setTokenHeader(),
     });
   }
   logout() {

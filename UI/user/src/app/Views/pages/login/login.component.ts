@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { App } from '@capacitor/app';
 // import "firebase/firestore"
+import { SessionService } from 'src/app/services/session/session.service';
 import * as firebase from 'firebase'
 @Injectable({
   providedIn: 'root',
@@ -41,7 +42,8 @@ export class LoginComponent implements OnInit {
     private route: Router,
     private toastr: ToastrManager,
     private sharedService: SharedService,
-    private location: Location
+    private location: Location,
+    private sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
@@ -113,6 +115,8 @@ export class LoginComponent implements OnInit {
       // console.log(req);
       this.loginService.checkUser(req).subscribe((res) => {
         this.apiStatus = 'success';
+        console.log(res);
+        sessionStorage.setItem('token', res.token);
         // console.log(res);
         if (res.statusCode == 200) {
           localStorage.setItem('contact', this.contact);
@@ -134,6 +138,7 @@ export class LoginComponent implements OnInit {
       return;
     } else {
       this.userData = {
+        token:this.sessionService.get('token'),
         password: this.newPassword,
         contact: localStorage.getItem('contact'),
       };
@@ -163,7 +168,12 @@ export class LoginComponent implements OnInit {
   }
   sendOtp() {
     const phone_number = '+91' + this.contact;
-    firebase.initializeApp(environment.firebase);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(environment.firebase);
+    } else {
+      firebase.app(); // if already initialized, use that one
+    }
+    // firebase.initializeApp(environment.firebase);
     this.verify = JSON.parse(localStorage.getItem('verificationId') || '{}');
     this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier(
       'recaptcha-container',

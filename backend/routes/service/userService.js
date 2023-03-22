@@ -290,10 +290,21 @@ let uploadImage = async (user_id, file_path) => {
 		return resultdb(500, err);
 	}
 };
+function parseJwt(token) {
+	return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+}
 let updatePassword = async (req) => {
 	try {
+		// console.log(req.body);
+		console.log('token', parseJwt(req.body.token));
+		var jwt_contact = parseJwt(req.body.token).contact;
+		console.log('jwt_contact', jwt_contact);
 		var contact = req.body.contact;
 		contact = parseInt(contact);
+		console.log('contact', contact);
+		if (jwt_contact != contact) {
+			return resultdb(303, 'contact not matched');
+		}
 		const password = req.body.password;
 		console.log(contact);
 		console.log(password);
@@ -424,6 +435,7 @@ let  loginSellerByUsername = async (username, password) => {
 		return resultdb(500, err);
 	}
 };
+
 module.exports = {
 	userData,
 	loginUserByEmailId,

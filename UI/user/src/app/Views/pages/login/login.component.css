@@ -12,6 +12,17 @@
    animation-duration: 1s;
   
 }
+.signUpBtn{
+    /* background-color: #3f51b5; */
+    color: black;
+    /* letter-spacing: 2px; */
+    font-weight: bold;
+}
+.signUpBtn:hover{
+    /* background-color: #515154; */
+    /* color: white; */
+    cursor: pointer;
+}
 @keyframes slideIn {
     0%   {transform: translate(-100%);}
     100% {transform: translate(0%); }
