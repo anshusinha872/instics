@@ -34,6 +34,12 @@ const routes: Routes = [
     // canActivate: [ServiceActiveStatusGuard],
   },
   {
+    path:'laundry',
+    loadChildren: () =>
+      import('../../pages/laundry/laundry.module').then((m) => m.LaundryModule),
+    // canActivate: [ServiceActiveStatusGuard],
+  },
+  {
     path: 'cart',
     loadChildren: () =>
       import('../../pages/cart/cart.module').then((m) => m.CartModule),

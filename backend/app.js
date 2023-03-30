@@ -67,7 +67,7 @@ app.use(
 		limits: { fileSize: 50 * 1024 * 1024 },
 	})
 );
-app.use(middleware);
+// app.use(middleware);
 
 app.use(
 	morgan('dev', {
@@ -83,6 +83,7 @@ const orderController = routes.orderController;
 const cartController = routes.cartController;
 const webHookController = routes.upiWebHook;
 const adminController = routes.adminController;
+const laundryController = routes.laundryController;
 const API_URL = '/api/v1/';
 app.use(API_URL, userController);
 app.use(API_URL, pdfController);
@@ -90,6 +91,7 @@ app.use(API_URL, orderController);
 app.use(API_URL, cartController);
 app.use(API_URL, webHookController);
 app.use(API_URL, adminController);
+app.use(API_URL,laundryController);
 app.listen(3443, () => console.log('server started at 3443')); //localhost:3443
 
 // app.listen(3000, () => {

@@ -47,6 +47,7 @@ import { PaymentHistoryComponent } from './Views/pages/payment-history/payment-h
 import { ClickedOutsideDirective } from './directives/clicked-outside.directive';
 import { PublicHeaderComponent } from './Views/partial/public-header/public-header.component';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { LaundryComponent } from './Views/pages/laundry/laundry.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
     PaymentHistoryComponent,
     ClickedOutsideDirective,
     PublicHeaderComponent,
+    LaundryComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,278 @@
+.headerTextContainer {
+  font-size: 2rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: #000;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.serviceCardContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+.serviceCard {
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+.serviceCardSubText {
+  font-size: 0.8rem;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 2px;
+  color: #000;
+  text-transform: lowercase;
+  margin-bottom: 20px;
+  height: 100px;
+  overflow: hidden;
+}
+/*     <!-- Instincts laundary Service starts --> */
+.left_li_1 {
+  transform: translate(127px, 35px);
+}
+.left_li_2 {
+  transform: translateX(38px);
+}
+.left_li_3 {
+  /* transform: translateX(90px); */
+}
+.left_li_4 {
+  transform: translateX(38px);
+}
+.left_li_5 {
+  transform: translate(127px, -35px);
+}
+.right_li_1 {
+  transform: translate(-127px, 35px);
+}
+.right_li_2 {
+  transform: translateX(-38px);
+}
+.right_li_3 {
+  /* transform: translateX(-90px); */
+}
+.right_li_4 {
+  transform: translateX(-38px);
+}
+.right_li_5 {
+  transform: translate(-127px, -35px);
+}
+.instinctsLaundryLefttItemContainer {
+  margin-left: 50px;
+}
+.instinctsLaundryRightItemContainer {
+  margin-right: 50px;
+}
+.instinctsLaundryServiceSubText {
+  font-size: 2rem;
+}
+.instinctsLaundryItemImage:hover {
+  transform: scale(1.1);
+  transition: all 0.5s ease;
+}
+.listItems:hover .instinctsLaundrySubText {
+  /* display: inline-block; */
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+.instinctsLaundrySubText {
+  font-size: 1.2rem;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 2px;
+  color: #000;
+  text-transform: lowercase;
+  /* margin-bottom: 20px; */
+  opacity: 0;
+}
+.instinctsLaundryItemImage {
+  background-blend-mode: multiply;
+}
+/*     <!-- Instincts laundary Service ends --> */
+/* pricing section start */
+h2 {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+button {
+  /* font-size: 1rem;
+  padding: 0.5rem; */
+  border: none;
+  border-radius: 0.25rem;
+  background-color: #1e90ff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #0066cc;
+}
+
+.added-clothes {
+  margin-top: 2rem;
+}
+
+/* table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead {
+  background-color: #1e90ff;
+  color: #fff;
+}
+
+th,
+td {
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+th:last-child,
+td:last-child {
+  text-align: right;
+} */
+
+.total {
+  font-weight: bold;
+  border-top: 2px solid #ccc;
+}
+
+.place-order-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #4caf50;
+  transition: background-color 0.3s ease-in-out;
+}
+/* Default styles for larger screens */
+.section {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cloth {
+  width: 33.33%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.priceCardPriceDetailsFooter{
+
+}
+.priceCardWrapper{
+  /* width: 100%; */
+  /* padding: 10px;
+  box-sizing: border-box; */
+  /* height: 300px !important; */
+  /* max-height: 300px !important; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  /* border: 1px solid #e6e6e6; */
+  border-radius: 5px;
+  margin-bottom: 20px;
+  /* overflow-y: auto; */
+
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+.priceListTableWrapper{
+  width: 100%;
+  height: 300px !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.priceListTableHeaderText{
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #000;
+
+}
+/* Styles for smaller screens */
+@media (max-width: 768px) {
+  .section {
+    flex-direction: column;
+  }
+
+  .cloth {
+    width: 100%;
+  }
+}
+
+/* pricing section ends */
+::ng-deep ::-webkit-scrollbar {
+  width: 8px; /* adjust the width of the scroll bar */
+}
+
+::ng-deep ::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* set the background color of the track */
+}
+
+::ng-deep ::-webkit-scrollbar-thumb {
+  background-color: #007bff; /* set the color of the scroll thumb to blue */
+  border-radius: 10px; /* round the edges of the scroll thumb */
+}
+
+::ng-deep ::-webkit-scrollbar-thumb:hover {
+  background-color: #0062cc; /* set the color of the scroll thumb when hovering to a darker shade of blue */
+}
+.priceCardTitle{
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+.label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+.calendar-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 999;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  padding: 1rem;
+}

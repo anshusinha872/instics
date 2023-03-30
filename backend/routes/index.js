@@ -6,4 +6,5 @@ module.exports = {
 	// cashFreeWebHook: require('./controller/webhooks/cashFreeWebHook'),
 	upiWebHook: require('./controller/webhooks/upiWebHook'),
 	adminController: require('./controller/adminController'),
+	laundryController:require('./controller/laundryController'),
 };

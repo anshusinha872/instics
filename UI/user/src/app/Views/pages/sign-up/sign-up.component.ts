@@ -8,7 +8,6 @@ import * as firebase from 'firebase'
 // import 'firebase/auth';
 // import 'firebase/firestore';
 import { ToastrManager } from 'ng6-toastr-notifications';
-import { App } from '@capacitor/app';
 import { timeInterval } from 'rxjs';
 @Component({
   selector: 'app-signup',
@@ -48,13 +47,7 @@ export class SignupComponent implements OnInit {
   };
 
   ngOnInit() {
-    App.addListener('backButton', ({ canGoBack }) => {
-      if (canGoBack) {
-        window.history.back();
-      } else {
-        App.exitApp();
-      }
-    });
+    
     firebase.initializeApp(environment.firebase);
     // firebase.initializeApp(config);
     this.verify = JSON.parse(localStorage.getItem('verificationId') || '{}');
