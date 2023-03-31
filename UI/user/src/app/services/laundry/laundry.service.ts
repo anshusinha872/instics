@@ -49,4 +49,9 @@ export class LaundryService {
       headers: this.sessionService.setTokenHeader(),
     });
   }
+  getLaundryOrderDetails(param): Observable<any> {
+    return this.http.post(this.base_url + 'laundry/getOrderDetails', param, {
+      headers: this.sessionService.setTokenHeader(),
+    });
+  }
 }

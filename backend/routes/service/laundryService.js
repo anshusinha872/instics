@@ -3,7 +3,7 @@ const config = require("../../config/databaseConfig.js");
 const util = require("util");
 const mysql = require("mysql");
 const { time } = require("console");
-const userService = require('../service/userService');
+const userService = require("../service/userService");
 const resultdb = (statusCode, data = null) => {
   return {
     statusCode: statusCode,
@@ -176,7 +176,7 @@ let deleteClothType = async (data) => {
         resolve(results);
       });
     });
-    console.log(178,response);
+    console.log(178, response);
     return resultdb(200, "Cloth Type deleted");
   } catch (err) {
     console.log(err);
@@ -184,7 +184,7 @@ let deleteClothType = async (data) => {
   }
 };
 let placeLaundryOrder = async (data) => {
-  try{
+  try {
     var connection = config.connection;
     let response = await new Promise((resolve, reject) => {
       const query = "SELECT * FROM laundry_order_request";
@@ -193,53 +193,142 @@ let placeLaundryOrder = async (data) => {
         resolve(results);
       });
     });
-    const userId = parseInt(data.userId,10);
-    console.log(197,userId);
+    const userId = parseInt(data.userId, 10);
+    console.log(197, userId);
     let userData = await userService.userDataByUserId(userId);
     // userData= userData.data;
-    const customer_name = userData.data[0].firstName+' '+userData.data[0].lastName;
+    const customer_name =
+      userData.data[0].firstName + " " + userData.data[0].lastName;
     const customer_email = userData.data[0].email_id;
     const customer_mobile = userData.data[0].contact;
     const latitude = data.latitude.toString();
     const longitude = data.longitude.toString();
-    console.log('userData',userData.data[0]);
-    console.log('customer_name',customer_name);
-    console.log('customer_email',customer_email);
-    console.log('customer_mobile',customer_mobile);
-    let length = response.length+1;
+    console.log("userData", userData.data[0]);
+    console.log("customer_name", customer_name);
+    console.log("customer_email", customer_email);
+    console.log("customer_mobile", customer_mobile);
+    let length = response.length + 1;
     length = length.toString();
-    console.log('string length',length);
-    const transactionId = 'LS'+length;
+    console.log("string length", length);
+    const transactionId = "LS" + length;
     console.log(transactionId);
-    // 
-    for(let i=0;i<data.clothes.length;i++){
+    //
+    for (let i = 0; i < data.clothes.length; i++) {
       // console.log(data.clothes[i]);
       response = await new Promise((resolve, reject) => {
-        const query = "INSERT INTO laundryOrderItemRecords (user_id,client_txn_id,clothType,clothTypeSection,quantity,amount) VALUES (?,?,?,?,?,?)";
-        connection.query(query, [userId,transactionId,data.clothes[i].typeName,data.clothes[i].clothSectionName,data.clothes[i].quantity,data.clothes[i].price], (err, results) => {
-          if (err) reject(new Error(err.message));
-          resolve(results);
-        });
+        const query =
+          "INSERT INTO laundryOrderItemRecords (user_id,client_txn_id,clothType,clothTypeSection,quantity,amount) VALUES (?,?,?,?,?,?)";
+        connection.query(
+          query,
+          [
+            userId,
+            transactionId,
+            data.clothes[i].typeName,
+            data.clothes[i].clothSectionName,
+            data.clothes[i].quantity,
+            data.clothes[i].price,
+          ],
+          (err, results) => {
+            if (err) reject(new Error(err.message));
+            resolve(results);
+          }
+        );
       });
     }
-    // 
-    const order_info = 'Laundry Order'
+    //
+    const order_info = "Laundry Order";
     // let totalPriceCal = data.totalPrice.toString();
     response = await new Promise((resolve, reject) => {
-      const query = "INSERT INTO laundry_order_request (client_txn_id,amount,order_info,customer_name,customer_email,customer_mobile,status,address,latitude,longitude) VALUES (?,?,?,?,?,?,?,?,?,?)";
-      connection.query(query, [transactionId,data.totalPrice,order_info,customer_name,customer_email,customer_mobile,0,data.address,latitude,longitude], (err, results) => {
+      const query =
+        "INSERT INTO laundry_order_request (client_txn_id,amount,order_info,customer_name,customer_email,customer_mobile,status,address,latitude,longitude,user_id,paymentMode,paymentStatus,couponCode,couponDiscount,finalAmountAfterDiscount) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      connection.query(
+        query,
+        [
+          transactionId,
+          data.totalPrice,
+          order_info,
+          customer_name,
+          customer_email,
+          customer_mobile,
+          0,
+          data.address,
+          latitude,
+          longitude,
+          data.userId,
+          data.paymentMode,
+          0,
+          data.couponCode,
+          data.discountPrice,
+          data.finalPrice,
+        ],
+        (err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
+        }
+      );
+    });
+    return resultdb(200, transactionId);
+  } catch (err) {
+    console.log(err);
+    return resultdb(500, err);
+  }
+};
+let getOrderDetailsByUserId = async (userId) => {
+  try {
+    let returnData = [];
+    var connection = config.connection;
+    const response = await new Promise((resolve, reject) => {
+      const query = "SELECT * FROM laundry_order_request WHERE user_id = ? ";
+      connection.query(query,[userId] ,(err, results) => {
         if (err) reject(new Error(err.message));
         resolve(results);
       });
     });
-    return resultdb(200,transactionId);
-  }
-  catch(err){
+    console.log('laundry order history', response);
+    console.log(response.length);
+    for(let i=0;i<response.length;i++){
+      let orderDetails=[];
+      let orderInfo ={
+        client_txn_id: response[i].client_txn_id,
+        amount: response[i].amount,
+        order_info: response[i].order_info,
+        customer_name: response[i].customer_name,
+        customer_email: response[i].customer_email,
+        customer_mobile: response[i].customer_mobile,
+        status: response[i].status,
+        paymentMode: response[i].paymentMode,
+        paymentStatus: response[i].paymentStatus,
+        couponCode: response[i].couponCode,
+        couponDiscount: response[i].couponDiscount,
+        finalAmountAfterDiscount: response[i].finalAmountAfterDiscount,
+      };
+      orderDetails.push(orderInfo);
+      let orderItems = [];
+      let orderListItemResponse = await new Promise((resolve, reject) => {
+        const query = "SELECT * FROM laundryOrderItemRecords WHERE client_txn_id = ? ";
+        connection.query(query,[response[i].client_txn_id] ,(err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
+        });
+      });
+      for(let j=0;j<orderListItemResponse.length;j++){
+        let orderListItem = {
+          clothType: orderListItemResponse[j].clothType,
+          clothTypeSection: orderListItemResponse[j].clothTypeSection,
+          quantity: orderListItemResponse[j].quantity,
+          amount: orderListItemResponse[j].amount,
+        }
+        orderItems.push(orderListItem);
+      }
+      orderDetails.push(orderItems);
+      returnData.push(orderDetails);
+    }
+    return resultdb(200, returnData);
+  } catch (err) {
     console.log(err);
-    return resultdb(500,err);
+    return resultdb(500, err);
   }
-}
-
+};
 module.exports = {
   addServiceName,
   showClothSection,
@@ -247,5 +336,6 @@ module.exports = {
   showClothType,
   deleteSection,
   deleteClothType,
-  placeLaundryOrder
+  placeLaundryOrder,
+  getOrderDetailsByUserId,
 };

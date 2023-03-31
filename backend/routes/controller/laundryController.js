@@ -75,6 +75,16 @@ async function placeLaundryOrder(req,res){
 		console.log(err);
 	}
 }
+async function getOrderDetailsByUserId(req,res){
+	try{
+		console.log('req',req.body);
+		let returnData = await laundryService.getOrderDetailsByUserId(req.body.user_id);
+		return res.status(200).json(returnData);
+	}
+	catch(err){
+		console.log(err);
+	}
+}
 router.post('/laundry/addServiceName', addServiceName);
 router.get('/laundry/showSection',showClothSection);
 router.post('/laundry/addClothType',addClothType);
@@ -82,4 +92,5 @@ router.get('/laundry/showAllClothType',showClothType);
 router.post('/laundry/deleteSection',deleteSection);
 router.post('/laundry/deleteClothType',deleteClothType);
 router.post('/laundry/placeOrder',placeLaundryOrder);
+router.post('/laundry/getOrderDetails',getOrderDetailsByUserId)
 module.exports = router;

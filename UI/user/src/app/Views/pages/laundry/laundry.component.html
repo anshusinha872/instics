@@ -118,7 +118,7 @@
     </div>
   </div>
   <!-- Instincts laundary Service Start -->
-  <div
+  <!-- <div
     class="instinctsLaundryServiceHeaderContainer d-flex justify-content-center"
   >
     <div class="instinctsLaundryServiceSubText">Why Instincts ?</div>
@@ -303,20 +303,26 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- add cloth section start -->
   <div class="add-section-form">
     <h3>Create Section</h3>
-    <form (ngSubmit)="onCreateSectionSubmit()">
-      <label for="sectionName">Name:</label>
-      <input
-        type="text"
-        id="sectionName"
-        name="sectionName"
-        [(ngModel)]="newSectionName"
-      />
-
-      <button type="submit">Create Section</button>
+    <form class="" (ngSubmit)="onCreateSectionSubmit()">
+      <div class="sectionNameInputWrapper row align-items-end">
+        <div class="sectionNameInputContainer col-12 col-sm-4">
+          <label for="sectionName" class="form-label">Name:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="sectionName"
+            name="sectionName"
+            [(ngModel)]="newSectionName"
+          />
+        </div>
+        <div class="sectionNameBtnWrapper col-12 col-sm-4 my-2 my-sm-0">
+          <button class="btn btn-primary" type="submit">Create Section</button>
+        </div>
+      </div>
     </form>
   </div>
   <!-- add cloth section ends -->
@@ -345,34 +351,59 @@
     <div class="add-cloth-form">
       <h3>Add Cloth to Section</h3>
       <form (ngSubmit)="onAddClothSubmit()">
-        <label for="clothName">Name:</label>
-        <input
-          type="text"
-          id="clothName"
-          name="clothName"
-          [(ngModel)]="newClothName"
-        />
-        <label for="clothPrice">Price:</label>
-        <input
-          type="number"
-          id="clothPrice"
-          name="clothPrice"
-          [(ngModel)]="newClothPrice"
-        />
-        <label for="section">Section:</label>
-        <select id="section" name="section" [(ngModel)]="selectedSection">
-          <option
-            *ngFor="let section of sections"
-            [value]="section.sectionName"
-          >
-            {{ section.sectionName }}
-          </option>
-        </select>
-
-        <button type="submit">Add Cloth</button>
+        <div class="addClothTypeWrapper row">
+          <div class="addClothNameInputWrapper col-12 col-sm-3">
+            <div class="inputWrapper w-100">
+              <label class="form-label" for="clothName">Name:</label>
+              <input
+                type="text"
+                id="clothName"
+                name="clothName"
+                class="input"
+                [(ngModel)]="newClothName"
+              />
+            </div>
+          </div>
+          <div class="addClothPriceInputWrapper col-12 col-sm-3">
+            <div class="inputWrapper w-100">
+              <label class="form-label" for="clothPrice">Price:</label>
+              <input
+                type="number"
+                id="clothPrice"
+                name="clothPrice"
+                class="input"
+                [(ngModel)]="newClothPrice"
+              />
+            </div>
+          </div>
+          <div class="addClothTypeSectioninputWrapper col-12 col-sm-3">
+            <div class="inputWrapper">
+              <label class="form-label" for="section">Section:</label>
+              <select
+                class="input"
+                id="section"
+                name="section"
+                [(ngModel)]="selectedSection"
+              >
+                <option
+                  *ngFor="let section of sections"
+                  [value]="section.sectionName"
+                >
+                  {{ section.sectionName }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="addClothTypeBtnWrapper col-12 col-sm-3">
+            <!-- <label for="section">Section:</label> -->
+            <button class="btn btn-primary" type="submit">Add Cloth</button>
+          </div>
+        </div>
       </form>
     </div>
-    <button (click)="getAllCloth()">get cloth details</button>
+    <button class="btn btn-primary" (click)="getAllCloth()">
+      get cloth details
+    </button>
 
     <!-- add cloth end -->
     <!-- Instincts laundary Service ends -->
@@ -391,114 +422,269 @@
     .
 
     <!--  -->
-    <div class="priceCardContainerWrapper p-2 p-lg-4">
+    <div class="priceCardContainerWrapper p-0 p-sm-2 p-lg-4">
       <div
         class="priceCardContainer row m-0 d-flex justify-content-start align-items-start"
       >
         <div
           *ngFor="let section of clothesData"
-          class="priceCard my-3 col-12 px-3 col-lg-4"
+          class="priceCard my-3 col-12 px-0 px-sm-3 col-lg-4"
         >
-          <div class="priceCardWrapper p-2">
+          <div class="priceCardWrapper px-0 py-2 p-sm-2">
             <div class="priceCardTitle">
               {{ section.sectionName }}
             </div>
             <div class="priceCardPriceDetails w-100">
-              <div class="row m-0 priceListTableHeaderText">
-                <div class="col-6 d-flex justify-content-start">Item</div>
-                <div class="col-4 d-flex justify-content-center">Price</div>
-                <div class="col-2 d-flex justify-content-center">Add</div>
-                <!-- <div class="col-2 d-flex justify-content-center">delete</div> -->
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Item</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Add</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let cloth of section.clothes">
+                      <th scope="row">{{ cloth.typeName }}</th>
+                      <td>{{ cloth.price | currency : "INR" : true }}</td>
+                      <td>
+                        <div class="btnWrapper">
+                          <button
+                            class="btn btn-primary btn-sm"
+                            (click)="addCloth(cloth)"
+                          >
+                            Add
+                          </button>
+                        </div>
+                        <!-- <div class="btnWrapper">
+                        <button class="btn btn-primary btn-sm" (click)="deleteCloth(cloth.id)">delete</button>
+                      </div> -->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="priceListTableWrapper">
-                <div
-                  *ngFor="let cloth of section.clothes"
-                  class="row m-0 my-2 priceListItem"
-                >
-                  <div class="col-6 d-flex justify-content-start">
-                    {{ cloth.typeName }}
-                  </div>
-                  <div class="col-4 d-flex justify-content-center">
-                    {{ cloth.price | currency : "INR" : true }}
-                  </div>
-                  <div class="col-2 d-flex justify-content-center">
-                    <div class="btnWrapper">
-                      <button (click)="addCloth(cloth)">Add</button>
-                    </div>
-                    <!-- <div class="btnWrapper">
-                    <button (click)="deleteCloth(cloth.id)">delete</button>
-                  </div> -->
-                  </div>
-                </div>
-              </div>
-              <!-- <table>
-              <thead>
-                <tr>
-                  <th>item</th>
-                  <th>price</th>
-                  <th>button</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let cloth of section.clothes">
-                    <td >{{cloth.typeName}}</td>
-                    <td >{{cloth.price| currency : "INR" : true }}</td>
-                    <td ><button (click)="addCloth(cloth)">Add</button></td>
-                  </tr>
-              </tbody>
-            </table> -->
-              <!-- <p-table [value]="section.clothes" styleClass="p-datatable-gridlines" >
-              <ng-template pTemplate="header">
-                  <tr>
-                      <th>Code</th>
-                      <th>Name</th>
-                      <th>Category</th>
-                  </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-product>
-                  <tr>
-                      <td>{{ product.typeName }}</td>
-                      <td>{{ product.price| currency : "INR" : true  }}</td>
-                      <td><button (click)="addCloth(product)">Add</button></td>
-                  </tr>
-              </ng-template>
-          </p-table> -->
             </div>
           </div>
         </div>
       </div>
     </div>
     <!--  -->
-    <div *ngIf="addedClothes.length > 0">
-      <h2>Added Clothes</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Cloth</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total Price</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let addedCloth of addedClothes">
-            <td>{{ addedCloth.typeName }}</td>
-            <td>{{ addedCloth.price | currency : "INR" : true }}</td>
-            <td>{{ addedCloth.quantity }}</td>
-            <td>
+    <div
+      class="bottomContainer row m-0 p-0"
+      *ngIf="addedClothes.length > 0"
+    >
+      <div class="addedClothContainer col-12 d-flex flex-column col-lg-6">
+        <div class="subHeaderText text-center">Added Clothes</div>
+        <!-- <table>
+          <thead>
+            <tr>
+              <th>Cloth</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total Price</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="my-2" *ngFor="let addedCloth of addedClothes">
+              <td>{{ addedCloth.typeName }}</td>
+              <td>{{ addedCloth.price | currency : "INR" : true }}</td>
+              <td>{{ addedCloth.quantity }}</td>
+              <td>
+                {{
+                  addedCloth.price * addedCloth.quantity
+                    | currency : "INR" : true
+                }}
+              </td>
+              <td>
+                <div class="btnWrapper">
+                  <button (click)="removeCloth(addedCloth)">Remove</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table> -->
+        <!--  -->
+        <!-- <div class="addedClothTableHeader">
+          <div class="row m-0">
+            <div class="col-4 d-flex justify-content-start">Cloth</div>
+            <div class="col-2 d-flex justify-content-center">Price</div>
+            <div class="col-2 d-flex justify-content-center">Quantity</div>
+            <div class="col-2 d-flex justify-content-center">Total Price</div>
+            <div class="col-2 d-flex justify-content-center">Remove</div>
+          </div>
+        </div>
+        <div class="addedClothTableWrapper">
+          <div
+            class="row m-0 my-2 addedClothTableItem"
+            *ngFor="let addedCloth of addedClothes"
+          >
+            <div class="col-4 d-flex justify-content-start">
+              {{ addedCloth.typeName }}
+            </div>
+            <div class="col-2 d-flex justify-content-center">
+              {{ addedCloth.price | currency : "INR" : true }}
+            </div>
+            <div class="col-2 d-flex justify-content-center">
+              {{ addedCloth.quantity }}
+            </div>
+            <div class="col-2 d-flex justify-content-center">
               {{
                 addedCloth.price * addedCloth.quantity | currency : "INR" : true
               }}
-            </td>
-            <td>
+            </div>
+            <div class="col-2 d-flex justify-content-center">
               <div class="btnWrapper">
-                <button (click)="removeCloth(addedCloth)">Remove</button>
+                <button class="btn btn-primary btn-sm" (click)="removeCloth(addedCloth)">Remove</button>
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </div>
+          </div>
+        </div> -->
+        <!--  -->
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Cloth</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Price</th>
+                <th scope="col">Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let addedCloth of addedClothes">
+                <th scope="row">{{ addedCloth.typeName }}</th>
+                <td>{{ addedCloth.price | currency : "INR" : true }}</td>
+                <td>{{ addedCloth.quantity }}</td>
+                <td>
+                  {{
+                    addedCloth.price * addedCloth.quantity
+                      | currency : "INR" : true
+                  }}
+                </td>
+                <td>
+                  <div class="btnWrapper">
+                    <button
+                      class="btn btn-primary btn-sm"
+                      (click)="removeCloth(addedCloth)"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div
+        class="d-flex flex-column col-12 col-lg-6 align-items-center jusitfy-content-center formContainer"
+      >
+        <div class="formInputWrapper col-12">
+          <div class="subHeaderText text-center">Schedule Pickup Now</div>
+          <div class="addressContainer">
+            <label for="completeAddress" class="form-label">ADDRESS</label>
+            <input
+              type="text"
+              id="completeAddress"
+              name="completeAddress"
+              placeholder="Enter your address"
+              [(ngModel)]="completeAddress"
+              class="input"
+            />
+          </div>
+          <div class="liveLocationContainer d-flex justify-content-between row">
+            <div class="col-12 col-sm-6 my-2 my-sm-0">
+              <button class="btn btn-primary w-100" (click)="fetchLocation()">
+                Verify Live Location
+              </button>
+            </div>
+            <div
+              class="locationDetailsBtnContainer my-2 my-sm-0 col-12 col-sm-6"
+            >
+              <!-- <div class="locationDetails">
+                <label for="latitude" class="label">Latitude:</label>
+                <div>{{ latitude }}</div>
+              </div>
+              <div class="locationDetails">
+                <label for="longitude" class="label">Longitude:</label>
+                {{ longitude }}
+              </div> -->
+              <div *ngIf="!liveLocationFetch" class="redButton col-12">
+                <button disabled type="button" class="btn btn-danger w-100">
+                  Location Not verified
+                </button>
+              </div>
+              <div *ngIf="liveLocationFetch" class="greenButton col-12">
+                <button disabled type="button" class="btn btn-success w-100">
+                  Location verified
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="preferredTimeDateContainer row">
+            <div class="preferredTimeContainer col-6">
+              <label for="preferredTime" class="label">Preferred Time:</label>
+              <input
+                type="time"
+                id="preferredTime"
+                name="preferredTime"
+                [(ngModel)]="preferredTime"
+                class="input"
+              />
+            </div>
+            <div class="preferredDateContainer col-6">
+              <label for="preferredDate" class="label">Preferred Date:</label>
+              <input
+                type="date"
+                id="preferredDate"
+                name="preferredDate"
+                [(ngModel)]="preferredDate"
+                class="input"
+              />
+            </div>
+          </div>
+          <div class="paymentModeSelector">
+            <label for="paymentMode" class="label">Payment Mode:</label>
+            <select
+              id="paymentMode"
+              name="paymentMode"
+              [(ngModel)]="paymentMode"
+              (ngModelChange)="paymentModeChange()"
+              class="input"
+            >
+              <option value="cash">CASH</option>
+              <option value="upi">UPI</option>
+            </select>
+          </div>
+          <div *ngIf="paymentMode=='upi'"  class="couponCodeSelectionContainer">
+
+            <div class="form-label">Selected Coupon: {{ selectedCoupon?.code || "None" }}</div>
+            <label class="form-label" for="couponCode">Coupon Code:</label>
+            <select class="input" id="couponCode" [(ngModel)]="selectedCouponCode">
+              <option *ngFor="let coupon of coupons" [value]="coupon.code">
+                {{ coupon.code }}
+              </option>
+            </select>
+            <button class="btn btn-primary" (click)="selectCoupon()">Apply Coupon</button>
+          </div>
+          <div class="priceDisplayContainer">
+            <div class="form-label">Total Amount: {{ totalPrice }}</div>
+            <div class="form-label">Discounted Amount: {{ discountPrice }}</div>
+            <div class="form-label">Final Amount: {{ finalPrice}}</div>
+          </div>
+          <div class="btnContainer d-flex justify-content-center">
+            <button (click)="placeOrder()" class="btn btn-success">
+              Place Order
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- <p-table [value]="addedClothes" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
           <tr>
@@ -514,7 +700,7 @@
               <td>{{ product.quantity }}</td>
           </tr>
       </ng-template>
-  </p-table> -->
+    </p-table> -->
     </div>
 
     <!-- cloth pricing section ends -->
@@ -538,54 +724,6 @@
 
     <!-- location end -->
     <!-- form start -->
-    <div class="d-flex flex-column align-items-center jusitfy-content-center formContainer">
-      <div class="formInputWrapper col-12 col-md-6 col-lg-4">
-        <label for="completeAddress" class="label">Complete Address:</label>
-        <input
-          type="text"
-          id="completeAddress"
-          name="completeAddress"
-          [(ngModel)]="completeAddress"
-          class="input"
-        />
-        <div class="liveLocationContainer">
-          <button (click)="fetchLocation()">Get Live Location</button>
-          <div class="locationDetailsContainer">
-            <div class="locationDetails">
-              <label for="latitude" class="label">Latitude:</label>
-              <div>{{latitude}}</div>
-              <button></button>
-            </div>
-            <div class="locationDetails">
-              <label for="longitude" class="label">Longitude:</label>
-              {{longitude}}
-            </div>
-          </div>
-        </div>
-        <label for="preferredTime" class="label">Preferred Time:</label>
-        <input
-          type="time"
-          id="preferredTime"
-          name="preferredTime"
-          [(ngModel)]="preferredTime"
-          class="input"
-        />
-
-        <label for="preferredDate" class="label">Preferred Date:</label>
-        <input
-          type="date"
-          id="preferredDate"
-          name="preferredDate"
-          [(ngModel)]="preferredDate"
-          class="input"
-        />
-        <div class="btnContainer d-flex justify-content-center">
-          <button (click)="placeOrder()" class="place-order-btn">
-            Place Order
-          </button>
-        </div>
-      </div>
-    </div>
 
     <!-- <div class="calendar-container" *ngIf="true">
     <ngb-datepicker [(ngModel)]="preferredDate"></ngb-datepicker>

@@ -48,7 +48,7 @@ import { ClickedOutsideDirective } from './directives/clicked-outside.directive'
 import { PublicHeaderComponent } from './Views/partial/public-header/public-header.component';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { LaundryComponent } from './Views/pages/laundry/laundry.component';
-
+import { DialogModule } from 'primeng/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +81,7 @@ import { LaundryComponent } from './Views/pages/laundry/laundry.component';
     ClickedOutsideDirective,
     PublicHeaderComponent,
     LaundryComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -109,6 +110,7 @@ import { LaundryComponent } from './Views/pages/laundry/laundry.component';
     ToolbarModule,
     TableModule,
     ProgressBarModule,
+    DialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
