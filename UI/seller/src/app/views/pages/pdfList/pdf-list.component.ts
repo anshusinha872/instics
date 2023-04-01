@@ -3,6 +3,7 @@ import { PrintService } from '../../../service/pdfService/print.service';
 import { PDF } from './PDF';
 import { interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-pdf-list',
@@ -19,7 +20,7 @@ export class PdfListComponent implements OnInit, OnDestroy {
   verify2: boolean = false;
   verify3: boolean = false;
   private stopTimer$ = new Subject<void>();
-  constructor(private printdata: PrintService) {}
+  constructor(private printdata: PrintService, private toastr:ToastrManager) {}
 
   // ngOnInit(): void {
   //   this.getPdfList = true;
@@ -38,11 +39,18 @@ export class PdfListComponent implements OnInit, OnDestroy {
   }
   fetchdata() {
     const req= {
-      sellerId:this.sellerId
+      sellerId:this.sellerId,
+      completion: sessionStorage.getItem('completion'),
+      startDate: sessionStorage.getItem('dateStart'),
+      endDate:sessionStorage.getItem('endDate')
     }
     this.printdata.printseller(req).subscribe((data) => {
       console.log(data.data);
       this.pdfs = data.data;
+      // if(data.statusCode!=200)
+      // {
+      //   this.toastr.errorToastr('No data available');
+      // }
       this.print = data.data;
       this.count += 1;
     });

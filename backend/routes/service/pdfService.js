@@ -17,6 +17,18 @@ let uploadDoc = async (data) => {
 		var sec = today.getMinutes();
 		var time = hrs + ":" + sec ;
 		var tableName = "printDocTable";
+		var mont;
+		if (today.getMonth()<=9)
+		 {
+			mont = "0" + (today.getMonth()+1);
+		 }
+		 else
+		 {
+			mont = (today.getMonth()+1);
+		 }
+		var date1 = today.getDate();
+		var year = today.getFullYear();
+		var todaysDate = year + "-" + mont + "-" + date1;
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
 		
@@ -35,7 +47,7 @@ let uploadDoc = async (data) => {
 					parseInt(data.totalCost),
 					data.path,
 					docStatus,
-					today,
+					todaysDate,
 					time,
 					parseInt(data.sellerId),
 				],
@@ -55,57 +67,264 @@ let sellerprint = async (data) => {
 	console.log('userData');
 	console.log(data.body);
 	const sellerId = data.body.sellerId;
-	
-	try {
-		var connection = config.connection;
+	const startDate = data.body.endDate;
+	const endDate = data.body.startDate;
+	const completion = data.body.completion;
+
+
+		
+	 if(startDate==null && endDate==null && completion==null)
+	 {
+		try{
+			var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
-			const query = "select * from printDocTable where sellerId= ?;";
+	 console.log("First one");
+	 const query = "select * from printDocTable where sellerId= ?;";
+	 console.log(query);
+	 connection.query(query, [sellerId],(err, results) => {
+		 if (err) reject(new Error(err.message));
+		 resolve(results);
+	 });
 
-			connection.query(query, [sellerId],(err, results) => {
-				if (err) reject(new Error(err.message));
-				resolve(results);
-			});
-		});
+	});
+	console.log("hello i'm here");
+	if (response.length > 0) {
+		let returnData = [];
+		for (let i = 0; i < response.length; i++) {
+			let item = response[i];
+			let resData = {
+				id: item.id,
+				user_id: item.user_id,
+				pdfName: item.pdfName,
+				docType: item.docType,
+				colorMode: item.colorMode,
+				printRange: item.printRange,
+				totalPage: item.totalPage,
+				totalCost: item.totalCost,
+				docStatus: item.docStatus,
+				payment_status:item.payment_status,
+				// pdf: await convertPdf(item.path),
+				pdfPresent:await isPdfAvailable(item.path),
+				// image: await convertImage(item.filePath),
+				date: item.date,
+				time: item.time,
+				sellerId: item.sellerId,
+			};
 
-		if (response.length > 0) {
-			let returnData = [];
-			for (let i = 0; i < response.length; i++) {
-				let item = response[i];
-				// console.log('item',item);
-				// console.log('item date', item.date);
-				let resData = {
-					id: item.id,
-					user_id: item.user_id,
-					pdfName: item.pdfName,
-					docType: item.docType,
-					colorMode: item.colorMode,
-					printRange: item.printRange,
-					totalPage: item.totalPage,
-					totalCost: item.totalCost,
-					docStatus: item.docStatus,
-					payment_status:item.payment_status,
-					// pdf: await convertPdf(item.path),
-					pdfPresent:await isPdfAvailable(item.path),
-					// image: await convertImage(item.filePath),
-					date: item.date,
-					time: item.time,
-					sellerId: item.sellerId,
-				};
-
-				if (resData.pdfPresent == true) {
-					returnData.push(resData);
-				}
+			if (resData.pdfPresent == true) {
+				returnData.push(resData);
 			}
-
-			// console.log(data);
-			return resultdb(200, returnData);
 		}
 
-		// return response;
-	} catch (err) {
-		// console.log('93', err);
-		return resultdb(500, err);
+		// console.log(data);
+		return resultdb(200, returnData);
 	}
+	else
+	{
+
+		return resultdb(500, 'No data available');
+	}
+
+		}
+		catch (err) {
+			// console.log('93', err);
+			return resultdb(500, err);
+		}
+
+	 }
+	 else if(startDate=="undefined" && endDate=="undefined" && completion!="undefined")
+
+	 {
+		try{
+			var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+	console.log("no dates");
+	 const query = "select * from printDocTable where sellerId= ? and payment_status=?;";
+	 console.log(query);
+	 connection.query(query, [data.body.sellerId, data.body.completion],(err, results) => {
+		 if (err) reject(new Error(err.message));
+		 resolve(results);
+	 });
+
+	});
+
+	console.log(response.length);
+		
+	if (response.length > 0) {
+		let returnData = [];
+		for (let i = 0; i < response.length; i++) {
+			let item = response[i];
+			let resData = {
+				id: item.id,
+				user_id: item.user_id,
+				pdfName: item.pdfName,
+				docType: item.docType,
+				colorMode: item.colorMode,
+				printRange: item.printRange,
+				totalPage: item.totalPage,
+				totalCost: item.totalCost,
+				docStatus: item.docStatus,
+				payment_status:item.payment_status,
+				// pdf: await convertPdf(item.path),
+				pdfPresent:await isPdfAvailable(item.path),
+				// image: await convertImage(item.filePath),
+				date: item.date,
+				time: item.time,
+				sellerId: item.sellerId,
+			};
+
+			if (resData.pdfPresent == true) {
+				returnData.push(resData);
+			}
+		}
+
+		// console.log(data);
+		return resultdb(200, returnData);
+	}
+	else
+	{
+
+		return resultdb(500, 'No data available');
+	}
+
+		}
+		catch (err) {
+			// console.log('93', err);
+			return resultdb(500, err);
+		}
+		
+	
+	 }
+	 else if(startDate!="undefined" && endDate!="undefined" && completion=="undefined")
+	 {
+
+		try{
+			var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+	
+			const query = "select * from printDocTable where sellerId= ? and (date between ? and ?);" ;
+			connection.query(query, [data.body.sellerId, data.body.startDate, data.body.endDate],(err, results) => {
+			   if (err) reject(new Error(err.message));
+			   resolve(results);
+		   });
+
+	});
+
+
+		
+	if (response.length > 0) {
+		let returnData = [];
+		for (let i = 0; i < response.length; i++) {
+			let item = response[i];
+			let resData = {
+				id: item.id,
+				user_id: item.user_id,
+				pdfName: item.pdfName,
+				docType: item.docType,
+				colorMode: item.colorMode,
+				printRange: item.printRange,
+				totalPage: item.totalPage,
+				totalCost: item.totalCost,
+				docStatus: item.docStatus,
+				payment_status:item.payment_status,
+				// pdf: await convertPdf(item.path),
+				pdfPresent:await isPdfAvailable(item.path),
+				// image: await convertImage(item.filePath),
+				date: item.date,
+				time: item.time,
+				sellerId: item.sellerId,
+			};
+
+			if (resData.pdfPresent == true) {
+				returnData.push(resData);
+			}
+		}
+
+		// console.log(data);
+		return resultdb(200, returnData);
+	}
+	else
+	{
+      
+		return resultdb(500, 'No data available');
+	}
+
+		}
+		catch (err) {
+			// console.log('93', err);
+			return resultdb(500, err);
+		}
+		
+
+	 
+	 }
+	 else{
+		try{
+		// 	startDate='2023-03-27';
+		// 	endDate='2023-03-31';
+		//    completion = 'pending';
+			console.log(startDate);
+			console.log(endDate);
+			console.log(completion);
+			
+			var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+	
+	 const query = "SELECT * FROM printDocTable where sellerId=? and (date between ? and ?) and payment_status=?;";
+	 console.log(query);
+	 connection.query(query, [data.body.sellerId, data.body.startDate,data.body.endDate, data.body.completion],(err, results) => {
+		 if (err) reject(new Error(err.message));
+		 resolve(results);
+	 });
+
+	});
+	console.log("yyyy not working");
+	console.log(response.length);		
+	if (response.length > 0) {
+		let returnData = [];
+		for (let i = 0; i < response.length; i++) {
+			let item = response[i];
+			let resData = {
+				id: item.id,
+				user_id: item.user_id,
+				pdfName: item.pdfName,
+				docType: item.docType,
+				colorMode: item.colorMode,
+				printRange: item.printRange,
+				totalPage: item.totalPage,
+				totalCost: item.totalCost,
+				docStatus: item.docStatus,
+				payment_status:item.payment_status,
+				// pdf: await convertPdf(item.path),
+				pdfPresent:await isPdfAvailable(item.path),
+				// image: await convertImage(item.filePath),
+				date: item.date,
+				time: item.time,
+				sellerId: item.sellerId,
+			};
+
+			if (resData.pdfPresent == true) {
+				returnData.push(resData);
+			}
+		}
+
+		// console.log(data);
+		return resultdb(200, returnData);
+	}
+	else
+	{
+
+		return resultdb(500, 'No data available');
+	}
+
+		}
+		catch (err) {
+			// console.log('93', err);
+			return resultdb(500, err);
+		}
+		
+	
+	 }
 };
 
 let isPdfAvailable = async (pdf) => {
