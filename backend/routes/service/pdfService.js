@@ -19,18 +19,6 @@ let uploadDoc = async (data) => {
 		var tableName = "printDocRecordTable";
 		var connection = config.connection;
 		// let pdfOrderRequestTxnId = await getPdfOrderRequestTxnId();
-		var mont;
-		if (today.getMonth()<=9)
-		 {
-			mont = "0" + (today.getMonth()+1);
-		 }
-		 else
-		 {
-			mont = (today.getMonth()+1);
-		 }
-		var date1 = today.getDate();
-		var year = today.getFullYear();
-		var todaysDate = year + "-" + mont + "-" + date1;
 		let response = await new Promise((resolve, reject) => {
 		
 			const query =
