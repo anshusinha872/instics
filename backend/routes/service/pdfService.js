@@ -36,7 +36,7 @@ let uploadDoc = async (data) => {
 					parseInt(data.totalCost),
 					data.path,
 					docStatus,
-					todaysDate,
+					today,
 					time,
 					parseInt(data.sellerId),
 				],

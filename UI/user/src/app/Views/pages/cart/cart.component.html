@@ -61,11 +61,11 @@
       <div (click)="createPayment()" class="btn">Checkout</div>
     </div> -->
     <div class="cartItemsContainer">
-      <div *ngFor="let orderGroup of cartList; index as i">
-        <div *ngIf="i == 0">
+      <div >
+        <div *ngIf="pdfListItemPresent">
           <!-- printing -->
 
-          <div *ngFor="let itemList of cartList[i]; index as j">
+          <div *ngFor="let itemList of pdfList; index as j">
             <div *ngIf="j == 0">{{ itemList.typeName }}</div>
             <div *ngIf="j != 0">
               <!-- <div class="cardHeader">Print</div> -->
@@ -112,9 +112,9 @@
             </div>
           </div>
         </div>
-        <div *ngIf="i == 1">
+        <div *ngIf="laundryListItemPresent">
           <!-- laundry -->
-          <div *ngFor="let itemList of cartList[i]; index as j">
+          <div *ngFor="let itemList of laundryList; index as j">
             <div *ngIf="j == 0" class="text-center mb-3">
               {{ itemList.typeName }}
             </div>

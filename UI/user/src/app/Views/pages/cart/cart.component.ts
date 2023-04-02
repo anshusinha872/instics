@@ -23,6 +23,10 @@ export class CartComponent implements OnInit {
   public arr = [];
   public selectedListCount: number = 0;
   public cartList = [];
+  public pdfList = [];
+  public laundryListItemPresent:Boolean = false;
+  public pdfListItemPresent:Boolean = false;
+  public laundryList = [];
   public totalCheckoutPrice = 0;
   public upiText = '';
   public showUpiField = false;
@@ -84,40 +88,79 @@ export class CartComponent implements OnInit {
     this.cartService.viewCartItem(req).subscribe((res) => {
       if (res.statusCode == 200) {
         this.toastr.successToastr('Item loaded');
-        // this.cartList.push(res.data);
+        // console.log(res.data);
         this.cartList = res.data;
-        console.log(this.cartList);
-        this.totalCheckoutPrice = 0;
-        for (let i = 0; i < this.cartList.length; i++) {
-          for(let j=0;j<this.cartList[i].length;j++){
-            if(j>0){
-              if(i==0){
-                console.log('print');
-              }
-              else if(i==1){
-                console.log('laundry');
-              }
-              // console.log(j,this.cartList[i][j])
-              for(let k=0;k<this.cartList[i][j].length;k++){
-                // console.log('i',i,'j',j,'k',k,this.cartList[i][j][k])
-                if(i==0){
-                  // console.log(this.cartList[i][j][k].totalCost)
-                  this.totalCheckoutPrice += this.cartList[i][j][k].totalCost;
-                }
-                if(i==1){
-                  if(this.cartList[i][j][k].paymentMode=='upi'){
-                    this.totalCheckoutPrice += this.cartList[i][j][k].FinalPrice;
-                  }
-                  else{
-                    this.totalCheckoutPrice += this.cartList[i][j][k].totalAmount;
-                  }
-                  // console.log(this.cartList[i][j][k].FinalPrice)
-                }
-              }
-            }
-            // this.totalCheckoutPrice += this.cartList[i][j].price;
+        console.log(this.cartList.length);
+        if(this.cartList.length==0){
+          this.toastr.errorToastr('Cart is empty');
+        }
+        else if(this.cartList.length==1){
+          console.log(this.cartList[0][0].orderType=='Laundary');
+          if(this.cartList[0][0].orderType=='Laundary'){
+            this.laundryList = this.cartList[0];
+            this.laundryListItemPresent = true;
+            console.log('only laundry is present');
+            console.log(this.laundryList);
+          }
+          else if(this.cartList[0][0].orderType=='Printing'){
+            this.pdfList = this.cartList[0];
+            this.pdfListItemPresent = true;
+            console.log('only printing is present');
+            console.log(this.pdfList);
           }
         }
+        else{
+          this.laundryListItemPresent = true;
+          this.pdfListItemPresent = true;
+          console.log('both are present');
+          this.pdfList = this.cartList[0];
+          this.laundryList = this.cartList[1];
+          console.log(this.pdfList);
+          console.log(this.laundryList);
+        }
+        for(let i=0;i<this.pdfList[1].length;i++){
+          this.totalCheckoutPrice += this.pdfList[1][i].totalCost;
+        }
+        for(let i=0;i<this.laundryList[1].length;i++){
+          console.log(this.laundryList[1][i]);
+          if(this.laundryList[1][i].paymentMode=='upi'){
+            this.totalCheckoutPrice += this.laundryList[1][i].FinalPrice;
+          }
+        }
+        // this.cartList.push(res.data);
+        // this.cartList = res.data;
+        // console.log(this.cartList);
+        // this.totalCheckoutPrice = 0;
+        // for (let i = 0; i < this.cartList.length; i++) {
+        //   for(let j=0;j<this.cartList[i].length;j++){
+        //     if(j>0){
+        //       if(i==0){
+        //         console.log('print');
+        //       }
+        //       else if(i==1){
+        //         console.log('laundry');
+        //       }
+        //       // console.log(j,this.cartList[i][j])
+        //       for(let k=0;k<this.cartList[i][j].length;k++){
+        //         // console.log('i',i,'j',j,'k',k,this.cartList[i][j][k])
+        //         if(i==0){
+        //           // console.log(this.cartList[i][j][k].totalCost)
+        //           this.totalCheckoutPrice += this.cartList[i][j][k].totalCost;
+        //         }
+        //         if(i==1){
+        //           if(this.cartList[i][j][k].paymentMode=='upi'){
+        //             this.totalCheckoutPrice += this.cartList[i][j][k].FinalPrice;
+        //           }
+        //           else{
+        //             this.totalCheckoutPrice += this.cartList[i][j][k].totalAmount;
+        //           }
+        //           // console.log(this.cartList[i][j][k].FinalPrice)
+        //         }
+        //       }
+        //     }
+        //     // this.totalCheckoutPrice += this.cartList[i][j].price;
+        //   }
+        // }
       } else {
         this.toastr.errorToastr(res.data);
         // console.log(res.message);
@@ -138,6 +181,8 @@ export class CartComponent implements OnInit {
         this.toastr.successToastr('Item deleted');
         this.cartList = [];
         this.totalCheckoutPrice = 0;
+        this.laundryListItemPresent = false;
+        this.pdfListItemPresent = false;
         this.getCartItems();
       } else {
         this.toastr.errorToastr(res.message);

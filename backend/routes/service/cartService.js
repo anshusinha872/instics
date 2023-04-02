@@ -50,8 +50,8 @@ let getCartItems = async (user_id) => {
     }
     const laundaryResponse = await new Promise((resolve, reject) => {
       const query =
-        "SELECT * FROM laundryOrderRequest WHERE user_id = ? and paymentStatus = ?;";
-      connection.query(query, [user_id, 0], (err, results) => {
+        "SELECT * FROM laundryOrderRequest WHERE user_id = ? and paymentMode = ? and paymentStatus = ?;";
+      connection.query(query, [user_id, 'upi',0], (err, results) => {
         if (err) reject(new Error(err.message));
         resolve(results);
       });
