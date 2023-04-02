@@ -1,4 +1,43 @@
 
 <nav class="navbar navbar-light navbar-shadow border-bottom">
     <div class="logo"><img src="././assets/logo.png" /></div>
+    <button type="button" class="btn btn-outline-dark logout" (click)="logout()">Logout</button>
+</nav>
+
+<nav class="navbar navbar-light navbar-shadow border-bottom">
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Filter
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item"> <span> Date:</span> 
+          <a class="dropdown-item d-flex" href="#"><input type="date" value="2023-03-01" (change)="chooseStartDate($event.target)"  class="form-control"/> <span style="display:flex; align-items: center; margin:10px;">To</span><input type="date" value="2023-03-30" (change)="chooseEndDate($event.target)"  class="form-control"/></a>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item"> <span> Completion status:</span> 
+            <div class="form-check">
+              <input  [(ngModel)]="status" class="form-check-input" type="radio"
+                name="completionStatus" id="pending" value="pending" />
+              <label class="form-check-label" for="pending"> Pending </label>
+            </div>
+            <div class="form-check">
+              <input  [(ngModel)]="status" class="form-check-input" type="radio"
+                name="completionStatus" id="completed" value="success" />
+              <label class="form-check-label" for="completed"> Success </label>
+            </div>
+            <div class="form-check">
+              <input  [(ngModel)]="status" class="form-check-input" type="radio"
+                name="completionStatus" id="both" value="failure" />
+              <label class="form-check-label" for="failure"> Failure</label>
+            </div>
+
+          </a>
+          <button type="button" class="btn btn-primary" (click)="submit()">Submit</button>
+        </div>
+     
+      </div>
+
+      <!-- <button type="button" class="btn-outline-dark" (click)="clearAllFilter()">Clear filter</button> -->
+      
+    
 </nav>
