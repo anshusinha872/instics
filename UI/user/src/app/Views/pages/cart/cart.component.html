@@ -5,15 +5,18 @@
   <div class="cartText">My Cart</div>
 </div> -->
 <div class="container-fluid m-0 p-0 row">
-
   <div class="imgContainer d-none d-md-block col-12 col-md-6">
     <img width="100%" src="assets/4702120.jpg" alt="" />
   </div>
-  <div class=" col-12 col-md-6">
-    <div class="cartItems">
-      <div id="item{{ i }}" *ngFor="let item of cartList[0]; index as i" class="items align-items-center">
-        <i class="fa fa-print"></i>
-        <div class="cartItmTxt">
+  <div class="col-12 col-md-6">
+    <!-- <div class="cartItems">
+      <div
+        id="item{{ i }}"
+        *ngFor="let item of cartList[0]; index as i"
+        class="items align-items-center"
+      >
+        <i *ngIf="item.orderType == 'Printing'" class="fa fa-print navIcon"></i>
+        <div *ngIf="item.orderType == 'Printing'" class="cartItmTxt">
           <span class="itemName">{{ item.pdfName }}</span>
           <span class="cartItmTxt2">Page : {{ item.totalPage }}</span>
           <div class="price">
@@ -22,8 +25,31 @@
             {{ item.totalCost }}
           </div>
         </div>
-      
-        <i (click)="removeItem(item.id)" class="fa-solid fa-trash-can"></i>
+
+        <i
+          *ngIf="item.orderType == 'Printing'"
+          (click)="removeItem(item.id, item.orderType)"
+          class="fa-solid fa-trash-can"
+        ></i>
+        <div class="d-flex" *ngIf="item.orderType == 'Laundary'">
+          <i class="navIcon fa-solid fa-jug-detergent"></i>
+          <div class="cartItmTxt">
+            <span class="itemName">Laundry</span>
+            <span class="cartItmTxt2"
+              >Discount : {{ item.couponDiscountAmount }}</span
+            >
+            <div class="price">
+              price :
+              <i class="fa fa-rupee"></i>
+              {{ item.FinalPrice }}
+            </div>
+          </div>
+          <i
+            *ngIf="item.orderType == 'Laundary'"
+            (click)="removeItem(item.id, item.orderType)"
+            class="fa-solid fa-trash-can"
+          ></i>
+        </div>
       </div>
     </div>
     <div class="checkoutButton">
@@ -33,15 +59,138 @@
         </p>
       </div>
       <div (click)="createPayment()" class="btn">Checkout</div>
+    </div> -->
+    <div class="cartItemsContainer">
+      <div *ngFor="let orderGroup of cartList; index as i">
+        <div *ngIf="i == 0">
+          <!-- printing -->
+
+          <div *ngFor="let itemList of cartList[i]; index as j">
+            <div *ngIf="j == 0">{{ itemList.typeName }}</div>
+            <div *ngIf="j != 0">
+              <!-- <div class="cardHeader">Print</div> -->
+              <div
+                class="card shadow mb-3 my-2"
+                *ngFor="let item of itemList; index as k"
+              >
+                <div class="card-body row">
+                  <div class="col-12 col-md-5">
+                    <div class="card-text d-flex justify-content-between">
+                      <div class="cardTextHeader">Txn Id</div>
+                      <div class="cardTextSubHeader">
+                        {{ item.pdfOrderRequestTxnId }}
+                      </div>
+                    </div>
+                    <div class="card-text d-flex justify-content-between">
+                      <div class="cardTextHeader">Pdf Name</div>
+                      <div class="cardTextSubHeader">
+                        {{ item.pdfName }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-5">
+                    <div class="card-text d-flex justify-content-between">
+                      <div class="cardTextHeader">Total Page</div>
+                      <div class="cardTextSubHeader">
+                        {{ item.totalPage }}
+                      </div>
+                    </div>
+                    <div class="card-text d-flex justify-content-between">
+                      <div class="cardTextHeader">Total Amount</div>
+                      <div class="cardTextSubHeader">
+                        {{ item.totalCost|currency:'INR' }}
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="col-12 col-md-2 d-flex justify-content-center align-items-center"
+                  >
+                    <button (click)="removeItem(item.orderType,item.pdfOrderRequestTxnId)" type="button" class="btn btn-danger">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="i == 1">
+          <!-- laundry -->
+          <div *ngFor="let itemList of cartList[i]; index as j">
+            <div *ngIf="j == 0" class="text-center mb-3">
+              {{ itemList.typeName }}
+            </div>
+            <div *ngIf="j != 0" class="">
+              <div
+                class="card shadow mb-3"
+                *ngFor="let item of itemList; index as k"
+              >
+                <div class="card-body row">
+                  <div class="col-12 col-md-5">
+                    <div class="card-text d-flex justify-content-between">
+                      <div class="cardTextHeader">Txn Id</div>
+                      <div class="cardTextSubHeader">
+                        {{ item.laundryOrderRequestTxnId }}
+                      </div>
+                    </div>
+                    <div class="card-text d-flex justify-content-between">
+                      <div class="cardTextHeader">Payment Mode</div>
+                      <div class="cardTextSubHeader">
+                        {{item.paymentMode}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-5">
+                    <div class="card-text d-flex justify-content-between">
+                      <div class="cardTextHeader">Total Amount</div>
+                      <div class="cardTextSubHeader">
+                        {{ item.totalAmount|currency:'INR'  }}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div *ngIf="item.paymentMode=='upi'" class="col-12 col-md-6 ">
+                    <div class="card-text col-12 d-flex justify-content-between">
+                      <div class="cardTextHeader">couponCode</div>
+                      <div class="cardTextSubHeader">
+                        {{item.couponCode}}
+                      </div>
+                    </div>
+                    <div class="card-text col-12  d-flex justify-content-between">
+                      <div class="cardTextHeader">Discount</div>
+                      <div class="cardTextSubHeader">
+                        {{item.couponDiscountAmount|currency:'INR'  }}
+                      </div>
+                    </div>
+                    <div class="card-text col-12 d-flex justify-content-between">
+                      <div class="cardTextHeader">Final Amount</div>
+                      <div class="cardTextSubHeader">
+                        {{item.FinalPrice|currency:'INR'  }}
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="col-12 col-md-2 d-flex justify-content-center align-items-center"
+                  >
+                    <button (click)="removeItem(item.orderType,item.laundryOrderRequestTxnId)" type="button" class="btn btn-danger">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="checkOutButtonContainer row d-flex justify-content-end">
+        <div class="checkOutButton col-12 col-md-6 d-flex align-items-center justify-content-between">
+          <div class="checkOutButtonPrice">
+            <p>
+              <i class="fa fa-rupee"></i> {{ totalCheckoutPrice }}
+            </p>
+          </div>
+          <div class="checkOutButtonBtn">
+            <button type="button" class="btn btn-primary">Checkout</button>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    
   </div>
-  
-  <!-- <div class="promoCode">
-    <input type="text" name="promo" placeholder="Have a promo code?" />
-    <button type="button">APPLY</button>
-  </div> -->
-  
-  
 </div>

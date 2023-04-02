@@ -84,23 +84,54 @@ export class CartComponent implements OnInit {
     this.cartService.viewCartItem(req).subscribe((res) => {
       if (res.statusCode == 200) {
         this.toastr.successToastr('Item loaded');
-        this.cartList.push(res.data);
-        for (let i = 0; i < this.cartList[0].length; i++) {
-          this.totalCheckoutPrice += this.cartList[0][i].totalCost;
+        // this.cartList.push(res.data);
+        this.cartList = res.data;
+        console.log(this.cartList);
+        this.totalCheckoutPrice = 0;
+        for (let i = 0; i < this.cartList.length; i++) {
+          for(let j=0;j<this.cartList[i].length;j++){
+            if(j>0){
+              if(i==0){
+                console.log('print');
+              }
+              else if(i==1){
+                console.log('laundry');
+              }
+              // console.log(j,this.cartList[i][j])
+              for(let k=0;k<this.cartList[i][j].length;k++){
+                // console.log('i',i,'j',j,'k',k,this.cartList[i][j][k])
+                if(i==0){
+                  // console.log(this.cartList[i][j][k].totalCost)
+                  this.totalCheckoutPrice += this.cartList[i][j][k].totalCost;
+                }
+                if(i==1){
+                  if(this.cartList[i][j][k].paymentMode=='upi'){
+                    this.totalCheckoutPrice += this.cartList[i][j][k].FinalPrice;
+                  }
+                  else{
+                    this.totalCheckoutPrice += this.cartList[i][j][k].totalAmount;
+                  }
+                  // console.log(this.cartList[i][j][k].FinalPrice)
+                }
+              }
+            }
+            // this.totalCheckoutPrice += this.cartList[i][j].price;
+          }
         }
-        // console.log(this.cartList);
       } else {
         this.toastr.errorToastr(res.data);
         // console.log(res.message);
       }
     });
   }
-  removeItem(item) {
+  removeItem(itemType,item) {
     const user_id = this.sessionService.get('user_id');
     const req = {
       user_id: user_id,
       item_id: item,
+      item_type: itemType,
     };
+    console.log(req);
     this.cartService.deleteCartItem(req).subscribe((res) => {
       // console.log(res);
       if (res.statusCode == 200) {

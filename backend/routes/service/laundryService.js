@@ -4,6 +4,7 @@ const util = require("util");
 const mysql = require("mysql");
 const { time } = require("console");
 const userService = require("../service/userService");
+const { response } = require("express");
 const resultdb = (statusCode, data = null) => {
   return {
     statusCode: statusCode,
@@ -185,66 +186,22 @@ let deleteClothType = async (data) => {
 };
 let placeLaundryOrder = async (data) => {
   try {
-    var connection = config.connection;
-    let response = await new Promise((resolve, reject) => {
-      const query = "SELECT * FROM laundry_order_request";
-      connection.query(query, [data], (err, results) => {
-        if (err) reject(new Error(err.message));
-        resolve(results);
-      });
-    });
-    const userId = parseInt(data.userId, 10);
-    console.log(197, userId);
+    const userId = parseInt(data.userId);
     let userData = await userService.userDataByUserId(userId);
-    // userData= userData.data;
     const customer_name =
       userData.data[0].firstName + " " + userData.data[0].lastName;
     const customer_email = userData.data[0].email_id;
     const customer_mobile = userData.data[0].contact;
     const latitude = data.latitude.toString();
     const longitude = data.longitude.toString();
-    console.log("userData", userData.data[0]);
-    console.log("customer_name", customer_name);
-    console.log("customer_email", customer_email);
-    console.log("customer_mobile", customer_mobile);
-    let length = response.length + 1;
-    length = length.toString();
-    console.log("string length", length);
-    const transactionId = "LS" + length;
-    console.log(transactionId);
-    //
-    for (let i = 0; i < data.clothes.length; i++) {
-      // console.log(data.clothes[i]);
-      response = await new Promise((resolve, reject) => {
-        const query =
-          "INSERT INTO laundryOrderItemRecords (user_id,client_txn_id,clothType,clothTypeSection,quantity,amount) VALUES (?,?,?,?,?,?)";
-        connection.query(
-          query,
-          [
-            userId,
-            transactionId,
-            data.clothes[i].typeName,
-            data.clothes[i].clothSectionName,
-            data.clothes[i].quantity,
-            data.clothes[i].price,
-          ],
-          (err, results) => {
-            if (err) reject(new Error(err.message));
-            resolve(results);
-          }
-        );
-      });
-    }
-    //
     const order_info = "Laundry Order";
-    // let totalPriceCal = data.totalPrice.toString();
-    response = await new Promise((resolve, reject) => {
+    var connection = config.connection;
+    let response = await new Promise((resolve, reject) => {
       const query =
-        "INSERT INTO laundry_order_request (client_txn_id,amount,order_info,customer_name,customer_email,customer_mobile,status,address,latitude,longitude,user_id,paymentMode,paymentStatus,couponCode,couponDiscount,finalAmountAfterDiscount) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        "INSERT INTO laundryOrderRequest (amount,order_info,customer_name,customer_email,customer_mobile,status,address,latitude,longitude,user_id,paymentMode,paymentStatus,couponCode,couponDiscount,finalAmountAfterDiscount) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
       connection.query(
         query,
         [
-          transactionId,
           data.totalPrice,
           order_info,
           customer_name,
@@ -267,6 +224,38 @@ let placeLaundryOrder = async (data) => {
         }
       );
     });
+    const insertId = response.insertId;
+    let transactionId = insertId;
+    transactionId = "LS" + transactionId;
+    let updateResponse = await new Promise((resolve, reject) => {
+      const query =
+        "UPDATE laundryOrderRequest SET laundryOrderRequestTxnId = ? WHERE id = ?";
+      connection.query(query, [transactionId, insertId], (err, results) => {
+        if (err) reject(new Error(err.message));
+        resolve(results);
+      });
+    });
+    for (let i = 0; i < data.clothes.length; i++) {
+      response = await new Promise((resolve, reject) => {
+        const query =
+          "INSERT INTO laundryOrderItemRecords (user_id,laundryOrderRequestTxnId,clothType,clothTypeSection,quantity,amount) VALUES (?,?,?,?,?,?)";
+        connection.query(
+          query,
+          [
+            userId,
+            transactionId,
+            data.clothes[i].typeName,
+            data.clothes[i].clothSectionName,
+            data.clothes[i].quantity,
+            data.clothes[i].price,
+          ],
+          (err, results) => {
+            if (err) reject(new Error(err.message));
+            resolve(results);
+          }
+        );
+      });
+    }
     return resultdb(200, transactionId);
   } catch (err) {
     console.log(err);
@@ -278,18 +267,19 @@ let getOrderDetailsByUserId = async (userId) => {
     let returnData = [];
     var connection = config.connection;
     const response = await new Promise((resolve, reject) => {
-      const query = "SELECT * FROM laundry_order_request WHERE user_id = ? ";
-      connection.query(query,[userId] ,(err, results) => {
+      const query =
+        "SELECT * FROM laundryOrderRequest WHERE user_id = ? ORDER BY id DESC";
+      connection.query(query, [userId], (err, results) => {
         if (err) reject(new Error(err.message));
         resolve(results);
       });
     });
-    console.log('laundry order history', response);
+    console.log("laundry order history", response);
     console.log(response.length);
-    for(let i=0;i<response.length;i++){
-      let orderDetails=[];
-      let orderInfo ={
-        client_txn_id: response[i].client_txn_id,
+    for (let i = 0; i < response.length; i++) {
+      let orderDetails = [];
+      let orderInfo = {
+        laundryOrderRequestTxnId: response[i].laundryOrderRequestTxnId,
         amount: response[i].amount,
         order_info: response[i].order_info,
         customer_name: response[i].customer_name,
@@ -305,19 +295,24 @@ let getOrderDetailsByUserId = async (userId) => {
       orderDetails.push(orderInfo);
       let orderItems = [];
       let orderListItemResponse = await new Promise((resolve, reject) => {
-        const query = "SELECT * FROM laundryOrderItemRecords WHERE client_txn_id = ? ";
-        connection.query(query,[response[i].client_txn_id] ,(err, results) => {
-          if (err) reject(new Error(err.message));
-          resolve(results);
-        });
+        const query =
+          "SELECT * FROM laundryOrderItemRecords WHERE laundryOrderRequestTxnId = ? ";
+        connection.query(
+          query,
+          [response[i].laundryOrderRequestTxnId],
+          (err, results) => {
+            if (err) reject(new Error(err.message));
+            resolve(results);
+          }
+        );
       });
-      for(let j=0;j<orderListItemResponse.length;j++){
+      for (let j = 0; j < orderListItemResponse.length; j++) {
         let orderListItem = {
           clothType: orderListItemResponse[j].clothType,
           clothTypeSection: orderListItemResponse[j].clothTypeSection,
           quantity: orderListItemResponse[j].quantity,
           amount: orderListItemResponse[j].amount,
-        }
+        };
         orderItems.push(orderListItem);
       }
       orderDetails.push(orderItems);

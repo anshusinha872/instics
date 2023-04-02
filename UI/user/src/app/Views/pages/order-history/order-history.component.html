@@ -15,7 +15,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-pdf let-columns="columns">
       <tr>
-        <td><span class="p-column-title">Id</span>{{ pdf.id }}</td>
+        <td><span class="p-column-title">Id</span>{{ pdf.pdfOrderRequestTxnId }}</td>
         <td><span class="p-column-title">PDF Name</span>{{ pdf.pdfName }}</td>
         <td>
           <span class="p-column-title">Doc Type</span
@@ -103,7 +103,7 @@
       </thead>
       <tbody>
         <tr class="" *ngFor="let item of laundryOrderDetails; index as i">
-          <td>{{ laundryOrderDetails[i][0].client_txn_id }}</td>
+          <td>{{ laundryOrderDetails[i][0].laundryOrderRequestTxnId }}</td>
           <td>{{ laundryOrderDetails[i][0].amount }}</td>
           <!-- <td>{{ laundryOrderDetails[i][0].customer_email }}</td> -->
           <!-- <td>{{ laundryOrderDetails[i][0].customer_mobile }}</td> -->
@@ -116,7 +116,7 @@
           <td>{{ laundryOrderDetails[i][0].couponDiscount }}</td>
           <td>{{ laundryOrderDetails[i][0].paymentMode }}</td>
           <td>{{ laundryOrderDetails[i][0].finalAmountAfterDiscount }}</td>
-          
+
           <td>
             <!-- <button (click)="showtable(i)">show</button> -->
             <p-button

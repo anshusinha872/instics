@@ -92,5 +92,5 @@ router.get('/laundry/showAllClothType',showClothType);
 router.post('/laundry/deleteSection',deleteSection);
 router.post('/laundry/deleteClothType',deleteClothType);
 router.post('/laundry/placeOrder',placeLaundryOrder);
-router.post('/laundry/getOrderDetails',getOrderDetailsByUserId)
+router.post('/laundry/getOrderDetails',getOrderDetailsByUserId);
 module.exports = router;

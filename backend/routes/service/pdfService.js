@@ -16,12 +16,13 @@ let uploadDoc = async (data) => {
 		var hrs= today.getHours();
 		var sec = today.getMinutes();
 		var time = hrs + ":" + sec ;
-		var tableName = "printDocTable";
+		var tableName = "printDocRecordTable";
 		var connection = config.connection;
-		const response = await new Promise((resolve, reject) => {
+		// let pdfOrderRequestTxnId = await getPdfOrderRequestTxnId();
+		let response = await new Promise((resolve, reject) => {
 		
 			const query =
-				"INSERT INTO " + tableName+ " (user_id,pdfName,docType,colorMode,printRange,totalPage,totalCost,path,docStatus,date,time,sellerId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+				"INSERT INTO " + tableName + " (user_id,pdfName,docType,colorMode,printRange,totalPage,totalCost,path,docStatus,date,time,sellerId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
 			console.log(query);
 				connection.query(
 				query,
@@ -45,12 +46,84 @@ let uploadDoc = async (data) => {
 				}
 			);
 		});
+		let pdfOrderRequestTxnId = response.insertId;
+		pdfOrderRequestTxnId = 'PS'+pdfOrderRequestTxnId;
+		let updatePdfInsertId = await new Promise((resolve, reject) => {
+			const query = "UPDATE " + tableName + " SET pdfOrderRequestTxnId = ? WHERE id = ?;";
+			connection.query(query, [pdfOrderRequestTxnId, response.insertId], (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		if(response.affectedRows > 0){
+			console.log('response',response);
+			let pdfInsertId = response.insertId;
+			let pdfOrderRequest = await pdfOrderRequestFun(data,pdfOrderRequestTxnId,pdfInsertId,today,time);
+			if(pdfOrderRequest.statusCode == 200){
+				return resultdb(200, 'Added to Cart');
+			}
+			else{
+				return resultdb(500, 'Error in adding to cart');
+			}
+		}
 		return resultdb(200, 'Added to Cart');
 	} catch (err) {
 		console.log(err);
 		return resultdb(500, err);
 	}
+	finally{
+		console.log(connection.state);
+		// connection.destroy();
+		// console.log(connection.length);
+		// for(let i=0;i<connection.length;i++){
+		// 	connection[i].destroy();
+		// }
+		console.log(connection.state);
+	}
 };
+// let getPdfOrderRequestTxnId = async (data) => {
+// 	try{
+// 		var connection = config.connection;
+// 		const response = await new Promise((resolve, reject) => {
+// 			const query = "select * from pdfOrderRequest;";
+// 			connection.query(query,(err, results) => {
+// 				if (err) reject(new Error(err.message));
+// 				resolve(results);
+// 			});
+// 		});
+// 		console.log(connection.state);
+// 		let txnId = 'PS'+(response.length+1);
+// 		return txnId;
+// 	}
+// 	catch(err){
+// 		console.log(err);
+// 		return resultdb(500, err);
+// 	}
+// 	// finally{
+// 	// 	connection.end();
+// 	// }
+// };
+let pdfOrderRequestFun = async (data,paymentRequestTxnId,pdfInsertId,today,time) => {
+	try{
+		var connection = config.connection;
+		console.log(data);
+		const response = await new Promise((resolve, reject) => {
+			const query = "INSERT INTO pdfOrderRequest (pdfOrderRequestTxnId,amount,customer_name,customer_email,customer_mobile,redirect_url,payment_url,user_id,pdf_id_array,payment_status,pdfName,docType,colorMode,printRange,totalPage,docStatus,path,date,time,sellerId,totalCost) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			connection.query(query, [paymentRequestTxnId,parseInt(data.totalCost),'Anshu','anshusina872@gmail.com','8292009935','redirectUrl','paymentUrl',parseInt(data.user_id),pdfInsertId,'pending',data.pdfName,parseInt(data.selectedDocumentType),parseInt(data.colorMode),data.range,parseInt(data.totalPage),0,data.path,today,time,parseInt(data.sellerId),parseInt(data.totalCost)],(err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		return resultdb(200, 'Added to Cart');
+	}
+	catch(err){
+		console.log(err);
+		return resultdb(500, err);
+	}
+	// finally{
+	// 	connection.end();
+	// }
+}
 let sellerprint = async (data) => {
 	console.log('userData');
 	console.log(data.body);
@@ -188,20 +261,22 @@ let getUserPDF = async (data) => {
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
 			const query =
-				"select * from printDocTable WHERE user_id = ? ORDER BY id DESC;";
-
+				"select * from pdfOrderRequest WHERE user_id = ? ORDER BY id DESC;";
 			connection.query(query,[data], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});
 		});
-
+		// console.log('response',response);
+		// console.log('response.length',response.length);
 		if (response.length > 0) {
 			let returnData = [];
 			for (let i = 0; i < response.length; i++) {
 				let item = response[i];
-				// console.log('item', item);
+				// console.log('item',item);
+				// console.log('itemId',item.time);
 				let resData = {
+					pdfOrderRequestTxnId: item.pdfOrderRequestTxnId,
 					id: item.id,
 					user_id: item.user_id,
 					pdfName: item.pdfName,
@@ -217,14 +292,14 @@ let getUserPDF = async (data) => {
 					// image: await convertImage(item.filePath),
 					date : item.date,
 					time : item.time,
-					sellerId: sellerId,
+					sellerId: item.sellerId,
 				};
-
+				// console.log('response '+i+resData);
 				if (resData.pdfPresent == true) {
 					returnData.push(resData);
 				}
 			}
-
+			console.log('returnData',returnData);
 			// console.log(data);
 			return resultdb(200, returnData);
 		}
@@ -269,4 +344,5 @@ module.exports = {
 	getPdfById,
 	getUserPDF,
 	loginsellerByUsername,
+	// getPdfOrderRequestTxnId
 };

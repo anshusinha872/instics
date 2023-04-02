@@ -13,7 +13,7 @@ let getOrderHistory = async (user_id) => {
 	try {
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
-			const query = 'SELECT * FROM printDocTable WHERE user_id = ?;';
+			const query = 'SELECT * FROM pdfOrderRequest WHERE user_id = ?;';
 			connection.query(query,[user_id], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);

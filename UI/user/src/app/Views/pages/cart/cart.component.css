@@ -6,7 +6,7 @@ p{
     width: 100%;
     height: 70px;
     display: inline-flex;
-    
+
 }
 .cartItems{
     /* width: 100%; */
@@ -20,7 +20,7 @@ p{
     width: 100%;
     height: 102px;
     bottom: 230px;
-  
+
     display: inline-flex;
 }
 .promoCode > input{
@@ -52,7 +52,7 @@ p{
     height: 130px;
     bottom: 100px;
     font-weight: bold;
-    
+
 }
 
 .alligner{
@@ -60,26 +60,26 @@ p{
     width: 100%;
 }
 .rightBillTxt{
-   
+
     margin-left: 30px;
 
     width: 40%;
     height: 30px;
 }
 .leftBillTxt{
-    
+
     margin-left: 20px;
-   
+
     width: 40%;
     height: 30px;
-    
+
 }
 .checkoutButton{
     width: 100%;
     height: 80px;
     bottom: 20px;
     border-radius: 5px;
-   
+
 }
 
 .backBtn{
@@ -97,8 +97,22 @@ p{
     margin-left: 10px;
     font-weight: bold;
 }
+.cardTextHeader{
+  font-size: 1.1rem;
+  /* font-family: 'Roboto', sans-serif; */
+  letter-spacing: 1px;
+}
+.cardTextSubHeader{
+  font-size: 0.9rem;
+  /* font-family: 'Roboto', sans-serif; */
+  letter-spacing: 1px;
+  color: #9c9191;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .removeItemTxt{
-    
+
     margin-left: 80px !important;
     margin-top: 22px;
     width: auto;
@@ -107,18 +121,19 @@ p{
     font-weight: bold;
 }
 
-.fa-print{
+.navIcon{
     font-size: 55px;
     margin: 15px;
     margin-top: 22px;
-    
+
 }
+
 .itemName{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 200px;   
-    
+    width: 200px;
+
 }
 .cartItmTxt{
     font-weight: bold;
@@ -149,7 +164,7 @@ p{
     margin-left: 3px;
     margin-right: 3px;
     margin-top: 10px;
-    
+
 }
 
 .fa-plus{
@@ -184,7 +199,7 @@ p{
     font-weight: bold;
     font-size: 18px;
 }
-.btn{
+/* .btn{
     width: 100px;
     height: 48px;
     background-color: #000;
@@ -194,7 +209,7 @@ p{
     font-weight: bold;
     margin-top: 15px;
 
-}
+} */
 .selectedList{
     background-color: blue;
 }
@@ -217,6 +232,24 @@ p{
     align-items: center;
     /* justify-content: space-between; */
 }
+.card {
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+} */
+
+/* .btn-primary:hover {
+  background-color: #0062cc;
+  border-color: #0062cc;
+} */
 @media screen and (max-width: 576px) {
     .cartItems{
         /* height: 730px !important; */
