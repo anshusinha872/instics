@@ -194,20 +194,46 @@ export class CartComponent implements OnInit {
     this.Location.back();
   }
   createPayment() {
-    // console.log('createPayment');
-    let pendingPdfId = [];
-    for (let i = 0; i < this.cartList[0].length; i++) {
-      pendingPdfId.push(this.cartList[0][i].id);
+    console.log('createPayment');
+    console.log(this.pdfListItemPresent);
+    console.log(this.laundryListItemPresent);
+    let pdfOrderRequestTxnIdList = [];
+    let laundryOrderRequestTxnIdList = [];
+    if(this.pdfListItemPresent==true){
+      for(let i=0;i<this.pdfList[1].length;i++){
+        pdfOrderRequestTxnIdList.push(this.pdfList[1][i].pdfOrderRequestTxnId);
+      }
     }
+    if(this.laundryListItemPresent==true){
+      for(let i=0;i<this.laundryList[1].length;i++){
+        laundryOrderRequestTxnIdList.push(this.laundryList[1][i].laundryOrderRequestTxnId);
+      }
+    }
+    console.log(pdfOrderRequestTxnIdList);
+    console.log(laundryOrderRequestTxnIdList);
+    let paymentInfo='';
+    if(this.pdfListItemPresent==true && this.laundryListItemPresent==true){
+      paymentInfo='print and laundry';
+    }
+    else if(this.pdfListItemPresent==true && this.laundryListItemPresent==false){
+      paymentInfo='print';
+    }
+    else if(this.pdfListItemPresent==false && this.laundryListItemPresent==true){
+      paymentInfo='laundry';
+    }
+
     const req = {
       user_id: this.sessionService.get('user_id'),
       amount: this.totalCheckoutPrice,
-      p_info: 'print',
-      pdf_id:pendingPdfId,
+      p_info: paymentInfo,
+      pdfPresent: this.pdfListItemPresent,
+      laundryPresent: this.laundryListItemPresent,
+      pdfOrderRequestTxnIdList: pdfOrderRequestTxnIdList,
+      laundryOrderRequestTxnIdList: laundryOrderRequestTxnIdList,
     };
-    // console.log(pendingPdfId);
-    this.sessionService.set('pendingPdfId', pendingPdfId);
-    this.sessionService.set('totalCheckoutPrice', this.totalCheckoutPrice);
+    console.log(req);
+    // this.sessionService.set('pendingPdfId', pendingPdfId);
+    // this.sessionService.set('totalCheckoutPrice', this.totalCheckoutPrice);
     this.sessionService.set('txn_date', this.changedDate);
     this.paymentService.createPayment(req).subscribe((res) => {
       if (res[0].status == true) {

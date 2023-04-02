@@ -94,16 +94,16 @@ let orderId = async () => {
   try {
     var connection = config.connection;
     const response = await new Promise((resolve, reject) => {
-      const query = "SELECT * FROM payment_order_request;";
+      const query = "SELECT * FROM paymentOrderRequest;";
       connection.query(query, (err, results) => {
         if (err) reject(new Error(err.message));
         resolve(results);
       });
     });
-    let orderId = 1000 + response.length + 1;
-    orderId = "PS" + orderId;
+    let orderId = response.length + 1;
+    orderId = "TestS14" + orderId;
     console.log(orderId);
-    return resultdb(200, orderId);
+    return orderId;
   } catch (err) {
     console.log(err);
     return resultdb(500, err);

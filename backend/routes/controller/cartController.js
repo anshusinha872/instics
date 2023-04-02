@@ -20,32 +20,28 @@ async function getCartItems(req, res) {
   }
 }
 async function createOrder(req, res) {
-  // console.log(req.body.amount);
-  const num = req.body.amount;
-  let amount = num.toString();
-  // console.log('here', req.body.pdf_id);
-  let pdf_id = JSON.stringify(req.body.pdf_id);
-  // console.log('here2',pdf_id);
+  // console.log('reqBody',req.body);
+  let amountVar = req.body.amount;
+  amountVar = amountVar.toString();
   const user_id = req.body.user_id;
-  // console.log(user_id);
   let userdata = await userService.userDataByUserId(user_id);
-  // console.log(userdata.data[0]);
-  let order_id = await cartService.orderId();
-  // console.log(order_id);
+  let txnId = await cartService.orderId();
   var axios = require("axios");
-  // console.log(req.body.amount);
-  // console.log(userdata);
   var data = JSON.stringify({
     key: secretKey,
-    client_txn_id: order_id.data,
-    amount: amount,
+    pdfPresent:req.body.pdfPresent,
+    laundryPresent:req.body.laundryPresent,
+    pdfOrderRequestTxnIdList:req.body.pdfOrderRequestTxnIdList,
+    laundryOrderRequestTxnIdList:req.body.laundryOrderRequestTxnIdList,
+    client_txn_id: txnId,
+    amount: amountVar,
+    userId:req.body.user_id,
     p_info: req.body.p_info,
     customer_name: userdata.data[0].firstName + " " + userdata.data[0].lastName,
     customer_email: userdata.data[0].email_id,
     customer_mobile: userdata.data[0].contact.toString(),
     redirect_url: "https://instincts.co.in/dashboard/paymentVerification",
   });
-  console.log(data);
   var config = {
     method: "post",
     maxBodyLength: Infinity,
@@ -58,14 +54,9 @@ async function createOrder(req, res) {
 
   axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      let response_data = [];
-      response_data.push(response.data);
-      let newData = JSON.parse(data);
-      response_data.push(newData);
-      response_data.push(user_id);
-      paymentService.recordPaymentRequest(response.data, data, user_id, pdf_id);
-      return res.status(200).json(response_data);
+      // console.log(JSON.stringify(response.data));
+      paymentService.recordPaymentRequest(response.data, data);
+      return res.status(200).json(response.data);
     })
     .catch(function (error) {
       console.log(error);
