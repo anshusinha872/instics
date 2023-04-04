@@ -8,7 +8,8 @@ const resultdb = (statusCode, data = null) => {
     data: data,
   };
 };
-let paymentDetails = async (req) => {
+let updatePaymentStatus = async (req) => {
+  console.log("webhook response", req.body);
   const id = req.body.id;
   const customer_vpa = req.body.customer_vpa;
   const amount = req.body.amount;
@@ -19,6 +20,7 @@ let paymentDetails = async (req) => {
   const p_info = req.body.p_info;
   const upi_txn_id = req.body.upi_txn_id;
   const status = req.body.status;
+  // const payment_status = req.body.status == "success" ? "1" : "0";
   const remark = req.body.remark;
   const udf1 = req.body.udf1;
   const udf2 = req.body.udf2;
@@ -30,7 +32,7 @@ let paymentDetails = async (req) => {
     var connection = config.connection;
     const response = await new Promise((resolve, reject) => {
       const query =
-        "INSERT INTO payment_records (id,customer_vpa,amount,customer_name,customer_email,customer_mobile,p_info,upi_txn_id,status,remark,udf1,udf2,udf3,redirect_url,txnAt,createdAt,client_txn_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ;";
+        "INSERT INTO paymentRecords (id,customer_vpa,amount,customer_name,customer_email,customer_mobile,p_info,upi_txn_id,status,remark,udf1,udf2,udf3,redirect_url,txnAt,createdAt,client_txn_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ;";
       connection.query(
         query,
         [
@@ -58,7 +60,79 @@ let paymentDetails = async (req) => {
         }
       );
     });
-    console.log(response);
+
+    // update payment status in paymentOrderRequest table
+    const updatePaymentRequestResponse = await new Promise(
+      (resolve, reject) => {
+        const query =
+          "UPDATE paymentOrderRequest SET payment_status = ? WHERE txnId = ?;";
+        connection.query(query, [status, client_txn_id], (err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
+        });
+      }
+    );
+    // update payment status in all serviceorder request table
+    const serviceListResponse = await new Promise((resolve, reject) => {
+      const query = "SELECT * FROM paymentOrderRequest WHERE txnId = ?;";
+      connection.query(query, [client_txn_id], (err, results) => {
+        if (err) reject(new Error(err.message));
+        resolve(results);
+      });
+    });
+    if (serviceListResponse.length > 0) {
+      // console.log("serviceListResponse", serviceListResponse[0]);
+      const printPayment = serviceListResponse[0].printPayment;
+      const printPaymentTxnIdList = serviceListResponse[0].printPaymentTxnId;
+      console.log("printPaymentTxnIdList", printPaymentTxnIdList);
+      const laundryPayment = serviceListResponse[0].laundryPayment;
+      const laundryPaymentTxnIdList =
+        serviceListResponse[0].laundryPaymentTxnId;
+      console.log("laundryPaymentTxnIdList", laundryPaymentTxnIdList);
+      if (printPayment == 1) {
+        const printPaymentTxnIdArray = printPaymentTxnIdList.split(",");
+        for (let i = 0; i < printPaymentTxnIdArray.length; i++) {
+          const printPaymentTxnId = printPaymentTxnIdArray[i];
+          console.log("printPaymentTxnId", printPaymentTxnId);
+          var connection = config.connection;
+          const updatePrintPaymentStatusResponse = await new Promise(
+            (resolve, reject) => {
+              const query =
+                "UPDATE pdfOrderRequest SET payment_status = ?, paymentRequestTxnId = ? WHERE pdfOrderRequestTxnId = ?;";
+              connection.query(
+                query,
+                [status, client_txn_id, printPaymentTxnId],
+                (err, results) => {
+                  if (err) reject(new Error(err.message));
+                  resolve(results);
+                }
+              );
+            }
+          );
+        }
+      }
+      if (laundryPayment == 1) {
+        const laundryPaymentTxnIdArray = laundryPaymentTxnIdList.split(",");
+        for (let i = 0; i < laundryPaymentTxnIdArray.length; i++) {
+          const laundryPaymentTxnId = laundryPaymentTxnIdArray[i];
+          const updateLaundryPaymentStatusResponse = await new Promise(
+            (resolve, reject) => {
+              const query =
+                "UPDATE laundryOrderRequest SET paymentStatus = ?, paymentRequestTxnId = ? WHERE laundryOrderRequestTxnId = ?;";
+              connection.query(
+                query,
+                [status, client_txn_id, laundryPaymentTxnId],
+                (err, results) => {
+                  if (err) reject(new Error(err.message));
+                  resolve(results);
+                }
+              );
+            }
+          );
+        }
+      }
+    }
+    // console.log(response);
     return resultdb(200, response);
   } catch (err) {
     console.log(err);
@@ -79,9 +153,9 @@ let recordPaymentRequest = async (responseData, data) => {
   const customer_mobile = dataRecord.customer_mobile;
   const redirect_url = dataRecord.redirect_url;
   const payment_url = responseDataRecord.data.payment_url;
-  const pdfPresent = dataRecord.pdfPresent==false?0:1;
+  const pdfPresent = dataRecord.pdfPresent == false ? 0 : 1;
   const pdfOrderRequestTxnIdList = dataRecord.pdfOrderRequestTxnIdList;
-  const laundryPresent = dataRecord.laundryPresent==false?0:1;
+  const laundryPresent = dataRecord.laundryPresent == false ? 0 : 1;
   const laundryOrderRequestTxnIdList = dataRecord.laundryOrderRequestTxnIdList;
   try {
     var connection = config.connection;
@@ -217,7 +291,7 @@ let getPaymentHistory = async (user_id) => {
     var connection = config.connection;
     const response = await new Promise((resolve, reject) => {
       const query =
-        "SELECT * FROM payment_order_request WHERE user_id = ? ORDER BY id DESC;";
+        "SELECT * FROM paymentOrderRequest WHERE user_id = ? ORDER BY id DESC;";
       connection.query(query, [user_id], (err, results) => {
         if (err) reject(new Error(err.message));
         resolve(results);
@@ -230,12 +304,94 @@ let getPaymentHistory = async (user_id) => {
     return resultdb(500, err);
   }
 };
+let manualUpdatePaymentRecords = async (data) => {
+  try {
+    var connection = config.connection;
+    const response = await new Promise((resolve, reject) => {
+      const query =
+        "UPDATE paymentOrderRequest SET payment_status = ? WHERE txnId = ?;";
+      connection.query(
+        query,
+        [data.status, data.client_txn_id],
+        (err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
+        }
+      );
+    });
+    // update payment status in all serviceorder request table
+    const serviceListResponse = await new Promise((resolve, reject) => {
+      const query = "SELECT * FROM paymentOrderRequest WHERE txnId = ?;";
+      connection.query(query, [data.client_txn_id], (err, results) => {
+        if (err) reject(new Error(err.message));
+        resolve(results);
+      });
+    });
+    if (serviceListResponse.length > 0) {
+      // console.log("serviceListResponse", serviceListResponse[0]);
+      const printPayment = serviceListResponse[0].printPayment;
+      const printPaymentTxnIdList = serviceListResponse[0].printPaymentTxnId;
+      console.log("printPaymentTxnIdList", printPaymentTxnIdList);
+      const laundryPayment = serviceListResponse[0].laundryPayment;
+      const laundryPaymentTxnIdList =
+        serviceListResponse[0].laundryPaymentTxnId;
+      console.log("laundryPaymentTxnIdList", laundryPaymentTxnIdList);
+      if (printPayment == 1) {
+        const printPaymentTxnIdArray = printPaymentTxnIdList.split(",");
+        for (let i = 0; i < printPaymentTxnIdArray.length; i++) {
+          const printPaymentTxnId = printPaymentTxnIdArray[i];
+          console.log("printPaymentTxnId", printPaymentTxnId);
+          var connection = config.connection;
+          const updatePrintPaymentStatusResponse = await new Promise(
+            (resolve, reject) => {
+              const query =
+                "UPDATE pdfOrderRequest SET payment_status = ?, paymentRequestTxnId = ? WHERE pdfOrderRequestTxnId = ?;";
+              connection.query(
+                query,
+                [data.status, data.client_txn_id, printPaymentTxnId],
+                (err, results) => {
+                  if (err) reject(new Error(err.message));
+                  resolve(results);
+                }
+              );
+            }
+          );
+        }
+      }
+      if (laundryPayment == 1) {
+        const laundryPaymentTxnIdArray = laundryPaymentTxnIdList.split(",");
+        for (let i = 0; i < laundryPaymentTxnIdArray.length; i++) {
+          const laundryPaymentTxnId = laundryPaymentTxnIdArray[i];
+          const updateLaundryPaymentStatusResponse = await new Promise(
+            (resolve, reject) => {
+              const query =
+                "UPDATE laundryOrderRequest SET paymentStatus = ?, paymentRequestTxnId = ? WHERE laundryOrderRequestTxnId = ?;";
+              connection.query(
+                query,
+                [data.status, data.client_txn_id, laundryPaymentTxnId],
+                (err, results) => {
+                  if (err) reject(new Error(err.message));
+                  resolve(results);
+                }
+              );
+            }
+          );
+        }
+      }
+    }
+    return resultdb(200, 'Updated');
+  } catch (err) {
+    console.log(err);
+    return resultdb(500, err);
+  }
+};
 module.exports = {
-  paymentDetails,
+  updatePaymentStatus,
   recordPaymentRequest,
-  updatePdfPaymentStatus,
+  manualUpdatePaymentRecords,
+  // updatePdfPaymentStatus,
   getPaymentOrderRequestDetails,
   updatePdfDetailsWebhook,
-  updatePaymentRequest,
+  // updatePaymentRequest,
   getPaymentHistory,
 };

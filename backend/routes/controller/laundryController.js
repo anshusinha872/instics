@@ -85,6 +85,36 @@ async function getOrderDetailsByUserId(req,res){
 		console.log(err);
 	}
 }
+async function createCoupon(req,res){
+	try{
+		console.log('req',req.body);
+		let returnData = await laundryService.createCoupon(req.body);
+		return res.status(200).json(returnData);
+	}
+	catch(err){
+		console.log(err);
+	}
+}
+async function deleteCoupon(req,res){
+	try{
+		console.log('req',req.body);
+		let returnData = await laundryService.deleteCoupon(req.body);
+		return res.status(200).json(returnData);
+	}
+	catch(err){
+		console.log(err);
+	}
+}
+async function getAllCoupons(req,res){
+	try{
+		console.log('req',req.body);
+		let returnData = await laundryService.getAllCoupons();
+		return res.status(200).json(returnData);
+	}
+	catch(err){
+		console.log(err);
+	}
+}
 router.post('/laundry/addServiceName', addServiceName);
 router.get('/laundry/showSection',showClothSection);
 router.post('/laundry/addClothType',addClothType);
@@ -93,4 +123,7 @@ router.post('/laundry/deleteSection',deleteSection);
 router.post('/laundry/deleteClothType',deleteClothType);
 router.post('/laundry/placeOrder',placeLaundryOrder);
 router.post('/laundry/getOrderDetails',getOrderDetailsByUserId);
+router.post('/laundry/createCoupon',createCoupon);
+router.post('/laundry/deleteCoupon',deleteCoupon);
+router.get('/laundry/getAllCoupons',getAllCoupons);
 module.exports = router;

@@ -731,3 +731,45 @@
     <!-- form ends -->
   </div>
 </div>
+<!-- coupon code generator start -->
+<div class="container">
+  <form (ngSubmit)="createCoupon()" #discountForm="ngForm">
+    <div class="form-group">
+      <label for="coupon-code">Discount Coupon Code:</label>
+      <input type="text" class="form-control" id="coupon-code" name="couponCode" [(ngModel)]="couponCodeInput">
+    </div>
+
+    <div class="form-group">
+      <label for="discount-type">Discount Type:</label>
+      <select class="form-control" id="discount-type" name="discountType" [(ngModel)]="discountType">
+        <option value="percentage">Percentage</option>
+        <option value="rupees">Rupees</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="discount-value">Discount Value:</label>
+      <input type="number" class="form-control" id="discount-value" name="discountValue" [(ngModel)]="discountValue">
+    </div>
+
+    <div class="form-group">
+      <label for="minimum-value">Minimum Value for Discount to be Applicable:</label>
+      <input type="number" class="form-control" id="minimum-value" name="minimumValue" [(ngModel)]="minimumValue">
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!discountForm.valid">Apply Discount</button>
+  </form>
+  <h2>Coupon Codes</h2>
+
+  <ul class="list-group">
+    <li *ngFor="let coupon of coupons" class="list-group-item">
+      <span>{{ coupon.code }}</span>
+      <span>{{ coupon.discountType }}</span>
+      <span>{{ coupon.discountValue }}</span>
+      <span>{{ coupon.minimumAmount }}</span>
+      <button type="button" class="btn btn-danger btn-sm float-right ml-2" (click)="deleteCoupon(coupon.code)">Delete</button>
+    </li>
+  </ul>
+</div>
+
+<!-- coupon code generator end -->

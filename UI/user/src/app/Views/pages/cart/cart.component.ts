@@ -36,14 +36,15 @@ export class CartComponent implements OnInit {
   canMakePaymentCache = 'canMakePaymentCache';
   details: any;
   ngOnInit(): void {
-    App.addListener('backButton', ({ canGoBack }) => {
-      if (canGoBack) {
-        window.history.back();
-      } else {
-        App.exitApp();
-      }
-    });
-    this.showUpiField = true;
+    // App.addListener('backButton', ({ canGoBack }) => {
+    //   if (canGoBack) {
+    //     window.history.back();
+    //   } else {
+    //     App.exitApp();
+    //   }
+    // });
+    // this.showUpiField = true;
+    this.totalCheckoutPrice = 0;
     this.getCartItems();
 
     this.arr = [
@@ -70,6 +71,13 @@ export class CartComponent implements OnInit {
       },
     ];
     this.changeFormat(new Date);
+
+    this.cartList=[];
+    this.pdfList=[];
+    this.laundryList=[];
+    this.laundryListItemPresent = false;
+    this.pdfListItemPresent = false;
+    this.showUpiField = false;
   }
   today = new Date();
   changedDate = '';
@@ -93,6 +101,7 @@ export class CartComponent implements OnInit {
         console.log(this.cartList.length);
         if(this.cartList.length==0){
           this.toastr.errorToastr('Cart is empty');
+          this.totalCheckoutPrice = 0;
         }
         else if(this.cartList.length==1){
           console.log(this.cartList[0][0].orderType=='Laundary');
@@ -101,12 +110,19 @@ export class CartComponent implements OnInit {
             this.laundryListItemPresent = true;
             console.log('only laundry is present');
             console.log(this.laundryList);
+            for(let i=0;i<this.laundryList[1].length;i++){
+              this.totalCheckoutPrice += this.laundryList[1][i].FinalPrice;
+              console.log(this.laundryList[1][i]);
+            }
           }
           else if(this.cartList[0][0].orderType=='Printing'){
             this.pdfList = this.cartList[0];
             this.pdfListItemPresent = true;
             console.log('only printing is present');
             console.log(this.pdfList);
+            for(let i=0;i<this.pdfList[1].length;i++){
+              this.totalCheckoutPrice += this.pdfList[1][i].totalCost;
+            }
           }
         }
         else{
@@ -117,16 +133,23 @@ export class CartComponent implements OnInit {
           this.laundryList = this.cartList[1];
           console.log(this.pdfList);
           console.log(this.laundryList);
-        }
-        for(let i=0;i<this.pdfList[1].length;i++){
-          this.totalCheckoutPrice += this.pdfList[1][i].totalCost;
-        }
-        for(let i=0;i<this.laundryList[1].length;i++){
-          console.log(this.laundryList[1][i]);
-          if(this.laundryList[1][i].paymentMode=='upi'){
+          for(let i=0;i<this.pdfList[1].length;i++){
+            this.totalCheckoutPrice += this.pdfList[1][i].totalCost;
+          }
+          for(let i=0;i<this.laundryList[1].length;i++){
             this.totalCheckoutPrice += this.laundryList[1][i].FinalPrice;
+            console.log(this.laundryList[1][i]);
           }
         }
+        // for(let i=0;i<this.pdfList[1].length;i++){
+        //   this.totalCheckoutPrice += this.pdfList[1][i].totalCost;
+        // }
+        // for(let i=0;i<this.laundryList[1].length;i++){
+        //   console.log(this.laundryList[1][i]);
+        //   if(this.laundryList[1][i].paymentMode=='upi'){
+        //     this.totalCheckoutPrice += this.laundryList[1][i].FinalPrice;
+        //   }
+        // }
         // this.cartList.push(res.data);
         // this.cartList = res.data;
         // console.log(this.cartList);
@@ -179,15 +202,17 @@ export class CartComponent implements OnInit {
       // console.log(res);
       if (res.statusCode == 200) {
         this.toastr.successToastr('Item deleted');
-        this.cartList = [];
-        this.totalCheckoutPrice = 0;
-        this.laundryListItemPresent = false;
-        this.pdfListItemPresent = false;
-        this.getCartItems();
+        // this.cartList = [];
+        // this.totalCheckoutPrice = 0;
+        // this.laundryListItemPresent = false;
+        // this.pdfListItemPresent = false;
+        // this.getCartItems();
+        this.ngOnInit();
       } else {
         this.toastr.errorToastr(res.message);
         // console.log(res.message);
       }
+      this.ngOnInit();
     });
   }
   navigate() {
@@ -221,7 +246,10 @@ export class CartComponent implements OnInit {
     else if(this.pdfListItemPresent==false && this.laundryListItemPresent==true){
       paymentInfo='laundry';
     }
-
+    if(this.totalCheckoutPrice==0){
+      this.toastr.errorToastr('Please add items to cart');
+      return;
+    }
     const req = {
       user_id: this.sessionService.get('user_id'),
       amount: this.totalCheckoutPrice,
@@ -236,9 +264,9 @@ export class CartComponent implements OnInit {
     // this.sessionService.set('totalCheckoutPrice', this.totalCheckoutPrice);
     this.sessionService.set('txn_date', this.changedDate);
     this.paymentService.createPayment(req).subscribe((res) => {
+      console.log(res);
       if (res[0].status == true) {
-        // console.log(res);
-        // console.log(res[0].data.payment_url);
+
         this.toastr.successToastr('Payment created');
         this.sessionService.set('client_txn_id', res[1].client_txn_id);
         this.sessionService.set('key', res[1].key);

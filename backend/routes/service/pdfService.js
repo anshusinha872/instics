@@ -2,6 +2,7 @@ const MysqlPool = require('../../app');
 const config = require('../../config/databaseConfig.js');
 const util = require('util');
 const mysql = require('mysql');
+const userService = require('./userService');
 const { time } = require('console');
 const resultdb = (statusCode, data = null) => {
 	return {
@@ -106,10 +107,23 @@ let uploadDoc = async (data) => {
 let pdfOrderRequestFun = async (data,paymentRequestTxnId,pdfInsertId,today,time) => {
 	try{
 		var connection = config.connection;
-		console.log(data);
+		console.log('pdfOrderRequestFun',data);
+		let user_id = parseInt(data.user_id);
+		// var connection = config.connection;
+		let userDataResponse = await new Promise((resolve, reject) => {
+			const query = "select * from userData WHERE user_id = ?;";
+			connection.query(query,[user_id],(err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		console.log('userDataResponse',userDataResponse[0]);
+		console.log('userName',userDataResponse[0].firstName+' '+userDataResponse[0].lastName);
+		console.log('email',userDataResponse[0].email_id);
+		console.log('phone',(userDataResponse[0].contact).toString());
 		const response = await new Promise((resolve, reject) => {
 			const query = "INSERT INTO pdfOrderRequest (pdfOrderRequestTxnId,amount,customer_name,customer_email,customer_mobile,redirect_url,payment_url,user_id,pdf_id_array,payment_status,pdfName,docType,colorMode,printRange,totalPage,docStatus,path,date,time,sellerId,totalCost) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-			connection.query(query, [paymentRequestTxnId,parseInt(data.totalCost),'Anshu','anshusina872@gmail.com','8292009935','redirectUrl','paymentUrl',parseInt(data.user_id),pdfInsertId,'pending',data.pdfName,parseInt(data.selectedDocumentType),parseInt(data.colorMode),data.range,parseInt(data.totalPage),0,data.path,today,time,parseInt(data.sellerId),parseInt(data.totalCost)],(err, results) => {
+			connection.query(query, [paymentRequestTxnId,parseInt(data.totalCost),userDataResponse[0].firstName+' '+userDataResponse[0].lastName,userDataResponse[0].email_id,(userDataResponse[0].contact).toString(),'redirectUrl','paymentUrl',parseInt(data.user_id),pdfInsertId,'pending',data.pdfName,parseInt(data.selectedDocumentType),parseInt(data.colorMode),data.range,parseInt(data.totalPage),0,data.path,today,time,parseInt(data.sellerId),parseInt(data.totalCost)],(err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
 			});

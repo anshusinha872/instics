@@ -24,27 +24,28 @@ async function paymentDetails(req, res) {
 	const redirect_url = req.body.redirect_url;
 	const txnAt = req.body.txnAt;
 	const createdAt = req.body.createdAt;
-	let returnData = await paymentService.paymentDetails(req);
-	let getPaymentOrderRequestDetails =
-		await paymentService.getPaymentOrderRequestDetails(client_txn_id);
-	// console.log('getPaymentOrderRequestDetails', getPaymentOrderRequestDetails.data);
-	let pdf_id_array = getPaymentOrderRequestDetails.data[0].pdf_id_array;
-	// console.log('pdf_id_array', pdf_id_array);
-	let data = JSON.parse(pdf_id_array);
-	for (let i = 0; i < data.length; i++){
-		let pdf_id = data[i];
-		console.log('pdf_id', pdf_id);
-		let updatePdfDetailsWebhook = await paymentService.updatePdfDetailsWebhook(
-			pdf_id,
-			status,
-			client_txn_id
-		);
-	}
-	let updatePaymentRequest = await paymentService.updatePaymentRequest(
-		client_txn_id,
-		status
-	);
-	res.send('Success');
+	let updatePaymentStatus = await paymentService.updatePaymentStatus(req);
+	// let returnData = await paymentService.paymentDetails(req);
+	// let getPaymentOrderRequestDetails =
+	// 	await paymentService.getPaymentOrderRequestDetails(client_txn_id);
+	// // console.log('getPaymentOrderRequestDetails', getPaymentOrderRequestDetails.data);
+	// let pdf_id_array = getPaymentOrderRequestDetails.data[0].pdf_id_array;
+	// // console.log('pdf_id_array', pdf_id_array);
+	// let data = JSON.parse(pdf_id_array);
+	// for (let i = 0; i < data.length; i++){
+	// 	let pdf_id = data[i];
+	// 	console.log('pdf_id', pdf_id);
+	// 	let updatePdfDetailsWebhook = await paymentService.updatePdfDetailsWebhook(
+	// 		pdf_id,
+	// 		status,
+	// 		client_txn_id
+	// 	);
+	// }
+	// let updatePaymentRequest = await paymentService.updatePaymentRequest(
+	// 	client_txn_id,
+	// 	status
+	// );
+	// res.send('Success');
 }
 
 router.post('/webhook/upi/status', paymentDetails);
