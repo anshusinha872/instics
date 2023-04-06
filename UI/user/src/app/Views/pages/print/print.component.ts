@@ -6,6 +6,8 @@ import { SessionService } from 'src/app/services/session/session.service';
 import { base64 } from '@firebase/util';
 import { App } from '@capacitor/app';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { interval, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-print',
   templateUrl: './print.component.html',
@@ -15,6 +17,7 @@ export class PrintComponent implements OnInit {
 [x: string]: any;
 
   documentOption: any[];
+  sellers: any[];
   selectedDocumentType = 1;
   public rangeValues: number[] = [1, 1];
   public items: any[];
@@ -23,10 +26,12 @@ export class PrintComponent implements OnInit {
   public sellerId: number =0;
   progress = 0;
   showProgress = false;
+  private stopTimer$ = new Subject<void>();
   constructor(
     public toastr: ToastrManager,
     public sessionService: SessionService,
     private PdfService: PdfService
+   
   ) {
     this.documentOption = [
       {
@@ -38,20 +43,7 @@ export class PrintComponent implements OnInit {
         value: 2,
       },
     ];
-    this.items = [
-      {
-        name: 'seller1',
-        id: 1,
-      },
-      {
-        name: 'seller2',
-        id: 2,
-      },
-      {
-        name: 'seller3',
-        id: 3,
-      },
-    ];
+  
   }
   pageCount: number = 0;
   public printPricing = [];
@@ -61,6 +53,7 @@ export class PrintComponent implements OnInit {
   public pdfFile;
   public totalCost = 0;
   public rangeList = [];
+  public noSeller: boolean = true;
   ngOnInit(): void {
     App.addListener('backButton', ({ canGoBack }) => {
       if (canGoBack) {
@@ -69,7 +62,13 @@ export class PrintComponent implements OnInit {
         App.exitApp();
       }
     });
+    interval(5000)
+      .pipe(takeUntil(this.stopTimer$))
+      .subscribe(() => {
+       this.fetchSellerData();
+      });
     pdfjs.GlobalWorkerOptions.workerSrc = 'pdf.worker.js';
+    
     this.printPricing = [
       [
         {
@@ -136,6 +135,10 @@ export class PrintComponent implements OnInit {
     }
     if (this.rangeList.length == 0) {
       this.toastr.errorToastr('Please select a range', 'Error');
+      return;
+    }
+    if (this.noSeller == true) {
+      this.toastr.errorToastr('Please select a seller', 'Error');
       return;
     }
     
@@ -258,6 +261,7 @@ export class PrintComponent implements OnInit {
   SelectItem(sellerName: any)
   {
     console.log("Seller name is " + sellerName.value );
+    this.noSeller = false;
     this.items.forEach(element => {
       if(sellerName.value==element.name)
       {
@@ -266,6 +270,16 @@ export class PrintComponent implements OnInit {
     });
     console.log(this.sellerId);
 
-      
   }
+  fetchSellerData()
+  {
+    this.PdfService.getSellerList().subscribe((data)=>{
+      this.sellers = data.data;
+      console.log("sellers ");
+      console.log(data.data);
+    });
+
+  }
+  
+ 
 }

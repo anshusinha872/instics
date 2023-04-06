@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { App } from '@capacitor/app';
+import { PdfService } from 'src/app/services/pdf/pdf.service';
+import { interval, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,8 +18,9 @@ export class HomePageComponent implements OnInit {
   accuratecount: number = 0;
   clientcount: number = 0;
   customerfeedback: number = 0;
-
-  constructor(private router: Router, private http: HttpClient) {}
+  message:any = null;
+  private stopTimer$ = new Subject<void>();
+  constructor(private router: Router, private http: HttpClient, private pdfservice: PdfService) {}
 
   ngOnInit(): void {
     this.slideImage();
@@ -26,6 +30,17 @@ export class HomePageComponent implements OnInit {
       } else {
         App.exitApp();
       }
+    });
+   //un-comment this to display message
+
+    // this.fetchMessage();
+  }
+
+  fetchMessage()
+  {
+    this.message = this.pdfservice.fetchMessage().subscribe((data)=>{
+      console.log(data.data[0]);
+      this.message = data.data[0];
     });
   }
   slideImage() {

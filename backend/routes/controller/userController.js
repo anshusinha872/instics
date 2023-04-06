@@ -165,6 +165,26 @@ async function loginseller(req, res) {
 		return res.status(200).json(err);
 	}
 }
+
+async function getSellerList(req,res)
+{
+	try {
+		let returnData = await userService.sellerData(req);
+		return res.status(200).json(returnData);
+	} catch (err) {
+		console.log(err);
+	}
+}
+async function fetchMessage(req, res)
+{
+	try{
+		let returnData = await userService.fetchMessage(req);
+		return res.status(200).json(returnData);
+	}catch(err){
+		console.log(err);
+	}
+
+}
 router.get('/userData', getUserData);
 router.post('/login', loginUser);
 router.post('/signup', signUpUser);
@@ -176,4 +196,6 @@ router.post('/user', getUserDetailsById)
 router.post('/query', saveQuery);
 router.post('/service/status', checkServiceStatus);
 router.post('/loginseller', loginseller);
+router.get('/getSellerList', getSellerList);
+router.get('/fetchMessage', fetchMessage);
 module.exports = router;

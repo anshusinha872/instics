@@ -29,6 +29,7 @@ export class PrintService {
       headers: this.reqHeader,
     });
   }
+
   loginseller(param: any): Observable<any> {
     // console.log(param);
     return this.http.post<any>(this.base_url + 'loginseller', param, {

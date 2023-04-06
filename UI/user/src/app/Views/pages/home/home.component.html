@@ -1,5 +1,23 @@
+
+
+<!-- display message -->
+
+<div *ngIf="message!=null">
+   <div class="col-12 positionFixed cover w-100 h-100 message">
+     <span></span> 
+     <div class="card" style="width: 18rem;">
+      <div class="card-body card-height">
+        <h5 class="card-title">Message</h5>
+        <p class="card-text">{{message.message}}</p>
+        <a href="mailto:info@instincts.co.in" class="card-link" style="color:rgb(59, 58, 58);"><i class='fas fa-envelope'></i></a>
+        <a href="#" (click)="navigateToContact()" style="color:rgb(59, 58, 58);" class="card-link"><i class='fas fa-phone'></i></a>
+      </div>
+    </div>     
+   </div>
+</div>
+
 <div class="full">
-  <div *ngIf="!verified">
+  <div *ngIf="!verified && message==null">
     <div class="col-12 positionFixed cover w-100 h-100"></div>
 
     <div class="container" style="font-family: sofia-pro, sans-serif">
@@ -21,7 +39,7 @@
             <p (click)="navigateToAbout()"><i class="fa fa-vcard"></i> About</p>
           </li>
           <li class="home topNavItems col-8 d-flex flex-direction-row ">
-            <p (click)="navigateToContact()"><i class="fa-solid fa-message"></i> Contact</p>
+            <p (click)="navigateToContact()"><i class="fa-solid fa-message"></i>Contact</p>
           </li>
           <li class="loginBtn col-8 d-flex flex-direction-row justify-content-end ">
             <!-- <a (click)="navigateToAbout()" style="color: #e7dfdf; cursor: pointer">About us</a> -->
@@ -692,7 +710,7 @@
     </div> -->
 
 </div>
-<div class="deskFooter m-0 row">
+<div  *ngIf="message==null" class="deskFooter m-0 row">
 
   <div class="upperFooter mb-4 col-12 justify-content-between row">
     <div class="footerAddress col-6 col-md-12">

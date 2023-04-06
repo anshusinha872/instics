@@ -5,6 +5,7 @@ const mysql = require('mysql');
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { response } = require('express');
 const secretKey = 'AnshuSinha';
 const resultdb = (statusCode, data = null) => {
 	return {
@@ -411,7 +412,7 @@ let  loginSellerByUsername = async (username, password) => {
 			if (response[0].password==password ) {
 				let userData = {
 					username: response[0].username,
-					sellerId: response[0].id_seller,
+					sellerId: response[0].id,
 				};
 		
 				// console.log(userData);
@@ -421,7 +422,7 @@ let  loginSellerByUsername = async (username, password) => {
 				});
 				let returnData = {
 					token: token,
-					sellerId: response[0].id_seller,
+					sellerId: response[0].id,
 				};
 				return resultdb(200, returnData);
 			} else {
@@ -435,6 +436,44 @@ let  loginSellerByUsername = async (username, password) => {
 		return resultdb(500, err);
 	}
 };
+let sellerData = async (data) => {
+	
+	try {
+		var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+			const query = 'select * from seller;';
+
+			connection.query(query, (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		
+		return resultdb(200,response);
+	} catch (err) {
+		console.log(err);
+		return resultdb(500, err);
+	}
+};
+
+let fetchMessage = async (data) =>{
+	try{
+		var connection = config.connection;
+		const response = await new Promise((resolve, reject)=>{
+			const query = 'select * from messages;';
+			connection.query(query, (err,results)=>{
+				if(err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+	return resultdb(200,response);
+
+	}
+	catch(err){
+		console.log(err);
+		return resultdb(500,err);
+	}
+}
 
 module.exports = {
 	userData,
@@ -449,4 +488,6 @@ module.exports = {
 	saveQuery,
 	checkServiceStatus,
 	loginSellerByUsername,
+	sellerData,
+	fetchMessage,
 };

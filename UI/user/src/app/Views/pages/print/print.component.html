@@ -381,10 +381,10 @@
 
         <div class="d-flex my-2 flex-row justify-content-between">
           <span>Choose Seller</span>
-          <select (change)="SelectItem($event.target)" class="select">
-            <option value="0">--All--</option>
-            <option *ngFor="let item of items" value="{{item.name}}">
-              {{item.name}}
+          <select (change)="SelectItem($event.target)" class="select form-control" style="width:max-content;">
+            <option value="0">--select-- </option>
+            <option *ngFor="let item of sellers" value="{{item.id}}">
+              {{item.username}}
             </option>
           </select>
         </div>

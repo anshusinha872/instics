@@ -14,6 +14,10 @@ export class PdfService {
     private http: HttpClient,
     private sessionService: SessionService
   ) {}
+  reqHeader = new HttpHeaders({
+    'Content-Type': 'application/json',
+    // Authorization: 'Bearer ' + localStorage.getItem('token'),
+  });
   public uploadPdf(param): Observable<any> {
     // console.log(param);
     return this.http.post(this.base_url + 'pdf/upload', param, {
@@ -31,6 +35,18 @@ export class PdfService {
     // console.log(param);
     return this.http.post(this.base_url + 'pdfList', param, {
       headers: this.sessionService.setTokenHeaderImage(),
+    });
+  }
+
+  getSellerList(): Observable<any> {
+    return this.http.get(this.base_url + 'getSellerList', {
+      headers: this.reqHeader,
+    });
+  }
+
+  fetchMessage():Observable<any>{
+    return this.http.get(this.base_url + 'fetchMessage', {
+      headers: this.reqHeader,
     });
   }
 

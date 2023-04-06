@@ -45,6 +45,8 @@ export class PdfListComponent implements OnInit, OnDestroy {
       endDate:sessionStorage.getItem('endDate')
     }
     this.printdata.printseller(req).subscribe((data) => {
+      console.log(data);
+      console.log("idiot");
       console.log(data.data);
       this.pdfs = data.data;
       // if(data.statusCode!=200)

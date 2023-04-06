@@ -140,15 +140,16 @@ let sellerprint = async (data) => {
 			var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
 	 console.log("First one");
-	 const query = "select * from printDocTable where sellerId= ?;";
+	 const query = "select * from printDocRecordTable where sellerId= ?;";
 	 console.log(query);
-	 connection.query(query, [sellerId],(err, results) => {
+	 connection.query(query, [data.body.sellerId],(err, results) => {
 		 if (err) reject(new Error(err.message));
 		 resolve(results);
 	 });
 
 	});
 	console.log("hello i'm here");
+	console.log(response.length);
 	if (response.length > 0) {
 		let returnData = [];
 		for (let i = 0; i < response.length; i++) {
@@ -200,7 +201,7 @@ let sellerprint = async (data) => {
 			var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
 	console.log("no dates");
-	 const query = "select * from printDocTable where sellerId= ? and payment_status=?;";
+	 const query = "select * from printDocRecordTable where sellerId= ? and payment_status=?;";
 	 console.log(query);
 	 connection.query(query, [data.body.sellerId, data.body.completion],(err, results) => {
 		 if (err) reject(new Error(err.message));
@@ -263,7 +264,7 @@ let sellerprint = async (data) => {
 			var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
 	
-			const query = "select * from printDocTable where sellerId= ? and (date between ? and ?);" ;
+			const query = "select * from printDocRecordTable where sellerId= ? and (date between ? and ?);" ;
 			connection.query(query, [data.body.sellerId, data.body.startDate, data.body.endDate],(err, results) => {
 			   if (err) reject(new Error(err.message));
 			   resolve(results);
@@ -331,7 +332,7 @@ let sellerprint = async (data) => {
 			var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
 	
-	 const query = "SELECT * FROM printDocTable where sellerId=? and (date between ? and ?) and payment_status=?;";
+	 const query = "SELECT * FROM printDocRecordTable where sellerId=? and (date between ? and ?) and payment_status=?;";
 	 console.log(query);
 	 connection.query(query, [data.body.sellerId, data.body.startDate,data.body.endDate, data.body.completion],(err, results) => {
 		 if (err) reject(new Error(err.message));
@@ -449,7 +450,7 @@ let getPdfById = async (req) => {
 	try {
 		var connection = config.connection;
 		const response = await new Promise((resolve, reject) => {
-			const query = "select * from printDocTable WHERE id = ?;";
+			const query = "select * from printDocRecordTable WHERE id = ?;";
 			connection.query(query,[req.body.id], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);
