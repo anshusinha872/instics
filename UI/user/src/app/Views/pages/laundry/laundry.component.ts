@@ -30,7 +30,11 @@ export class LaundryComponent implements OnInit {
     private toastr: ToastrManager,
     private sessionService: SessionService
   ) {}
-
+  couponCodeInput: string;
+  discountType: string = 'percentage';
+  discountValue: number;
+  minimumValue: number;
+  coupons = [];
   ngOnInit(): void {
     this.laundryService.showLaundryClothServices().subscribe((data) => {
       console.log(data.data);
@@ -40,6 +44,10 @@ export class LaundryComponent implements OnInit {
     this.getAllCloth();
     // this.openGoogleMaps(30.754393442791773, 76.64086066725359);
     // this.fetchLocation();
+    this.laundryService.getAllCoupons().subscribe((data) => {
+      console.log(data.data);
+      this.coupons = data.data;
+    });
   }
   openGoogleMaps(latitude, longitude) {
     const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
@@ -157,26 +165,25 @@ export class LaundryComponent implements OnInit {
       couponCode: this.selectedCouponCode,
     };
     console.log(req);
-    this.laundryService.placeLaundryOrder(req).subscribe((data)=>{
+    this.laundryService.placeLaundryOrder(req).subscribe((data) => {
       console.log(data);
-      if(data.statusCode == 200){
-        this.toastr.successToastr('Order Placed Successfully',);
+      if (data.statusCode == 200) {
+        this.toastr.successToastr('Order Placed Successfully');
         this.addedClothes = [];
         this.totalQuantity = 0;
         this.totalPrice = 0;
-        this.preferredTime=undefined;
-        this.preferredDate=undefined;
-        this.completeAddress=undefined;
-        this.latitude=undefined;
-        this.longitude=undefined;
-        this.paymentMode=undefined;
-        this.discountPrice=0;
-        this.finalPrice=0;
-        this.selectedCouponCode=undefined;
+        this.preferredTime = undefined;
+        this.preferredDate = undefined;
+        this.completeAddress = undefined;
+        this.latitude = undefined;
+        this.longitude = undefined;
+        this.paymentMode = undefined;
+        this.discountPrice = 0;
+        this.finalPrice = 0;
+        this.selectedCouponCode = undefined;
         // this.ngOnInit();
-      }
-      else{
-        this.toastr.errorToastr(data.message,);
+      } else {
+        this.toastr.errorToastr(data.message);
       }
     });
   }
@@ -266,32 +273,32 @@ export class LaundryComponent implements OnInit {
       console.log('Geolocation is not supported by this browser.');
     }
   }
-  coupons = [
-    {
-      code: 'COUPON10',
-      discountType: 'percentage',
-      discountValue: 10,
-      minimumAmount: 100,
-    },
-    {
-      code: 'COUPON20',
-      discountType: 'percentage',
-      discountValue: 20,
-      minimumAmount: 200,
-    },
-    {
-      code: 'COUPON30',
-      discountType: 'rupees',
-      discountValue: 500,
-      minimumAmount: 300,
-    },
-    {
-      code: 'COUPON40',
-      discountType: 'rupees',
-      discountValue: 1000,
-      minimumAmount: 400,
-    },
-  ];
+  // coupons = [
+  //   {
+  //     code: 'COUPON10',
+  //     discountType: 'percentage',
+  //     discountValue: 10,
+  //     minimumAmount: 100,
+  //   },
+  //   {
+  //     code: 'COUPON20',
+  //     discountType: 'percentage',
+  //     discountValue: 20,
+  //     minimumAmount: 200,
+  //   },
+  //   {
+  //     code: 'COUPON30',
+  //     discountType: 'rupees',
+  //     discountValue: 500,
+  //     minimumAmount: 300,
+  //   },
+  //   {
+  //     code: 'COUPON40',
+  //     discountType: 'rupees',
+  //     discountValue: 1000,
+  //     minimumAmount: 400,
+  //   },
+  // ];
   selectedCoupon: any = null;
   applyCoupon() {
     if (!this.selectedCoupon) {
@@ -313,9 +320,8 @@ export class LaundryComponent implements OnInit {
     if (discountType === 'percentage') {
       this.finalPrice =
         this.totalPrice - (this.totalPrice * discountValue) / 100;
-        this.finalPrice = Math.round(this.finalPrice * 100) / 100;
+      this.finalPrice = Math.round(this.finalPrice * 100) / 100;
       this.discountPrice = this.totalPrice - this.finalPrice;
-
     }
 
     if (discountType === 'rupees') {
@@ -367,7 +373,7 @@ export class LaundryComponent implements OnInit {
       this.selectedCoupon = null;
     }
   }
-  updatePrice(){
+  updatePrice() {
     this.totalPrice = 0;
     this.finalPrice = 0;
     // this.finalPrice = 0;
@@ -377,5 +383,35 @@ export class LaundryComponent implements OnInit {
     this.paymentMode = '';
     this.calculateTotal();
     // this.applyCoupon();
+  }
+  createCoupon() {
+    const req = {
+      code: this.couponCodeInput,
+      discountType: this.discountType,
+      discountValue: this.discountValue,
+      minimumAmount: this.minimumValue,
+    };
+    console.log(req);
+
+    this.laundryService.createCoupon(req).subscribe((data) => {
+      console.log(data);
+      this.couponCodeInput = '';
+      this.discountType = '';
+      this.discountValue = 0;
+      this.minimumValue = 0;
+      this.toastr.successToastr('Coupon created successfully');
+      this.ngOnInit();
+    });
+  }
+  deleteCoupon(couponCode) {
+    const req = {
+      code: couponCode,
+    };
+    console.log(req);
+    this.laundryService.deleteCoupon(req).subscribe((data) => {
+      console.log(data);
+      this.toastr.successToastr('Coupon deleted successfully');
+      this.ngOnInit();
+    });
   }
 }

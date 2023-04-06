@@ -213,7 +213,7 @@ let placeLaundryOrder = async (data) => {
           longitude,
           data.userId,
           data.paymentMode,
-          0,
+          'pending',
           data.couponCode,
           data.discountPrice,
           data.finalPrice,
@@ -324,6 +324,85 @@ let getOrderDetailsByUserId = async (userId) => {
     return resultdb(500, err);
   }
 };
+let createCoupon = async (data) => {
+  try {
+    var connection = config.connection;
+    let response = await new Promise((resolve, reject) => {
+      const query =
+        "INSERT INTO discountCouponRecords (code,discountType,discountValue,minimumAmount) VALUES (?,?,?,?)";
+      connection.query(
+        query,
+        [
+          data.code,
+          data.discountType,
+          data.discountValue,
+          data.minimumAmount,
+        ],
+        (err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
+        }
+      );
+    });
+    return resultdb(200, "Coupon Created");
+  } catch (err) {
+    console.log(err);
+    return resultdb(500, err);
+  }
+}
+let deleteCoupon = async (data) => {
+  try{
+    var connection = config.connection;
+    let response = await new Promise((resolve, reject) => {
+      const query =
+        "DELETE FROM discountCouponRecords WHERE code = ?";
+      connection.query(
+        query,
+        [data.code],
+        (err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
+        }
+      );
+    });
+    return resultdb(200, "Coupon Deleted");
+  }
+  catch(err){
+    console.log(err);
+    return resultdb(500, err);
+  }
+}
+let getAllCoupons = async () => {
+  try{
+    var connection = config.connection;
+    let response = await new Promise((resolve, reject) => {
+      const query =
+        "SELECT * FROM discountCouponRecords";
+      connection.query(
+        query,
+        (err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
+        }
+      );
+    });
+    let returnData  = [];
+    for(let i = 0; i < response.length; i++){
+      let coupon = {
+        code: response[i].code,
+        discountType: response[i].discountType,
+        discountValue: response[i].discountValue,
+        minimumAmount: response[i].minimumAmount,
+      }
+      returnData.push(coupon);
+    }
+    return resultdb(200, returnData);
+  }
+  catch(err){
+    console.log(err);
+    return resultdb(500, err);
+  }
+}
 module.exports = {
   addServiceName,
   showClothSection,
@@ -333,4 +412,7 @@ module.exports = {
   deleteClothType,
   placeLaundryOrder,
   getOrderDetailsByUserId,
+  createCoupon,
+  deleteCoupon,
+  getAllCoupons,
 };

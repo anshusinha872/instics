@@ -54,4 +54,19 @@ export class LaundryService {
       headers: this.sessionService.setTokenHeader(),
     });
   }
+  createCoupon(param): Observable<any> {
+    return this.http.post(this.base_url + 'laundry/createCoupon', param, {
+      headers: this.sessionService.setTokenHeader(),
+    });
+  }
+  deleteCoupon(param): Observable<any> {
+    return this.http.post(this.base_url + 'laundry/deleteCoupon', param, {
+      headers: this.sessionService.setTokenHeader(),
+    });
+  }
+  getAllCoupons(): Observable<any> {
+    return this.http.get(this.base_url + 'laundry/getAllCoupons', {
+      headers: this.sessionService.setTokenHeader(),
+    });
+  }
 }

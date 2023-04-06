@@ -30,14 +30,14 @@ const routes: Routes = [
   {
     path: 'print',
     loadChildren: () =>
-      import('../../pages/print/print.module').then((m) => m.PrintModule),
-    // canActivate: [ServiceActiveStatusGuard],
+    import('../../pages/print/print.module').then((m) => m.PrintModule),
+    canActivate: [ServiceActiveStatusGuard],
   },
   {
     path:'laundry',
     loadChildren: () =>
       import('../../pages/laundry/laundry.module').then((m) => m.LaundryModule),
-    // canActivate: [ServiceActiveStatusGuard],
+    canActivate: [ServiceActiveStatusGuard],
   },
   {
     path: 'cart',

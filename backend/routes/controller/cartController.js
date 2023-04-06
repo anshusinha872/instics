@@ -29,13 +29,13 @@ async function createOrder(req, res) {
   var axios = require("axios");
   var data = JSON.stringify({
     key: secretKey,
-    pdfPresent:req.body.pdfPresent,
-    laundryPresent:req.body.laundryPresent,
-    pdfOrderRequestTxnIdList:req.body.pdfOrderRequestTxnIdList,
-    laundryOrderRequestTxnIdList:req.body.laundryOrderRequestTxnIdList,
+    pdfPresent: req.body.pdfPresent,
+    laundryPresent: req.body.laundryPresent,
+    pdfOrderRequestTxnIdList: req.body.pdfOrderRequestTxnIdList,
+    laundryOrderRequestTxnIdList: req.body.laundryOrderRequestTxnIdList,
     client_txn_id: txnId,
     amount: amountVar,
-    userId:req.body.user_id,
+    userId: req.body.user_id,
     p_info: req.body.p_info,
     customer_name: userdata.data[0].firstName + " " + userdata.data[0].lastName,
     customer_email: userdata.data[0].email_id,
@@ -54,9 +54,12 @@ async function createOrder(req, res) {
 
   axios(config)
     .then(function (response) {
+      let returnData = [];
+      returnData.push(response.data);
+      returnData.push(JSON.parse(data));
       // console.log(JSON.stringify(response.data));
       paymentService.recordPaymentRequest(response.data, data);
-      return res.status(200).json(response.data);
+      return res.status(200).json(returnData);
     })
     .catch(function (error) {
       console.log(error);
@@ -79,9 +82,9 @@ async function deletePDFItem(req, res) {
         req.body.user_id,
         req.body.item_id
       );
-	  return res.status(200).json(returndata);
+      return res.status(200).json(returndata);
     }
-	return res.status(200).json("Some error occured");
+    return res.status(200).json("Some error occured");
     // let returndata = await cartService.deletePDFItem(user_id, pdf_id);
   } catch (err) {
     console.log(err);
@@ -92,7 +95,6 @@ async function checkPaymentStatus(req, res) {
   try {
     const txn_date = req.body.txn_date;
     const client_txn_id = req.body.client_txn_id;
-    const pdf_id = req.body.pdf_id;
     const user_id = req.body.user_id;
     var axios = require("axios");
     var data = JSON.stringify({
@@ -114,31 +116,9 @@ async function checkPaymentStatus(req, res) {
     axios(config)
       .then(function (response) {
         console.log("response", response.data.data);
-        if (response.data.data.status == "success") {
-          let updatePdfPaymentResponse = paymentService.updatePdfPaymentStatus(
-            user_id,
-            pdf_id,
-            client_txn_id,
-            "success"
-          );
-          let updatePaymentRequest = paymentService.updatePaymentRequest(
-            client_txn_id,
-            "success"
-          );
-          return res.status(200).json(response.data);
-        } else {
-          let updatePdfPaymentResponse = paymentService.updatePdfPaymentStatus(
-            user_id,
-            pdf_id,
-            client_txn_id,
-            "failure"
-          );
-          let updatePaymentRequest = paymentService.updatePaymentRequest(
-            client_txn_id,
-            "failure"
-          );
-          return res.status(200).json(response.data);
-        }
+        // manual update payment records
+        paymentService.manualUpdatePaymentRecords(response.data.data);
+        return res.status(200).json(response.data.data);
       })
       .catch(function (error) {
         console.log(error);

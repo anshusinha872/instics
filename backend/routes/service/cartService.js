@@ -15,8 +15,8 @@ let getCartItems = async (user_id) => {
     var connection = config.connection;
     const response = await new Promise((resolve, reject) => {
       const query =
-        "SELECT * FROM pdfOrderRequest WHERE user_id = ? AND payment_status = ?;";
-      connection.query(query, [user_id, "pending"], (err, results) => {
+        "SELECT * FROM pdfOrderRequest WHERE user_id = ?";
+      connection.query(query, [user_id], (err, results) => {
         if (err) reject(new Error(err.message));
         resolve(results);
       });
@@ -41,8 +41,11 @@ let getCartItems = async (user_id) => {
           totalPage: response[i].totalPage,
           totalCost: response[i].totalCost,
           docStatus: response[i].docStatus,
+          payment_status: response[i].payment_status,
         };
-        orderList.push(data);
+        if(data.payment_status!='success'){
+          orderList.push(data);
+        }
       }
       orderDetails.push(orderList);
       // return resultdb(200, returnData);
@@ -50,8 +53,8 @@ let getCartItems = async (user_id) => {
     }
     const laundaryResponse = await new Promise((resolve, reject) => {
       const query =
-        "SELECT * FROM laundryOrderRequest WHERE user_id = ? and paymentMode = ? and paymentStatus = ?;";
-      connection.query(query, [user_id, 'upi',0], (err, results) => {
+        "SELECT * FROM laundryOrderRequest WHERE user_id = ? and paymentMode = ?;";
+      connection.query(query, [user_id, 'upi'], (err, results) => {
         if (err) reject(new Error(err.message));
         resolve(results);
       });
@@ -79,7 +82,9 @@ let getCartItems = async (user_id) => {
           couponDiscountAmount: laundaryResponse[i].couponDiscount,
           FinalPrice: laundaryResponse[i].finalAmountAfterDiscount,
         };
-        orderList.push(data);
+        if(data.paymentStatus!='success'){
+          orderList.push(data);
+        }
       }
       orderDetails.push(orderList);
       returnData.push(orderDetails);
@@ -101,7 +106,7 @@ let orderId = async () => {
       });
     });
     let orderId = response.length + 1;
-    orderId = "TestS14" + orderId;
+    orderId = "Testing" + orderId;
     console.log(orderId);
     return orderId;
   } catch (err) {

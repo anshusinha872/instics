@@ -22,9 +22,19 @@ export class ServiceActiveStatusGuard
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
+
+      let serviceId;
+      if (route.routeConfig.path == 'print') {
+        serviceId = 1;
+      }
+      else if (route.routeConfig.path == 'laundry') {
+        serviceId = 2;
+      }
       let req = {
-        serviceId: 1,
+        serviceId: serviceId,
       };
+      // console.log('canactive',route.routeConfig.path);
+      console.log('canactive',req);
     return this.userService.checkServiceActive(req).toPromise().then((res) => {
       console.log(res);
       if (res.statusCode == 200) {

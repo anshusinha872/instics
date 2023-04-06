@@ -23,6 +23,7 @@ export class HomePageComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient, private pdfservice: PdfService) {}
 
   ngOnInit(): void {
+    window.alert('Welcome to the home page');
     this.slideImage();
     App.addListener('backButton', ({ canGoBack }) => {
       if (canGoBack) {
