@@ -260,14 +260,10 @@ export class PrintComponent implements OnInit {
 
   SelectItem(sellerName: any)
   {
-    console.log("Seller name is " + sellerName.value );
+    // console.log("Seller name is " + sellerName.value );
+    this.sellerId = sellerName.value;
     this.noSeller = false;
-    this.items.forEach(element => {
-      if(sellerName.value==element.name)
-      {
-        this.sellerId= element.id;
-      }
-    });
+   
     console.log(this.sellerId);
 
   }
