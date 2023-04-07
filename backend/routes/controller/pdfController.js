@@ -115,10 +115,19 @@ async function getUserPDF(req, res) {
 // 		return res.status(200).json(err);
 // 	}
 // }
+async function getPriceList(req, res) {
+	try {
+		let returnData = await pdfService.getPriceList();
+		return res.status(200).json(returnData);
+	} catch (err) {
+		console.log(err);
+	}
+}
 router.post('/pdf/upload', uploadPdf);
 router.post('/pdfListseller', printseller);
 router.post('/docstatusupdate', docstatusupdate);
 router.post('/getPdf', getPdfById);
 router.post('/pdfList', getUserPDF);
+router.get('/getPriceList',getPriceList)
 // router.post('/loginseller', loginseller);
 module.exports = router;

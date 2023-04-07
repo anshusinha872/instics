@@ -37,15 +37,15 @@ export class LaundryComponent implements OnInit {
   coupons = [];
   ngOnInit(): void {
     this.laundryService.showLaundryClothServices().subscribe((data) => {
-      console.log(data.data);
+      // console.log(data.data);
       this.sections = data.data;
-      console.log(this.sections);
+      // console.log(this.sections);
     });
     this.getAllCloth();
     // this.openGoogleMaps(30.754393442791773, 76.64086066725359);
     // this.fetchLocation();
     this.laundryService.getAllCoupons().subscribe((data) => {
-      console.log(data.data);
+      // console.log(data.data);
       this.coupons = data.data;
     });
   }
@@ -95,7 +95,7 @@ export class LaundryComponent implements OnInit {
       id: id,
     };
     this.laundryService.deleteLaundryClothSection(req).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.toastr.successToastr('Section deleted successfully');
       this.ngOnInit();
     });
@@ -115,8 +115,8 @@ export class LaundryComponent implements OnInit {
   }
 
   placeOrder() {
-    console.log('Order placed with the following items:');
-    console.log(this.completeAddress);
+    // console.log('Order placed with the following items:');
+    // console.log(this.completeAddress);
     if (this.completeAddress == undefined) {
       this.toastr.errorToastr('Please enter complete address');
       return;
@@ -141,14 +141,14 @@ export class LaundryComponent implements OnInit {
       this.toastr.errorToastr('Please select payment mode');
       return;
     }
-    console.log(this.latitude);
+    // console.log(this.latitude);
 
-    console.log(this.longitude);
-    console.log(this.addedClothes);
-    console.log('Total Quantity:', this.totalQuantity);
-    console.log(this.preferredTime);
-    console.log(this.preferredDate);
-    console.log('Total Price:', this.totalPrice);
+    // console.log(this.longitude);
+    // console.log(this.addedClothes);
+    // console.log('Total Quantity:', this.totalQuantity);
+    // console.log(this.preferredTime);
+    // console.log(this.preferredDate);
+    // console.log('Total Price:', this.totalPrice);
     const req = {
       userId: this.sessionService.get('user_id'),
       address: this.completeAddress,
@@ -164,9 +164,9 @@ export class LaundryComponent implements OnInit {
       finalPrice: this.finalPrice,
       couponCode: this.selectedCouponCode,
     };
-    console.log(req);
+    // console.log(req);
     this.laundryService.placeLaundryOrder(req).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       if (data.statusCode == 200) {
         this.toastr.successToastr('Order Placed Successfully');
         this.addedClothes = [];
@@ -191,7 +191,7 @@ export class LaundryComponent implements OnInit {
 
   onCreateSectionSubmit() {
     const newSection = { name: this.newSectionName };
-    console.log('Creating new section:', newSection);
+    // console.log('Creating new section:', newSection);
     this.laundryService
       .createLaundryClothServiceName(newSection)
       .subscribe((data) => {
@@ -228,18 +228,18 @@ export class LaundryComponent implements OnInit {
   }
   getAllCloth() {
     this.laundryService.showClothType().subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.clothesData = data.data;
-      console.log('cloth', this.clothesData);
+      // console.log('cloth', this.clothesData);
     });
   }
   deleteCloth(id) {
     const req = {
       id: id,
     };
-    console.log(req);
+    // console.log(req);
     this.laundryService.deleteLaundryClothType(req).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.toastr.successToastr('Cloth deleted successfully');
       this.ngOnInit();
     });
@@ -267,10 +267,11 @@ export class LaundryComponent implements OnInit {
         this.liveLocationFetch = true;
         // this.longitude = this.toDMS(lng);
         // this.latitude = this.toDMS(lat);
-        console.log(position.coords.latitude, position.coords.longitude);
+        // console.log(position.coords.latitude, position.coords.longitude);
       });
     } else {
-      console.log('Geolocation is not supported by this browser.');
+      this.toastr.errorToastr('Geolocation is not supported by this browser.');
+      // console.log('Geolocation is not supported by this browser.');
     }
   }
   // coupons = [
@@ -354,9 +355,9 @@ export class LaundryComponent implements OnInit {
     this.applyCoupon();
   }
   paymentModeChange() {
-    console.log('previous', this.paymentMode);
-    console.log('Payment mode changed to:', this.paymentMode);
-    console.log('after', this.paymentMode);
+    // console.log('previous', this.paymentMode);
+    // console.log('Payment mode changed to:', this.paymentMode);
+    // console.log('after', this.paymentMode);
     if (this.paymentMode == '') {
       // this.toastr.errorToastr('Please select payment mode',);
       this.selectedCouponCode = '';
@@ -391,10 +392,10 @@ export class LaundryComponent implements OnInit {
       discountValue: this.discountValue,
       minimumAmount: this.minimumValue,
     };
-    console.log(req);
+    // console.log(req);
 
     this.laundryService.createCoupon(req).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.couponCodeInput = '';
       this.discountType = '';
       this.discountValue = 0;
@@ -407,9 +408,9 @@ export class LaundryComponent implements OnInit {
     const req = {
       code: couponCode,
     };
-    console.log(req);
+    // console.log(req);
     this.laundryService.deleteCoupon(req).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.toastr.successToastr('Coupon deleted successfully');
       this.ngOnInit();
     });

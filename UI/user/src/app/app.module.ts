@@ -49,6 +49,28 @@ import { PublicHeaderComponent } from './Views/partial/public-header/public-head
 import { ProgressBarModule } from 'primeng/progressbar';
 import { LaundryComponent } from './Views/pages/laundry/laundry.component';
 import { DialogModule } from 'primeng/dialog';
+import {
+  NgxUiLoaderModule,
+  NgxUiLoaderRouterModule,
+  NgxUiLoaderHttpModule,
+  NgxUiLoaderConfig,
+  SPINNER,
+  POSITION,
+  PB_DIRECTION,
+} from 'ngx-ui-loader';
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  bgsColor: 'red',
+
+  bgsPosition: POSITION.bottomCenter,
+  fgsSize: 100,
+  bgsSize: 40,
+  bgsType: SPINNER.rectangleBounce, // background spinner type
+  fgsType: SPINNER.threeStrings, // foreground spinner type
+  pbDirection: PB_DIRECTION.leftToRight, // progress bar direction
+  hasProgressBar: false,
+  pbThickness: 5, // progress bar thickness
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,7 +103,6 @@ import { DialogModule } from 'primeng/dialog';
     ClickedOutsideDirective,
     PublicHeaderComponent,
     LaundryComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -111,6 +132,9 @@ import { DialogModule } from 'primeng/dialog';
     TableModule,
     ProgressBarModule,
     DialogModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    NgxUiLoaderRouterModule,
+    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
   ],
   providers: [],
   bootstrap: [AppComponent],

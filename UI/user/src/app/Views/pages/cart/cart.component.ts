@@ -98,28 +98,28 @@ export class CartComponent implements OnInit {
         this.toastr.successToastr('Item loaded');
         // console.log(res.data);
         this.cartList = res.data;
-        console.log(this.cartList.length);
+        // console.log(this.cartList.length);
         if(this.cartList.length==0){
           this.toastr.errorToastr('Cart is empty');
           this.totalCheckoutPrice = 0;
         }
         else if(this.cartList.length==1){
-          console.log(this.cartList[0][0].orderType=='Laundary');
+          // console.log(this.cartList[0][0].orderType=='Laundary');
           if(this.cartList[0][0].orderType=='Laundary'){
             this.laundryList = this.cartList[0];
             this.laundryListItemPresent = true;
-            console.log('only laundry is present');
-            console.log(this.laundryList);
+            // console.log('only laundry is present');
+            // console.log(this.laundryList);
             for(let i=0;i<this.laundryList[1].length;i++){
               this.totalCheckoutPrice += this.laundryList[1][i].FinalPrice;
-              console.log(this.laundryList[1][i]);
+              // console.log(this.laundryList[1][i]);
             }
           }
           else if(this.cartList[0][0].orderType=='Printing'){
             this.pdfList = this.cartList[0];
             this.pdfListItemPresent = true;
-            console.log('only printing is present');
-            console.log(this.pdfList);
+            // console.log('only printing is present');
+            // console.log(this.pdfList);
             for(let i=0;i<this.pdfList[1].length;i++){
               this.totalCheckoutPrice += this.pdfList[1][i].totalCost;
             }
@@ -128,17 +128,17 @@ export class CartComponent implements OnInit {
         else{
           this.laundryListItemPresent = true;
           this.pdfListItemPresent = true;
-          console.log('both are present');
+          // console.log('both are present');
           this.pdfList = this.cartList[0];
           this.laundryList = this.cartList[1];
-          console.log(this.pdfList);
-          console.log(this.laundryList);
+          // console.log(this.pdfList);
+          // console.log(this.laundryList);
           for(let i=0;i<this.pdfList[1].length;i++){
             this.totalCheckoutPrice += this.pdfList[1][i].totalCost;
           }
           for(let i=0;i<this.laundryList[1].length;i++){
             this.totalCheckoutPrice += this.laundryList[1][i].FinalPrice;
-            console.log(this.laundryList[1][i]);
+            // console.log(this.laundryList[1][i]);
           }
         }
         // for(let i=0;i<this.pdfList[1].length;i++){
@@ -197,7 +197,7 @@ export class CartComponent implements OnInit {
       item_id: item,
       item_type: itemType,
     };
-    console.log(req);
+    // console.log(req);
     this.cartService.deleteCartItem(req).subscribe((res) => {
       // console.log(res);
       if (res.statusCode == 200) {
@@ -219,9 +219,9 @@ export class CartComponent implements OnInit {
     this.Location.back();
   }
   createPayment() {
-    console.log('createPayment');
-    console.log(this.pdfListItemPresent);
-    console.log(this.laundryListItemPresent);
+    // console.log('createPayment');
+    // console.log(this.pdfListItemPresent);
+    // console.log(this.laundryListItemPresent);
     let pdfOrderRequestTxnIdList = [];
     let laundryOrderRequestTxnIdList = [];
     if(this.pdfListItemPresent==true){
@@ -234,8 +234,8 @@ export class CartComponent implements OnInit {
         laundryOrderRequestTxnIdList.push(this.laundryList[1][i].laundryOrderRequestTxnId);
       }
     }
-    console.log(pdfOrderRequestTxnIdList);
-    console.log(laundryOrderRequestTxnIdList);
+    // console.log(pdfOrderRequestTxnIdList);
+    // console.log(laundryOrderRequestTxnIdList);
     let paymentInfo='';
     if(this.pdfListItemPresent==true && this.laundryListItemPresent==true){
       paymentInfo='print and laundry';
@@ -259,12 +259,12 @@ export class CartComponent implements OnInit {
       pdfOrderRequestTxnIdList: pdfOrderRequestTxnIdList,
       laundryOrderRequestTxnIdList: laundryOrderRequestTxnIdList,
     };
-    console.log(req);
+    // console.log(req);
     // this.sessionService.set('pendingPdfId', pendingPdfId);
     // this.sessionService.set('totalCheckoutPrice', this.totalCheckoutPrice);
     this.sessionService.set('txn_date', this.changedDate);
     this.paymentService.createPayment(req).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       if (res[0].status == true) {
 
         this.toastr.successToastr('Payment created');

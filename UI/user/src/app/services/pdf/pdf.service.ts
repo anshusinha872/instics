@@ -49,5 +49,9 @@ export class PdfService {
       headers: this.reqHeader,
     });
   }
-
+  getPriceList(): Observable<any> {
+    return this.http.get(this.base_url + 'getPriceList', {
+      headers: this.reqHeader,
+    });
+  }
 }

@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
           this.route.navigate(['/dashboard']);
         });
       } else {
-        console.log(res);
+        // console.log(res);
         this.toastr.errorToastr(res.data);
       }
     });
@@ -115,7 +115,7 @@ export class LoginComponent implements OnInit {
       // console.log(req);
       this.loginService.checkUser(req).subscribe((res) => {
         this.apiStatus = 'success';
-        console.log(res);
+        // console.log(res);
         sessionStorage.setItem('token', res.token);
         // console.log(res);
         if (res.statusCode == 200) {
@@ -159,7 +159,7 @@ export class LoginComponent implements OnInit {
           this.reCaptchaVerifier = '';
           this.otp = '';
           this.newPassword = '';
-          
+
         } else {
           this.toastr.errorToastr(result.data);
         }
@@ -184,7 +184,7 @@ export class LoginComponent implements OnInit {
       .signInWithPhoneNumber(phone_number, this.reCaptchaVerifier)
       .then((conformationResult) => {
         // this.otpBoxVisible = true;
-        
+
         // console.log('otp sent');
         localStorage.setItem(
           'confirmationResult',

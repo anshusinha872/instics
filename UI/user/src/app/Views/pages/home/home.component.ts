@@ -23,7 +23,7 @@ export class HomePageComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient, private pdfservice: PdfService) {}
 
   ngOnInit(): void {
-    window.alert('Welcome to the home page');
+    // window.alert('Welcome to the home page');
     this.slideImage();
     App.addListener('backButton', ({ canGoBack }) => {
       if (canGoBack) {
@@ -40,7 +40,7 @@ export class HomePageComponent implements OnInit {
   fetchMessage()
   {
     this.message = this.pdfservice.fetchMessage().subscribe((data)=>{
-      console.log(data.data[0]);
+      // console.log(data.data[0]);
       this.message = data.data[0];
     });
   }

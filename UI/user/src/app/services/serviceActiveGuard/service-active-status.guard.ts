@@ -34,14 +34,16 @@ export class ServiceActiveStatusGuard
         serviceId: serviceId,
       };
       // console.log('canactive',route.routeConfig.path);
-      console.log('canactive',req);
+    // console.log('canactive',req);
+
     return this.userService.checkServiceActive(req).toPromise().then((res) => {
       console.log(res);
       if (res.statusCode == 200) {
         return true;
       } else {
-        this.toastManager.errorToastr(res.data);
-        this.router.navigate(['/dashboard']);
+        this.toastManager.errorToastr("Service is not active");
+        // console.log('canactive', this.router.url);
+        this.router.navigate([this.router.url]);
         return false;
       }
     });

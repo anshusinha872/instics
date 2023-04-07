@@ -557,7 +557,36 @@ let loginsellerByUsername = async (username, password) => {
 		return resultdb(500, err);
 	}
 };
-
+let getPriceList = async (req) => {
+	try{
+		var connection = config.connection;
+		const response = await new Promise((resolve, reject) => {
+			const query = "select * from printPricing ;";
+			connection.query(query, (err, results) => {
+				if (err) reject(new Error(err.message));
+				resolve(results);
+			});
+		});
+		let returnData = [];
+		let standardDocumentPricing = [];
+		let officialDocumentPricing = [];
+		for (let i = 0; i < response.length; i++) {
+			if(response[i].documentType == 0){
+				standardDocumentPricing.push(response[i]);
+			}
+			else{
+				officialDocumentPricing.push(response[i]);
+			}
+		}
+		returnData.push(standardDocumentPricing);
+		returnData.push(officialDocumentPricing);
+		return resultdb(200, returnData);
+	}
+	catch(err){
+		console.log(err);
+		return resultdb(500, err);
+	}
+}
 module.exports = {
 	uploadDoc,
 	sellerprint,
@@ -566,5 +595,6 @@ module.exports = {
 	getPdfById,
 	getUserPDF,
 	loginsellerByUsername,
+	getPriceList
 	// getPdfOrderRequestTxnId
 };

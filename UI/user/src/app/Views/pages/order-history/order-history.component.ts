@@ -30,10 +30,10 @@ export class OrderHistoryComponent implements OnInit {
   visible: boolean;
 
     showDialog(data) {
-      console.log(data);
+      // console.log(data);
       this.showtableindex = data;
-      console.log(this.showtableindex);
-      console.log("table"+data);
+      // console.log(this.showtableindex);
+      // console.log("table"+data);
       const id = "table"+data;
       // console.log(document.getElementById("table"+data));
       // document.getElementById('anshu').classList.toggle('d-none');
@@ -68,7 +68,7 @@ export class OrderHistoryComponent implements OnInit {
       // console.log(data);
       if (data.statusCode == 200) {
         this.laundryOrderDetails = data.data;
-       console.log(data.data);
+      //  console.log(data.data);
       }
       else {
         console.log('error');

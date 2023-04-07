@@ -73,7 +73,7 @@ export class ServicesComponent implements OnInit {
     document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
   }
   redirect(data,id) {
-    console.log(data, id);
+    // console.log(data, id);
     const req = {
       serviceId: id,
     };

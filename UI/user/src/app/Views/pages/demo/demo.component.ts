@@ -21,7 +21,7 @@ export class DemoComponent implements OnInit {
   }
   onFileChange(event) {
     this.files = event.target.files;
-    console.log(this.files);
+    // console.log(this.files);
     var pattern = /image-*/;
     if (this.files && this.files.length) {
       const file = this.files.item(0);

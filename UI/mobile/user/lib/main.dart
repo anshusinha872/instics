@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,6 +17,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
+
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,45 +27,73 @@ class MyHomePage extends StatelessWidget {
           leading: Image.asset('assets/images/android-chrome-512x512.png'),
           title: Text('Instincts'),
         ),
-        body: Container(
-          color: Colors.blue,
-          child: Column(children: [
-            Container(
-              alignment: Alignment.topLeft,
-              margin: const EdgeInsets.all(10),
-              child: const Text(
-                "Welcome to Instincts",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 2,
+        body: SingleChildScrollView(
+          child: Container(
+            color: Colors.blue,
+            child: Column(children: [
+              Container(
+                alignment: Alignment.topLeft,
+                margin: const EdgeInsets.all(10),
+                child: const Text(
+                  "Welcome to Instincts",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 2,
+                  ),
                 ),
               ),
-            ),
-            Container(
-              alignment: Alignment.topLeft,
-              margin: EdgeInsets.all(10),
-              child: const Text(
-                "If I say I'm your genie. Would you trust me for your wishes?",
-                style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w300),
+              Container(
+                alignment: Alignment.topLeft,
+                margin: const EdgeInsets.all(10),
+                child: const Text(
+                  "If I say I'm your genie. Would you trust me for your wishes?",
+                  style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w300),
+                ),
               ),
-            ),
-            Container(
-              alignment: Alignment.topLeft,
-              margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-              child: TextButton(
-                style: const ButtonStyle(
-                    foregroundColor: MaterialStatePropertyAll(Colors.blue),
-                    backgroundColor: MaterialStatePropertyAll(Colors.white)),
-                child: Text("Register"),
-                onPressed: () => {},
+              Container(
+                alignment: Alignment.topLeft,
+                margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                child: TextButton(
+                  style: const ButtonStyle(
+                      foregroundColor: MaterialStatePropertyAll(Colors.blue),
+                      backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                  child: Text("Register"),
+                  onPressed: () => {},
+                ),
               ),
-            )
-          ]),
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Image.asset("assets/images/student.png"),
+              ),
+              // carousel Container
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: CarouselSlider(
+                  items: [
+                    Image.asset("assets/images/54950.jpg"),
+                    Image.asset("assets/images/5378405.jpg"),
+                    Image.asset("assets/images/5127314.jpg"),
+                  ],
+                  options: CarouselOptions(
+                    height: 200,
+                    // animateToClosest: true,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    aspectRatio: 2.0,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                    viewportFraction: 1,
+                  ),
+                ),
+              ),
+            ]),
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
