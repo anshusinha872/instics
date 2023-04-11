@@ -1,0 +1,307 @@
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+      <!-- <mat-drawer mode="side" opened="true"> -->
+      <!-- <app-sidenav></app-sidenav> -->
+      <mat-nav-list>
+        <div class="logo py-4">
+          <img src="./assets/logo1.png" alt="Company Logo"/>
+        </div>
+        <mat-divider></mat-divider>
+        <h2 matSubheader class="mt-2 harsh">APPLICATIONS</h2>
+    
+      <div>
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/laundaryadmin" (click)="dashboard()">
+          <mat-icon >dashboard</mat-icon> <span class="harsh2">Dashboard</span>
+        </a><br>
+        <a mat-list-item routerLinkActive="list-item-active" (click)="cardshow()">
+          <mat-icon >card_travel</mat-icon> <span class="harsh2">Add card</span>
+        </a><br>
+        <a mat-list-item routerLinkActive="list-item-active" (click)="paymenthis()"> <mat-icon>payment</mat-icon><span class="harsh2">Payment History </span> </a><br>
+        <a mat-list-item routerLinkActive="list-item-active" > <mat-icon>shopping_cart</mat-icon><span class="harsh2">Order history </span> </a><br>
+        <a mat-list-item routerLinkActive="list-item-active" (click)="reportshow()" > <mat-icon>file_copy</mat-icon><span class="harsh2">Report </span> </a><br>
+      </div>
+      </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
+      <div class="container mt-3">
+        <div class="row">
+          <div class="col-4">
+            <div class="card" style="width: 20rem;">
+               
+              <div class="card-body">
+                <div class="row">
+                  <!-- <div class="col-4">
+                    <img src="assets/user.png" alt="Card image cap" width="100px" height="100px">
+                  </div> -->
+                  <div class="col">
+                    <h5>Today order</h5>
+                    <!-- <h2 *ngFor="let count of count" style="color:red;text-align: center;">{{count.id_count}}</h2> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card" style="width: 20rem;">
+               
+              <div class="card-body">
+                <div class="row">
+                  <!-- <div class="col-4">
+                    <img src="assets/seller.png" alt="Card image cap" width="100px" height="100px">
+                  </div> -->
+                  <div class="col">
+                    <h5>Total Orders</h5>
+                    <!-- <h2 *ngFor="let scount of scount" style="color:red;text-align: center;">{{scount.id_count}}</h2> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card" style="width: 20rem;">
+               
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-6">
+                    <!-- <img src="assets/subadmin.png" alt="Card image cap" width="80px" height="100px"> -->
+                    <h5 >Total payment</h5>
+                  </div>
+                  <div class="col-6">
+                    <h5 *ngFor="let total of total" style="color:red;text-align: center;">{{total.totalpayment}}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    
+      <!-- <div *ngIf="!verify"> -->
+        <div *ngIf="!verify && !verified">
+          
+          <div class="container">
+  
+            <div class="row">
+              <div *ngFor="let service of service">
+                <mat-slide-toggle [(ngModel)]="service.active_status" (click)="updatelaundryservice(service.active_status)">ON/Off service</mat-slide-toggle>
+  
+              </div>
+            </div>
+            </div>
+          </div>
+  
+       <div *ngIf="verified">
+        <div class="container mb-3 mt-3">
+  
+          <div class="row">
+            <div class="col-4">
+              <div class="card" style="width: 20rem;">
+                         
+                <div class="card-body">
+                  <div class="row">
+                    <!-- <div class="col-4">
+                      <img src="assets/subadmin.png" alt="Card image cap" width="150px" height="150px">
+                    </div> -->
+                    <div class="col">
+                      <h4 style="text-align: center;">Amount</h4>
+                      <!-- <h2 *ngFor="let count of count" style="color:red;text-align: center;">{{count.id_count}}</h2> -->
+                      <label for="sdate">start date:</label>
+                      <input type="date" [(ngModel)]="date1">
+                      <br>
+                      <label for="sdate" class="mt-2">last date:</label>
+                      <input type="date" [(ngModel)]="date2">
+                      <p class="mt-1">calculated amount:- <span *ngFor="let amount of amount" style="color:red">{{amount.calculatepayment}}</span></p>
+                      <button class="mt-1" (click)="calculateamount(date1,date2)">calculate amount</button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="card" style="width: 20rem;">
+                         
+                <div class="card-body">
+                  <div class="row">
+                    <!-- <div class="col-4">
+                      <img src="assets/subadmin.png" alt="Card image cap" width="150px" height="150px">
+                    </div> -->
+                    <div class="col">
+                      <h4 style="text-align: center;">Total Amount of customer</h4>
+                      <!-- <h2 *ngFor="let count of count" style="color:red;text-align: center;">{{count.id_count}}</h2> -->
+                      <label for="sdate">Mobile number: </label>
+                      <input type="text" [(ngModel)]="number">
+                    
+                      <p class="mt-1">calculated amount:- <span *ngFor="let customeramount of customeramount" style="color:red">{{customeramount.contactpayment}}</span></p>
+                      <button class="mt-1" (click)="numberamount(number)">calculate amount</button>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <mat-icon>search</mat-icon>
+                <input type="text,email,date" name="search"[(ngModel)]="searchText" placeholder="search..." class="search">
+        <table class="table table-bordered table-striped mt-3">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>customer name</th>
+            <th>customer email</th>
+            <th>customer mobile</th> 
+            <th>amount</th>
+            <th>Date</th>
+            <th>status</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let payment of payment|filter:searchText| paginate: { itemsPerPage: 10, currentPage: p }">
+                
+                <td >{{payment.id}}</td>
+                <td >{{payment.customer_name}}</td>
+                <td>{{payment.customer_email}}</td>
+                <td>{{payment.customer_mobile}}</td>
+                <td>{{payment.amount}}</td>
+                <td>{{payment.txnAt}}</td>
+                <td>{{payment.status}}</td>          
+            </tr> 
+          
+  </tbody></table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  
+  
+       </div>
+  
+       <div *ngIf="reportverify">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h4>Enter Date</h4>
+              <input type="date" placeholde="MM/DD/YYYY" [(ngModel)]="currrentdate">
+              <button (click)="showreport(currrentdate)">Show report</button>
+            </div>
+            <div class="col mt-5">
+              <button [useExistingCss]="true"  printSectionId="print-section" ngxPrint>Generate PDF</button>
+            </div>
+          </div>
+          <div>
+        </div>
+        
+  <div>
+    
+  </div>
+        <div  id="print-section" >
+  
+          
+            <div class="row head mt-4" >
+              <!-- <div class="head"> -->
+                <!-- <h2>Company Name</h2> -->
+                <div>
+    
+                  <img src="./assets/logo1.png" alt="Company Logo" height="50px" width="200px"/>
+                </div>
+                  <div class="col-8">
+                   
+                    <p>SAS Nagar, Punjab, India
+                      Pin Code: 140301</p>
+                  </div>
+                  <div class="col-4">
+                    <p><mat-icon>contact_phone</mat-icon><span>8292009935</span></p>
+                    <p><mat-icon> email</mat-icon><span>info@instincts.co.in</span></p>
+                  </div>
+                <!-- </div> -->
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+                <h4>Laundry Report Date:{{currrentdate}}</h4>
+  
+              </div>
+  
+              <h5 class="mt-4">Success Payment Record</h5>
+              <table class="table table-bordered table-striped mt-3">
+                <thead>
+                <tr>
+                  <th>ID</th>
+            <th>customer name</th>
+            <th>customer email</th>
+            <th>customer mobile</th> 
+            <th>amount</th>
+            <th>Date</th>
+            <th>status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let successpayment of successpayment">
+                
+                  <td >{{successpayment.id}}</td>
+                  <td >{{successpayment.customer_name}}</td>
+                  <td>{{successpayment.customer_email}}</td>
+                  <td>{{successpayment.customer_mobile}}</td>
+                  <td>{{successpayment.amount}}</td>
+                  <td>{{successpayment.txnAt}}</td>
+                  <td>{{successpayment.status}}</td>          
+              </tr> 
+                
+        </tbody></table>
+        <h5 class="mt-4">Failure Payment Record</h5>
+        <table class="table table-bordered table-striped mt-3">
+          <thead>
+          <tr>
+            <th>ID</th>
+      <th>customer name</th>
+      <th>customer email</th>
+      <th>customer mobile</th> 
+      <th>amount</th>
+      <th>Date</th>
+      <th>status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let failpayment of failpayment">
+          
+            <td >{{failpayment.id}}</td>
+            <td >{{failpayment.customer_name}}</td>
+            <td>{{failpayment.customer_email}}</td>
+            <td>{{failpayment.customer_mobile}}</td>
+            <td>{{failpayment.amount}}</td>
+            <td>{{failpayment.txnAt}}</td>
+            <td>{{failpayment.status}}</td>          
+        </tr> 
+          
+  </tbody></table>
+            </div>
+            <div class="container">
+  
+              <div class="row justify-content-end mt-3">
+                <div class="col-4">
+                  <h5>Payment History</h5>
+                  <p>Today Total order:<span *ngFor="let todayorder of todayorder">{{todayorder.todayorder}}</span></p>
+                  <p>Total Income:<span *ngFor="let todaypayment of todaypayment">{{todaypayment.todaypayment}}</span></p>
+                  <p>Total Profit:<span *ngFor="let todaypayment of todaypayment">{{todaypayment.todaypayment*0.25}}</span></p>
+                  </div>
+    
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col">
+                <h5>Signature</h5>
+                <img src="assets/signature.png" width="150px" height="150px">
+              </div>
+              <div class="col">v
+                <h5>Verification signature</h5>
+              </div>
+            </div>
+          </div>
+          
+          </div>
+        </div>
+
+     </mat-drawer-content>
+    
+  </mat-drawer-container>
+  

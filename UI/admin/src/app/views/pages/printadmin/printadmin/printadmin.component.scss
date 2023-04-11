@@ -1,0 +1,267 @@
+
+// nav{
+    
+//     top:0;
+//     left:0;
+//     width:100%;
+//     display:flex;
+//     justify-content:space-between;
+//     align-items: center;
+//     transition:0.6s;
+//     /* padding:40px 50px; */
+//     background-color: #333;
+//     z-index:2
+//   }
+//   .navbar{
+//     background-color: #b4c4e3;
+//   }
+//   ul{
+//     position:relative;
+//     display:flex;
+//     justify-content:center;
+//     align-items:center;
+//     margin-right: 100px;
+//   }
+//   ul li{
+//     position:relative;
+//     list-style:none;
+//   }
+  
+//   nav ul li a{
+//   position:relative;
+//   margin:0 15px;   
+//   text-decoration:none;
+// //   color:rgb(249, 245, 245);
+//   letter-spacing: 2px;
+//   font-weight:500px;
+//   transition:0.5s;
+//   }
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  mat-drawer {
+    width: 260px;
+  }
+  mat-drawer-container {
+    height: 100%;
+  }
+  
+  mat-drawer {
+    background:white;
+  }
+  
+  .page {
+    color: white;
+    padding: 0 1rem;
+    background: #f1f5f9;
+    &__box {
+      min-height: 120px;
+      background: #1e293b;
+      margin: 0 -1rem;
+      font-size: 36px;
+    }
+    &__content {
+      min-height: calc(100vh - 178px);
+      border-radius: 10px;
+      margin-top: -2rem;
+      background: white;
+      color: black;
+      font-size: 2rem;
+      &-data {
+        top: 30%;
+        left: 20%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+  
+  :host {
+    .mat-icon {
+      vertical-align: middle;
+      margin-right: 1rem;
+    }
+  }
+  .logo {
+    text-align: center;
+    padding: 2.6rem 1rem;
+    img {
+      width: 200px;
+    }
+  }
+  .mat-divider {
+    border-top-width: 2px;
+    border-color: white;
+  }
+  .mat-list-item {
+    // color: #94a3b8 !important;
+    font-size: 0.8rem;
+    height: 44px !important;
+    margin-bottom: 4px;
+    &:hover {
+      color: #f2f5f7 !important;
+    }
+    ::ng-deep {
+      .mat-list-item-content {
+        border-radius: 5px;
+        margin: 0 8px;
+        &:hover {
+          background: #2c3344 !important;
+        }
+      }
+    }
+  }
+  // .list-item-active {
+  //   // background: blue !important;
+  //   // border-radius: 0 2rem 2rem 0;
+  //   // &:hover {
+  //   //   background: blue;
+  //   // }
+  
+  //   // color: #f2f5f7 !important;
+  //   ::ng-deep {
+  //     .mat-list-item-content {
+  //       background: #2c3344 !important;
+  //       &:hover {
+  //         background: #2c3344 !important;
+  //       }
+  //     }
+  //   }
+  // }
+  
+  
+  a{
+    color:white
+  }
+  .mat-subheader {
+    color: #818cf8;
+    font-size: 0.6rem;
+    font-weight: 100;
+    letter-spacing: 1px;
+  } 
+//   .harsh{
+//     // color:white
+//   }
+//   .harsh2{
+// //   color:white
+//   }
+  .search{
+    width:400px;
+    height:50px;
+    border-radius: 30px;
+    text-align: center;
+  }
+
+  // 88888888888888888888888888888888888888888888888
+
+
+  .head{
+    background-color: rgb(112, 42, 112);
+    color:white
+  }
+  
+  h2 {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  li:last-child {
+    border-bottom: none;
+  }
+  
+  /* button {
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #1e90ff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  button:hover {
+    background-color: #0066cc;
+  } */
+  
+  .added-clothes {
+    margin-top: 2rem;
+  }
+
+  .priceCardWrapper{
+    /* width: 100%; */
+    /* padding: 10px;
+    box-sizing: border-box; */
+    /* height: 300px !important; */
+    /* max-height: 300px !important; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    /* border: 1px solid #e6e6e6; */
+    border-radius: 5px;
+    margin-bottom: 20px;
+    /* overflow-y: auto; */
+  
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  .priceListTableWrapper{
+    width: 100%;
+    height: 300px !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .priceListTableHeaderText{
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #000;
+  
+  }
+  /* Styles for smaller screens */
+  @media (max-width: 768px) {
+    .section {
+      flex-direction: column;
+    }
+  
+    .cloth {
+      width: 100%;
+    }
+  }
+  
+  /* pricing section ends */
+  ::ng-deep ::-webkit-scrollbar {
+    width: 2px; /* adjust the width of the scroll bar */
+    height: 2px;
+  }
+  
+  ::ng-deep ::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* set the background color of the track */
+  }
+  
+  ::ng-deep ::-webkit-scrollbar-thumb {
+    background-color: #007bff; /* set the color of the scroll thumb to blue */
+    border-radius: 10px; /* round the edges of the scroll thumb */
+  }
+  
+  ::ng-deep ::-webkit-scrollbar-thumb:hover {
+    background-color: #0062cc; /* set the color of the scroll thumb when hovering to a darker shade of blue */
+  }

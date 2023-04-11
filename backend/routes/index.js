@@ -7,4 +7,6 @@ module.exports = {
 	upiWebHook: require('./controller/webhooks/upiWebHook'),
 	adminController: require('./controller/adminController'),
 	laundryController:require('./controller/laundryController'),
+	laundryAdminController:require('./controller/laundryAdminController'),
+	printAdminController:require('./controller/printAdminController'),
 };

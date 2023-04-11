@@ -26,10 +26,17 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ToastrModule } from 'ng6-toastr-notifications';
+import { LaundryadminComponent } from './views/pages/laundryadmin/laundryadmin/laundryadmin.component';
+import {NgxPrintModule} from 'ngx-print';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PrintadminComponent } from './views/pages/printadmin/printadmin/printadmin.component';
+
 @NgModule({
   declarations: [AppComponent, LoginComponent, DashboardComponent, HeaderComponent, FooterComponent,
     SubAdminComponent,
-    AdminComponent],
+    AdminComponent,
+    LaundryadminComponent,
+    PrintadminComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -48,7 +55,9 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     MatSlideToggleModule,
     Ng2SearchPipeModule,
     MatSidenavModule,
-    ToastrModule.forRoot() 
+    ToastrModule.forRoot(),
+    NgxPaginationModule,
+    NgxPrintModule 
   ],
   providers: [],
   bootstrap: [AppComponent],

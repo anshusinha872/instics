@@ -1,0 +1,576 @@
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+      <!-- <mat-drawer mode="side" opened="true"> -->
+      <!-- <app-sidenav></app-sidenav> -->
+      <mat-nav-list>
+        <div class="logo py-4">
+          <img src="./assets/logo1.png" alt="Company Logo"/>
+        </div>
+        <mat-divider></mat-divider>
+        <h2 matSubheader class="mt-2 harsh">APPLICATIONS</h2>
+    
+      <div>
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/laundaryadmin" (click)="dashboard()">
+          <mat-icon >dashboard</mat-icon> <span class="harsh2">Dashboard</span>
+        </a><br>
+        <a mat-list-item routerLinkActive="list-item-active" (click)="cardshow()">
+          <mat-icon >card_travel</mat-icon> <span class="harsh2">Add card</span>
+        </a><br>
+        <a mat-list-item routerLinkActive="list-item-active" (click)="paymenthis()"> <mat-icon>payment</mat-icon><span class="harsh2">Payment History </span> </a><br>
+        <a mat-list-item routerLinkActive="list-item-active" (click)="couponshow()" > <mat-icon>file_copy</mat-icon><span class="harsh2">Discount coupon </span> </a><br>
+        <a mat-list-item routerLinkActive="list-item-active" (click)="displaycards()" > <mat-icon>file_copy</mat-icon><span class="harsh2">Cards </span> </a><br>
+        <a mat-list-item routerLinkActive="list-item-active" > <mat-icon>shopping_cart</mat-icon><span class="harsh2">Order history </span> </a><br>
+        <a mat-list-item routerLinkActive="list-item-active" (click)="reportshow()" > <mat-icon>file_copy</mat-icon><span class="harsh2">Report </span> </a><br>
+      </div>
+      </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
+      <div class="container mt-3">
+        <div class="row">
+          <div class="col-4">
+            <div class="card" style="width: 20rem;">
+               
+              <div class="card-body">
+                <div class="row">
+                  <!-- <div class="col-4">
+                    <img src="assets/user.png" alt="Card image cap" width="100px" height="100px">
+                  </div> -->
+                  <div class="col">
+                    <h5>Today order</h5>
+                    <!-- <h2 *ngFor="let count of count" style="color:red;text-align: center;">{{count.id_count}}</h2> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card" style="width: 20rem;">
+               
+              <div class="card-body">
+                <div class="row">
+                  <!-- <div class="col-4">
+                    <img src="assets/seller.png" alt="Card image cap" width="100px" height="100px">
+                  </div> -->
+                  <div class="col">
+                    <h5>Total Orders</h5>
+                    <!-- <h2 *ngFor="let scount of scount" style="color:red;text-align: center;">{{scount.id_count}}</h2> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card" style="width: 20rem;">
+               
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-6">
+                    <!-- <img src="assets/subadmin.png" alt="Card image cap" width="80px" height="100px"> -->
+                    <h5 >Total payment</h5>
+                  </div>
+                  <div class="col-6">
+                    <h5 *ngFor="let total of total" style="color:red;text-align: center;">{{total.totalpayment}}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    
+      <!-- <div *ngIf="!verify"> -->
+        <div *ngIf="!verify && !verified">
+          
+          <div class="container">
+  
+            <div class="row">
+              <div *ngFor="let service of service">
+                <mat-slide-toggle [(ngModel)]="service.active_status" (click)="updatelaundryservice(service.active_status)">ON/Off service</mat-slide-toggle>
+  
+              </div>
+            </div>
+            </div>
+          </div>
+  
+       <div *ngIf="verified">
+        <div class="container mb-3 mt-3">
+  
+          <div class="row">
+            <div class="col-4">
+              <div class="card" style="width: 20rem;">
+                         
+                <div class="card-body">
+                  <div class="row">
+                    <!-- <div class="col-4">
+                      <img src="assets/subadmin.png" alt="Card image cap" width="150px" height="150px">
+                    </div> -->
+                    <div class="col">
+                      <h4 style="text-align: center;">Amount</h4>
+                      <!-- <h2 *ngFor="let count of count" style="color:red;text-align: center;">{{count.id_count}}</h2> -->
+                      <label for="sdate">start date:</label>
+                      <input type="date" [(ngModel)]="date1">
+                      <br>
+                      <label for="sdate" class="mt-2">last date:</label>
+                      <input type="date" [(ngModel)]="date2">
+                      <p class="mt-1">calculated amount:- <span *ngFor="let amount of amount" style="color:red">{{amount.calculatepayment}}</span></p>
+                      <button class="mt-1" (click)="calculateamount(date1,date2)">calculate amount</button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="card" style="width: 20rem;">
+                         
+                <div class="card-body">
+                  <div class="row">
+                    <!-- <div class="col-4">
+                      <img src="assets/subadmin.png" alt="Card image cap" width="150px" height="150px">
+                    </div> -->
+                    <div class="col">
+                      <h4 style="text-align: center;">Total Amount of customer</h4>
+                      <!-- <h2 *ngFor="let count of count" style="color:red;text-align: center;">{{count.id_count}}</h2> -->
+                      <label for="sdate">Mobile number: </label>
+                      <input type="text" [(ngModel)]="number">
+                    
+                      <p class="mt-1">calculated amount:- <span *ngFor="let customeramount of customeramount" style="color:red">{{customeramount.contactpayment}}</span></p>
+                      <button class="mt-1" (click)="numberamount(number)">calculate amount</button>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <mat-icon>search</mat-icon>
+                <input type="text,email,date" name="search"[(ngModel)]="searchText" placeholder="search..." class="search">
+        <table class="table table-bordered table-striped mt-3">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>user ID</th>
+            <th>customer name</th>
+            <th>customer email</th>
+            <th>customer mobile</th> 
+            <th>amount</th>
+            <!-- <th>Date</th> -->
+            <th>status</th>
+            <th>address</th>
+            <th>coupon code</th>
+            <th>coupon Discount</th>
+            <th>Discount Amount</th>
+            <th>latitude</th>
+            <th>Longitude</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let payment of payment|filter:searchText| paginate: { itemsPerPage: 10, currentPage: p }">
+                
+                <td >{{payment.id}}</td>
+                <td >{{payment.user_id}}</td>
+                <td >{{payment.customer_name}}</td>
+                <td>{{payment.customer_email}}</td>
+                <td>{{payment.customer_mobile}}</td>
+                <td>{{payment.amount}}</td>
+                <!-- <td>{{payment.txnAt}}</td> -->     
+                <td>{{payment.paymentStatus}}</td>          
+                <td>{{payment.address}}</td>          
+                <td>{{payment.couponCode}}</td>          
+                    
+                <td>{{payment.couponDiscount}}</td>          
+                <td>{{payment.finalAmountAfterDiscount}}</td>          
+                <td>{{payment.latitude}}</td>          
+                <td>{{payment.longitude}}</td>            
+            </tr> 
+          
+  </tbody></table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  
+  
+       </div>
+  
+       <div *ngIf="reportverify">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h4>Enter Date</h4>
+              <input type="date" placeholde="MM/DD/YYYY" [(ngModel)]="currrentdate">
+              <button (click)="showreport(currrentdate)">Show report</button>
+            </div>
+            <div class="col mt-5">
+              <button [useExistingCss]="true"  printSectionId="print-section" ngxPrint>Generate PDF</button>
+            </div>
+          </div>
+          <div>
+        </div>
+        
+  <div>
+    
+  </div>
+        <div  id="print-section" >
+  
+          
+            <div class="row head mt-4" >
+              <!-- <div class="head"> -->
+                <!-- <h2>Company Name</h2> -->
+                <div>
+    
+                  <img src="./assets/logo1.png" alt="Company Logo" height="50px" width="200px"/>
+                </div>
+                  <div class="col-8">
+                   
+                    <p>SAS Nagar, Punjab, India
+                      Pin Code: 140301</p>
+                  </div>
+                  <div class="col-4">
+                    <p><mat-icon>contact_phone</mat-icon><span>8292009935</span></p>
+                    <p><mat-icon> email</mat-icon><span>info@instincts.co.in</span></p>
+                  </div>
+                <!-- </div> -->
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+                <h4>Laundry Report Date:{{currrentdate}}</h4>
+  
+              </div>
+  
+              <h5 class="mt-4">Success Payment Record</h5>
+              <table class="table table-bordered table-striped mt-3">
+                <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>user id</th>
+            <th>customer name</th>
+            <th>customer email</th>
+            <th>customer mobile</th> 
+            <th>amount</th>
+            <th>Date</th>
+           
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let successpayment of successpayment">
+                
+                  <td >{{successpayment.id}}</td>
+                  <td >{{successpayment.user_id}}</td>
+                  <td >{{successpayment.customer_name}}</td>
+                  <td>{{successpayment.customer_email}}</td>
+                  <td>{{successpayment.customer_mobile}}</td>
+                  <td>{{successpayment.amount}}</td>
+                  <td>{{successpayment.txnAt}}</td>
+                       
+              </tr> 
+                
+        </tbody></table>
+        <h5 class="mt-4">Failure Payment Record</h5>
+        <table class="table table-bordered table-striped mt-3">
+          <thead>
+          <tr>
+            <th>ID</th>
+      <th>customer name</th>
+      <th>customer email</th>
+      <th>customer mobile</th> 
+      <th>amount</th>
+      <th>Date</th>
+      <th>status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let failpayment of failpayment">
+          
+            <td >{{failpayment.id}}</td>
+            <td >{{failpayment.customer_name}}</td>
+            <td>{{failpayment.customer_email}}</td>
+            <td>{{failpayment.customer_mobile}}</td>
+            <td>{{failpayment.amount}}</td>
+            <td>{{failpayment.txnAt}}</td>
+            <td>{{failpayment.status}}</td>          
+        </tr> 
+          
+  </tbody></table>
+            </div>
+            <div class="container">
+  
+              <div class="row justify-content-end mt-3">
+                <div class="col-4">
+                  <h5>Payment History</h5>
+                  <p>Today Total order:<span *ngFor="let todayorder of todayorder">{{todayorder.todayorder}}</span></p>
+                  <p>Total Income:<span *ngFor="let todaypayment of todaypayment">{{todaypayment.todaypayment}}</span></p>
+                  <p>Total Profit:<span *ngFor="let todaypayment of todaypayment">{{todaypayment.todaypayment*0.25}}</span></p>
+                  </div>
+    
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col">
+                <h5>Signature</h5>
+                <img src="assets/signature.png" width="150px" height="150px">
+              </div>
+              <div class="col">v
+                <h5>Verification signature</h5>
+              </div>
+            </div>
+          </div>
+          
+          </div>
+        </div>
+
+        <div *ngIf="cardverify">
+          <div class="add-section-form">
+            <h3>Create Section</h3>
+            <form class="" (ngSubmit)="onCreateSectionSubmit()">
+              <div class="sectionNameInputWrapper row align-items-end">
+                <div class="sectionNameInputContainer col-12 col-sm-4">
+                  <label for="sectionName" class="form-label">Name:</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="sectionName"
+                    name="sectionName"
+                    [(ngModel)]="newSectionName"
+                  />
+                </div>
+                <div class="sectionNameBtnWrapper col-12 col-sm-4 my-2 my-sm-0">
+                  <button class="btn btn-primary" type="submit">Create Section</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- add cloth section ends -->
+          <!-- cloth section list start -->
+          <div class="cloth-section-list">
+            <h3>Sections</h3>
+            <!-- <ul>
+              <li *ngFor="let section of sections">
+                <div class="cloth-section-list-item">
+                  <div class="cloth-section-list-item-name">
+                    {{ section.sectionName }}
+                  </div>
+                  <div class="cloth-section-list-item-action">
+                    <button
+                      class="btn btn-danger"
+                      (click)="onDeleteSectionClick(section.id)"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </li>
+            </ul> -->
+            <table class="table table-bordered table-striped mt-3">
+              <thead>
+              <tr>
+  
+                <th>section Name</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let section of sections">
+                <td>{{section.sectionName}}</td>
+                <td>
+                  <button
+                      class="btn btn-danger"
+                      (click)="onDeleteSectionClick(section.id)"
+                    >
+                      Delete
+                    </button>
+                </td>
+                </tr>
+           </tbody>
+           </table>
+           
+         
+    
+            <!-- cloth section list end -->
+            <!-- add cloth start -->
+            <div class="add-cloth-form">
+              <h3>Add Cloth to Section</h3>
+              <form (ngSubmit)="onAddClothSubmit()">
+                <div class="addClothTypeWrapper row">
+                  <div class="addClothNameInputWrapper col-12 col-sm-3">
+                    <div class="inputWrapper w-100">
+                      <label class="form-label" for="clothName">Name:</label>
+                      <input
+                        type="text"
+                        id="clothName"
+                        name="clothName"
+                        class="input"
+                        [(ngModel)]="newClothName"
+                      />
+                    </div>
+                  </div>
+                  <div class="addClothPriceInputWrapper col-12 col-sm-3">
+                    <div class="inputWrapper w-100">
+                      <label class="form-label" for="clothPrice">Price:</label>
+                      <input
+                        type="number"
+                        id="clothPrice"
+                        name="clothPrice"
+                        class="input"
+                        [(ngModel)]="newClothPrice"
+                      />
+                    </div>
+                  </div>
+                  <div class="addClothTypeSectioninputWrapper col-12 col-sm-3">
+                    <div class="inputWrapper">
+                      <label class="form-label" for="section">Section:</label>
+                      <select
+                        class="input"
+                        id="section"
+                        name="section"
+                        [(ngModel)]="selectedSection"
+                      >
+                        <option
+                          *ngFor="let section of sections"
+                          [value]="section.sectionName"
+                        >
+                          {{ section.sectionName }}
+                        </option>
+                        <!-- <option *ngFor="let section of sections" [value]="section.sectionName"></option> -->
+                      </select>
+                    </div>
+                  </div>
+                  <div class="addClothTypeBtnWrapper col-12 col-sm-3">
+                    <!-- <label for="section">Section:</label> -->
+                    <button class="btn btn-primary" type="submit">Add Cloth</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- <button class="btn btn-primary" (click)="getAllCloth()">
+              get cloth details
+            </button> -->
+        
+        </div>
+
+        <!--  ****************************************************-->
+
+        <div class="priceCardContainerWrapper p-0 p-sm-2 p-lg-4">
+          <div
+            class="priceCardContainer row m-0 d-flex justify-content-start align-items-start"
+          >
+            <div
+              *ngFor="let section of clothesData"
+              class="priceCard my-3 col-12 px-0 px-sm-3 col-lg-4"
+            >
+              <div class="priceCardWrapper px-0 py-2 p-sm-2">
+                <div class="priceCardTitle">
+                  {{ section.sectionName }}
+                </div>
+                <div class="priceCardPriceDetails w-100">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Item</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Add</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let cloth of section.clothes">
+                          <th scope="row">{{ cloth.typeName }}</th>
+                          <td>{{ cloth.price | currency : "INR" : true }}</td>
+                          <td>
+                            <!-- <div class="btnWrapper">
+                              <button
+                                class="btn btn-primary btn-sm"
+                                (click)="addCloth(cloth)"
+                              >
+                                Add
+                              </button>
+                            </div> -->
+                            <div class="btnWrapper">
+                            <button class="btn btn-danger btn-sm" (click)="deleteCloth(cloth.id)">delete</button>
+                          </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+     </div>
+
+     <div *ngIf="couponverify">
+      <div class="container">
+        <form (ngSubmit)="createCoupon()" #discountForm="ngForm">
+          <div class="form-group">
+            <label for="coupon-code">Discount Coupon Code:</label>
+            <input type="text" class="form-control" id="coupon-code" name="couponCode" [(ngModel)]="couponCodeInput">
+          </div>
+      
+          <div class="form-group">
+            <label for="discount-type">Discount Type:</label>
+            <select class="form-control" id="discount-type" name="discountType" [(ngModel)]="discountType">
+              <option value="percentage">Percentage</option>
+              <option value="rupees">Rupees</option>
+            </select>
+          </div>
+      
+          <div class="form-group">
+            <label for="discount-value">Discount Value:</label>
+            <input type="number" class="form-control" id="discount-value" name="discountValue" [(ngModel)]="discountValue">
+          </div>
+      
+          <div class="form-group">
+            <label for="minimum-value">Minimum Value for Discount to be Applicable:</label>
+            <input type="number" class="form-control" id="minimum-value" name="minimumValue" [(ngModel)]="minimumValue">
+          </div>
+      
+          <button type="submit" class="btn btn-primary mt-3" [disabled]="!discountForm.valid">Apply Discount</button>
+        </form>
+        <h2>Coupon Codes</h2>
+      
+        <ul class="list-group">
+          <li *ngFor="let coupon of coupons" class="list-group-item">
+            <span>{{ coupon.code }}</span>
+            <span>{{ coupon.discountType }}</span>
+            <span>{{ coupon.discountValue }}</span>
+            <span>{{ coupon.minimumAmount }}</span>
+            <button type="button" class="btn btn-danger btn-sm float-right ml-2" (click)="deleteCoupon(coupon.code)">Delete</button>
+          </li>
+        </ul>
+      </div>
+      
+      </div>
+
+      <div  *ngIf="cardverification">
+        <div class="container">
+          <form (ngSubmit)="addcard()" #discountForm="ngForm">
+            <div class="form-group">
+              <label for="coupon-code">Discount Coupon Code:</label>
+              <input type="text" class="form-control" id="coupon-code" name="couponCode" [(ngModel)]="couponCodeInput">
+            </div>
+        
+            <div class="form-group">
+              <label for="heading">heading</label>
+              <input type="text" class="form-control" id="heading" name="heading1" [(ngModel)]="headingInput">
+            </div>
+        
+            <div class="form-group">
+              <label for="Description">Description</label>
+              <input type="text" class="form-control" id="description" name="heading2" [(ngModel)]="descriptionInput">
+            </div>
+        
+            
+        
+            <button type="submit" class="btn btn-primary mt-3" [disabled]="!discountForm.valid">Apply Discount</button>
+          </form>
+      </div>
+    </div>
+    </mat-drawer-content>
+    
+  </mat-drawer-container>
+  

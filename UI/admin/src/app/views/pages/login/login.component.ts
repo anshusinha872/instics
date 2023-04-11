@@ -43,6 +43,20 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('token', res.data.token);
         this.toastr.successToastr('Login Success');
         this.route.navigate(['/admin']);
+      }else if(res.statusCode == 200 && res.data.role==3)
+      { 
+        sessionStorage.setItem('role', res.data.role);
+        sessionStorage.setItem('username', res.data.username);
+        sessionStorage.setItem('token', res.data.token);
+        this.toastr.successToastr('Login Success');
+        this.route.navigate(['/laundryadmin']);      
+      }else if(res.statusCode == 200 && res.data.role==1)
+      { 
+        sessionStorage.setItem('role', res.data.role);
+        sessionStorage.setItem('username', res.data.username);
+        sessionStorage.setItem('token', res.data.token);
+        this.toastr.successToastr('Login Success');
+        this.route.navigate(['/printadmin']);      
       }else if(res.statusCode == 200)
       { 
         sessionStorage.setItem('role', res.data.role);
