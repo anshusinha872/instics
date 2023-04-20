@@ -40,7 +40,7 @@
   height: 100%;
   overflow: hidden;
   border-radius: 15px;
-      box-shadow: 3px 6px 20px 0px rgb(0 0 0 / 10%);
+      /* box-shadow: 3px 6px 20px 0px rgb(0 0 0 / 10%); */
 
 }
 .mainText {
@@ -62,7 +62,7 @@
 .cardSubTitle{
   font-size: 15px;
   /* color: blue; */
-  text-transform: lowercase;
+  /* text-transform: lowercase; */
 }
 .green{
   color: green;

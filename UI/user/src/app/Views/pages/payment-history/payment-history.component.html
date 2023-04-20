@@ -3,24 +3,28 @@
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th>Id</th>
-                <th>client_txn_id</th>
-                <th>amount</th>
-                <th>order_id</th>
-                <th>p_info</th>
-                <th>pdf_id_array</th>
+                <th>Txn Id</th>
+                <th>Amount</th>
+                <th>Order details</th>
+                <th>Order Info</th>
                 <th>payment_status</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-payment let-columns="columns">
             <tr>
                 <td><span class="p-column-title">Id</span>{{payment.id}}</td>
-                <td><span class="p-column-title">client_txn_id</span>{{payment.client_txn_id}}</td>
-                <td><span class="p-column-title">amount</span>{{payment.amount}}</td>
-                <td><span class="p-column-title">order_id</span>{{payment.order_id}}</td>
-                <td><span class="p-column-title">p_info</span>{{payment.p_info}}</td>
-                <td><span class="p-column-title">pdf_id_array</span>{{payment.pdf_id_array}}</td>
+                <td><span class="p-column-title">Txn_id</span>{{payment.txnId}}</td>
+                <td><span class="p-column-title">Amount</span>{{payment.amount}}</td>
+                <td><span class="p-column-title">Order details</span>
+                  {{payment.laundryPayment==1 ? 'Laundry' : ' '}}
+                  {{payment.printPayment == 1 ? 'Printing':' '}}
+                </td>
+                <td><span class="p-column-title">Order Info</span>
+                  {{payment.laundryPayment==1?payment.laundryPaymentTxnId:' '}}
+                  {{payment.printPayment==1?payment.printPaymentTxnId:' '}}
+                </td>
                 <td><span class="p-column-title">payment_status</span>{{payment.payment_status}}</td>
-                
+
             </tr>
         </ng-template>
     </p-table>

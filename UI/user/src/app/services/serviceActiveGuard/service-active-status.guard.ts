@@ -42,8 +42,9 @@ export class ServiceActiveStatusGuard
         return true;
       } else {
         this.toastManager.errorToastr("Service is not active");
-        // console.log('canactive', this.router.url);
-        this.router.navigate([this.router.url]);
+        // navigate to service page
+        this.router.navigate(['dashboard/services']);
+
         return false;
       }
     });

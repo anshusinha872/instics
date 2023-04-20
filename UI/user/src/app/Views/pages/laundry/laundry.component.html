@@ -117,379 +117,69 @@
       </div>
     </div>
   </div>
-  <!-- Instincts laundary Service Start -->
-  <!-- <div
-    class="instinctsLaundryServiceHeaderContainer d-flex justify-content-center"
-  >
-    <div class="instinctsLaundryServiceSubText">Why Instincts ?</div>
-  </div>
-  <div
-    class="aboutContainer d-flex flex-row justify-content-center align-items-center"
-  >
-    <div class="d-flex flex-column justify-content-between">
+  <div class="priceCardContainerWrapper p-0 p-sm-2 p-lg-4">
+    <div
+      class="priceCardContainer row m-0 d-flex justify-content-start align-items-start"
+    >
       <div
-        class="listItems d-flex flex-row align-items-center justify-content-end left_li_1"
+        *ngFor="let section of clothesData"
+        class="priceCard my-3 col-12 px-0 px-sm-3 col-lg-4"
       >
-        <div class="px-2 mx-2 instinctsLaundrySubText">QUICK SERVICE</div>
-        <div class="px-2 instinctsLaundryLefttItemContainer">
-          <img
-            class="instinctsLaundryItemImage"
-            width="100px"
-            height="100px"
-            src="/assets/laundryImage/QUICK_SERVICE.png"
-            alt=""
-            srcset=""
-          />
-        </div>
-      </div>
-      <div
-        class="listItems d-flex flex-row align-items-center justify-content-end left_li_2"
-      >
-        <div class="px-2 mx-2 instinctsLaundrySubText">
-          DOORSTEP PICK UP AND DROP
-        </div>
-        <div class="px-2 instinctsLaundryLefttItemContainer">
-          <img
-            class="instinctsLaundryItemImage"
-            width="100px"
-            height="100px"
-            src="/assets/laundryImage/DOORSTEP_PICK_UP_AND_DROP.png"
-            alt=""
-            srcset=""
-          />
-        </div>
-      </div>
-      <div
-        class="listItems d-flex flex-row align-items-center justify-content-end left_li_3"
-      >
-        <div class="px-2 mx-2 instinctsLaundrySubText">
-          AFFORDABLE PER KILO PRICING
-        </div>
-        <div class="px-2 instinctsLaundryLefttItemContainer">
-          <img
-            class="instinctsLaundryItemImage"
-            width="100px"
-            height="100px"
-            src="/assets/laundryImage/affordable_per_kilo_pricing.png"
-            alt=""
-            srcset=""
-          />
-        </div>
-      </div>
-      <div
-        class="listItems d-flex flex-row align-items-center justify-content-end left_li_4"
-      >
-        <div class="px-2 mx-2 instinctsLaundrySubText">
-          STATE-OF-THE-ART TECHNOLOGY
-        </div>
-        <div class="px-2 instinctsLaundryLefttItemContainer">
-          <img
-            class="instinctsLaundryItemImage"
-            width="100px"
-            height="100px"
-            src="/assets/laundryImage/STATE_OF_THE_ART_TECHNOLOGY.png"
-            alt=""
-            srcset=""
-          />
-        </div>
-      </div>
-      <div
-        class="listItems d-flex flex-row align-items-center justify-content-end left_li_5"
-      >
-        <div class="px-2 mx-2 instinctsLaundrySubText">
-          WE SAVE WATER WITH EVERY WASH
-        </div>
-        <div class="px-2 instinctsLaundryLefttItemContainer">
-          <img
-            class="instinctsLaundryItemImage"
-            width="100px"
-            height="100px"
-            src="/assets/laundryImage/WE_SAVE_WATER-WITH_EVERY_WASH_CYCLE.png"
-            alt=""
-            srcset=""
-          />
-        </div>
-      </div>
-    </div>
-    <div>
-      <div>
-        <img src="/assets/logoCopy.jpg" alt="" srcset="" />
-      </div>
-    </div>
-    <div class="d-flex flex-column justify-content-between">
-      <div
-        class="listItems d-flex flex-row align-items-center justify-content-start right_li_1"
-      >
-        <div class="px-2 instinctsLaundryRightItemContainer">
-          <img
-            class="instinctsLaundryItemImage"
-            width="100px"
-            height="100px"
-            src="/assets/laundryImage/PROFESSIONAL_CLEANING.png"
-            alt=""
-            srcset=""
-          />
-        </div>
-        <div class="px-2 mx-2 instinctsLaundrySubText">
-          PROFESSIONAL CLEANING
-        </div>
-      </div>
-      <div
-        class="listItems d-flex flex-row align-items-center justify-content-start right_li_2"
-      >
-        <div class="px-2 instinctsLaundryRightItemContainer">
-          <img
-            class="instinctsLaundryItemImage"
-            width="100px"
-            height="100px"
-            src="/assets/laundryImage/GREEN_CERTIFIED_DETERGENTS.png"
-            alt=""
-            srcset=""
-          />
-        </div>
-        <div class="px-2 mx-2 instinctsLaundrySubText">
-          GREEN-CERTIFIED DETERGENTS
-        </div>
-      </div>
-      <div
-        class="listItems d-flex flex-row align-items-center justify-content-start right_li_3"
-      >
-        <div class="px-2 instinctsLaundryRightItemContainer">
-          <img
-            class="instinctsLaundryItemImage"
-            width="100px"
-            height="100px"
-            src="/assets/laundryImage/ONDEMAND_EXPRESS_SERVICE_AVAILABLE.png"
-            alt=""
-            srcset=""
-          />
-        </div>
-        <div class="px-2 mx-2 instinctsLaundrySubText">
-          ON-DEMAND SERVICE ALSO AVAILABLE
-        </div>
-      </div>
-      <div
-        class="listItems d-flex flex-row align-items-center justify-content-start right_li_4"
-      >
-        <div class="px-2 instinctsLaundryRightItemContainer">
-          <img
-            class="instinctsLaundryItemImage"
-            width="100px"
-            height="100px"
-            src="/assets/laundryImage/100_SANITIZED_and_MACHINE_DRY.png"
-            alt=""
-            srcset=""
-          />
-        </div>
-        <div class="px-2 mx-2 instinctsLaundrySubText">
-          100% SANITIZED CLOTHES
-        </div>
-      </div>
-      <div
-        class="listItems d-flex flex-row align-items-center justify-content-start right_li_5"
-      >
-        <div class="px-2 instinctsLaundryRightItemContainer">
-          <img
-            class="instinctsLaundryItemImage"
-            width="100px"
-            height="100px"
-            src="/assets/laundryImage/CUSTOM_PACKAGING_FOLD_OR_HANGI.png"
-            alt=""
-            srcset=""
-          />
-        </div>
-        <div class="px-2 mx-2 instinctsLaundrySubText">
-          CUSTOM PACKAGING FOLD OR HANG!
-        </div>
-      </div>
-    </div>
-  </div> -->
-  <!-- add cloth section start -->
-  <div class="add-section-form">
-    <h3>Create Section</h3>
-    <form class="" (ngSubmit)="onCreateSectionSubmit()">
-      <div class="sectionNameInputWrapper row align-items-end">
-        <div class="sectionNameInputContainer col-12 col-sm-4">
-          <label for="sectionName" class="form-label">Name:</label>
-          <input
-            class="form-control"
-            type="text"
-            id="sectionName"
-            name="sectionName"
-            [(ngModel)]="newSectionName"
-          />
-        </div>
-        <div class="sectionNameBtnWrapper col-12 col-sm-4 my-2 my-sm-0">
-          <button class="btn btn-primary" type="submit">Create Section</button>
-        </div>
-      </div>
-    </form>
-  </div>
-  <!-- add cloth section ends -->
-  <!-- cloth section list start -->
-  <div class="cloth-section-list">
-    <h3>Sections</h3>
-    <ul>
-      <li *ngFor="let section of sections">
-        <div class="cloth-section-list-item">
-          <div class="cloth-section-list-item-name">
+        <div class="priceCardWrapper px-0 py-2 p-sm-2">
+          <div class="priceCardTitle">
             {{ section.sectionName }}
           </div>
-          <div class="cloth-section-list-item-action">
-            <button
-              class="btn btn-danger"
-              (click)="onDeleteSectionClick(section.id)"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
-    </ul>
-    <!-- cloth section list end -->
-    <!-- add cloth start -->
-    <div class="add-cloth-form">
-      <h3>Add Cloth to Section</h3>
-      <form (ngSubmit)="onAddClothSubmit()">
-        <div class="addClothTypeWrapper row">
-          <div class="addClothNameInputWrapper col-12 col-sm-3">
-            <div class="inputWrapper w-100">
-              <label class="form-label" for="clothName">Name:</label>
-              <input
-                type="text"
-                id="clothName"
-                name="clothName"
-                class="input"
-                [(ngModel)]="newClothName"
-              />
-            </div>
-          </div>
-          <div class="addClothPriceInputWrapper col-12 col-sm-3">
-            <div class="inputWrapper w-100">
-              <label class="form-label" for="clothPrice">Price:</label>
-              <input
-                type="number"
-                id="clothPrice"
-                name="clothPrice"
-                class="input"
-                [(ngModel)]="newClothPrice"
-              />
-            </div>
-          </div>
-          <div class="addClothTypeSectioninputWrapper col-12 col-sm-3">
-            <div class="inputWrapper">
-              <label class="form-label" for="section">Section:</label>
-              <select
-                class="input"
-                id="section"
-                name="section"
-                [(ngModel)]="selectedSection"
-              >
-                <option
-                  *ngFor="let section of sections"
-                  [value]="section.sectionName"
-                >
-                  {{ section.sectionName }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="addClothTypeBtnWrapper col-12 col-sm-3">
-            <!-- <label for="section">Section:</label> -->
-            <button class="btn btn-primary" type="submit">Add Cloth</button>
-          </div>
-        </div>
-      </form>
-    </div>
-    <button class="btn btn-primary" (click)="getAllCloth()">
-      get cloth details
-    </button>
-
-    <!-- add cloth end -->
-    <!-- Instincts laundary Service ends -->
-
-    <!-- <h2>Clothes Prices</h2>
-
-  <div *ngFor="let section of clothesData">
-    <h3>{{ section.sectionName }}</h3>
-    <ul>
-      <li *ngFor="let cloth of section.clothes">
-        {{ cloth.typeName }} - {{ cloth.price | currency : "INR" : true }}
-        <button (click)="addCloth(cloth)">Add</button>
-      </li>
-    </ul>
-  </div> -->
-    .
-
-    <!--  -->
-    <div class="priceCardContainerWrapper p-0 p-sm-2 p-lg-4">
-      <div
-        class="priceCardContainer row m-0 d-flex justify-content-start align-items-start"
-      >
-        <div
-          *ngFor="let section of clothesData"
-          class="priceCard my-3 col-12 px-0 px-sm-3 col-lg-4"
-        >
-          <div class="priceCardWrapper px-0 py-2 p-sm-2">
-            <div class="priceCardTitle">
-              {{ section.sectionName }}
-            </div>
-            <div class="priceCardPriceDetails w-100">
-              <div class="table-responsive">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Item</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Add</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let cloth of section.clothes">
-                      <th scope="row">{{ cloth.typeName }}</th>
-                      <td>{{ cloth.price | currency : "INR" : true }}</td>
-                      <td>
-                        <div class="btnWrapper">
-                          <button
-                            class="btn btn-primary btn-sm"
-                            (click)="addCloth(cloth)"
-                          >
-                            Add
-                          </button>
-                        </div>
-                        <!-- <div class="btnWrapper">
-                        <button class="btn btn-primary btn-sm" (click)="deleteCloth(cloth.id)">delete</button>
-                      </div> -->
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+          <div class="priceCardPriceDetails w-100">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Add</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cloth of section.clothes">
+                    <th scope="row">{{ cloth.typeName }}</th>
+                    <td>{{ cloth.price | currency : "INR" : true }}</td>
+                    <td>
+                      <div class="btnWrapper">
+                        <button
+                          class="btn btn-primary btn-sm"
+                          (click)="addCloth(cloth)"
+                        >
+                          Add
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!--  -->
-    <div
-      class="bottomContainer row m-0 p-0"
-      *ngIf="addedClothes.length > 0"
-    >
-      <div class="addedClothContainer col-12 d-flex flex-column col-lg-6">
-        <div class="subHeaderText text-center">Added Clothes</div>
-        <!-- <table>
+  </div>
+  <!--  -->
+  <div class="bottomContainer row m-0 p-0" *ngIf="addedClothes.length > 0">
+    <div class="addedClothContainer col-12 d-flex flex-column col-lg-6">
+      <div class="subHeaderText text-center">Added Clothes</div>
+      <div class="table-responsive">
+        <table class="table">
           <thead>
             <tr>
-              <th>Cloth</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Total Price</th>
-              <th>Remove</th>
+              <th scope="col">Cloth</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Total Price</th>
+              <th scope="col">Remove</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="my-2" *ngFor="let addedCloth of addedClothes">
-              <td>{{ addedCloth.typeName }}</td>
+            <tr *ngFor="let addedCloth of addedClothes">
+              <th scope="row">{{ addedCloth.typeName }}</th>
               <td>{{ addedCloth.price | currency : "INR" : true }}</td>
               <td>{{ addedCloth.quantity }}</td>
               <td>
@@ -500,276 +190,119 @@
               </td>
               <td>
                 <div class="btnWrapper">
-                  <button (click)="removeCloth(addedCloth)">Remove</button>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    (click)="removeCloth(addedCloth)"
+                  >
+                    Remove
+                  </button>
                 </div>
               </td>
             </tr>
           </tbody>
-        </table> -->
-        <!--  -->
-        <!-- <div class="addedClothTableHeader">
-          <div class="row m-0">
-            <div class="col-4 d-flex justify-content-start">Cloth</div>
-            <div class="col-2 d-flex justify-content-center">Price</div>
-            <div class="col-2 d-flex justify-content-center">Quantity</div>
-            <div class="col-2 d-flex justify-content-center">Total Price</div>
-            <div class="col-2 d-flex justify-content-center">Remove</div>
-          </div>
-        </div>
-        <div class="addedClothTableWrapper">
-          <div
-            class="row m-0 my-2 addedClothTableItem"
-            *ngFor="let addedCloth of addedClothes"
-          >
-            <div class="col-4 d-flex justify-content-start">
-              {{ addedCloth.typeName }}
-            </div>
-            <div class="col-2 d-flex justify-content-center">
-              {{ addedCloth.price | currency : "INR" : true }}
-            </div>
-            <div class="col-2 d-flex justify-content-center">
-              {{ addedCloth.quantity }}
-            </div>
-            <div class="col-2 d-flex justify-content-center">
-              {{
-                addedCloth.price * addedCloth.quantity | currency : "INR" : true
-              }}
-            </div>
-            <div class="col-2 d-flex justify-content-center">
-              <div class="btnWrapper">
-                <button class="btn btn-primary btn-sm" (click)="removeCloth(addedCloth)">Remove</button>
-              </div>
-            </div>
-          </div>
-        </div> -->
-        <!--  -->
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Cloth</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Total Price</th>
-                <th scope="col">Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let addedCloth of addedClothes">
-                <th scope="row">{{ addedCloth.typeName }}</th>
-                <td>{{ addedCloth.price | currency : "INR" : true }}</td>
-                <td>{{ addedCloth.quantity }}</td>
-                <td>
-                  {{
-                    addedCloth.price * addedCloth.quantity
-                      | currency : "INR" : true
-                  }}
-                </td>
-                <td>
-                  <div class="btnWrapper">
-                    <button
-                      class="btn btn-primary btn-sm"
-                      (click)="removeCloth(addedCloth)"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        </table>
       </div>
+    </div>
 
-      <div
-        class="d-flex flex-column col-12 col-lg-6 align-items-center jusitfy-content-center formContainer"
-      >
-        <div class="formInputWrapper col-12">
-          <div class="subHeaderText text-center">Schedule Pickup Now</div>
-          <div class="addressContainer">
-            <label for="completeAddress" class="form-label">ADDRESS</label>
+    <div
+      class="d-flex flex-column col-12 col-lg-6 align-items-center jusitfy-content-center formContainer"
+    >
+      <div class="formInputWrapper col-12">
+        <div class="subHeaderText text-center">Schedule Pickup Now</div>
+        <div class="addressContainer">
+          <label for="completeAddress" class="form-label">ADDRESS</label>
+          <input
+            type="text"
+            id="completeAddress"
+            name="completeAddress"
+            placeholder="Enter your address"
+            [(ngModel)]="completeAddress"
+            class="input"
+          />
+        </div>
+        <div class="liveLocationContainer d-flex justify-content-between row">
+          <div class="col-12 col-sm-6 my-2 my-sm-0">
+            <button class="btn btn-primary w-100" (click)="fetchLocation()">
+              Verify Live Location
+            </button>
+          </div>
+          <div class="locationDetailsBtnContainer my-2 my-sm-0 col-12 col-sm-6">
+            <div *ngIf="!liveLocationFetch" class="redButton col-12">
+              <button disabled type="button" class="btn btn-danger w-100">
+                Location Not verified
+              </button>
+            </div>
+            <div *ngIf="liveLocationFetch" class="greenButton col-12">
+              <button disabled type="button" class="btn btn-success w-100">
+                Location verified
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="preferredTimeDateContainer row">
+          <div class="preferredTimeContainer col-6">
+            <label for="preferredTime" class="label">Preferred Time:</label>
             <input
-              type="text"
-              id="completeAddress"
-              name="completeAddress"
-              placeholder="Enter your address"
-              [(ngModel)]="completeAddress"
+              type="time"
+              id="preferredTime"
+              name="preferredTime"
+              [(ngModel)]="preferredTime"
               class="input"
             />
           </div>
-          <div class="liveLocationContainer d-flex justify-content-between row">
-            <div class="col-12 col-sm-6 my-2 my-sm-0">
-              <button class="btn btn-primary w-100" (click)="fetchLocation()">
-                Verify Live Location
-              </button>
-            </div>
-            <div
-              class="locationDetailsBtnContainer my-2 my-sm-0 col-12 col-sm-6"
-            >
-              <!-- <div class="locationDetails">
-                <label for="latitude" class="label">Latitude:</label>
-                <div>{{ latitude }}</div>
-              </div>
-              <div class="locationDetails">
-                <label for="longitude" class="label">Longitude:</label>
-                {{ longitude }}
-              </div> -->
-              <div *ngIf="!liveLocationFetch" class="redButton col-12">
-                <button disabled type="button" class="btn btn-danger w-100">
-                  Location Not verified
-                </button>
-              </div>
-              <div *ngIf="liveLocationFetch" class="greenButton col-12">
-                <button disabled type="button" class="btn btn-success w-100">
-                  Location verified
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="preferredTimeDateContainer row">
-            <div class="preferredTimeContainer col-6">
-              <label for="preferredTime" class="label">Preferred Time:</label>
-              <input
-                type="time"
-                id="preferredTime"
-                name="preferredTime"
-                [(ngModel)]="preferredTime"
-                class="input"
-              />
-            </div>
-            <div class="preferredDateContainer col-6">
-              <label for="preferredDate" class="label">Preferred Date:</label>
-              <input
-                type="date"
-                id="preferredDate"
-                name="preferredDate"
-                [(ngModel)]="preferredDate"
-                class="input"
-              />
-            </div>
-          </div>
-          <div class="paymentModeSelector">
-            <label for="paymentMode" class="label">Payment Mode:</label>
-            <select
-              id="paymentMode"
-              name="paymentMode"
-              [(ngModel)]="paymentMode"
-              (ngModelChange)="paymentModeChange()"
+          <div class="preferredDateContainer col-6">
+            <label for="preferredDate" class="label">Preferred Date:</label>
+            <input
+              type="date"
+              id="preferredDate"
+              name="preferredDate"
+              [(ngModel)]="preferredDate"
               class="input"
-            >
-              <option value="cash">CASH</option>
-              <option value="upi">UPI</option>
-            </select>
-          </div>
-          <div *ngIf="paymentMode=='upi'"  class="couponCodeSelectionContainer">
-
-            <div class="form-label">Selected Coupon: {{ selectedCoupon?.code || "None" }}</div>
-            <label class="form-label" for="couponCode">Coupon Code:</label>
-            <select class="input" id="couponCode" [(ngModel)]="selectedCouponCode">
-              <option *ngFor="let coupon of coupons" [value]="coupon.code">
-                {{ coupon.code }}
-              </option>
-            </select>
-            <button class="btn btn-primary" (click)="selectCoupon()">Apply Coupon</button>
-          </div>
-          <div class="priceDisplayContainer">
-            <div class="form-label">Total Amount: {{ totalPrice }}</div>
-            <div class="form-label">Discounted Amount: {{ discountPrice }}</div>
-            <div class="form-label">Final Amount: {{ finalPrice}}</div>
-          </div>
-          <div class="btnContainer d-flex justify-content-center">
-            <button (click)="placeOrder()" class="btn btn-success">
-              Place Order
-            </button>
+            />
           </div>
         </div>
+        <div class="paymentModeSelector">
+          <label for="paymentMode" class="label">Payment Mode:</label>
+          <select
+            id="paymentMode"
+            name="paymentMode"
+            [(ngModel)]="paymentMode"
+            (ngModelChange)="paymentModeChange()"
+            class="input"
+          >
+            <option value="cash">CASH</option>
+            <option value="upi">UPI</option>
+          </select>
+        </div>
+        <div *ngIf="paymentMode == 'upi'" class="couponCodeSelectionContainer">
+          <div class="form-label">
+            Selected Coupon: {{ selectedCoupon?.code || "None" }}
+          </div>
+          <label class="form-label" for="couponCode">Coupon Code:</label>
+          <select
+            class="input"
+            id="couponCode"
+            [(ngModel)]="selectedCouponCode"
+          >
+            <option *ngFor="let coupon of coupons" [value]="coupon.code">
+              {{ coupon.code }}
+            </option>
+          </select>
+          <button class="btn btn-primary" (click)="selectCoupon()">
+            Apply Coupon
+          </button>
+        </div>
+        <div class="priceDisplayContainer">
+          <div class="form-label">Total Amount: {{ totalPrice }}</div>
+          <div class="form-label">Discounted Amount: {{ discountPrice }}</div>
+          <div class="form-label">Final Amount: {{ finalPrice }}</div>
+        </div>
+        <div class="btnContainer d-flex justify-content-center">
+          <button (click)="placeOrder()" class="btn btn-success">
+            Place Order
+          </button>
+        </div>
       </div>
-
-      <!-- <p-table [value]="addedClothes" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
-      <ng-template pTemplate="header">
-          <tr>
-              <th>Code</th>
-              <th>Name</th>
-              <th>Category</th>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-product>
-          <tr>
-              <td>{{ product.typeName }}</td>
-              <td>{{ product.price| currency : "INR" : true  }}</td>
-              <td>{{ product.quantity }}</td>
-          </tr>
-      </ng-template>
-    </p-table> -->
     </div>
-
-    <!-- cloth pricing section ends -->
-    <!-- location start -->
-    <!-- <div>
-    <label>Address</label>
-    <input type="text" [(ngModel)]="address" name="address" />
-  </div> -->
-
-    <!-- <div>
-    <input type="radio" [(ngModel)]="useManualAddress" name="addressType" value="manual" /> Manual Address
-    <input type="radio" [(ngModel)]="useManualAddress" name="addressType" value="live" /> Live Location
-  </div> -->
-    <!-- <div *ngIf="useManualAddress">
-    <label>Address</label>
-    <input type="text" [(ngModel)]="address" name="address" />
-  </div>
-  <div *ngIf="!useManualAddress">
-    <button (click)="fetchLocation()">Get Live Location</button>
-  </div> -->
-
-    <!-- location end -->
-    <!-- form start -->
-
-    <!-- <div class="calendar-container" *ngIf="true">
-    <ngb-datepicker [(ngModel)]="preferredDate"></ngb-datepicker>
-  </div> -->
-    <!-- form ends -->
   </div>
 </div>
-<!-- coupon code generator start -->
-<div class="container">
-  <form (ngSubmit)="createCoupon()" #discountForm="ngForm">
-    <div class="form-group">
-      <label for="coupon-code">Discount Coupon Code:</label>
-      <input type="text" class="form-control" id="coupon-code" name="couponCode" [(ngModel)]="couponCodeInput">
-    </div>
-
-    <div class="form-group">
-      <label for="discount-type">Discount Type:</label>
-      <select class="form-control" id="discount-type" name="discountType" [(ngModel)]="discountType">
-        <option value="percentage">Percentage</option>
-        <option value="rupees">Rupees</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="discount-value">Discount Value:</label>
-      <input type="number" class="form-control" id="discount-value" name="discountValue" [(ngModel)]="discountValue">
-    </div>
-
-    <div class="form-group">
-      <label for="minimum-value">Minimum Value for Discount to be Applicable:</label>
-      <input type="number" class="form-control" id="minimum-value" name="minimumValue" [(ngModel)]="minimumValue">
-    </div>
-
-    <button type="submit" class="btn btn-primary" [disabled]="!discountForm.valid">Apply Discount</button>
-  </form>
-  <h2>Coupon Codes</h2>
-
-  <ul class="list-group">
-    <li *ngFor="let coupon of coupons" class="list-group-item">
-      <span>{{ coupon.code }}</span>
-      <span>{{ coupon.discountType }}</span>
-      <span>{{ coupon.discountValue }}</span>
-      <span>{{ coupon.minimumAmount }}</span>
-      <button type="button" class="btn btn-danger btn-sm float-right ml-2" (click)="deleteCoupon(coupon.code)">Delete</button>
-    </li>
-  </ul>
-</div>
-
-<!-- coupon code generator end -->
