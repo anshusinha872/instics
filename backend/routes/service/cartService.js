@@ -106,7 +106,7 @@ let orderId = async () => {
       });
     });
     let orderId = response.length + 1;
-    orderId = "Testing" + orderId;
+    orderId = "PID" + orderId;
     console.log(orderId);
     return orderId;
   } catch (err) {
