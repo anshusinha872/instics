@@ -109,6 +109,21 @@ let updatePaymentStatus = async (req) => {
               );
             }
           );
+          // update payment status in printDocRecordTable table
+          const updatePrintDocRecordTableResponse = await new Promise(
+            (resolve, reject) => {
+              const query =
+                "UPDATE printDocRecordTable SET payment_status = ? WHERE pdfOrderRequestTxnId = ?;";
+              connection.query(
+                query,
+                [status, printPaymentTxnId],
+                (err, results) => {
+                  if (err) reject(new Error(err.message));
+                  resolve(results);
+                }
+              );
+            }
+          )
         }
       }
       if (laundryPayment == 1) {

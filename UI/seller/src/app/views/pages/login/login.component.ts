@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
     //     this.toastr.errorToastr('Invalid Credentials');
     //   }
     // });
-    
+
     this.Loginseller.loginseller(req).subscribe((res: any) => {
       console.log(res);
 
@@ -54,7 +54,13 @@ export class LoginComponent implements OnInit {
         // console.log(res.data.token);
         sessionStorage.setItem('token', res.data.token);
         sessionStorage.setItem('sellerId',res.data.sellerId);
-        this.route.navigate(['/dashboard']);
+        // this.route.navigate(['/dashboard']);
+        if(res.data.sellerId==1){
+          this.route.navigate(['/dashboard/printing']);
+        }
+        else if(res.data.sellerId==2){
+          this.router.navigate(['/dashboard/laundry']);
+        }
       } else {
         console.log(res);
         this.toastr.errorToastr('Invalid Credentials');

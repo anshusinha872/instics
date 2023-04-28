@@ -19,6 +19,7 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TableModule } from 'primeng/table';
 import { ToastrModule } from 'ng6-toastr-notifications';
+import { LaundryComponent } from './views/pages/laundry/laundry.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     SubdashboardComponent,
     HeaderComponent,
     PdfListComponent,
+    LaundryComponent,
   ],
   imports: [
     BrowserModule,

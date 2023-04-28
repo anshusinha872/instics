@@ -3,6 +3,8 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanDeactivate, C
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
+import { SessionService } from 'src/app/service/session/session.service';
+import jwt_decode from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +16,11 @@ export class AuthGuard
     CanLoad,
     CanMatch
 {
-  constructor(private router: Router, private authService: AuthService) {}
+  token: any;
+  decodedToken: any;
+  constructor(private router: Router, private authService: AuthService,
+    private sessionService: SessionService
+    ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -23,12 +29,20 @@ export class AuthGuard
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    console.log(this.sessionService.get('token'));
+    this.token = this.sessionService.get('token')||'';
+    this.decodedToken = jwt_decode(this.token);
+
+    console.log(this.decodedToken);
+    console.log(this.decodedToken.sellerId);
     if (this.router.url == '/login') {
       return true;
     }
     if (this.authService.isAuthenticated()) {
       return true;
-    } else {
+    }
+
+    else {
       this.router.navigate(['/login']);
       return false;
     }
