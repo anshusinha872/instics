@@ -1,1 +1,109 @@
-<p>laundry works!</p>
+<div class="container-fluid">
+    
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Customer Mobile</th>
+            <th scope="col">Customer email</th>
+            <th scope="col">Customer address</th>
+            <th scope="col">amount</th>
+            <th scope="col">latitude</th>
+            <th scope="col">longitutde</th>
+            <!-- <th scope="col">customer_email</th> -->
+            <!-- <th scope="col">customer_mobile</th> -->
+            <!-- <th scope="col">customer_name</th> -->
+            <th scope="col">status</th>
+            <th scope="col">payment status</th>
+            <th scope="col">couponCode</th>
+            <th scope="col">coupon Discount</th>
+            <th scope="col">paymentMode</th>
+            <th scope="col">finalAmount AfterDiscount</th>
+            <th scope="col">order Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="" *ngFor="let item of laundryOrderDetails; index as i">
+            <td>{{ laundryOrderDetails[i][0].laundryOrderRequestTxnId }}</td>
+            <td>{{ laundryOrderDetails[i][0].customer_name }}</td>
+            <td>{{ laundryOrderDetails[i][0].customer_mobile }}</td>
+            <td>{{ laundryOrderDetails[i][0].customer_email }}</td>
+            <td>{{ laundryOrderDetails[i][0].customer_address}}</td>
+            <td>{{ laundryOrderDetails[i][0].latitude}}</td>
+            <td>{{ laundryOrderDetails[i][0].longitude}}</td>
+            <td>{{ laundryOrderDetails[i][0].amount }}</td>
+            <!-- <td>{{ laundryOrderDetails[i][0].customer_email }}</td> -->
+            <!-- <td>{{ laundryOrderDetails[i][0].customer_mobile }}</td> -->
+            <!-- <td>{{ laundryOrderDetails[i][0].customer_name }}</td> -->
+  
+            <td>{{ laundryOrderDetails[i][0].status }}
+            </td>
+            <td>{{ laundryOrderDetails[i][0].paymentStatus }}</td>
+            <td>{{ laundryOrderDetails[i][0].couponCode }}</td>
+            <td>{{ laundryOrderDetails[i][0].couponDiscount }}</td>
+            <td>{{ laundryOrderDetails[i][0].paymentMode }}</td>
+            <td>{{ laundryOrderDetails[i][0].finalAmountAfterDiscount }}</td>
+  
+            <td>
+              <!-- <button (click)="showtable(i)">show</button> -->
+              <p-button
+                (click)="showDialog(i)"
+                icon="pi pi-external-link"
+                label="Show"
+              ></p-button>
+            </td>
+            <!-- <table id= {{i}} class="d-none">
+                <thead>
+                  <tr>
+                    <th scope="col">amount</th>
+                    <th scope="col">clothType</th>
+                    <th scope="col">clothTypeSection</th>
+                    <th scope="col">quantity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of  laundryOrderDetails[i][1];index as j">
+                    <td>{{laundryOrderDetails[i][1][j].amount}}</td>
+                    <td>{{laundryOrderDetails[i][1][j].clothType}}</td>
+                    <td>{{laundryOrderDetails[i][1][j].clothTypeSection}}</td>
+                    <td>{{laundryOrderDetails[i][1][j].quantity}}</td>
+                  </tr>
+                </tbody>
+              </table> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div class="card flex justify-content-center">
+    <p-dialog header="Order Details" [(visible)]="visible" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [draggable]="true" [resizable]="true">
+      <div *ngFor="let item of laundryOrderDetails; index as i">
+        <div *ngIf="i == showtableindex" class="tableContainer">
+  
+          <table class="w-100" >
+            <thead>
+              <tr>
+                <th scope="col">amount</th>
+                <th scope="col">clothType</th>
+                <th scope="col">clothTypeSection</th>
+                <th scope="col">quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of laundryOrderDetails[i][1]; index as j">
+                <td>{{ laundryOrderDetails[i][1][j].amount }}</td>
+                <td>{{ laundryOrderDetails[i][1][j].clothType }}</td>
+                <td>{{ laundryOrderDetails[i][1][j].clothTypeSection }}</td>
+                <td>{{ laundryOrderDetails[i][1][j].quantity }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </p-dialog>
+  </div>
+  

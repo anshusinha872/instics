@@ -79,6 +79,28 @@ async function getOrderDetailsByUserId(req,res){
 	try{
 		console.log('req',req.body);
 		let returnData = await laundryService.getOrderDetailsByUserId(req.body.user_id);
+		console.log(returnData);
+		return res.status(200).json(returnData);
+	}
+	catch(err){
+		console.log(err);
+	}
+}
+async function getLaundryOrderDetails(req,res){
+	// console.log('req',req.body);
+	try{
+		// console.log('req',req.body);
+		let returnData = await laundryService.getLaundryOrderDetails(req.body);
+		return res.status(200).json(returnData);
+	}
+	catch(err){
+		console.log(err);
+	}
+}
+async function getOrderDetailsByUserId(req,res){
+	try{
+		console.log('req',req.body);
+		let returnData = await laundryService.getOrderDetailsByUserId(req.body.user_id);
 		return res.status(200).json(returnData);
 	}
 	catch(err){
@@ -123,6 +145,7 @@ router.post('/laundry/deleteSection',deleteSection);
 router.post('/laundry/deleteClothType',deleteClothType);
 router.post('/laundry/placeOrder',placeLaundryOrder);
 router.post('/laundry/getOrderDetails',getOrderDetailsByUserId);
+router.post('/laundryseller/OrderDetails',getLaundryOrderDetails);
 router.post('/laundry/createCoupon',createCoupon);
 router.post('/laundry/deleteCoupon',deleteCoupon);
 router.get('/laundry/getAllCoupons',getAllCoupons);

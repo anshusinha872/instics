@@ -324,6 +324,75 @@ let getOrderDetailsByUserId = async (userId) => {
     return resultdb(500, err);
   }
 };
+let getLaundryOrderDetails = async (req) => {
+  console.log(req);
+  	
+  
+  try {
+    let returnData = [];
+    var connection = config.connection;
+    const response = await new Promise((resolve, reject) => {
+      const query =
+        "SELECT * FROM laundryOrderRequest  ORDER BY id DESC";
+      connection.query(query, (err, results) => {
+        if (err) reject(new Error(err.message));
+        resolve(results);
+      });
+    });
+    console.log("laundry order history", response);
+    console.log(response.length);
+    for (let i = 0; i < response.length; i++) {
+      let orderDetails = [];
+      let orderInfo = {
+        laundryOrderRequestTxnId: response[i].laundryOrderRequestTxnId,
+        amount: response[i].amount,
+        order_info: response[i].order_info,
+        customer_name: response[i].customer_name,
+        customer_email: response[i].customer_email,
+        customer_mobile: response[i].customer_mobile,
+        customer_address: response[i].address,
+        latitude: response[i].latitude,
+        longitude: response[i].longitude,
+        status: response[i].status,
+        paymentMode: response[i].paymentMode,
+        paymentStatus: response[i].paymentStatus,
+        couponCode: response[i].couponCode,
+        couponDiscount: response[i].couponDiscount,
+        finalAmountAfterDiscount: response[i].finalAmountAfterDiscount,
+      };
+      orderDetails.push(orderInfo);
+      let orderItems = [];
+      let orderListItemResponse = await new Promise((resolve, reject) => {
+        const query =
+          "SELECT * FROM laundryOrderItemRecords WHERE laundryOrderRequestTxnId = ? ";
+        connection.query(
+          query,
+          [response[i].laundryOrderRequestTxnId],
+          (err, results) => {
+            if (err) reject(new Error(err.message));
+            resolve(results);
+          }
+        );
+      });
+      for (let j = 0; j < orderListItemResponse.length; j++) {
+        let orderListItem = {
+          clothType: orderListItemResponse[j].clothType,
+          clothTypeSection: orderListItemResponse[j].clothTypeSection,
+          quantity: orderListItemResponse[j].quantity,
+          amount: orderListItemResponse[j].amount,
+        };
+        orderItems.push(orderListItem);
+      }
+      orderDetails.push(orderItems);
+      returnData.push(orderDetails);
+    }
+    return resultdb(200, returnData);
+  } catch (err) {
+    console.log(err);
+    return resultdb(500, err);
+  }
+
+};
 let createCoupon = async (data) => {
   try {
     var connection = config.connection;
@@ -415,4 +484,5 @@ module.exports = {
   createCoupon,
   deleteCoupon,
   getAllCoupons,
+  getLaundryOrderDetails
 };

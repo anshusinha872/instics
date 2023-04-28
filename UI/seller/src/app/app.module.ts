@@ -20,6 +20,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TableModule } from 'primeng/table';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { LaundryComponent } from './views/pages/laundry/laundry.component';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { LaundryComponent } from './views/pages/laundry/laundry.component';
     ToolbarModule,
     TableModule,
     ToastrModule.forRoot(),
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

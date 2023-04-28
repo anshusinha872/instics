@@ -68,7 +68,7 @@ export class OrderHistoryComponent implements OnInit {
       // console.log(data);
       if (data.statusCode == 200) {
         this.laundryOrderDetails = data.data;
-      //  console.log(data.data);
+      //  console.log(this.laundryOrderDetails[0][0].amount);
       }
       else {
         console.log('error');
