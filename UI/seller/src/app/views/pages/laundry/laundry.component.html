@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    
+
     <div class="table-responsive">
       <table class="table">
         <thead>
@@ -10,8 +10,9 @@
             <th scope="col">Customer email</th>
             <th scope="col">Customer address</th>
             <th scope="col">amount</th>
-            <th scope="col">latitude</th>
-            <th scope="col">longitutde</th>
+            <!-- <th scope="col">latitude</th>
+            <th scope="col">longitutde</th> -->
+            <th scope="col">open map</th>
             <!-- <th scope="col">customer_email</th> -->
             <!-- <th scope="col">customer_mobile</th> -->
             <!-- <th scope="col">customer_name</th> -->
@@ -31,13 +32,14 @@
             <td>{{ laundryOrderDetails[i][0].customer_mobile }}</td>
             <td>{{ laundryOrderDetails[i][0].customer_email }}</td>
             <td>{{ laundryOrderDetails[i][0].customer_address}}</td>
-            <td>{{ laundryOrderDetails[i][0].latitude}}</td>
-            <td>{{ laundryOrderDetails[i][0].longitude}}</td>
             <td>{{ laundryOrderDetails[i][0].amount }}</td>
+            <td><button type="button" class="btn btn-primary" (click)="openGoogleMaps(laundryOrderDetails[i][0].latitude,laundryOrderDetails[i][0].longitude)">click</button></td>
+            <!-- <td>{{ laundryOrderDetails[i][0].latitude}}</td>
+            <td>{{ laundryOrderDetails[i][0].longitude}}</td> -->
             <!-- <td>{{ laundryOrderDetails[i][0].customer_email }}</td> -->
             <!-- <td>{{ laundryOrderDetails[i][0].customer_mobile }}</td> -->
             <!-- <td>{{ laundryOrderDetails[i][0].customer_name }}</td> -->
-  
+
             <td>{{ laundryOrderDetails[i][0].status }}
             </td>
             <td>{{ laundryOrderDetails[i][0].paymentStatus }}</td>
@@ -45,7 +47,7 @@
             <td>{{ laundryOrderDetails[i][0].couponDiscount }}</td>
             <td>{{ laundryOrderDetails[i][0].paymentMode }}</td>
             <td>{{ laundryOrderDetails[i][0].finalAmountAfterDiscount }}</td>
-  
+
             <td>
               <!-- <button (click)="showtable(i)">show</button> -->
               <p-button
@@ -77,12 +79,12 @@
       </table>
     </div>
   </div>
-  
+
   <div class="card flex justify-content-center">
     <p-dialog header="Order Details" [(visible)]="visible" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [draggable]="true" [resizable]="true">
       <div *ngFor="let item of laundryOrderDetails; index as i">
         <div *ngIf="i == showtableindex" class="tableContainer">
-  
+
           <table class="w-100" >
             <thead>
               <tr>
@@ -102,8 +104,7 @@
             </tbody>
           </table>
         </div>
-  
+
       </div>
     </p-dialog>
   </div>
-  
