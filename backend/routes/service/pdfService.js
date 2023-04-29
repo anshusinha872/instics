@@ -440,14 +440,14 @@ let convertPdf = async (pdf) => {
 	});
 };
 let updatedocstatus = async (req) => {
-	console.log(req.body);
+	console.log(443,req.body);
 	try {
 		const docStatus = req.body.docstatus;
 		const id = req.body.id;
 		// console.log(docStatus);
 		var connection = config.connection;
 		const response3 = await new Promise((resolve, reject) => {
-			const query = "update printDocTableset docStatus=? where id=?";
+			const query = "update printDocRecordTable SET docStatus = ? where id=?";
 			connection.query(query, [docStatus, id], (err, results) => {
 				if (err) reject(new Error(err.message));
 				resolve(results);

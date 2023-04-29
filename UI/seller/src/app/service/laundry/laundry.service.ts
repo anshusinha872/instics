@@ -20,5 +20,9 @@ export class LaundryService {
       headers: this.reqHeader,
     });
   }
-
+  updateStatus(param): Observable<any> {
+    return this.http.post(this.base_url + 'laundryseller/updateStatus', param, {
+      headers: this.reqHeader,
+    });
+  }
 }

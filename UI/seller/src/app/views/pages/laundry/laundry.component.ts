@@ -1,23 +1,71 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { LaundryService } from 'src/app/service/laundry/laundry.service';
+import { interval, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+interface City {
+  name: string;
+  code: string;
+}
 
 @Component({
   selector: 'app-laundry',
   templateUrl: './laundry.component.html',
   styleUrls: ['./laundry.component.scss']
 })
-export class LaundryComponent implements OnInit {
+export class LaundryComponent implements OnInit, OnDestroy {
+  cities: City[];
+
+    selectedCity: City;
+    private stopTimer$ = new Subject<void>();
+
   laundryOrderDetails: any;
   list = [];
   showtableindex: number;
   constructor(private laundryService: LaundryService, private toastr: ToastrManager) { }
 
   ngOnInit(): void {
-    this.getLaundryOrderDetails();
+    // this.getLaundryOrderDetails();
+    interval(5000)
+    .pipe(takeUntil(this.stopTimer$))
+    .subscribe(() => {
+      this.getLaundryOrderDetails();
+    });
+    this.cities = [
+      { name: 'New York', code: 'NY' },
+      { name: 'Rome', code: 'RM' },
+      { name: 'London', code: 'LDN' },
+      { name: 'Istanbul', code: 'IST' },
+      { name: 'Paris', code: 'PRS' }
+  ];
   }
   openMap(){
     console.log('btn clicked');
+  }
+  updateStatus(currentStatus, id) {
+    console.log(currentStatus, id);
+    if(currentStatus == 6){
+      this.toastr.errorToastr('Order is already completed');
+      return;
+    }
+    var nextStatus = currentStatus + 1;
+    console.log(nextStatus);
+    const req = {
+      id: id,
+      // currentStatus: currentStatus,
+      // nextStatus: nextStatus
+      status: nextStatus
+    }
+    this.laundryService.updateStatus(req).subscribe((data) => {
+      console.log(data);
+      if (data.statusCode == 200) {
+        this.toastr.successToastr('Status updated successfully');
+        this.getLaundryOrderDetails();
+      }
+      else {
+        this.toastr.errorToastr('Something went wrong');
+      }
+    });
   }
   openGoogleMaps(latitude, longitude) {
     console.log(latitude, longitude);
@@ -57,6 +105,9 @@ export class LaundryComponent implements OnInit {
     // document.getElementById('anshu').classList.toggle('d-none');
     this.visible = true;
   }
-
+  ngOnDestroy() {
+    this.stopTimer$.next();
+    this.stopTimer$.complete();
+  }
 
 }

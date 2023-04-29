@@ -86,6 +86,7 @@ const adminController = routes.adminController;
 const laundryController = routes.laundryController;
 const laundryAdminController = routes.laundryAdminController;
 const printAdminController = routes.printAdminController;
+const mailController = routes.mailController;
 const API_URL = '/api/v1/';
 app.use(API_URL, userController);
 app.use(API_URL, pdfController);
@@ -96,6 +97,7 @@ app.use(API_URL, adminController);
 app.use(API_URL,laundryController);
 app.use(API_URL,laundryAdminController);
 app.use(API_URL,printAdminController);
+app.use(API_URL,mailController);
 app.listen(3443, () => console.log('server started at 3443')); //localhost:3443
 
 // app.listen(3000, () => {

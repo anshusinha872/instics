@@ -137,6 +137,16 @@ async function getAllCoupons(req,res){
 		console.log(err);
 	}
 }
+async function updateStatus(req,res){
+	try{
+		console.log('req',req.body);
+		let returnData = await laundryService.updateStatus(req.body);
+		return res.status(200).json(returnData);
+	}
+	catch(err){
+		console.log(err);
+	}
+}
 router.post('/laundry/addServiceName', addServiceName);
 router.get('/laundry/showSection',showClothSection);
 router.post('/laundry/addClothType',addClothType);
@@ -149,4 +159,5 @@ router.post('/laundryseller/OrderDetails',getLaundryOrderDetails);
 router.post('/laundry/createCoupon',createCoupon);
 router.post('/laundry/deleteCoupon',deleteCoupon);
 router.get('/laundry/getAllCoupons',getAllCoupons);
+router.post('/laundryseller/updateStatus',updateStatus);
 module.exports = router;

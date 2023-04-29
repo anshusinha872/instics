@@ -471,6 +471,28 @@ let getAllCoupons = async () => {
     console.log(err);
     return resultdb(500, err);
   }
+};
+let updateStatus = async (data) => {
+  try{
+    var connection = config.connection;
+    let response = await new Promise((resolve, reject) => {
+      const query =
+        "UPDATE laundryOrderRequest SET status = ? WHERE laundryOrderRequestTxnId = ?";
+      connection.query(
+        query,
+        [data.status, data.id],
+        (err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
+        }
+      );
+    });
+    return resultdb(200, "Status Updated");
+  }
+  catch(err){
+    console.log(err);
+    return resultdb(500, err);
+  }
 }
 module.exports = {
   addServiceName,
@@ -484,5 +506,6 @@ module.exports = {
   createCoupon,
   deleteCoupon,
   getAllCoupons,
-  getLaundryOrderDetails
+  getLaundryOrderDetails,
+  updateStatus,
 };

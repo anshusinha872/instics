@@ -23,6 +23,7 @@
             <th scope="col">paymentMode</th>
             <th scope="col">finalAmount AfterDiscount</th>
             <th scope="col">order Details</th>
+            <th scope="col">update status</th>
           </tr>
         </thead>
         <tbody>
@@ -40,7 +41,15 @@
             <!-- <td>{{ laundryOrderDetails[i][0].customer_mobile }}</td> -->
             <!-- <td>{{ laundryOrderDetails[i][0].customer_name }}</td> -->
 
-            <td>{{ laundryOrderDetails[i][0].status }}
+            <td>
+              <!-- {{ laundryOrderDetails[i][0].status }} -->
+              <span *ngIf="laundryOrderDetails[i][0].status==0">pending</span>
+              <span *ngIf="laundryOrderDetails[i][0].status==1">accepted</span>
+              <span *ngIf="laundryOrderDetails[i][0].status==2">pickup</span>
+              <span *ngIf="laundryOrderDetails[i][0].status==3">processing</span>
+              <span *ngIf="laundryOrderDetails[i][0].status==4">completed</span>
+              <span *ngIf="laundryOrderDetails[i][0].status==5">out for delivery</span>
+              <span *ngIf="laundryOrderDetails[i][0].status==6">delivered</span>
             </td>
             <td>{{ laundryOrderDetails[i][0].paymentStatus }}</td>
             <td>{{ laundryOrderDetails[i][0].couponCode }}</td>
@@ -56,24 +65,10 @@
                 label="Show"
               ></p-button>
             </td>
-            <!-- <table id= {{i}} class="d-none">
-                <thead>
-                  <tr>
-                    <th scope="col">amount</th>
-                    <th scope="col">clothType</th>
-                    <th scope="col">clothTypeSection</th>
-                    <th scope="col">quantity</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of  laundryOrderDetails[i][1];index as j">
-                    <td>{{laundryOrderDetails[i][1][j].amount}}</td>
-                    <td>{{laundryOrderDetails[i][1][j].clothType}}</td>
-                    <td>{{laundryOrderDetails[i][1][j].clothTypeSection}}</td>
-                    <td>{{laundryOrderDetails[i][1][j].quantity}}</td>
-                  </tr>
-                </tbody>
-              </table> -->
+            <td><button (click)="updateStatus(laundryOrderDetails[i][0].status,laundryOrderDetails[i][0].laundryOrderRequestTxnId)" type="button" class="btn btn-primary">Update</button></td>
+            <!-- <td>
+
+            </td> -->
           </tr>
         </tbody>
       </table>
@@ -108,3 +103,6 @@
       </div>
     </p-dialog>
   </div>
+  <!-- <div class="card flex justify-content-center">
+    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
+  </div> -->

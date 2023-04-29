@@ -9,4 +9,5 @@ module.exports = {
 	laundryController:require('./controller/laundryController'),
 	laundryAdminController:require('./controller/laundryAdminController'),
 	printAdminController:require('./controller/printAdminController'),
+	mailController:require('./controller/mailController'),
 };

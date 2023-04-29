@@ -109,7 +109,15 @@
           <!-- <td>{{ laundryOrderDetails[i][0].customer_mobile }}</td> -->
           <!-- <td>{{ laundryOrderDetails[i][0].customer_name }}</td> -->
 
-          <td>{{ laundryOrderDetails[i][0].status }}
+          <td>
+            <!-- {{ laundryOrderDetails[i][0].status }} -->
+            <span *ngIf="laundryOrderDetails[i][0].status==0">pending</span>
+              <span *ngIf="laundryOrderDetails[i][0].status==1">accepted</span>
+              <span *ngIf="laundryOrderDetails[i][0].status==2">pickup</span>
+              <span *ngIf="laundryOrderDetails[i][0].status==3">processing</span>
+              <span *ngIf="laundryOrderDetails[i][0].status==4">completed</span>
+              <span *ngIf="laundryOrderDetails[i][0].status==5">out for delivery</span>
+              <span *ngIf="laundryOrderDetails[i][0].status==6">delivered</span>
           </td>
           <td>{{ laundryOrderDetails[i][0].paymentStatus }}</td>
           <td>{{ laundryOrderDetails[i][0].couponCode }}</td>

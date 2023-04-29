@@ -8,7 +8,7 @@
         </div>
         <mat-divider></mat-divider>
         <h2 matSubheader class="mt-2 harsh">APPLICATIONS</h2>
-    
+
       <div>
           <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin" (click)="dashboard()">
             <mat-icon >dashboard</mat-icon> <span class="harsh2">Dashboard</span>
@@ -28,7 +28,7 @@
         <div class="row">
           <div class="col-4">
             <div class="card" style="width: 20rem;">
-               
+
               <div class="card-body">
                 <div class="row">
                   <div class="col-4">
@@ -44,7 +44,7 @@
           </div>
           <div class="col-4">
             <div class="card" style="width: 20rem;">
-               
+
               <div class="card-body">
                 <div class="row">
                   <div class="col-4">
@@ -60,7 +60,7 @@
           </div>
           <div class="col-4">
             <div class="card" style="width: 20rem;">
-               
+
               <div class="card-body">
                 <div class="row">
                   <div class="col-4">
@@ -76,26 +76,27 @@
           </div>
         </div>
       </div>
-  
-    
+
+
       <!-- <div *ngIf="!verify"> -->
-  
+
         <div *ngIf="!verified && !verify && !sellerverify&&!servicesverify">
-        
+
           <div class="mt-3 container">
             <div class="row">
               <div class="col-md-6 offset-md-3
               text-center">
                 <h2>Superadmin</h2>
-                
-  
+
+
               </div>
               <hr>
                 <P>kjkbjdj</P>
+                <button type="button" (click)="sendMail()">send mail</button>
             </div>
-            
+
             <div class="container">
-          
+
                 <div class="row">
                   <table class="table table-bordered table-striped" >
                       <thead>
@@ -113,11 +114,11 @@
                             <span *ngIf="admin.role===0">
                               superadmin
                             </span></td>
-                          
+
                         </tr>
-                      
+
               </tbody></table>
-                       
+
                 </div>
             </div>
           </div>
@@ -141,13 +142,13 @@
                     <input type="text" class="form-control" [(ngModel)]="username">
                   </div>
                   <div class="col-3">
-                    
+
                       <label for="Password">Password</label>
                       <input type="text" class="form-control" [(ngModel)]="password">
-                    
+
                   </div>
                   <div class="col-2">
-                    
+
                     <label for="subadmin">Role</label>
                     <select name="Subadmin" id="subadmin"  class="form-control"  [(ngModel)]="role">
                       <option value="1">PrintAdmin</option>
@@ -157,16 +158,16 @@
                       <option value="5">HackathonAdmin</option>
                       <option value="6">GroceryAdmin</option>
                     </select>
-                    
+
                   </div>
                   <div class="col-2 mt-3">
                       <button class="mt-3 button" (click)="submitSubadmin()" class="back">Add</button>
                   </div>
-              
+
               </div>
-        
+
               <div class="container mt-2">
-            
+
                   <div class="row">
                     <table class="table table-bordered table-striped" >
                         <thead>
@@ -181,7 +182,7 @@
                       </thead>
                       <tbody>
                           <tr *ngFor="let admin of subadmin">
-                              
+
                               <td>{{admin.id_subadmin}}</td>
                               <td>{{admin.username}}</td>
                               <td>
@@ -209,28 +210,28 @@
 
                                 <td><mat-slide-toggle [(ngModel)]="admin.deleteseller_perm" (click)="updateadminstatus(admin)">Slide me!</mat-slide-toggle>
                                     <div>{{seller.deleteseller_perm}}</div></td>
-                          
+
                                 <td><mat-slide-toggle [(ngModel)]="admin.createseller_perm" (click)="updateadminstatus(admin)">Slide me!</mat-slide-toggle>
                                     <div>{{seller.createseller_perm}}</div></td>
-                          </tr> 
-                        
+                          </tr>
+
                 </tbody></table>
-                         
+
                   </div>
               </div>
             </div>
-        
-        </div> 
+
+        </div>
       <!-- </div> -->
-      
-  
+
+
         <div *ngIf="verify && !sellerverify" class="mt-3">
           <div class="row">
             <div class="col-md-6 offset-md-3
             text-center">
   <h2>USER</h2>
             </div>
-           
+
           </div>
           <div class="row">
             <div class="col-md-6 offset-md-3
@@ -238,7 +239,7 @@
             <mat-icon>search</mat-icon>
               <input type="text,email" name="search"[(ngModel)]="searchText" placeholder="search..." class="search">
             </div>
-           
+
           </div>
           <table class="table table-bordered table-striped mt-3">
             <thead>
@@ -248,13 +249,13 @@
               <th>Lastname</th>
               <th>Email_id</th>
               <th>contact</th>
-              <th>userStatus</th> 
+              <th>userStatus</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
               <tr *ngFor="let user of user|filter:searchText">
-                  
+
                   <td >{{user.user_id}}</td>
                   <td >{{user.firstName}}</td>
                   <td>{{user.lastName}}</td>
@@ -262,7 +263,7 @@
                   <td>{{user.contact}}</td>
                   <td>
                     <!-- <span *ngIf="user.active_status==0"> -->
-  
+
                      <mat-slide-toggle [(ngModel)]="user.active_status" (click)="updatestatus(user)">Slide me!</mat-slide-toggle>
                       <div>{{user.active_status}}</div>
                     <!-- </span> -->
@@ -274,9 +275,9 @@
                   <td>
                     <button class="btn btn-danger" (click)="userDelete(user)">Delete</button>
                   </td>
-                  
-              </tr> 
-            
+
+              </tr>
+
     </tbody></table>
         </div>
         <div *ngIf="sellerverify" class="mt-3">
@@ -285,7 +286,7 @@
             text-center">
   <h2>Seller</h2>
             </div>
-           
+
           </div>
           <div class="row">
             <div class="col-md-6 offset-md-3
@@ -293,7 +294,7 @@
             <mat-icon>search</mat-icon>
               <input type="text,email" name="search"[(ngModel)]="searchText" placeholder="search..." class="search">
             </div>
-           
+
           </div>
           <table class="table table-bordered table-striped mt-3">
             <thead>
@@ -304,13 +305,13 @@
               <th>Email_id</th>
               <th>shop</th>
               <th>GSt-no</th>
-              <th>role</th> 
+              <th>role</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
               <tr *ngFor="let seller of seller|filter:searchText">
-                  
+
                   <td >{{seller.id_seller}}</td>
                   <td >{{seller.username}}</td>
                   <td>{{seller.contact}}</td>
@@ -337,10 +338,10 @@
                       Groceryseller
                </span>
                   </td>
-  
+
                   <td>
                     <!-- <span *ngIf="user.active_status==0"> -->
-  
+
                      <mat-slide-toggle [(ngModel)]="seller.seller_status" (click)="updatesellerstatus(seller)">Slide me!</mat-slide-toggle>
                       <div>{{seller.seller_status}}</div>
                     <!-- </span> -->
@@ -352,12 +353,12 @@
                   <td>
                     <button class="btn btn-danger" (click)="userDelete(user)">Delete</button>
                   </td>
-                  
-              </tr> 
-            
+
+              </tr>
+
     </tbody></table>
         </div>
-      
+
 
       <div *ngIf="servicesverify">
         <div class="row">
@@ -365,7 +366,7 @@
           text-center">
 <h2>Services</h2>
           </div>
-         
+
         </div>
         <div class="row">
           <div class="col-md-6 offset-md-3
@@ -373,7 +374,7 @@
           <mat-icon>search</mat-icon>
             <input type="text,email" name="search"[(ngModel)]="searchText" placeholder="search..." class="search">
           </div>
-         
+
         </div>
         <table class="table table-bordered table-striped mt-3">
           <thead>
@@ -381,15 +382,15 @@
             <th>ID</th>
             <th>services</th>
             <th>active status</th>
-          
+
           </tr>
         </thead>
         <tbody>
             <tr *ngFor="let service of service|filter:searchText">
-                
+
                 <td >{{service.id}}</td>
                 <td >{{service.service}}</td>
-               
+
 
                 <td>
                   <!-- <span *ngIf="user.active_status==0"> -->
@@ -405,13 +406,12 @@
                 <td>
                   <!-- <button class="btn btn-danger" (click)="userDelete(user)">Delete</button> -->
                 </td>
-                
-            </tr> 
-          
+
+            </tr>
+
   </tbody></table>
       </div>
-      
+
     </mat-drawer-content>
-    
+
   </mat-drawer-container>
-  

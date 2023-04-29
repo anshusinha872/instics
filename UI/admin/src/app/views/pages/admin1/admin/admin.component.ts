@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/views/services/admin.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { LaundryService } from 'src/app/views/services/laundry/laundry.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -35,28 +36,28 @@ export class AdminComponent {
   searchText:any;
   seller: any;
   service: any;
- 
+
   // verified:boolean=false;
-  
-  
-  
+
+
+
   // deleteuser:string='';
   // deleteseller:string='';
   // createuser:string='';
   // createseller:string='';
   // selectedItem:any;
   // userData:any;
-  
+
   constructor(private adminData:AdminService,public route: Router, private toastr: ToastrManager
-   
+    ,private laundryService:LaundryService
     ){
     // this.subadminData.subAdminData().subscribe((data)=>{
     //   this.subadmin=data;
     // })
-      
+
   }
 
-  
+
 
   ngOnInit():void{
     if(sessionStorage.getItem('role'))
@@ -88,8 +89,17 @@ export class AdminComponent {
     this.sideBarOpen = !this.sideBarOpen;
   }
 
+  sendMail(){
+    const data={
+      "mail":"anshusinha872@gmail.com"
+    };
+    this.laundryService.sendMail(data).subscribe((data:any)=>{
+      console.log(data);
+    })
+
+  }
   getuserData(){
-    
+
     this.adminData.userData().subscribe((data:any)=>{
         this.user=data;
         console.log(data);
@@ -186,7 +196,7 @@ services()
   //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
   //   });
   // }
-  
+
   // private getDismissReason(reason: any): string {
   //   if (reason === ModalDismissReasons.ESC) {
   //     return 'by pressing ESC';
@@ -215,8 +225,8 @@ services()
 //       this.createseller=index.createSeller;
 //       this.createuser=index.createUser;
 //       this.deleteseller=index.deleteSeller;
-      
-      
+
+
 //     }
 //   }
 
@@ -226,7 +236,7 @@ services()
 //   }
 
 //   delete(admin: { username: any; }){
-    
+
 //    let info={
 //     username:admin.username
 //    }
@@ -323,7 +333,7 @@ userDelete(user: any)
 updatestatus(user: any)
 {
   //  console.log(user.active_status);
-  
+
              if(user.active_status==true)
              {
               user.active_status=1;
@@ -366,7 +376,7 @@ updatesellerstatus(seller:any)
     sellerstatus:seller.active_status,
     seller_id:seller.id_seller
   }
-  
+
   this.adminData.getsellerstatusupdate(sellerData).subscribe((result:any)=>{
     if (result.statusCode == 200) {
       // alert("seller status updated succesfully")
@@ -398,7 +408,7 @@ updateadminstatus(admin:any)
     if(admin.deleteseller_perm ==true)
     {
       admin.deleteseller_perm=1;
-    }         
+    }
     else{
       admin.deleteseller_perm=0;
     }
@@ -415,7 +425,7 @@ updateadminstatus(admin:any)
     createperm:admin.createseller_perm,
     subadmin_id:admin.id_subadmin
   }
-  
+
   this.adminData.getsubadminstatusupdate(subadminData).subscribe((result:any)=>{
     if (result.statusCode == 200) {
       // alert("subadmin status updated succesfully")
@@ -461,7 +471,7 @@ this.toastr.errorToastr(result.data);
 // alert(result.data);
 }
 })
-   
+
 
 }
 }
