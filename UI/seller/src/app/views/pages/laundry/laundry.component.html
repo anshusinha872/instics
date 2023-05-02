@@ -7,9 +7,9 @@
             <th scope="col">id</th>
             <th scope="col">Customer Name</th>
             <th scope="col">Customer Mobile</th>
-            <th scope="col">Customer email</th>
+            <!-- <th scope="col">Customer email</th> -->
             <th scope="col">Customer address</th>
-            <th scope="col">amount</th>
+            <!-- <th scope="col">amount</th> -->
             <!-- <th scope="col">latitude</th>
             <th scope="col">longitutde</th> -->
             <th scope="col">open map</th>
@@ -18,10 +18,10 @@
             <!-- <th scope="col">customer_name</th> -->
             <th scope="col">status</th>
             <th scope="col">payment status</th>
-            <th scope="col">couponCode</th>
-            <th scope="col">coupon Discount</th>
+            <!-- <th scope="col">couponCode</th> -->
+            <!-- <th scope="col">coupon Discount</th> -->
             <th scope="col">paymentMode</th>
-            <th scope="col">finalAmount AfterDiscount</th>
+            <th scope="col">amount</th>
             <th scope="col">order Details</th>
             <th scope="col">update status</th>
           </tr>
@@ -31,9 +31,9 @@
             <td>{{ laundryOrderDetails[i][0].laundryOrderRequestTxnId }}</td>
             <td>{{ laundryOrderDetails[i][0].customer_name }}</td>
             <td>{{ laundryOrderDetails[i][0].customer_mobile }}</td>
-            <td>{{ laundryOrderDetails[i][0].customer_email }}</td>
+            <!-- <td>{{ laundryOrderDetails[i][0].customer_email }}</td> -->
             <td>{{ laundryOrderDetails[i][0].customer_address}}</td>
-            <td>{{ laundryOrderDetails[i][0].amount }}</td>
+            <!-- <td>{{ laundryOrderDetails[i][0].amount }}</td> -->
             <td><button type="button" class="btn btn-primary" (click)="openGoogleMaps(laundryOrderDetails[i][0].latitude,laundryOrderDetails[i][0].longitude)">click</button></td>
             <!-- <td>{{ laundryOrderDetails[i][0].latitude}}</td>
             <td>{{ laundryOrderDetails[i][0].longitude}}</td> -->
@@ -43,6 +43,7 @@
 
             <td>
               <!-- {{ laundryOrderDetails[i][0].status }} -->
+
               <span *ngIf="laundryOrderDetails[i][0].status==0">pending</span>
               <span *ngIf="laundryOrderDetails[i][0].status==1">accepted</span>
               <span *ngIf="laundryOrderDetails[i][0].status==2">pickup</span>
@@ -52,8 +53,8 @@
               <span *ngIf="laundryOrderDetails[i][0].status==6">delivered</span>
             </td>
             <td>{{ laundryOrderDetails[i][0].paymentStatus }}</td>
-            <td>{{ laundryOrderDetails[i][0].couponCode }}</td>
-            <td>{{ laundryOrderDetails[i][0].couponDiscount }}</td>
+            <!-- <td>{{ laundryOrderDetails[i][0].couponCode }}</td> -->
+            <!-- <td>{{ laundryOrderDetails[i][0].couponDiscount }}</td> -->
             <td>{{ laundryOrderDetails[i][0].paymentMode }}</td>
             <td>{{ laundryOrderDetails[i][0].finalAmountAfterDiscount }}</td>
 
@@ -65,7 +66,22 @@
                 label="Show"
               ></p-button>
             </td>
-            <td><button (click)="updateStatus(laundryOrderDetails[i][0].status,laundryOrderDetails[i][0].laundryOrderRequestTxnId)" type="button" class="btn btn-primary">Update</button></td>
+            <td>
+              <!-- <button (click)="updateStatus(laundryOrderDetails[i][0].status,laundryOrderDetails[i][0].laundryOrderRequestTxnId)" type="button" class="btn btn-primary">Update</button> -->
+              <!-- <p-dropdown [options]="cities" (ngModelChange)="function()" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown> -->
+              <select class="my-dropdown" (change)="onDropdownChange($event,laundryOrderDetails[i][0].laundryOrderRequestTxnId)">
+                <option value="-1">select order status</option>
+                <option value=0>pending</option>
+                <option value=1>accepted</option>
+                <option value=2>pickup</option>
+                <option value=3>processing</option>
+                <option value=4>completed</option>
+                <option value=5>out for delivery</option>
+                <option value=6>delivered</option>
+              </select>
+              <!-- <div class="card flex justify-content-center">
+              </div> -->
+            </td>
             <!-- <td>
 
             </td> -->
@@ -104,5 +120,5 @@
     </p-dialog>
   </div>
   <!-- <div class="card flex justify-content-center">
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
+    <p-dropdown [options]="cities" [(ngModel)]="selectedStatus" optionLabel="name"></p-dropdown>
   </div> -->
