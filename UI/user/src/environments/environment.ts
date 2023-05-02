@@ -12,8 +12,8 @@ export const environment = {
     messagingSenderId: '435611301157',
     appId: '1:435611301157:web:25c76bdcc03552183056cc',
   },
-  APIEndpoint: 'http://localhost:3443/api/v1/', //Local
-  // APIEndpoint: 'https://instincts.co.in/api/v1/', //server
+  // APIEndpoint: 'http://localhost:3443/api/v1/', //Local
+  APIEndpoint: 'https://instincts.co.in/api/v1/', //server
 };
 
 
