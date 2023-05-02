@@ -128,6 +128,7 @@ export class PrintComponent implements OnInit {
           if (event.status == 200) {
             this.toastr.successToastr(event.body.message, event.body.data);
             this.ngOnInit();
+            window.location.reload();
             this.printRange = [1, this.pageCount];
             this.rangeValues = [1, this.pageCount];
             this.rangeList = [];
@@ -196,7 +197,17 @@ export class PrintComponent implements OnInit {
   fetchSellerData()
   {
     this.PdfService.getSellerList().subscribe((data)=>{
-      this.sellers = data.data;
+      // console.log(data.data);
+      let temp=[];
+      for(let i=0;i<data.data.length;i++){
+        if(data.data[i].role==1){
+          temp.push(data.data[i]);
+        }
+      }
+      // console.log(temp);
+      this.sellers = temp;
+      // this.sellers = data.data;
+      // console.log(this.sellers);
       // console.log("sellers ");
       // console.log(data.data);
     });

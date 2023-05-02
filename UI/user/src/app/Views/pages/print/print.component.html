@@ -384,7 +384,9 @@
           <select (change)="SelectItem($event.target)" class="select form-control" style="width:max-content;">
             <option value="0">--select-- </option>
             <option *ngFor="let item of sellers" value="{{item.id}}">
-              {{item.username}}
+              <!-- <span *ngIf="item.role==1"> -->
+                {{item.username}}
+              <!-- </span> -->
             </option>
           </select>
         </div>
