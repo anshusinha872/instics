@@ -1,6 +1,12 @@
 <div class="card p-3">
-  <p-table responsiveLayout="stack" [value]="pdfs">
-    <ng-template pTemplate="header" let-columns>
+     <!-- toggle button -->
+     <div class="col-lg-4 btn-group btn-group-toggle" role="group" data-toggle="buttons" style="margin:10px;" >
+      <button type="button" class="btn btn-light" [ngClass]="{'active':showPdf}" (click)="showLaundryItem()">Pdf</button>
+      <button type="button" class="btn btn-light" [ngClass]="{'active':!showPdf}" (click)="showLaundryItem()" >Laundry</button>
+    </div>
+
+  <p-table responsiveLayout="stack" [value]="pdfs" *ngIf="showPdf">
+    <ng-template pTemplate="header" let-columns >
       <tr>
         <th>Id</th>
         <th class="pdfName">PDF Name</th>
@@ -79,8 +85,8 @@
     </div>
   </div>
 </div> -->
-<div class="container-fluid">
-  <div class="laundryHeaderTextContainer">
+<div class="container-fluid" *ngIf="!showPdf">
+  <div class="laundryHeaderTextContainer" >
     <div class="laundryOrderHeaderText">laundry Order History</div>
   </div>
   <div class="table-responsive">
@@ -157,7 +163,7 @@
   </div>
 </div>
 
-<div class="card flex justify-content-center">
+<div class="card flex justify-content-center" *ngIf = "!showPdf">
   <p-dialog header="Order Details" [(visible)]="visible" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [draggable]="true" [resizable]="true">
     <div *ngFor="let item of laundryOrderDetails; index as i">
       <div *ngIf="i == showtableindex" class="tableContainer">

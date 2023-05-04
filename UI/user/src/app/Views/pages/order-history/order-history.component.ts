@@ -14,6 +14,7 @@ export class OrderHistoryComponent implements OnInit {
   laundryOrderDetails=[];
   list=[];
   showtableindex:number;
+  public showPdf:Boolean = true;
   // listList: any = [];
   // item: any = [];
   constructor(
@@ -27,6 +28,9 @@ export class OrderHistoryComponent implements OnInit {
     this.getPdfs();
     this.getLaundryOrderDetails();
   }
+  showLaundryItem() {
+    this.showPdf = !this.showPdf;
+   }
   visible: boolean;
 
     showDialog(data) {
