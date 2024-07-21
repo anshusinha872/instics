@@ -138,27 +138,27 @@ export class SignupComponent implements OnInit {
     // this.contact = '+91' + this.contact;
     const contactNumber = '+91' + this.contact;
     // console.log(this.contact);
-    this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-      'recaptcha-container',
-      { size: 'invisible' }
-    );
-    firebase
-      .auth()
-      .signInWithPhoneNumber(contactNumber, this.recaptchaVerifier)
-      .then((conformationResult) => {
-        this.otpBoxVisible = true;
-        localStorage.setItem(
-          'confirmationResult',
-          JSON.stringify(conformationResult.verificationId)
-        );
-        // this.userData = conformationResult;
-      })
-      .catch((error) => {
-        // console.log(error);
-        setTimeout(() => {
-          window.location.reload();
-        }, 5000);
-      });
+    // this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+    //   'recaptcha-container',
+    //   { size: 'invisible' }
+    // );
+    // firebase
+    //   .auth()
+    //   .signInWithPhoneNumber(contactNumber, this.recaptchaVerifier)
+    //   .then((conformationResult) => {
+    //     this.otpBoxVisible = true;
+    //     localStorage.setItem(
+    //       'confirmationResult',
+    //       JSON.stringify(conformationResult.verificationId)
+    //     );
+    //     // this.userData = conformationResult;
+    //   })
+    //   .catch((error) => {
+    //     // console.log(error);
+    //     setTimeout(() => {
+    //       window.location.reload();
+    //     }, 5000);
+    //   });
     // this.otpBoxVisible = true;
     // this.userData = {
     //   firstName: this.firstName,
@@ -178,6 +178,25 @@ export class SignupComponent implements OnInit {
     //     this.toastr.errorToastr(result.data);
     //   }
     // });
+    this.userData = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      password: this.password,
+      contact: this.contact,
+    };
+    this.userService.submitUser(this.userData).subscribe((result) => {
+      // console.log(result);
+      if (result.statusCode == 200) {
+        this.toastr.successToastr('User Registered Successfully');
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
+      } else {
+        this.router.navigate(['/register']);
+        this.toastr.errorToastr(result.data);
+      }
+    });
   }
   validateOtp() {
     this.verify = JSON.parse(

@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 config = {
 	connectionLimit: 5,
-	host: '165.232.184.76',
+	host: '165.22.218.106',
 	user: 'dev',
 	password: 'Anshu.@1237Ss',
 	database: 'instinct_database',
